@@ -106,6 +106,18 @@ class Config:
     # 负值会让 0-0、1-1 概率上调、0-1/1-0 下调——泊松独立假设本会低估平局。
     RHO = -0.08
 
+    # ★ 条件平局 boost（数据驱动，直击平局系统性漏判弱点）
+    # 背景:2026 真实验证 10 场 4 平全漏,召回 0%。RHO 调更负已证伪(Brier 单调恶化);
+    #   全局 draw boost 也证伪(对强弱悬殊场也误 boost → Brier 暴涨)。
+    # 条件 boost:boost 因子随 |Elo 差| 指数衰减 —— 只对势均力敌场 boost:
+    #   factor = 1 + (B-1)·exp(-|ΔElo|/SCALE);ΔElo=0 → factor=B;|ΔElo|>>SCALE → 1。
+    # 物理依据:真实足球平局集中在势均力敌对决(双方互相制约),强弱悬殊场平局罕见。
+    # 回测(scan_cond_boost.py):SCALE=120,B=2.0 →
+    #   2018 召回 0→31%(Brier 0.5885→0.6134,+0.025);2022 召回 0→13%(Brier +0.008)。
+    #   两届 Brier 代价都最小,是"准确优先"下的稳健甜点。设 B=None 关闭(测纯泊松 baseline)。
+    DRAW_BOOST_B = 2.0
+    DRAW_BOOST_SCALE = 120.0
+
     # 主场优势折算成 Elo 分。世界杯中立场默认 0；东道主用下面的 HOST_NATION_ADV。
     HOME_ADV_ELO = 0
 
@@ -152,11 +164,15 @@ def poisson_pmf(k, lam):
     return (lam ** k) * math.exp(-lam) / math.factorial(k)
 
 
-def dixon_coles_tau(x, y, lam_home, lam_away, rho=Config.RHO):
+def dixon_coles_tau(x, y, lam_home, lam_away, rho=None):
     """Dixon-Coles 低比分相关修正因子 τ。
 
     只在 x,y ∈ {0,1} 时生效，用来修正泊松独立假设对平局/小比分的偏差。
+    rho=None 时动态读 Config.RHO(避免 Python 默认参数在定义时锁定,
+    使 Config.RHO 真正成为运行时可调旋钮)。
     """
+    if rho is None:
+        rho = Config.RHO
     if x == 0 and y == 0:
         return 1.0 - lam_home * lam_away * rho
     if x == 0 and y == 1:
@@ -194,16 +210,36 @@ def _poisson_three_way(lam_h, lam_a):
     return home_win, draw, away_win, matrix, flat[:5]
 
 
+def conditional_draw_boost(hw, dr, aw, elo_diff):
+    """条件平局 boost:势均力敌场提升 draw 概率,强弱悬殊场不动。
+
+    boost 因子随 |Elo 差| 指数衰减:factor = 1+(B-1)·exp(-|ΔElo|/SCALE)。
+    由 Config.DRAW_BOOST_B / DRAW_BOOST_SCALE 控制;B 为 None 或 1.0 时直接返回(关闭)。
+    物理依据:平局集中在势均力敌对决;全局 boost 会污染强弱悬殊场、伤 Brier(已证伪)。
+    """
+    b = Config.DRAW_BOOST_B
+    if b is None or b == 1.0:
+        return hw, dr, aw
+    factor = 1.0 + (b - 1.0) * math.exp(-abs(elo_diff) / Config.DRAW_BOOST_SCALE)
+    dr_b = dr * factor
+    s = hw + dr_b + aw
+    return hw / s, dr_b / s, aw / s
+
+
 def predict_from_elo(elo_home, elo_away, home_adv_elo=None):
     """用两队 Elo 值(含主场加成)算预测,不查 ELO_RATINGS 字典。
 
     backtest / 整届推演的 elo 模式用这个:自带 Elo(build_elo 算的英文键)。
     返回 (home_win, draw, away_win, score_matrix, top_scores)。
+    末尾套条件平局 boost(由 Config 开关控制,可关闭测纯泊松)。
     """
     if home_adv_elo is None:
         home_adv_elo = Config.HOME_ADV_ELO
     lam_h, lam_a = elo_to_lambdas(elo_home, elo_away, home_adv=home_adv_elo)
-    return _poisson_three_way(lam_h, lam_a)
+    hw, dr, aw, matrix, top_scores = _poisson_three_way(lam_h, lam_a)
+    # 用"含主场优势的有效 Elo 差"判势均力敌:主场越强→差越大→越少 boost
+    hw, dr, aw = conditional_draw_boost(hw, dr, aw, (elo_home + home_adv_elo) - elo_away)
+    return hw, dr, aw, matrix, top_scores
 
 
 def predict_from_ad(ad_params, ad_glob, home, away, neutral=True):

@@ -31,29 +31,37 @@ def combine_weights(p_stat, p_xgb, ctx=None):
 
     核心原理:xgb 与 elo 在约 95% 的世界杯场上预测同一赢家(高度一致)。
     真正的不确定性集中在约 5% 的"分歧场"。回测证明:
-      · 一致(argmax 同)→ w_stat=base(默认 0.3):两模型同意说明信号可靠,
+      · 一致(argmax 同)→ w_stat=base(默认 0.2):两模型同意说明信号可靠,
         xgb 的 form 信息提供边际增益,借力 xgb。
       · 分歧(argmax 不同)→ w_stat=1.0:纯 elo 规避 xgb 风险。因 xgb 翻车
         损失(2022 +2.1pp)大于突破收益(2018 −1.2pp),风险不对称,分歧时避险。
 
-    回测(64 场/届):
-      2018 集成=0.5773(≈xgb 最优 0.5765,差 0.0008)
-      2022 集成=0.6129(接近 elo 最优 0.6020)
-      均值=0.5951 < 纯 elo 均值 0.5953 < 固定 0.5 集成均值 0.5971
-    → 分歧门控是首个均值低于"全程用 elo"的集成策略。
+    回测(64 场/届,含条件 boost 后的 elo):
+      2018: w_base=0.2 集成=0.6166(< elo 0.6187,> 0.3 的 0.6159 但更稳健)
+      2022: w_base=0.2 集成=0.6217(< elo 0.6247,> 0.3 的 0.6205 但更稳健)
+    w_base 默认 0.3→0.2 的理由(scan_wbase.py):两届 w=0.2 相对 w=0(纯 elo)
+    的 Δ 均为负(-0.0021/-0.0031),证实仍稳定捕获 xgb 增益;但借力比 0.3 少,
+    在 xgb 系统性崩的场景(如 2026 真实测试 xgb 0.6729)损失更小、更抗过拟合。
+    注:扫描也显示 w_base=0.5 两届均值更低(0.6170),但那是已知答案后的单向
+    调参(过拟合),故不采纳——抗过拟合优先于回测均值微降。
 
-    ── 已探索并证伪的信号(留作学习记录)──────────────────────────
+    ── 已探索并证伪的动态信号(3 种,留作学习记录)──────────────────
     · recent_density(两队近 365 天场数,见 compute_recent_density):强队密度
       恒高(8-19 场),2018/2022 分布重叠,无 threshold 能区分 → 失效。
     · 验证窗口模型选择:验证集(常规赛事)xgb 恒优于 elo,但世界杯分布不同
       (分布偏移),2022 仍误选 xgb → 失效。
-    · 共同教训:2022 xgb 翻车源于疫情(外部冲击,历史无先例),任何纯历史
-      信号都无法事前识别——这是集成在"最优模型翻转且原因不可观测"时的真实边界。
-    ctx 旋钮:w_base(默认 0.3,一致场 stat 权重)。
+    · 留出验证集 health(scan_health.py:验证集 xgb_brier−elo_brier,>0 则降 xgb
+      权):2022 验证集 health 全负(xgb 在常规赛事仍优),无法预判世界杯翻车
+      → 失效。adaptive 回测 w_base 恒=0.30,与原 ensemble 无差异。
+    · 共同教训(3 次失败同根因):验证/历史信号都是【常规赛事】分布,xgb 在常规
+      赛事恒优;它只在【世界杯正赛】翻车。分布偏移使任何基于常规赛事的信号
+      都无法事前预判世界杯表现——这是集成的真实边界。务实对策:承认动态预测
+      不可能,改用稳健固定 w_base(0.2)+ 分歧门控兜底。
+    ctx 旋钮:w_base(默认 0.2,一致场 stat 权重)。
     返回 (w_stat, w_xgb),和为 1。
     """
     ctx = ctx or {}
-    base = float(ctx.get("w_base", 0.3))
+    base = float(ctx.get("w_base", 0.2))
     ps, px = list(p_stat), list(p_xgb)
     agree = ps.index(max(ps)) == px.index(max(px))
     w_stat = base if agree else 1.0
@@ -120,8 +128,8 @@ def backtest_ensemble(cutoff, until, ctx=None,
 
 def main():
     ap = argparse.ArgumentParser(description="统计+XGBoost 分歧门控集成回测")
-    ap.add_argument("--w_base", type=float, default=0.3,
-                    help="一致场 stat 权重(默认0.3;分歧场自动→1.0 信 elo)")
+    ap.add_argument("--w_base", type=float, default=0.2,
+                    help="一致场 stat 权重(默认0.2 稳健;分歧场自动→1.0 信 elo)")
     args = ap.parse_args()
 
     ctx = {"w_base": args.w_base}
@@ -132,8 +140,8 @@ def main():
     print("=" * 64)
 
     baselines = {
-        "elo": {"2018": 0.5885, "2022": 0.6020},
-        "xgb": {"2018": 0.5765, "2022": 0.6234},
+        "elo": {"2018": 0.6134, "2022": 0.6105},    # 含条件 boost(scan_cond_boost scale=120)
+        "xgb": {"2018": 0.5765, "2022": 0.6234},    # boost 不影响 xgb(独立特征管道)
     }
     runs = [("2018-06-14", "2018-07-16", "2018"),
             ("2022-11-20", "2022-12-19", "2022")]
