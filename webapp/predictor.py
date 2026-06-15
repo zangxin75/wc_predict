@@ -304,19 +304,26 @@ def build_backtest():
             if pred:
                 entry["probs"] = pred["probs"]
                 entry["pred_result"] = _argmax_result(pred["probs"])
-                entry["hit"] = entry["pred_result"] == result
+                entry["hit"] = entry["pred_result"] == result            # 三态(胜负平)命中
+                entry["pred_score"] = pred["top_score"]                 # 预测首选比分 [h, a]
+                entry["score_hit"] = (entry["pred_score"] == [ihs, ias])  # 精确比分命中
             else:
                 entry["probs"] = None
                 entry["pred_result"] = None
                 entry["hit"] = None
+                entry["pred_score"] = None
+                entry["score_hit"] = None
             matches.append(entry)
         matches.sort(key=lambda m: m["date"])
         counted = sum(1 for m in matches if m["hit"] is not None)
         hits = sum(1 for m in matches if m["hit"])
+        score_hits = sum(1 for m in matches if m.get("score_hit"))
         out.append({
             "name": label, "year": year, "cutoff": cutoff,
             "count": len(matches), "counted": counted, "hits": hits,
             "hit_rate": round(hits / counted, 4) if counted else None,
+            "score_hits": score_hits,
+            "score_hit_rate": round(score_hits / counted, 4) if counted else None,
             "matches": matches,
         })
     return {"tournaments": out}

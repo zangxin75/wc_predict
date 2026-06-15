@@ -247,28 +247,35 @@ function renderBacktest() {
   let html = '<div class="bt-wrap">';
   for (const t of data.tournaments) {
     const rate = (t.hit_rate != null) ? (t.hit_rate * 100).toFixed(1) : '-';
+    const sRate = (t.score_hit_rate != null) ? (t.score_hit_rate * 100).toFixed(1) : '-';
     html += '<section class="bt-block">'
       + '<div class="bt-head">'
       + `<span class="bt-name">${esc(t.name)}</span>`
-      + `<span class="bt-rate">${rate}<small>%</small></span>`
-      + `<span class="bt-meta">${t.hits}/${t.counted} 命中 · 共 ${t.count} 场</span>`
+      + `<span class="bt-rate">${rate}<small>%</small><i>胜负</i></span>`
+      + `<span class="bt-subrate">精确比分 <b>${sRate}%</b> <small>${t.score_hits}/${t.counted}</small></span>`
+      + `<span class="bt-meta">共 ${t.count} 场</span>`
       + '</div><div class="bt-matches">';
     for (const m of t.matches) {
       const [h, a] = m.score;
       const resZh = RESULT_ZH[m.result] || '';
       const hitCls = m.hit === true ? 'ok' : (m.hit === false ? 'no' : 'na');
-      const mark = m.hit === true ? '✓ 命中'
-        : (m.hit === false ? '✗ ' + resZh : '—');
+      const ps = m.pred_score;
+      const scoreHit = m.score_hit === true;
+      const mark = scoreHit ? '★ 精确'
+        : (m.hit === true ? '✓ 胜负'
+        : (m.hit === false ? '✗ ' + resZh : '—'));
+      const markCls = scoreHit ? 'exact' : hitCls;
+      const psHtml = ps ? `<span class="bt-pscore ${scoreHit?'exact':''}">${ps[0]}-${ps[1]}</span>` : '<span class="bt-pscore">—</span>';
       const probs = m.probs
         ? `<span class="bt-probs">主${Math.round(m.probs[0]*100)}·平${Math.round(m.probs[1]*100)}·客${Math.round(m.probs[2]*100)}</span>`
         : '<span class="bt-probs">Elo 缺失</span>';
       html += `<div class="bt-row ${hitCls}">`
         + `<span class="bt-date">${esc(m.date.slice(5))}</span>`
         + `<span class="bt-team">${flag(m.home)} ${esc(m.home_zh)}</span>`
-        + `<span class="bt-score">${h}-${a}</span>`
+        + `<span class="bt-scoreline">预${psHtml}<span class="bt-real">真${h}-${a}</span></span>`
         + `<span class="bt-team right">${esc(m.away_zh)} ${flag(m.away)}</span>`
         + probs
-        + `<span class="bt-mark ${hitCls}">${mark}</span></div>`;
+        + `<span class="bt-mark ${markCls}">${mark}</span></div>`;
     }
     html += '</div></section>';
   }

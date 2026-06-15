@@ -267,6 +267,14 @@ body::before{
 .bt-mark{font-family:var(--ff-mono);font-size:10px;font-weight:700;white-space:nowrap}
 .bt-mark.ok{color:var(--signal-ok)}
 .bt-mark.no,.bt-mark.na{color:var(--text-mute)}
+.bt-mark.exact{color:var(--gold-hi)}
+.bt-rate i{font-style:normal;font-size:10px;color:var(--text-mute);margin-left:5px;letter-spacing:.1em;font-weight:500}
+.bt-subrate{font-family:var(--ff-mono);font-size:11px;color:var(--text-mute)}
+.bt-subrate b{color:var(--gold);font-weight:700;font-size:13px}
+.bt-scoreline{display:flex;align-items:center;gap:9px;font-family:var(--ff-mono);white-space:nowrap}
+.bt-pscore{font-size:12px;color:var(--text-mute)}
+.bt-pscore.exact{color:var(--gold-hi);font-weight:700}
+.bt-real{font-size:13px;font-weight:700;color:var(--gold-hi)}
 
 .team{display:flex;align-items:center;gap:11px;min-width:0}
 .team.home{justify-content:flex-end}
