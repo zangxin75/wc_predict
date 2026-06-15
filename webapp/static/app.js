@@ -168,7 +168,7 @@ function renderCenter(m) {
       const scoreHit = ps && ps[0] === h && ps[1] === a;
       const mark = scoreHit ? '比分精准' : (hit ? '胜负命中' : `实际${resultLabel}`);
       const markCls = scoreHit ? 'precise' : (hit ? 'hit' : 'miss');
-      const predStr = ps ? `<span class="pred-score">预 ${ps[0]}-${ps[1]}</span>` : '';
+      const predStr = ps ? `<span class="pred-score"><i>预测</i>${ps[0]}-${ps[1]}</span>` : '';
       return `<div class="center-cell">`
         + `<div class="score-big ${cls}">${h}<span class="dash">-</span>${a}</div>`
         + predStr
