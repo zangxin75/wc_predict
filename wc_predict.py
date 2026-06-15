@@ -242,6 +242,47 @@ def predict_from_elo(elo_home, elo_away, home_adv_elo=None):
     return hw, dr, aw, matrix, top_scores
 
 
+def predict_from_elo_hedged(elo_h, rd_h, elo_a, rd_a, home_adv_elo=None,
+                            max_w=0.5):
+    """★【第二刀 learning 点 2 — 用户实现 w】带 Elo 不确定性的概率 hedging。
+
+    动机:Elo 只是点估计,RD(compute_elo.estimate_rd)衡量其可信度。两队任一方 RD
+    大(评分不可信)→ 应把三态概率向均匀分布收缩,避免对不可信评分过度自信。
+    p_final = (1-w)·p_poisson + w·uniform,  uniform=[1/3,1/3,1/3]
+    w∈[0,max_w]:w=0 完全信 Elo(高可信);w=max_w 最大收缩(低可信)。
+
+    ── ★ TODO(你来实现 5-8 行,learning 点 2)──────────────────
+    合并 rd_h/rd_a → 单个 rd_combined,再映射到 w∈[0,max_w]。设计选择(有取舍):
+      · 合并方式:max(rd_h,rd_a)(两队任一不可信即整场不可信,推荐)/几何平均/求和。
+      · 映射函数:线性 / sigmoid / 分段阈值。线性起点建议
+            rd_combined = max(rd_h, rd_a)
+            w = max_w * clamp((rd_combined - RD_LOW) / (RD_HIGH - RD_LOW), 0, 1)
+        RD_LOW/RD_HIGH 可取 60/180(rd∈[40,220]的全域分位)。sigmoid 更平滑但多个旋钮。
+    约束(测试锁定):w 必须随 rd_combined 单调递增(高 RD → 多 hedging)。
+    ──────────────────────────────────────────────────────────
+    返回 (home_win, draw, away_win, None, None)——末两位无意义(hedging 不产比分矩阵),
+    保留 5 元组是为兼容现有 `hw,dr,aw,_,_ = ...` 解包。
+    """
+    if home_adv_elo is None:
+        home_adv_elo = Config.HOME_ADV_ELO
+    p_h, p_d, p_a, _, _ = predict_from_elo(elo_h, elo_a, home_adv_elo)
+
+    # ★【learning 点 2 实现】max(rd) 合并 + 线性映射。
+    # 合并:取两队 RD 的 max(短板效应——任一不可信 → 整场预测不可信)。
+    # 映射:线性 rd=60→w=0(高可信不收缩),rd=180→w=max_w(最大收缩)。
+    # 简洁可解释,零额外旋钮;后续回测可调 RD_LOW/RD_HIGH,或换 sigmoid 做平滑过渡。
+    rd_combined = max(rd_h, rd_a)
+    RD_LOW, RD_HIGH = 60.0, 180.0
+    w = max_w * min(max((rd_combined - RD_LOW) / (RD_HIGH - RD_LOW), 0.0), 1.0)
+
+    u = 1.0 / 3.0
+    p_h_f = (1.0 - w) * p_h + w * u
+    p_d_f = (1.0 - w) * p_d + w * u
+    p_a_f = (1.0 - w) * p_a + w * u
+    s = p_h_f + p_d_f + p_a_f
+    return p_h_f / s, p_d_f / s, p_a_f / s, None, None
+
+
 def predict_from_ad(ad_params, ad_glob, home, away, neutral=True):
     """用 Dixon-Coles 攻防参数算预测。
 

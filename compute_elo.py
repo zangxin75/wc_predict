@@ -14,6 +14,7 @@ compute_elo.py — 从历史比赛结果(results.csv)重建各国国家队 Elo �
 import csv
 import json
 import os
+import math
 import statistics
 import sys
 from collections import defaultdict
@@ -160,6 +161,63 @@ def build_elo(path, cutoff_date=None):
                                         m["tournament"], m["neutral"])
         elo[m["home"]], elo[m["away"]] = nh, na
     return dict(elo), len(matches), skipped
+
+
+def estimate_rd(games_last_365d, days_since_last,
+                rd_min=40.0, rd_max=220.0,
+                tau_games=12.0, tau_idle=365.0):
+    """★【第二刀 — 轻量 Elo 不确定性(RD)估计】非完整 Glicko,零外部依赖。
+
+    物理含义:RD 越大 → 该队 Elo 越不可信。两个驱动因素:
+      · 样本量 games_last_365d:近期打得少 → 不确定。指数收敛(tau_games≈12 场饱和)。
+      · 时效性 days_since_last:久未参赛 → 即使有历史,竞技状态也成疑。线性爬升。
+
+    用途:predict_from_elo_hedged 用 RD 把概率向均匀分布收缩(高 RD → 多 hedging)。
+    walk-forward 安全:只用 cutoff 前数据统计(build_rd 保证)。
+    返回 [rd_min, rd_max] 内的 RD。
+    """
+    converge = math.exp(-games_last_365d / tau_games)
+    base = rd_min + (rd_max - rd_min) * converge
+    idle_extra = max(0.0, days_since_last - tau_idle) / tau_idle
+    rd = base + (rd_max - base) * min(idle_extra, 1.0) * 0.5
+    return min(rd, rd_max)
+
+
+def build_rd(path, cutoff_date, window_days=365):
+    """逐队统计 [cutoff-window, cutoff) 内场数 + 距 cutoff 天数 → {队名: rd}。
+
+    walk-forward:只读 cutoff 严格之前的比赛。每队:
+      · games_last_365d = [cutoff-window, cutoff) 内出场次数(近期活跃度)
+      · days_since_last = cutoff − 该队最近一场比赛的天数(无历史 → 取 window,视为久远)
+    覆盖所有历史出场过的队;window 内零场的队 games=0 → RD 趋 rd_max(新队/久疏战阵)。
+    """
+    import datetime
+    cutoff_d = datetime.date.fromisoformat(cutoff_date).toordinal()
+    lo = cutoff_d - window_days
+    games = defaultdict(int)
+    last_seen = {}
+    with open(path, newline="", encoding="utf-8") as f:
+        for r in csv.reader(f):
+            if not r or r[0] == "date" or len(r) < 9:
+                continue
+            if not (r[3].lstrip("-").isdigit() and r[4].lstrip("-").isdigit()):
+                continue
+            d = datetime.date.fromisoformat(r[0]).toordinal()
+            if d >= cutoff_d:
+                continue
+            home, away = r[1], r[2]
+            if d >= lo:
+                games[home] += 1
+                games[away] += 1
+            for team in (home, away):
+                if team not in last_seen or d > last_seen[team]:
+                    last_seen[team] = d
+    rd = {}
+    for team in set(last_seen) | set(games):
+        g = games.get(team, 0)
+        days_idle = cutoff_d - last_seen.get(team, lo)
+        rd[team] = estimate_rd(g, days_idle)
+    return rd
 
 
 def calibrate(elo):

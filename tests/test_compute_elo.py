@@ -75,3 +75,34 @@ def test_k_factor_distinguishes_tournaments(tournament, expected_k_base):
         compute_elo.update_elo_after_match(1500, 1500, 1, 0, "Friendly", True)[0] - 1500)
     if expected_k_base > 20.0:
         assert delta > friendly_delta
+
+
+# ── RD-01:新队(0场+久未)→ RD≈rd_max ────────────────────────
+def test_estimate_rd_new_team_max():
+    """0 场近期比赛 + 久未参赛 → 不确定性最大,趋 rd_max(220)。"""
+    rd = compute_elo.estimate_rd(0, 1000)
+    assert abs(rd - 220.0) < 1e-9
+
+
+# ── RD-02:高频强队(近期多场)→ RD 接近 rd_min ───────────────
+def test_estimate_rd_active_team_low():
+    """近期高频(25场)+ 刚打过(30天)→ RD 应接近下限(<100,远低于 rd_max)。"""
+    rd = compute_elo.estimate_rd(25, 30)
+    assert rd < 100.0
+
+
+# ── RD-03:固定样本量,RD 随 days_since_last 单调递增 ─────────
+def test_estimate_rd_grows_with_idle():
+    """样本量不变时,久未参赛 → RD 更大(单调),验证时效性因素生效。"""
+    rds = [compute_elo.estimate_rd(10, d) for d in (100, 400, 800)]
+    assert rds[0] < rds[1] < rds[2]
+
+
+# ── RD-04:build_rd 的 walk-forward 统计正确 ────────────────
+def test_build_rd_counts_window_and_idle(sample_csv):
+    """cutoff=2018-06-14:窗口 [2017-06-14, 2018-06-14) 内只有 2018-06-13 一场
+    (2017-01-01 在窗口外不计);两队都有 RD 输出且落在 [rd_min, rd_max]。"""
+    rd = compute_elo.build_rd(sample_csv, "2018-06-14")
+    assert "TeamA" in rd and "TeamB" in rd
+    assert 40.0 <= rd["TeamA"] <= 220.0
+    assert 40.0 <= rd["TeamB"] <= 220.0
