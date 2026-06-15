@@ -18,3 +18,10 @@ __pycache__/
 .idea/
 .DS_Store
 Thumbs.db
+
+# webapp 临时验证/调试产物(不进仓库)
+webapp/_verify.py
+webapp/_mobile_probe.py
+webapp/_shot.py
+webapp/_shots/
+webapp/_taste_skill_tmp.md

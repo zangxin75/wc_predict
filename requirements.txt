@@ -13,5 +13,9 @@ xgboost>=2.0         # train_xgb.py 梯度提升树
 # 数据抓取
 requests>=2.31       # fetch_wc2026.py 抓 ESPN/Wikipedia
 
+# Web 系统(webapp/)
+fastapi>=0.110       # webapp/app.py FastAPI 应用
+uvicorn[standard]>=0.27  # ASGI 服务器(启动 uvicorn webapp.app:app)
+
 # 测试
 pytest>=7.4

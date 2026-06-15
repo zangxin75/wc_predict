@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 世界盃 · 预测指挥中心</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=JetBrains+Mono:wght@500;700&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="led-strip"></div>
+
+<header class="cmd-header">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <div class="brand-text">
+      <h1 class="brand-title">WORLD CUP <span class="year">2026</span></h1>
+      <p class="brand-sub">预测指挥中心 · LIVE PREDICTION DECK</p>
+    </div>
+  </div>
+
+  <div class="status-cluster" id="statusCluster">
+    <div class="status-cell">
+      <span class="live-dot" id="liveDot"></span>
+      <span class="status-label" id="statusLabel">连接中…</span>
+    </div>
+    <div class="status-cell">
+      <span class="meta-key">上次更新</span>
+      <span class="meta-val mono" id="lastUpdated">-</span>
+    </div>
+    <div class="status-cell countdown-cell">
+      <span class="meta-key">下次刷新</span>
+      <span class="meta-val mono accent" id="countdown">--</span>
+    </div>
+    <button class="refresh-btn" id="refreshBtn" title="立即触发后台抓取+重算">
+      <span class="refresh-ico">⟳</span> 立即刷新
+    </button>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" data-tab="schedule">赛程时刻表</button>
+  <button class="tab" data-tab="champions">夺冠概率</button>
+  <button class="tab" data-tab="groups">小组积分</button>
+</nav>
+
+<main class="deck">
+
+  <!-- 01 赛程 -->
+  <section class="panel active" id="panel-schedule">
+    <div class="panel-controls">
+      <div class="filter-group" id="stageFilter">
+        <button class="chip active" data-stage="all">全部</button>
+        <button class="chip" data-stage="Group">小组赛</button>
+        <button class="chip" data-stage="R32">32强</button>
+        <button class="chip" data-stage="R16">16强</button>
+        <button class="chip" data-stage="QF">1/4</button>
+        <button class="chip" data-stage="SF">半决赛</button>
+        <button class="chip" data-stage="Final">决赛</button>
+      </div>
+      <span class="legend">
+        <span class="leg"><i class="dot upcoming"></i>未开赛</span>
+        <span class="leg"><i class="dot today"></i>进行中</span>
+        <span class="leg"><i class="dot finished"></i>已结束</span>
+      </span>
+    </div>
+    <div id="scheduleList" class="schedule-list">
+      <div class="placeholder">载入赛程…</div>
+    </div>
+  </section>
+
+  <!-- 02 夺冠 -->
+  <section class="panel" id="panel-champions">
+    <div class="champ-head">
+      <h2 class="panel-title">夺冠概率 · MONTE CARLO</h2>
+      <span class="champ-note mono" id="champBuiltAt">10,000 次模拟</span>
+    </div>
+    <div id="champList" class="champ-list">
+      <div class="placeholder">载入夺冠榜…</div>
+    </div>
+  </section>
+
+  <!-- 03 小组 -->
+  <section class="panel" id="panel-groups">
+    <h2 class="panel-title">小组积分 · 已打真实 + 未打预测期望</h2>
+    <div id="groupsGrid" class="groups-grid">
+      <div class="placeholder">载入小组榜…</div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="cmd-footer">
+  <span>Elo + Dixon-Coles + 蒙特卡洛,数据源 ESPN,后台自动刷新</span>
+  <span class="mono dim" id="footStamp">-</span>
+</footer>
+
+<!-- 单场详情抽屉 -->
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-head">
+    <span class="drawer-title" id="drawerTitle">比赛详情</span>
+    <button class="drawer-close" id="drawerClose">✕</button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+</aside>
+<div class="drawer-scrim" id="drawerScrim"></div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
