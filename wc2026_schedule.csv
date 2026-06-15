@@ -1,89 +1,89 @@
-date,home_team,away_team,group,stage,city
-2026-06-15,Spain,Cape Verde,H,Group,"Atlanta, Georgia"
-2026-06-15,Belgium,Egypt,G,Group,"Seattle, Washington"
-2026-06-15,Saudi Arabia,Uruguay,H,Group,"Miami Gardens, Florida"
-2026-06-16,Iran,New Zealand,G,Group,"Inglewood, California"
-2026-06-16,France,Senegal,I,Group,"East Rutherford, New Jersey"
-2026-06-16,Iraq,Norway,I,Group,"Foxborough, Massachusetts"
-2026-06-17,Argentina,Algeria,J,Group,"Kansas City, Missouri"
-2026-06-17,Austria,Jordan,J,Group,"Santa Clara, California"
-2026-06-17,Portugal,DR Congo,K,Group,"Houston, Texas"
-2026-06-17,England,Croatia,L,Group,"Arlington, Texas"
-2026-06-17,Ghana,Panama,L,Group,Toronto
-2026-06-18,Uzbekistan,Colombia,K,Group,Mexico City
-2026-06-18,Czech Republic,South Africa,A,Group,"Atlanta, Georgia"
-2026-06-18,Switzerland,Bosnia and Herzegovina,B,Group,"Inglewood, California"
-2026-06-18,Canada,Qatar,B,Group,Vancouver
-2026-06-19,Mexico,South Korea,A,Group,Guadalajara
-2026-06-19,United States,Australia,D,Group,"Seattle, Washington"
-2026-06-19,Scotland,Morocco,C,Group,"Foxborough, Massachusetts"
-2026-06-20,Brazil,Haiti,C,Group,"Philadelphia, Pennsylvania"
-2026-06-20,Turkey,Paraguay,D,Group,"Santa Clara, California"
-2026-06-20,Netherlands,Sweden,F,Group,"Houston, Texas"
-2026-06-20,Germany,Ivory Coast,E,Group,Toronto
-2026-06-21,Ecuador,Curaçao,E,Group,"Kansas City, Missouri"
-2026-06-21,Tunisia,Japan,F,Group,Guadalupe
-2026-06-21,Spain,Saudi Arabia,H,Group,"Atlanta, Georgia"
-2026-06-21,Belgium,Iran,G,Group,"Inglewood, California"
-2026-06-21,Uruguay,Cape Verde,H,Group,"Miami Gardens, Florida"
-2026-06-22,New Zealand,Egypt,G,Group,Vancouver
-2026-06-22,Argentina,Austria,J,Group,"Arlington, Texas"
-2026-06-22,France,Iraq,I,Group,"Philadelphia, Pennsylvania"
-2026-06-23,Norway,Senegal,I,Group,"East Rutherford, New Jersey"
-2026-06-23,Jordan,Algeria,J,Group,"Santa Clara, California"
-2026-06-23,Portugal,Uzbekistan,K,Group,"Houston, Texas"
-2026-06-23,England,Ghana,L,Group,"Foxborough, Massachusetts"
-2026-06-23,Panama,Croatia,L,Group,Toronto
-2026-06-24,Colombia,DR Congo,K,Group,Guadalajara
-2026-06-24,Bosnia and Herzegovina,Qatar,B,Group,"Seattle, Washington"
-2026-06-24,Switzerland,Canada,B,Group,Vancouver
-2026-06-24,Morocco,Haiti,C,Group,"Atlanta, Georgia"
-2026-06-24,Scotland,Brazil,C,Group,"Miami Gardens, Florida"
-2026-06-25,Czech Republic,Mexico,A,Group,Mexico City
-2026-06-25,South Africa,South Korea,A,Group,Guadalupe
-2026-06-25,Curaçao,Ivory Coast,E,Group,"Philadelphia, Pennsylvania"
-2026-06-25,Ecuador,Germany,E,Group,"East Rutherford, New Jersey"
-2026-06-25,Japan,Sweden,F,Group,"Arlington, Texas"
-2026-06-25,Tunisia,Netherlands,F,Group,"Kansas City, Missouri"
-2026-06-26,Paraguay,Australia,D,Group,"Santa Clara, California"
-2026-06-26,Turkey,United States,D,Group,"Inglewood, California"
-2026-06-26,Norway,France,I,Group,"Foxborough, Massachusetts"
-2026-06-26,Senegal,Iraq,I,Group,Toronto
-2026-06-27,Cape Verde,Saudi Arabia,H,Group,"Houston, Texas"
-2026-06-27,Uruguay,Spain,H,Group,Guadalajara
-2026-06-27,Egypt,Iran,G,Group,"Seattle, Washington"
-2026-06-27,New Zealand,Belgium,G,Group,Vancouver
-2026-06-27,Croatia,Ghana,L,Group,"Philadelphia, Pennsylvania"
-2026-06-27,Panama,England,L,Group,"East Rutherford, New Jersey"
-2026-06-27,Colombia,Portugal,K,Group,"Miami Gardens, Florida"
-2026-06-27,DR Congo,Uzbekistan,K,Group,"Atlanta, Georgia"
-2026-06-28,Algeria,Austria,J,Group,"Kansas City, Missouri"
-2026-06-28,Jordan,Argentina,J,Group,"Arlington, Texas"
-2026-06-28,Group A 2nd Place,Group B 2nd Place,,Knockout,"Inglewood, California"
-2026-06-29,Group C Winner,Group F 2nd Place,,Knockout,"Houston, Texas"
-2026-06-29,Group E Winner,Third Place Group A/B/C/D/F,,Knockout,"Foxborough, Massachusetts"
-2026-06-30,Group F Winner,Group C 2nd Place,,Knockout,Guadalupe
-2026-06-30,Group E 2nd Place,Group I 2nd Place,,Knockout,"Arlington, Texas"
-2026-06-30,Group I Winner,Third Place Group C/D/F/G/H,,Knockout,"East Rutherford, New Jersey"
-2026-07-01,Group A Winner,Third Place Group C/E/F/H/I,,Knockout,Mexico City
-2026-07-01,Group L Winner,Third Place Group E/H/I/J/K,,Knockout,"Atlanta, Georgia"
-2026-07-01,Group G Winner,Third Place Group A/E/H/I/J,,Knockout,"Seattle, Washington"
-2026-07-02,Group D Winner,Third Place Group B/E/F/I/J,,Knockout,"Santa Clara, California"
-2026-07-02,Group H Winner,Group J 2nd Place,,Knockout,"Inglewood, California"
-2026-07-02,Group K 2nd Place,Group L 2nd Place,,Knockout,Toronto
-2026-07-03,Group B Winner,Third Place Group E/F/G/I/J,,Knockout,Vancouver
-2026-07-03,Group D 2nd Place,Group G 2nd Place,,Knockout,"Arlington, Texas"
-2026-07-03,Group J Winner,Group H 2nd Place,,Knockout,"Miami Gardens, Florida"
-2026-07-04,Group K Winner,Third Place Group D/E/I/J/L,,Knockout,"Kansas City, Missouri"
-2026-07-04,Round of 32 1 Winner,Round of 32 3 Winner,,Knockout,"Houston, Texas"
-2026-07-04,Round of 32 2 Winner,Round of 32 5 Winner,,Knockout,"Philadelphia, Pennsylvania"
-2026-07-05,Round of 32 4 Winner,Round of 32 6 Winner,,Knockout,"East Rutherford, New Jersey"
-2026-07-06,Round of 32 7 Winner,Round of 32 8 Winner,,Knockout,Mexico City
-2026-07-06,Round of 32 11 Winner,Round of 32 12 Winner,,Knockout,"Arlington, Texas"
-2026-07-07,Round of 32 9 Winner,Round of 32 10 Winner,,Knockout,"Seattle, Washington"
-2026-07-07,Round of 32 14 Winner,Round of 32 16 Winner,,Knockout,"Atlanta, Georgia"
-2026-07-07,Round of 32 13 Winner,Round of 32 15 Winner,,Knockout,Vancouver
-2026-07-09,Round of 16 1 Winner,Round of 16 2 Winner,,Knockout,"Foxborough, Massachusetts"
-2026-07-10,Round of 16 5 Winner,Round of 16 6 Winner,,Knockout,"Inglewood, California"
-2026-07-11,Round of 16 3 Winner,Round of 16 4 Winner,,Knockout,"Miami Gardens, Florida"
-2026-07-12,Round of 16 7 Winner,Round of 16 8 Winner,,Knockout,"Kansas City, Missouri"
+date,home_team,away_team,group,stage,city,kickoff_utc
+2026-06-15,Spain,Cape Verde,H,Group,"Atlanta, Georgia",2026-06-15T16:00Z
+2026-06-15,Belgium,Egypt,G,Group,"Seattle, Washington",2026-06-15T19:00Z
+2026-06-15,Saudi Arabia,Uruguay,H,Group,"Miami Gardens, Florida",2026-06-15T22:00Z
+2026-06-16,Iran,New Zealand,G,Group,"Inglewood, California",2026-06-16T01:00Z
+2026-06-16,France,Senegal,I,Group,"East Rutherford, New Jersey",2026-06-16T19:00Z
+2026-06-16,Iraq,Norway,I,Group,"Foxborough, Massachusetts",2026-06-16T22:00Z
+2026-06-17,Argentina,Algeria,J,Group,"Kansas City, Missouri",2026-06-17T01:00Z
+2026-06-17,Austria,Jordan,J,Group,"Santa Clara, California",2026-06-17T04:00Z
+2026-06-17,Portugal,DR Congo,K,Group,"Houston, Texas",2026-06-17T17:00Z
+2026-06-17,England,Croatia,L,Group,"Arlington, Texas",2026-06-17T20:00Z
+2026-06-17,Ghana,Panama,L,Group,Toronto,2026-06-17T23:00Z
+2026-06-18,Uzbekistan,Colombia,K,Group,Mexico City,2026-06-18T02:00Z
+2026-06-18,Czech Republic,South Africa,A,Group,"Atlanta, Georgia",2026-06-18T16:00Z
+2026-06-18,Switzerland,Bosnia and Herzegovina,B,Group,"Inglewood, California",2026-06-18T19:00Z
+2026-06-18,Canada,Qatar,B,Group,Vancouver,2026-06-18T22:00Z
+2026-06-19,Mexico,South Korea,A,Group,Guadalajara,2026-06-19T01:00Z
+2026-06-19,United States,Australia,D,Group,"Seattle, Washington",2026-06-19T19:00Z
+2026-06-19,Scotland,Morocco,C,Group,"Foxborough, Massachusetts",2026-06-19T22:00Z
+2026-06-20,Brazil,Haiti,C,Group,"Philadelphia, Pennsylvania",2026-06-20T00:30Z
+2026-06-20,Turkey,Paraguay,D,Group,"Santa Clara, California",2026-06-20T03:00Z
+2026-06-20,Netherlands,Sweden,F,Group,"Houston, Texas",2026-06-20T17:00Z
+2026-06-20,Germany,Ivory Coast,E,Group,Toronto,2026-06-20T20:00Z
+2026-06-21,Ecuador,Curaçao,E,Group,"Kansas City, Missouri",2026-06-21T00:00Z
+2026-06-21,Tunisia,Japan,F,Group,Guadalupe,2026-06-21T04:00Z
+2026-06-21,Spain,Saudi Arabia,H,Group,"Atlanta, Georgia",2026-06-21T16:00Z
+2026-06-21,Belgium,Iran,G,Group,"Inglewood, California",2026-06-21T19:00Z
+2026-06-21,Uruguay,Cape Verde,H,Group,"Miami Gardens, Florida",2026-06-21T22:00Z
+2026-06-22,New Zealand,Egypt,G,Group,Vancouver,2026-06-22T01:00Z
+2026-06-22,Argentina,Austria,J,Group,"Arlington, Texas",2026-06-22T17:00Z
+2026-06-22,France,Iraq,I,Group,"Philadelphia, Pennsylvania",2026-06-22T21:00Z
+2026-06-23,Norway,Senegal,I,Group,"East Rutherford, New Jersey",2026-06-23T00:00Z
+2026-06-23,Jordan,Algeria,J,Group,"Santa Clara, California",2026-06-23T03:00Z
+2026-06-23,Portugal,Uzbekistan,K,Group,"Houston, Texas",2026-06-23T17:00Z
+2026-06-23,England,Ghana,L,Group,"Foxborough, Massachusetts",2026-06-23T20:00Z
+2026-06-23,Panama,Croatia,L,Group,Toronto,2026-06-23T23:00Z
+2026-06-24,Colombia,DR Congo,K,Group,Guadalajara,2026-06-24T02:00Z
+2026-06-24,Bosnia and Herzegovina,Qatar,B,Group,"Seattle, Washington",2026-06-24T19:00Z
+2026-06-24,Switzerland,Canada,B,Group,Vancouver,2026-06-24T19:00Z
+2026-06-24,Morocco,Haiti,C,Group,"Atlanta, Georgia",2026-06-24T22:00Z
+2026-06-24,Scotland,Brazil,C,Group,"Miami Gardens, Florida",2026-06-24T22:00Z
+2026-06-25,Czech Republic,Mexico,A,Group,Mexico City,2026-06-25T01:00Z
+2026-06-25,South Africa,South Korea,A,Group,Guadalupe,2026-06-25T01:00Z
+2026-06-25,Curaçao,Ivory Coast,E,Group,"Philadelphia, Pennsylvania",2026-06-25T20:00Z
+2026-06-25,Ecuador,Germany,E,Group,"East Rutherford, New Jersey",2026-06-25T20:00Z
+2026-06-25,Japan,Sweden,F,Group,"Arlington, Texas",2026-06-25T23:00Z
+2026-06-25,Tunisia,Netherlands,F,Group,"Kansas City, Missouri",2026-06-25T23:00Z
+2026-06-26,Paraguay,Australia,D,Group,"Santa Clara, California",2026-06-26T02:00Z
+2026-06-26,Turkey,United States,D,Group,"Inglewood, California",2026-06-26T02:00Z
+2026-06-26,Norway,France,I,Group,"Foxborough, Massachusetts",2026-06-26T19:00Z
+2026-06-26,Senegal,Iraq,I,Group,Toronto,2026-06-26T19:00Z
+2026-06-27,Cape Verde,Saudi Arabia,H,Group,"Houston, Texas",2026-06-27T00:00Z
+2026-06-27,Uruguay,Spain,H,Group,Guadalajara,2026-06-27T00:00Z
+2026-06-27,Egypt,Iran,G,Group,"Seattle, Washington",2026-06-27T03:00Z
+2026-06-27,New Zealand,Belgium,G,Group,Vancouver,2026-06-27T03:00Z
+2026-06-27,Croatia,Ghana,L,Group,"Philadelphia, Pennsylvania",2026-06-27T21:00Z
+2026-06-27,Panama,England,L,Group,"East Rutherford, New Jersey",2026-06-27T21:00Z
+2026-06-27,Colombia,Portugal,K,Group,"Miami Gardens, Florida",2026-06-27T23:30Z
+2026-06-27,DR Congo,Uzbekistan,K,Group,"Atlanta, Georgia",2026-06-27T23:30Z
+2026-06-28,Algeria,Austria,J,Group,"Kansas City, Missouri",2026-06-28T02:00Z
+2026-06-28,Jordan,Argentina,J,Group,"Arlington, Texas",2026-06-28T02:00Z
+2026-06-28,Group A 2nd Place,Group B 2nd Place,,Knockout,"Inglewood, California",2026-06-28T19:00Z
+2026-06-29,Group C Winner,Group F 2nd Place,,Knockout,"Houston, Texas",2026-06-29T17:00Z
+2026-06-29,Group E Winner,Third Place Group A/B/C/D/F,,Knockout,"Foxborough, Massachusetts",2026-06-29T20:30Z
+2026-06-30,Group F Winner,Group C 2nd Place,,Knockout,Guadalupe,2026-06-30T01:00Z
+2026-06-30,Group E 2nd Place,Group I 2nd Place,,Knockout,"Arlington, Texas",2026-06-30T17:00Z
+2026-06-30,Group I Winner,Third Place Group C/D/F/G/H,,Knockout,"East Rutherford, New Jersey",2026-06-30T21:00Z
+2026-07-01,Group A Winner,Third Place Group C/E/F/H/I,,Knockout,Mexico City,2026-07-01T01:00Z
+2026-07-01,Group L Winner,Third Place Group E/H/I/J/K,,Knockout,"Atlanta, Georgia",2026-07-01T16:00Z
+2026-07-01,Group G Winner,Third Place Group A/E/H/I/J,,Knockout,"Seattle, Washington",2026-07-01T20:00Z
+2026-07-02,Group D Winner,Third Place Group B/E/F/I/J,,Knockout,"Santa Clara, California",2026-07-02T00:00Z
+2026-07-02,Group H Winner,Group J 2nd Place,,Knockout,"Inglewood, California",2026-07-02T19:00Z
+2026-07-02,Group K 2nd Place,Group L 2nd Place,,Knockout,Toronto,2026-07-02T23:00Z
+2026-07-03,Group B Winner,Third Place Group E/F/G/I/J,,Knockout,Vancouver,2026-07-03T03:00Z
+2026-07-03,Group D 2nd Place,Group G 2nd Place,,Knockout,"Arlington, Texas",2026-07-03T18:00Z
+2026-07-03,Group J Winner,Group H 2nd Place,,Knockout,"Miami Gardens, Florida",2026-07-03T22:00Z
+2026-07-04,Group K Winner,Third Place Group D/E/I/J/L,,Knockout,"Kansas City, Missouri",2026-07-04T01:30Z
+2026-07-04,Round of 32 1 Winner,Round of 32 3 Winner,,Knockout,"Houston, Texas",2026-07-04T17:00Z
+2026-07-04,Round of 32 2 Winner,Round of 32 5 Winner,,Knockout,"Philadelphia, Pennsylvania",2026-07-04T21:00Z
+2026-07-05,Round of 32 4 Winner,Round of 32 6 Winner,,Knockout,"East Rutherford, New Jersey",2026-07-05T20:00Z
+2026-07-06,Round of 32 7 Winner,Round of 32 8 Winner,,Knockout,Mexico City,2026-07-06T00:00Z
+2026-07-06,Round of 32 11 Winner,Round of 32 12 Winner,,Knockout,"Arlington, Texas",2026-07-06T19:00Z
+2026-07-07,Round of 32 9 Winner,Round of 32 10 Winner,,Knockout,"Seattle, Washington",2026-07-07T00:00Z
+2026-07-07,Round of 32 14 Winner,Round of 32 16 Winner,,Knockout,"Atlanta, Georgia",2026-07-07T16:00Z
+2026-07-07,Round of 32 13 Winner,Round of 32 15 Winner,,Knockout,Vancouver,2026-07-07T20:00Z
+2026-07-09,Round of 16 1 Winner,Round of 16 2 Winner,,Knockout,"Foxborough, Massachusetts",2026-07-09T20:00Z
+2026-07-10,Round of 16 5 Winner,Round of 16 6 Winner,,Knockout,"Inglewood, California",2026-07-10T19:00Z
+2026-07-11,Round of 16 3 Winner,Round of 16 4 Winner,,Knockout,"Miami Gardens, Florida",2026-07-11T21:00Z
+2026-07-12,Round of 16 7 Winner,Round of 16 8 Winner,,Knockout,"Kansas City, Missouri",2026-07-12T01:00Z

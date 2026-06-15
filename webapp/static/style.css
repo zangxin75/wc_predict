@@ -247,6 +247,26 @@ body::before{
   background:var(--gold-dim);padding:3px 8px;border-radius:var(--r-tag);width:fit-content;
 }
 .city-tag{font-family:var(--ff-mono);font-size:10.5px;color:var(--text-mute);letter-spacing:.04em}
+.ko-tag{font-family:var(--ff-mono);font-size:10px;font-weight:600;color:var(--gold);letter-spacing:.03em}
+.bt-wrap{display:flex;flex-direction:column;gap:18px}
+.bt-block{background:var(--bg-card);border:1px solid rgba(201,169,97,.14);border-radius:14px;padding:16px 18px}
+.bt-head{display:flex;align-items:baseline;gap:14px;padding-bottom:12px;border-bottom:1px solid rgba(201,169,97,.14);margin-bottom:6px}
+.bt-name{font-family:var(--ff-display);font-size:17px;font-weight:600;color:var(--text)}
+.bt-rate{font-family:var(--ff-mono);font-size:30px;font-weight:700;color:var(--gold-hi);line-height:1}
+.bt-rate small{font-size:14px;color:var(--gold-low)}
+.bt-meta{font-family:var(--ff-mono);font-size:11px;color:var(--text-mute);margin-left:auto}
+.bt-matches{max-height:460px;overflow-y:auto;display:flex;flex-direction:column;gap:1px}
+.bt-row{display:grid;grid-template-columns:36px 1fr auto auto 1fr auto;align-items:center;gap:8px;padding:5px 6px;border-radius:6px;font-size:12px}
+.bt-row.ok{box-shadow:inset 2px 0 var(--signal-ok)}
+.bt-row.no{box-shadow:inset 2px 0 var(--signal-err)}
+.bt-date{font-family:var(--ff-mono);font-size:10.5px;color:var(--text-mute)}
+.bt-team{font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bt-team.right{justify-self:end}
+.bt-score{font-family:var(--ff-mono);font-weight:700;color:var(--gold-hi);font-size:13px}
+.bt-probs{font-family:var(--ff-mono);font-size:10px;color:var(--text-mute)}
+.bt-mark{font-family:var(--ff-mono);font-size:10px;font-weight:700;white-space:nowrap}
+.bt-mark.ok{color:var(--signal-ok)}
+.bt-mark.no,.bt-mark.na{color:var(--text-mute)}
 
 .team{display:flex;align-items:center;gap:11px;min-width:0}
 .team.home{justify-content:flex-end}
@@ -292,6 +312,10 @@ body::before{
 .problabels .pl .pv{color:var(--text);font-weight:700}
 .topscore{font-family:var(--ff-mono);font-size:10.5px;color:var(--gold-hi);letter-spacing:.04em}
 .topscore .tsval{font-weight:700}
+/* 命中标记 - 已打场预测 vs 实际的功能反馈 */
+.hitmark{font-family:var(--ff-mono);font-size:9.5px;font-weight:700;letter-spacing:.06em;padding:2px 7px;border-radius:var(--r-tag);text-transform:uppercase;display:inline-block}
+.hitmark.hit{color:var(--signal-ok);background:rgba(111,181,133,.12)}
+.hitmark.miss{color:var(--text-dim);background:var(--bg-elev)}
 .no-elo{font-family:var(--ff-mono);font-size:11px;color:var(--text-mute)}
 
 /* ── 夺冠榜 ─────────────────────────────────────── */

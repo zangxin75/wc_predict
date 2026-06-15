@@ -45,6 +45,7 @@
   <button class="tab active" data-tab="schedule">赛程时刻表</button>
   <button class="tab" data-tab="champions">夺冠概率</button>
   <button class="tab" data-tab="groups">小组积分</button>
+  <button class="tab" data-tab="backtest">历史回测</button>
 </nav>
 
 <main class="deck">
@@ -88,6 +89,14 @@
     <h2 class="panel-title">小组积分 · 已打真实 + 未打预测期望</h2>
     <div id="groupsGrid" class="groups-grid">
       <div class="placeholder">载入小组榜…</div>
+    </div>
+  </section>
+
+  <!-- 04 回测 -->
+  <section class="panel" id="panel-backtest">
+    <h2 class="panel-title">历史回测 · 赛前 Elo 预测 vs 真实结果</h2>
+    <div id="backtestList" class="bt-wrap">
+      <div class="placeholder">切换至此页加载(首次赛前 Elo 重建约 10 秒)</div>
     </div>
   </section>
 

@@ -29,7 +29,7 @@ let tickTimer = null;
 let prevScoreMap = {};      // key -> "h-a" 用于检测比分变化
 let firstRender = true;     // 首次渲染(带 staggered 动画)
 let activeStage = 'all';
-let cache = { schedule:[], status:{}, champions:[], groups:{} };
+let cache = { schedule:[], status:{}, champions:[], groups:{}, backtest:null };
 
 // ── 工具 ──────────────────────────────────────────
 const $ = (id) => document.getElementById(id);
@@ -112,7 +112,7 @@ function renderCard(m, flashCls, delayStyle) {
   const center = renderCenter(m);
   return `<article class="match-card${flashCls}" data-status="${m.status}"`
     + ` data-date="${esc(m.date)}" data-home="${esc(m.home)}" data-away="${esc(m.away)}"${delayStyle}>`
-    + `<div class="match-meta"><span class="stage-tag">${esc(groupTag)}</span>`
+    + `<div class="match-meta"><span class="stage-tag">${esc(groupTag)}</span>${m.kickoff_bj ? '<span class="ko-tag" title="北京时间开球">北京 ' + esc(m.kickoff_bj) + '</span>' : ''}`
     + `<span class="city-tag">${esc(m.city || '')}</span></div>`
     + `${homeTeam}${center}${awayTeam}</article>`;
 }
@@ -148,12 +148,31 @@ function probCells(probs, prefix, decimals) {
     + `<div class="${lblCls}">${lbl('home','主',ph)}${lbl('draw','平',pd)}${lbl('away','客',probs[2])}</div>`;
 }
 
+// 命中判定:三态 argmax 是否等于实际结果
+function probHit(probs, result) {
+  const [ph, pd, pa] = probs;
+  const argmax = (ph >= pd && ph >= pa) ? 'home_win'
+               : (pa >= pd && pa >= ph) ? 'away_win' : 'draw';
+  return argmax === result;
+}
+
 function renderCenter(m) {
   if (m.status === 'finished' && m.score) {
     const [h, a] = m.score;
     const cls = h > a ? 'win-home' : (a > h ? 'win-away' : '');
+    const resultLabel = RESULT_ZH[m.result] || '';
+    // 有预测:真实比分 + 赛前预测(48方块) + 命中标记
+    if (m.probs) {
+      const hit = probHit(m.probs, m.result);
+      const mark = hit ? '预测命中' : `实际${resultLabel}`;
+      return `<div class="center-cell">`
+        + `<div class="score-big ${cls}">${h}<span class="dash">-</span>${a}</div>`
+        + probCells(m.probs)
+        + `<div class="topscore"><span class="hitmark ${hit ? 'hit' : 'miss'}">${mark}</span></div>`
+        + `</div>`;
+    }
     return `<div class="center-cell"><div class="score-big ${cls}">${h}<span class="dash">-</span>${a}</div>`
-      + `<div class="topscore"><span class="tsval">${RESULT_ZH[m.result] || ''}</span></div></div>`;
+      + `<div class="topscore"><span class="tsval">${resultLabel}</span></div></div>`;
   }
   if (!m.probs) {
     return `<div class="center-cell"><span class="no-elo">Elo 缺失</span></div>`;
@@ -217,6 +236,46 @@ function renderGroups() {
 }
 
 // ── 单场详情抽屉 ──────────────────────────────────
+// ── 历史回测渲染(2018/2022 赛前 Elo vs 真实结果)──────────
+function renderBacktest() {
+  const wrap = $('backtestList');
+  const data = cache.backtest;
+  if (!data || !data.tournaments) {
+    wrap.innerHTML = '<div class="placeholder">回测计算中(赛前 Elo 重建,约 10 秒)…</div>';
+    return;
+  }
+  let html = '<div class="bt-wrap">';
+  for (const t of data.tournaments) {
+    const rate = (t.hit_rate != null) ? (t.hit_rate * 100).toFixed(1) : '-';
+    html += '<section class="bt-block">'
+      + '<div class="bt-head">'
+      + `<span class="bt-name">${esc(t.name)}</span>`
+      + `<span class="bt-rate">${rate}<small>%</small></span>`
+      + `<span class="bt-meta">${t.hits}/${t.counted} 命中 · 共 ${t.count} 场</span>`
+      + '</div><div class="bt-matches">';
+    for (const m of t.matches) {
+      const [h, a] = m.score;
+      const resZh = RESULT_ZH[m.result] || '';
+      const hitCls = m.hit === true ? 'ok' : (m.hit === false ? 'no' : 'na');
+      const mark = m.hit === true ? '✓ 命中'
+        : (m.hit === false ? '✗ ' + resZh : '—');
+      const probs = m.probs
+        ? `<span class="bt-probs">主${Math.round(m.probs[0]*100)}·平${Math.round(m.probs[1]*100)}·客${Math.round(m.probs[2]*100)}</span>`
+        : '<span class="bt-probs">Elo 缺失</span>';
+      html += `<div class="bt-row ${hitCls}">`
+        + `<span class="bt-date">${esc(m.date.slice(5))}</span>`
+        + `<span class="bt-team">${flag(m.home)} ${esc(m.home_zh)}</span>`
+        + `<span class="bt-score">${h}-${a}</span>`
+        + `<span class="bt-team right">${esc(m.away_zh)} ${flag(m.away)}</span>`
+        + probs
+        + `<span class="bt-mark ${hitCls}">${mark}</span></div>`;
+    }
+    html += '</div></section>';
+  }
+  html += '</div>';
+  wrap.innerHTML = html;
+}
+
 async function openDrawer(date, home, away) {
   $('drawerTitle').textContent = '比赛详情';
   $('drawerBody').innerHTML = '<div class="placeholder">载入…</div>';
@@ -323,6 +382,10 @@ function bindEvents() {
         getJSON('/api/champions?top=20').then(d => { cache.champions = d.ranking; renderChampions(); }).catch(()=>{});
       } else if (t.dataset.tab === 'groups') {
         getJSON('/api/groups').then(d => { cache.groups = d; renderGroups(); }).catch(()=>{});
+      } else if (t.dataset.tab === 'backtest') {
+        if (!cache.backtest) {
+          getJSON('/api/backtest').then(d => { cache.backtest = d; renderBacktest(); }).catch(()=>{});
+        } else { renderBacktest(); }
       }
     });
   });

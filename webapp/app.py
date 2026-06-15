@@ -120,6 +120,25 @@ def get_match(date: str = Query(...), home: str = Query(...), away: str = Query(
     raise HTTPException(status_code=404, detail=f"未找到: {date} {home} vs {away}")
 
 
+_backtest_cache = None
+_backtest_lock = threading.Lock()
+
+
+@app.get("/api/backtest")
+def get_backtest():
+    """2018/2022 世界杯正赛回测:赛前 Elo 预测 vs 真实结果 + argmax 命中率。
+
+    静态历史数据,首次请求计算(两届赛前 Elo 重建约十秒)后永久内存缓存。
+    """
+    global _backtest_cache
+    if _backtest_cache is None:
+        with _backtest_lock:
+            if _backtest_cache is None:
+                from webapp import predictor
+                _backtest_cache = predictor.build_backtest()
+    return _backtest_cache
+
+
 @app.post("/api/refresh")
 def refresh(force_monte_carlo: bool = Query(False, description="是否顺带刷新夺冠榜(慢)")):
     """手动触发立即更新(唤醒后台线程,不等 15 分钟)。"""

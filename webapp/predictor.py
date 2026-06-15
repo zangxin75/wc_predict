@@ -49,6 +49,23 @@ def _result_of(hs, as_):
     return "draw"
 
 
+def _utc_to_bj(iso_utc):
+    """UTC ISO(如 2026-06-15T16:00Z)→ 北京时间 'MM-DD HH:MM'。
+
+    带日期是因为美洲赛场晚间开球常跨到北京次日(Atlanta 16:00Z = 北京次日 00:00),
+    只显示 HH:MM 会让人误以为是当天。空/非法输入 → ''(前端隐藏标签)。
+    """
+    if not iso_utc:
+        return ""
+    try:
+        s = iso_utc.replace("Z", "+00:00")
+        dt = datetime.datetime.fromisoformat(s)
+        bj = dt + datetime.timedelta(hours=8)
+        return bj.strftime("%m-%d %H:%M")
+    except (ValueError, TypeError):
+        return ""
+
+
 def predict_one(home, away, elo):
     """单场预测。调 wc_predict.predict_from_elo,返回前端友好 dict。
 
@@ -136,6 +153,7 @@ def enrich_match(sched_row, elo, results_map):
     签名固定(sched_row/elo/results_map),改内部逻辑不影响调用方。
     """
     date, home, away, group, stage, city = sched_row[0], sched_row[1], sched_row[2], sched_row[3], sched_row[4], sched_row[5]
+    ko_utc = sched_row[6] if len(sched_row) > 6 else ""
     today = datetime.date.today().isoformat()
 
     m = {
@@ -143,6 +161,7 @@ def enrich_match(sched_row, elo, results_map):
         "home_zh": EN_TO_ZH.get(home, home),
         "away_zh": EN_TO_ZH.get(away, away),
         "group": group, "stage": stage, "city": city,
+        "kickoff_bj": _utc_to_bj(ko_utc),
     }
 
     # 取舍 1:status 分级
@@ -233,3 +252,71 @@ def build_elo_for_today():
     today = datetime.date.today().isoformat()
     elo, _, _ = compute_elo.build_elo(RESULTS, cutoff_date=today)
     return elo
+
+
+def _argmax_result(probs):
+    """三态概率 argmax → home_win/draw/away_win。"""
+    ph, pd, pa = probs
+    if ph >= pd and ph >= pa:
+        return "home_win"
+    if pa >= pd and pa >= ph:
+        return "away_win"
+    return "draw"
+
+
+def build_backtest():
+    """2018/2022 世界杯正赛回测:赛前 Elo 预测 vs 真实结果。
+
+    对每届用开幕前一日为 cutoff 重建赛前 Elo(不含该届任何正赛场,防泄漏),
+    逐场 predict_one 算三态概率,argmax 与真实 result 比对得命中。
+    返回 {tournaments: [{name, year, cutoff, count, counted, hits, hit_rate, matches}]}
+    其中 matches 每条含 score/result/probs/pred_result/hit。
+
+    成本:两届各一次 build_elo(全量 ~49000 场 + cutoff),共约数秒~十秒。
+    静态历史数据,app 层首次请求后永久内存缓存。
+    """
+    FINALS = [
+        ("2018 俄罗斯", "2018", "2018-06-14"),
+        ("2022 卡塔尔", "2022", "2022-11-20"),
+    ]
+    with open(RESULTS, newline="", encoding="utf-8") as f:
+        rows = [r for r in csv.reader(f)
+                if r and r[0] != "date" and len(r) >= 6 and r[5] == "FIFA World Cup"]
+
+    out = []
+    for label, year, cutoff in FINALS:
+        elo, _, _ = compute_elo.build_elo(RESULTS, cutoff_date=cutoff)
+        matches = []
+        for r in rows:
+            date, home, away, hs, as_ = r[0], r[1], r[2], r[3], r[4]
+            if not date.startswith(year) or hs == "NA" or as_ == "NA":
+                continue
+            if not (hs.lstrip("-").isdigit() and as_.lstrip("-").isdigit()):
+                continue
+            ihs, ias = int(hs), int(as_)
+            result = _result_of(ihs, ias)
+            entry = {
+                "date": date, "home": home, "away": away,
+                "home_zh": EN_TO_ZH.get(home, home), "away_zh": EN_TO_ZH.get(away, away),
+                "score": [ihs, ias], "result": result,
+            }
+            pred = predict_one(home, away, elo)
+            if pred:
+                entry["probs"] = pred["probs"]
+                entry["pred_result"] = _argmax_result(pred["probs"])
+                entry["hit"] = entry["pred_result"] == result
+            else:
+                entry["probs"] = None
+                entry["pred_result"] = None
+                entry["hit"] = None
+            matches.append(entry)
+        matches.sort(key=lambda m: m["date"])
+        counted = sum(1 for m in matches if m["hit"] is not None)
+        hits = sum(1 for m in matches if m["hit"])
+        out.append({
+            "name": label, "year": year, "cutoff": cutoff,
+            "count": len(matches), "counted": counted, "hits": hits,
+            "hit_rate": round(hits / counted, 4) if counted else None,
+            "matches": matches,
+        })
+    return {"tournaments": out}

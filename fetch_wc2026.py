@@ -37,7 +37,7 @@ CACHE_TTL = 300                    # 5 分钟
 # results.csv 列头(live 产出严格兼容,供 update_live 直接 append)
 LIVE_HEADER = ["date", "home_team", "away_team", "home_score", "away_score",
                "tournament", "city", "country", "neutral"]
-SCHED_HEADER = ["date", "home_team", "away_team", "group", "stage", "city"]
+SCHED_HEADER = ["date", "home_team", "away_team", "group", "stage", "city", "kickoff_utc"]
 
 # ESPN(FIFA 官方名)→ results.csv(传统英文名)
 # results.csv 实测:South Korea / Iran / United States / Turkey(非 FIFA 官方名)
@@ -119,6 +119,7 @@ def parse_event(ev):
         group, stage = _extract_group_and_stage(comp.get("altGameNote", ""))
         return {
             "date": ev["date"][:10],              # 2026-06-14T04:00Z → 2026-06-14
+            "kickoff_utc": ev["date"],            # 完整 UTC ISO(带 Z),供转北京时间
             "home": normalize_team(home["team"]["displayName"]),
             "away": normalize_team(away["team"]["displayName"]),
             "hs": home.get("score"),
@@ -159,7 +160,7 @@ def write_csvs(live, sched):
         w.writerow(SCHED_HEADER)
         for r in sched:
             w.writerow([r["date"], r["home"], r["away"],
-                        r["group"], r["stage"], r["city"]])
+                        r["group"], r["stage"], r["city"], r.get("kickoff_utc", "")])
 
 
 def fetch_wikipedia():
