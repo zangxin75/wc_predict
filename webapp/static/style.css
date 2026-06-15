@@ -287,6 +287,8 @@ body::before{
 .bt-pscore{font-size:12px;color:var(--text-mute)}
 .bt-pscore.exact{color:var(--gold-hi);font-weight:700}
 .bt-real{font-size:13px;font-weight:700;color:var(--gold-hi)}
+.pred-score{font-family:var(--ff-mono);font-size:10px;color:var(--text-mute);margin-top:1px}
+.hitmark.precise{color:var(--gold-hi);background:rgba(201,169,97,.14)}
 
 .team{display:flex;align-items:center;gap:11px;min-width:0}
 .team.home{justify-content:flex-end}

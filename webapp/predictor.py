@@ -154,6 +154,8 @@ def enrich_match(sched_row, elo, results_map):
     """
     date, home, away, group, stage, city = sched_row[0], sched_row[1], sched_row[2], sched_row[3], sched_row[4], sched_row[5]
     ko_utc = sched_row[6] if len(sched_row) > 6 else ""
+    hs_s = sched_row[7] if len(sched_row) > 7 else ""
+    as_s = sched_row[8] if len(sched_row) > 8 else ""
     today = datetime.date.today().isoformat()
 
     m = {
@@ -164,16 +166,23 @@ def enrich_match(sched_row, elo, results_map):
         "kickoff_bj": _utc_to_bj(ko_utc),
     }
 
-    # 取舍 1:status 分级
-    res = results_map.get((date, home, away))
-    if res and not res["is_na"]:
+    # 取舍 1:status 分级 —— 优先用 schedule 自带比分列(fetch 已打场带比分),
+    # 回退 results_map(兼容旧 schedule 无比分列)。
+    if hs_s.lstrip("-").isdigit() and as_s.lstrip("-").isdigit():
+        ihs, ias = int(hs_s), int(as_s)
         m["status"] = "finished"
-        m["score"] = [res["hs"], res["as_"]]
-        m["result"] = _result_of(res["hs"], res["as_"])
-    elif date < today:
-        m["status"] = "today"
+        m["score"] = [ihs, ias]
+        m["result"] = _result_of(ihs, ias)
     else:
-        m["status"] = "upcoming"
+        res = results_map.get((date, home, away))
+        if res and not res["is_na"]:
+            m["status"] = "finished"
+            m["score"] = [res["hs"], res["as_"]]
+            m["result"] = _result_of(res["hs"], res["as_"])
+        elif date < today:
+            m["status"] = "today"
+        else:
+            m["status"] = "upcoming"
 
     # 取舍 2:已打场也带预测(供前端可选展示"预测 vs 实际")
     pred = predict_one(home, away, elo)

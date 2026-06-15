@@ -164,11 +164,16 @@ function renderCenter(m) {
     // 有预测:真实比分 + 赛前预测(48方块) + 命中标记
     if (m.probs) {
       const hit = probHit(m.probs, m.result);
-      const mark = hit ? '预测命中' : `实际${resultLabel}`;
+      const ps = m.top_score;
+      const scoreHit = ps && ps[0] === h && ps[1] === a;
+      const mark = scoreHit ? '比分精准' : (hit ? '胜负命中' : `实际${resultLabel}`);
+      const markCls = scoreHit ? 'precise' : (hit ? 'hit' : 'miss');
+      const predStr = ps ? `<span class="pred-score">预 ${ps[0]}-${ps[1]}</span>` : '';
       return `<div class="center-cell">`
         + `<div class="score-big ${cls}">${h}<span class="dash">-</span>${a}</div>`
+        + predStr
         + probCells(m.probs)
-        + `<div class="topscore"><span class="hitmark ${hit ? 'hit' : 'miss'}">${mark}</span></div>`
+        + `<div class="topscore"><span class="hitmark ${markCls}">${mark}</span></div>`
         + `</div>`;
     }
     return `<div class="center-cell"><div class="score-big ${cls}">${h}<span class="dash">-</span>${a}</div>`

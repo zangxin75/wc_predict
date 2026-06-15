@@ -37,7 +37,7 @@ CACHE_TTL = 300                    # 5 分钟
 # results.csv 列头(live 产出严格兼容,供 update_live 直接 append)
 LIVE_HEADER = ["date", "home_team", "away_team", "home_score", "away_score",
                "tournament", "city", "country", "neutral"]
-SCHED_HEADER = ["date", "home_team", "away_team", "group", "stage", "city", "kickoff_utc"]
+SCHED_HEADER = ["date", "home_team", "away_team", "group", "stage", "city", "kickoff_utc", "home_score", "away_score"]
 
 # ESPN(FIFA 官方名)→ results.csv(传统英文名)
 # results.csv 实测:South Korea / Iran / United States / Turkey(非 FIFA 官方名)
@@ -158,9 +158,12 @@ def write_csvs(live, sched):
     with open(SCHED_OUT, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(SCHED_HEADER)
-        for r in sched:
+        for r in live + sched:
+            hs = r["hs"] if (r.get("completed") and r["hs"] is not None) else ""
+            as_ = r["as_"] if (r.get("completed") and r["as_"] is not None) else ""
             w.writerow([r["date"], r["home"], r["away"],
-                        r["group"], r["stage"], r["city"], r.get("kickoff_utc", "")])
+                        r["group"], r["stage"], r["city"],
+                        r.get("kickoff_utc", ""), hs, as_])
 
 
 def fetch_wikipedia():
