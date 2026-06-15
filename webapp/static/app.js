@@ -29,6 +29,7 @@ let tickTimer = null;
 let prevScoreMap = {};      // key -> "h-a" 用于检测比分变化
 let firstRender = true;     // 首次渲染(带 staggered 动画)
 let activeStage = 'all';
+let histExpanded = false;  // 历史赛果折叠区展开状态
 let cache = { schedule:[], status:{}, champions:[], groups:{}, backtest:null };
 
 // ── 工具 ──────────────────────────────────────────
@@ -77,25 +78,60 @@ function renderSchedule() {
   for (const m of matches) (byDay[m.date] ||= []).push(m);
   const days = Object.keys(byDay).sort();
 
+  // 当天及未来 → 主视图;历史(date < 今天)→ 折叠区(默认收起)
+  const today = new Date().toLocaleDateString('en-CA');
+  const futureDays = days.filter(d => d >= today);
+  const pastDays = days.filter(d => d < today);
+
   const animClass = firstRender ? '' : ' no-anim';
   let html = `<div class="schedule-list${animClass}">`;
   let cardIdx = 0;
-  for (const day of days) {
+  const renderDayBlock = (day) => {
     const f = fmtDate(day);
-    html += `<div class="day-block">`;
-    html += `<div class="day-head"><span class="day-date">${f.label}</span>`
-         + `<span class="day-weekday">${f.weekday}</span>`
-         + `<span class="day-count">${byDay[day].length} 场</span></div>`;
+    let h = `<div class="day-block">`;
+    h += `<div class="day-head"><span class="day-date">${f.label}</span>`
+       + `<span class="day-weekday">${f.weekday}</span>`
+       + `<span class="day-count">${byDay[day].length} 场</span></div>`;
     for (const m of byDay[day]) {
       const changed = prevScoreMap[matchKey(m)] !== undefined
                       && prevScoreMap[matchKey(m)] !== scoreSig(m);
       const flashCls = changed ? ' flash' : '';
       const delay = firstRender ? ` style="animation-delay:${Math.min(cardIdx * 35, 800)}ms"` : '';
-      html += renderCard(m, flashCls, delay);
+      h += renderCard(m, flashCls, delay);
       cardIdx++;
     }
-    html += `</div>`;
+    return h + `</div>`;
+  };
+
+  // 历史战绩(顶部:新用户首先看到系统能力,带命中率摘要)
+  if (pastDays.length) {
+    let fin = 0, winHit = 0, scoreHit = 0;
+    for (const d of pastDays) for (const m of byDay[d]) {
+      if (m.status === 'finished' && m.score && m.probs) {
+        fin++;
+        if (probHit(m.probs, m.result)) winHit++;
+        const ps = m.top_score;
+        if (ps && ps[0] === m.score[0] && ps[1] === m.score[1]) scoreHit++;
+      }
+    }
+    const histCount = pastDays.reduce((n, d) => n + byDay[d].length, 0);
+    const bodyStyle = histExpanded ? '' : ' style="display:none"';
+    const label = histExpanded ? '收起历史预测' : '查看预测明细';
+    const arrow = histExpanded ? '▴' : '▾';
+    const winPct = fin ? Math.round(winHit / fin * 100) : 0;
+    html += `<div class="hist-fold hist-top">`
+         + `<button class="hist-toggle" type="button">`
+         + `<span class="hist-title">过往战绩</span>`
+         + `<span class="hist-stats">已打 ${fin} 场 · 胜负命中 <b>${winHit}</b>(${winPct}%) · 比分精准 <b>${scoreHit}</b></span>`
+         + `<span class="hist-label">${label}</span><span class="hist-arrow">${arrow}</span>`
+         + `</button>`
+         + `<div class="hist-body"${bodyStyle}>`;
+    for (const day of pastDays) html += renderDayBlock(day);
+    html += `</div></div>`;
   }
+
+  for (const day of futureDays) html += renderDayBlock(day);
+
   html += `</div>`;
   list.innerHTML = html;
 
@@ -423,6 +459,8 @@ function bindEvents() {
   });
   // 卡片点击 → 抽屉(事件委托)
   $('scheduleList').addEventListener('click', e => {
+    const btn = e.target.closest('.hist-toggle');
+    if (btn) { histExpanded = !histExpanded; renderSchedule(); return; }
     const card = e.target.closest('.match-card'); if (!card) return;
     openDrawer(card.dataset.date, card.dataset.home, card.dataset.away);
   });
