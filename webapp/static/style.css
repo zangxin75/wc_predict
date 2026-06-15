@@ -289,7 +289,7 @@ body::before{
 .bt-real{font-size:13px;font-weight:700;color:var(--gold-hi)}
 .pred-score{font-family:var(--ff-mono);font-size:12px;font-weight:700;color:var(--gold-hi);background:rgba(201,169,97,.10);border:1px solid rgba(201,169,97,.30);padding:2px 8px;border-radius:var(--r-tag);letter-spacing:.03em;margin-top:4px;display:inline-flex;align-items:baseline;gap:4px}
 .pred-score i{font-style:normal;font-size:9px;font-weight:500;color:var(--text-mute);letter-spacing:.10em}
-.hitmark.precise{color:var(--gold-hi);background:rgba(201,169,97,.14)}
+.hitmark.precise{color:var(--signal-ok);background:rgba(111,181,133,.20)}
 
 .team{display:flex;align-items:center;gap:11px;min-width:0}
 .team.home{justify-content:flex-end}
