@@ -124,6 +124,30 @@ function teamBlock(en, zh, elo, side) {
     + `</div>`;
 }
 
+// 48 方块概率条(官方 48 单元 DNA - 48 个参赛国)+ 三态百分比标签
+// 三重编码(色弱/快读冗余):① 三档金明度 ② 方块填充数 ③ 数字
+// prefix='drawer' 用抽屉尺寸/精度,decimals 控制百分比小数位
+function probCells(probs, prefix, decimals) {
+  const [ph, pd] = probs;
+  const TOTAL = 48;
+  const nHome = Math.round(ph * TOTAL);
+  const nDraw = Math.round(pd * TOTAL);
+  let cells = '';
+  for (let i = 0; i < TOTAL; i++) {
+    let cls = 'away';
+    if (i < nHome) cls = 'home';
+    else if (i < nHome + nDraw) cls = 'draw';
+    cells += `<i class="cell ${cls}"></i>`;
+  }
+  const barCls = prefix ? `${prefix}-probbar` : 'probbar';
+  const lblCls = prefix ? `${prefix}-problabels` : 'problabels';
+  const fmt = (v) => decimals ? (v * 100).toFixed(decimals) : Math.round(v * 100);
+  const lbl = (cls, key, val) =>
+    `<span class="pl ${cls}"><span class="pk">${key}</span><span class="pv">${fmt(val)}</span></span>`;
+  return `<div class="${barCls}">${cells}</div>`
+    + `<div class="${lblCls}">${lbl('home','主',ph)}${lbl('draw','平',pd)}${lbl('away','客',probs[2])}</div>`;
+}
+
 function renderCenter(m) {
   if (m.status === 'finished' && m.score) {
     const [h, a] = m.score;
@@ -134,15 +158,9 @@ function renderCenter(m) {
   if (!m.probs) {
     return `<div class="center-cell"><span class="no-elo">Elo 缺失</span></div>`;
   }
-  const [ph, pd, pa] = m.probs;
-  const seg = (val, cls, label) => {
-    const w = Math.max(val * 100, val > 0.001 ? 4 : 0);
-    const txt = val >= 0.12 ? `${label} ${Math.round(val * 100)}` : (val >= 0.05 ? label : '');
-    return `<div class="seg ${cls}" style="width:${val * 100}%">${txt}</div>`;
-  };
   const ts = m.top_score ? `预测 ${m.top_score[0]}-${m.top_score[1]}` : '';
   return `<div class="center-cell">`
-    + `<div class="probbar">${seg(ph,'home','主')}${seg(pd,'draw','平')}${seg(pa,'away','客')}</div>`
+    + probCells(m.probs)
     + `<div class="topscore">${ts}</div></div>`;
 }
 
@@ -232,12 +250,9 @@ function renderDrawer(m) {
       + `<div class="stat-row"><span class="k">结果</span><span class="v">${esc(RESULT_ZH[m.result] || '')}</span></div></div>`;
   }
   if (m.probs) {
-    const [ph, pd, pa] = m.probs;
     html += `<div class="drawer-section"><h4>三态概率</h4>`
-      + `<div class="drawer-probbar">`
-      + `<div class="seg home" style="width:${ph * 100}%">主 ${(ph * 100).toFixed(1)}</div>`
-      + `<div class="seg draw" style="width:${pd * 100}%">平 ${(pd * 100).toFixed(1)}</div>`
-      + `<div class="seg away" style="width:${pa * 100}%">客 ${(pa * 100).toFixed(1)}</div></div></div>`;
+      + probCells(m.probs, 'drawer', 1)
+      + `</div>`;
   }
   if (m.lam_h != null) {
     html += `<div class="drawer-section"><h4>模型参数</h4>`
