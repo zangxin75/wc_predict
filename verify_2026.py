@@ -25,6 +25,9 @@ from backtest import load_test_matches, actual_outcome, score_metric
 HERE = os.path.dirname(os.path.abspath(__file__))
 RESULTS = os.path.join(HERE, "results.csv")
 CUTOFF = "2026-06-11"
+# 动态 until:验证"开赛~今天"全部已打(实时滚动),而非硬编码日期
+import datetime
+UNTIL = (datetime.date.today() + datetime.timedelta(days=1)).isoformat()
 
 # 东道主主场 Elo 加成(英文队名 → 加成,取自 wc_predict.Config.HOST_NATION_ADV)
 HOST_ADV = {"Mexico": 90, "United States": 70, "Canada": 40}
@@ -103,9 +106,8 @@ def part2_models():
     print("  训练 xgb(cutoff 前全量)→ 预测 2026 已打 → 算三模型 Brier...\n")
 
     rows = train_xgb.build_dataset()
-    until = "2026-06-15"
     train = [r for r in rows if r[0] < CUTOFF]
-    test = [r for r in rows if CUTOFF <= r[0] < until and r[3] == "FIFA World Cup"]
+    test = [r for r in rows if CUTOFF <= r[0] < UNTIL and r[3] == "FIFA World Cup"]
     model = train_xgb.train_model([r[1] for r in train], [r[2] for r in train])
     xgb_probs = train_xgb.predict_proba(model, [r[1] for r in test])
     outs_oh = train_xgb._label_to_onehot([r[2] for r in test])
