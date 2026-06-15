@@ -1,0 +1,11 @@
+date,home_team,away_team,home_score,away_score,tournament,city,country,neutral
+2026-06-11,Mexico,South Africa,2,0,FIFA World Cup,Mexico City,Mexico,TRUE
+2026-06-12,South Korea,Czech Republic,2,1,FIFA World Cup,Guadalajara,Mexico,TRUE
+2026-06-12,Canada,Bosnia and Herzegovina,1,1,FIFA World Cup,Toronto,Canada,TRUE
+2026-06-13,United States,Paraguay,4,1,FIFA World Cup,"Inglewood, California",USA,TRUE
+2026-06-13,Qatar,Switzerland,1,1,FIFA World Cup,"Santa Clara, California",USA,TRUE
+2026-06-13,Brazil,Morocco,1,1,FIFA World Cup,"East Rutherford, New Jersey",USA,TRUE
+2026-06-14,Haiti,Scotland,0,1,FIFA World Cup,"Foxborough, Massachusetts",USA,TRUE
+2026-06-14,Australia,Turkey,2,0,FIFA World Cup,Vancouver,Canada,TRUE
+2026-06-14,Germany,Curaçao,7,1,FIFA World Cup,"Houston, Texas",USA,TRUE
+2026-06-14,Netherlands,Japan,2,2,FIFA World Cup,"Arlington, Texas",USA,TRUE
