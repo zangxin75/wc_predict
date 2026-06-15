@@ -290,7 +290,7 @@ async function openDrawer(date, home, away) {
   $('drawerScrim').classList.add('open');
   $('drawer').setAttribute('aria-hidden', 'false');
   try {
-    const m = await getJSON(`/api/match?date=${encodeURIComponent(date)}&home=${encodeURIComponent(home)}&away=${encodeURIComponent(away)}`);
+    const m = await getJSON(`api/match?date=${encodeURIComponent(date)}&home=${encodeURIComponent(home)}&away=${encodeURIComponent(away)}`);
     renderDrawer(m);
   } catch (e) {
     $('drawerBody').innerHTML = `<div class="placeholder">加载失败: ${esc(e.message)}</div>`;
@@ -343,19 +343,19 @@ function renderDrawer(m) {
 async function poll() {
   try {
     const [sched, st] = await Promise.all([
-      getJSON('/api/schedule'),
-      getJSON('/api/status'),
+      getJSON('api/schedule'),
+      getJSON('api/status'),
     ]);
     cache.schedule = sched.matches;
     cache.status = st;
     renderStatus();
     renderSchedule();
     if ($('panel-champions').classList.contains('active')) {
-      cache.champions = (await getJSON('/api/champions?top=20')).ranking;
+      cache.champions = (await getJSON('api/champions?top=20')).ranking;
       renderChampions();
     }
     if ($('panel-groups').classList.contains('active')) {
-      cache.groups = await getJSON('/api/groups');
+      cache.groups = await getJSON('api/groups');
       renderGroups();
     }
   } catch (e) {
@@ -386,12 +386,12 @@ function bindEvents() {
       $('panel-' + t.dataset.tab).classList.add('active');
       // 切到夺冠/小组时立即拉一次
       if (t.dataset.tab === 'champions') {
-        getJSON('/api/champions?top=20').then(d => { cache.champions = d.ranking; renderChampions(); }).catch(()=>{});
+        getJSON('api/champions?top=20').then(d => { cache.champions = d.ranking; renderChampions(); }).catch(()=>{});
       } else if (t.dataset.tab === 'groups') {
-        getJSON('/api/groups').then(d => { cache.groups = d; renderGroups(); }).catch(()=>{});
+        getJSON('api/groups').then(d => { cache.groups = d; renderGroups(); }).catch(()=>{});
       } else if (t.dataset.tab === 'backtest') {
         if (!cache.backtest) {
-          getJSON('/api/backtest').then(d => { cache.backtest = d; renderBacktest(); }).catch(()=>{});
+          getJSON('api/backtest').then(d => { cache.backtest = d; renderBacktest(); }).catch(()=>{});
         } else { renderBacktest(); }
       }
     });
@@ -411,7 +411,7 @@ function bindEvents() {
     btn.classList.add('spinning');
     btn.disabled = true;
     try {
-      await fetch('/api/refresh', {method: 'POST'});
+      await fetch('api/refresh', {method: 'POST'});
       countdown = 3;   // 稍等后台处理
     } catch (e) { console.warn(e); }
     setTimeout(() => { btn.classList.remove('spinning'); btn.disabled = false; }, 2500);
@@ -430,7 +430,7 @@ function bindEvents() {
 // ── 启动 ──────────────────────────────────────────
 async function start() {
   bindEvents();
-  try { const cfg = await getJSON('/api/config'); pollSec = cfg.poll_sec || 30; } catch {}
+  try { const cfg = await getJSON('api/config'); pollSec = cfg.poll_sec || 30; } catch {}
   countdown = pollSec;
   await poll();
   tickTimer = setInterval(tick, 1000);

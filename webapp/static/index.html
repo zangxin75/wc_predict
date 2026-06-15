@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Noto+Sans:wght@400;600;700&family=Noto+Sans+SC:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="static/style.css">
 </head>
 <body>
 
@@ -38,6 +38,7 @@
     <button class="refresh-btn" id="refreshBtn" title="立即触发后台抓取+重算">
       <span class="refresh-ico">⟳</span> 立即刷新
     </button>
+    <a href="/" class="switch-app" title="切换到词源效能">词源效能 <span aria-hidden="true">⟶</span></a>
   </div>
 </header>
 
@@ -105,6 +106,7 @@
 <footer class="cmd-footer">
   <span>Elo + Dixon-Coles + 蒙特卡洛,数据源 ESPN,后台自动刷新</span>
   <span class="mono dim" id="footStamp">-</span>
+  <a href="/" class="footer-link" title="切换到词源效能">◈ Token Efficiency</a>
 </footer>
 
 <!-- 单场详情抽屉 -->
@@ -117,6 +119,6 @@
 </aside>
 <div class="drawer-scrim" id="drawerScrim"></div>
 
-<script src="/static/app.js"></script>
+<script src="static/app.js"></script>
 </body>
 </html>
