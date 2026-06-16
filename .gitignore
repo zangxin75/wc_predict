@@ -16,6 +16,9 @@ odds_wc.csv.bak*
 # 抓取缓存(可由 fetch_wc2026.py 重新生成)
 .wc2026_cache.json
 
+# webapp 运行时缓存(webapp/cache.py 启动时自动重建 elo/schedule/groups)
+webapp/data/cache.json
+
 # OMC 运行时状态
 .omc/
 
