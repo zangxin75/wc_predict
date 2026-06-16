@@ -197,6 +197,71 @@ def devig_power(odds_h, odds_d, odds_a, tol=1e-10, max_iter=100):
     return ih ** z, idd ** z, ia ** z
 
 
+def devig_ou(over, under, tol=1e-10, max_iter=100):
+    """2 赔率 power 法去 Over/Under 市场 overround。
+    找 z>1 使 (1/over)^z+(1/under)^z=1,返回 (P_over, P_under)。"""
+    io, iu = 1.0 / over, 1.0 / under
+    lo, hi = 1.0, 10.0
+    for _ in range(max_iter):
+        mid = 0.5 * (lo + hi)
+        if io ** mid + iu ** mid > 1.0:
+            lo = mid
+        else:
+            hi = mid
+        if hi - lo < tol:
+            break
+    z = 0.5 * (lo + hi)
+    return io ** z, iu ** z
+
+
+def lambda_from_market(oh, od, oa, ou=None, ou_line=2.5,
+                       lam_min=0.1, lam_max=4.0, step=0.05, ou_weight=1.0):
+    """从 devig 后市场概率反演泊松参数 (λh, λa)。
+
+    输入 1X2 收盘赔率(必填)+ 可选 Over/Under 赔率 ou=(over,under)(默认 line 2.5)。
+    独立泊松 + Dixon-Coles τ(复用 wc_predict._poisson_three_way)下,网格搜
+    (λh,λa) 使模型三态/总进球概率最贴近 devig 后市场价。
+
+    模式 B(ou 给):目标 = (ph-mh)²+(pd-md)²+w·(po-mo)²。OU 约束总进球,最准。
+    模式 A(ou 缺):λh+λa≈AVG_TOTAL_GOALS(2.62)约束下,目标 = (ph-mh)²+(pd-md)²。
+      1X2 无总量维度,用场均总进球先验补——历史回测(无 OU 数据)用此。
+
+    返回 (λh, λa) 或 None(输入非法/无解)。"""
+    try:
+        mh, md, ma = devig_power(oh, od, oa)
+    except (ZeroDivisionError, ValueError):
+        return None
+    mo = None
+    if ou is not None and len(ou) == 2 and ou[0] > 0 and ou[1] > 0:
+        try:
+            mo = devig_ou(ou[0], ou[1])[0]   # P(over line)
+        except (ZeroDivisionError, ValueError):
+            mo = None
+    import wc_predict
+    floor = int(math.floor(ou_line))   # total>line ⟺ ≤floor 求补
+    total_prior = wc_predict.Config.AVG_TOTAL_GOALS
+    best_err, best = None, None
+    n = int(round((lam_max - lam_min) / step)) + 1
+    grid = [lam_min + i * step for i in range(n)]
+    for lh in grid:
+        for la in grid:
+            if mo is None and abs((lh + la) - total_prior) > step * 0.6:
+                continue   # 模式A:只搜总量先验带,降算量
+            hw, dr, aw, matrix, _ = wc_predict._poisson_three_way(lh, la)
+            err = (hw - mh) ** 2 + (dr - md) ** 2
+            if mo is not None:
+                p_le = 0.0
+                for i in range(floor + 1):
+                    for j in range(floor + 1 - i):
+                        if i < len(matrix) and j < len(matrix[i]):
+                            p_le += matrix[i][j]
+                err += ou_weight * ((1.0 - p_le) - mo) ** 2
+            if best_err is None or err < best_err:
+                best_err = err
+                best = (lh, la)
+    return best
+
+
 # =========================================================================
 # 装载 / 查表(供 train_xgb / ensemble / backtest 用)
 # =========================================================================
@@ -227,6 +292,47 @@ def lookup_odds(odds_map, home, away, year):
     if (y, away, home) in odds_map:
         oh, od, oa = odds_map[(y, away, home)]
         return oa, od, oh
+    return None
+
+
+OU_CSV = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ou_wc.csv")
+
+
+def load_ou(path=OU_CSV):
+    """加载 ou_wc.csv → {(year,home,away): {"1x2":(oh,od,oa),"ou":(over,under)|None,"ou_line":float}}。"""
+    out = {}
+    if not os.path.exists(path):
+        return out
+    with open(path, newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            key = (str(row["year"]), normalize_team(row["home"]), normalize_team(row["away"]))
+            ou = None
+            if row.get("ou_over") and row.get("ou_under"):
+                try:
+                    ou = (float(row["ou_over"]), float(row["ou_under"]))
+                except ValueError:
+                    ou = None
+            try:
+                out[key] = {
+                    "1x2": (float(row["odds_h"]), float(row["odds_d"]), float(row["odds_a"])),
+                    "ou": ou,
+                    "ou_line": float(row.get("ou_line") or 2.5),
+                }
+            except (KeyError, ValueError):
+                continue
+    return out
+
+
+def lookup_ou(ou_map, home, away, year):
+    """查表;缺失返回 None。同年主客颠倒时翻转 1X2 主客(OU 与主客无关,不翻转)。"""
+    home = normalize_team(home); away = normalize_team(away); y = str(year)
+    for k, flip in [((y, home, away), False), ((y, away, home), True)]:
+        if k in ou_map:
+            v = dict(ou_map[k])
+            if flip:
+                oh, od, oa = v["1x2"]
+                v["1x2"] = (oa, od, oh)
+            return v
     return None
 
 

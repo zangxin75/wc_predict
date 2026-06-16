@@ -25,7 +25,7 @@ import compute_odds as co
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT_CSV = co.OUT_CSV
-BASE = "https://www.betexplorer.com/football/world/world-cup-2026/"
+BASE = "https://www.betexplorer.com/football/world/world-cup-2026/"   # 概览页:抓1X2+取详情链接
 CACHE = os.path.join(HERE, "webapp", "data", "cache.json")   # 含 groups→2026 参赛队白名单
 
 # 锚点:li.table-main__oddsLi 的父级 = UL.table-main__matchInfo,文本含完整一行

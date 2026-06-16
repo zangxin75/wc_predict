@@ -111,6 +111,25 @@ def get_champions(top: int = Query(15, ge=1, le=48)):
             "ranking": champs[:top]}
 
 
+_market_cache = None
+_market_lock = threading.Lock()
+
+
+@app.get("/api/market")
+def get_market():
+    """数据来源面板:每场预测的数据源(市场反演λ模式A/B vs Elo)+ 反演λ对比。
+
+    静态(随 ou_wc.csv/odds_wc.csv 变),首次请求计算后内存缓存。
+    """
+    global _market_cache
+    if _market_cache is None:
+        with _market_lock:
+            if _market_cache is None:
+                from webapp import predictor
+                _market_cache = predictor.market_coverage()
+    return _market_cache
+
+
 @app.get("/api/match")
 def get_match(date: str = Query(...), home: str = Query(...), away: str = Query(...)):
     """单场详情(含 top5 比分概率、Elo、预期进球)。用 query 参数避免队名编码问题。"""

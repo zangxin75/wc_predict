@@ -558,3 +558,29 @@ body::before{
 
   .drawer{width:100vw}
 }
+
+/* ── 数据来源面板 ── */
+.mkt-summary{font-family:var(--ff-mono);font-size:13px;color:var(--text-dim);margin-bottom:14px;letter-spacing:.02em}
+.mkt-summary b{font-weight:700}
+.mkt-legend{display:flex;gap:18px;flex-wrap:wrap;font-size:12px;color:var(--text-mute);margin-bottom:12px}
+.mkt-tag{font-family:var(--ff-mono);font-size:10px;font-weight:700;padding:1px 6px;border-radius:var(--r-tag);display:inline-block;min-width:14px;text-align:center}
+.mkt-tag.mkt-b{color:#3ee6a8;background:rgba(62,230,168,.14);border:1px solid rgba(62,230,168,.32)}
+.mkt-tag.mkt-a{color:var(--gold-hi);background:rgba(229,180,75,.14);border:1px solid rgba(229,180,75,.30)}
+.mkt-tag.mkt-e{color:var(--text-dim);background:var(--bg-elev);border:1px solid var(--border)}
+.mkt-wrap{display:flex;flex-direction:column;gap:6px;max-height:560px;overflow-y:auto}
+.mkt-row{display:grid;grid-template-columns:40px 1.3fr 2fr 2.2fr;gap:10px;align-items:center;padding:8px 10px;border-radius:var(--r-card);background:var(--bg-card);border:1px solid var(--border)}
+.mkt-row.inv{border-color:rgba(229,180,75,.22)}
+.mkt-row.elo{opacity:.62}
+.mkt-match{font-weight:600;font-size:13px}
+.mkt-src{font-family:var(--ff-mono);font-size:11px;color:var(--text-mute);letter-spacing:.02em}
+.mkt-prob{font-family:var(--ff-mono);font-size:11px;display:flex;flex-direction:column;gap:2px}
+.mkt-pinv{color:var(--gold-hi)}
+.mkt-pelo{color:var(--text-dim)}
+@media(max-width:720px){
+  .mkt-row{grid-template-columns:32px 1fr;grid-template-areas:"tag match" "tag src" "tag prob"}
+  .mkt-tag-wrap{grid-area:tag}
+  .mkt-match{grid-area:match}
+  .mkt-src{grid-area:src}
+  .mkt-prob{grid-area:prob}
+}
+

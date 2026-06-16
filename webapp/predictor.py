@@ -275,6 +275,83 @@ def run_monte_carlo(n=10000, seed=None):
              "count": c, "prob": round(p, 4)} for t, c, p in ranking]
 
 
+def market_coverage(year=2026):
+    """数据来源面板:遍历该届赛程每场,判定单场预测的数据源 + 反演λ vs Eloλ 对比。
+
+    与 tournament_sim._lambdas 的异源优先判定对齐:ou_map(含OU→模式B)→ odds_map
+    (仅1X2→模式A)→ Elo。让用户可审计夺冠模拟里每场到底用了什么数据。
+
+    返回 {
+      matches: [{home, home_zh, away, away_zh, date, mode, odds_1x2, ou, ou_line,
+                 lam_inverted, lam_elo, prob_inverted, prob_elo}],
+      summary: {total, mode_b, mode_a, elo}
+    } mode ∈ {"B"(1X2+OU反演), "A"(仅1X2反演), "Elo"(纯 Elo)}。
+    """
+    ou_map = {}
+    odds_map = {}
+    try:
+        ou_map = compute_odds.load_ou()
+    except Exception:
+        pass
+    try:
+        odds_map = compute_odds.load_odds()
+    except Exception:
+        pass
+    elo, _, _ = compute_elo.build_elo(RESULTS)
+    matches = []
+    counts = {"B": 0, "A": 0, "Elo": 0}
+    for row in read_schedule():
+        date, home, away = row[0], row[1], row[2]
+        mode = "Elo"
+        odds_1x2 = None
+        ou = None
+        ou_line = 2.5
+        lam_inv = None
+        v = compute_odds.lookup_ou(ou_map, home, away, year=year)
+        if v is not None:
+            odds_1x2 = v["1x2"]
+            ou = v.get("ou")
+            ou_line = v.get("ou_line", 2.5)
+            lam_inv = compute_odds.lambda_from_market(*odds_1x2, ou=ou, ou_line=ou_line)
+            if lam_inv is not None:
+                mode = "B" if ou else "A"
+        if mode == "Elo":
+            hit = compute_odds.lookup_odds(odds_map, home, away, year=year)
+            if hit is not None:
+                odds_1x2 = hit
+                lam_inv = compute_odds.lambda_from_market(*hit)
+                if lam_inv is not None:
+                    mode = "A"
+        eh = elo.get(home, 1500.0) + HOST_ADV_EN.get(home, 0)
+        ea = elo.get(away, 1500.0) + HOST_ADV_EN.get(away, 0)
+        lam_elo = wc_predict.elo_to_lambdas(eh, ea)
+        prob_inv = prob_elo = None
+        if lam_inv:
+            h, d, a = wc_predict._poisson_three_way(lam_inv[0], lam_inv[1])[:3]
+            prob_inv = [round(x, 3) for x in (h, d, a)]
+        h, d, a = wc_predict._poisson_three_way(lam_elo[0], lam_elo[1])[:3]
+        prob_elo = [round(x, 3) for x in (h, d, a)]
+        counts[mode] += 1
+        matches.append({
+            "home": home, "home_zh": EN_TO_ZH.get(home, home),
+            "away": away, "away_zh": EN_TO_ZH.get(away, away),
+            "date": date, "mode": mode,
+            "odds_1x2": [round(x, 2) for x in odds_1x2] if odds_1x2 else None,
+            "ou": [round(x, 2) for x in ou] if ou else None,
+            "ou_line": ou_line,
+            "lam_inverted": [round(x, 2) for x in lam_inv] if lam_inv else None,
+            "lam_elo": [round(x, 2) for x in lam_elo],
+            "prob_inverted": prob_inv, "prob_elo": prob_elo,
+        })
+    # 市场驱动的场(模式A+B)排前,Elo 在后;组内按日期
+    order = {"B": 0, "A": 1, "Elo": 2}
+    matches.sort(key=lambda m: (order[m["mode"]], m["date"]))
+    return {"matches": matches,
+            "summary": {"total": len(matches), "mode_b": counts["B"],
+                        "mode_a": counts["A"], "elo": counts["Elo"]}}
+
+
+
 def build_elo_for_today():
     """用今天为 cutoff 重建 Elo(后台更新器每轮调用)。返回 {英文队名: Elo}。"""
     today = datetime.date.today().isoformat()

@@ -30,7 +30,7 @@ let prevScoreMap = {};      // key -> "h-a" 用于检测比分变化
 let firstRender = true;     // 首次渲染(带 staggered 动画)
 let activeStage = 'all';
 let histExpanded = false;  // 历史赛果折叠区展开状态
-let cache = { schedule:[], status:{}, champions:[], groups:{}, backtest:null };
+let cache = { schedule:[], status:{}, champions:[], groups:{}, backtest:null, market:null };
 
 // ── 工具 ──────────────────────────────────────────
 const $ = (id) => document.getElementById(id);
@@ -330,6 +330,42 @@ function renderBacktest() {
   wrap.innerHTML = html;
 }
 
+// ── 数据来源面板渲染 ──────────────────────────────
+function renderMarket() {
+  const d = cache.market;
+  if (!d) return;
+  const s = d.summary;
+  const pct = n => s.total ? (n / s.total * 100).toFixed(0) : 0;
+  $('mktSummary').innerHTML =
+    `共 ${s.total} 场 · ` +
+    `<b class="mkt-tag mkt-a">A</b> 仅1X2反演 ${s.mode_a} 场(${pct(s.mode_a)}%) · ` +
+    `<b class="mkt-tag mkt-e">Elo</b> 纯 Elo ${s.elo} 场(${pct(s.elo)}%) · ` +
+    (s.mode_b ? `<b class="mkt-tag mkt-b">B</b> 1X2+OU反演 ${s.mode_b} 场 · ` : '');
+  const tagHtml = m => `<b class="mkt-tag mkt-${m.toLowerCase()}">${m}</b>`;
+  const tri = p => p ? `主${pct2(p[0])} 平${pct2(p[1])} 客${pct2(p[2])}` : '—';
+  const pct2 = x => (x * 100).toFixed(0) + '%';
+  const rows = d.matches.map(m => {
+    if (m.mode === 'Elo') {
+      return `<div class="mkt-row elo">
+        <span class="mkt-tag-wrap">${tagHtml(m.mode)}</span>
+        <span class="mkt-match">${m.home_zh} vs ${m.away_zh}</span>
+        <span class="mkt-src">无市场报价,Elo 推断</span>
+        <span class="mkt-prob">${tri(m.prob_elo)}</span>
+      </div>`;
+    }
+    const src = m.mode === 'B'
+      ? `1X2 ${m.odds_1x2.join('/')} + OU${m.ou_line} ${(m.ou||[]).join('/')}`
+      : `1X2 ${m.odds_1x2.join('/')}`;
+    return `<div class="mkt-row inv">
+      <span class="mkt-tag-wrap">${tagHtml(m.mode)}</span>
+      <span class="mkt-match">${m.home_zh} vs ${m.away_zh}</span>
+      <span class="mkt-src">${esc(src)}</span>
+      <span class="mkt-prob"><span class="mkt-pinv">反演 ${tri(m.prob_inverted)}</span><span class="mkt-pelo">Elo ${tri(m.prob_elo)}</span></span>
+    </div>`;
+  });
+  $('mktList').innerHTML = rows.join('');
+}
+
 async function openDrawer(date, home, away) {
   $('drawerTitle').textContent = '比赛详情';
   $('drawerBody').innerHTML = '<div class="placeholder">载入…</div>';
@@ -440,6 +476,10 @@ function bindEvents() {
         if (!cache.backtest) {
           getJSON('api/backtest').then(d => { cache.backtest = d; renderBacktest(); }).catch(()=>{});
         } else { renderBacktest(); }
+      } else if (t.dataset.tab === 'market') {
+        if (!cache.market) {
+          getJSON('api/market').then(d => { cache.market = d; renderMarket(); }).catch(()=>{});
+        } else { renderMarket(); }
       }
     });
   });

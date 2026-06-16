@@ -81,19 +81,30 @@ def load_groups(path=SCHEDULE):
     return groups
 
 
-def _lambdas(elo, a, b):
-    """两队 Elo → (λ_a, λ_b),中立场(home_adv=0)。Elo 缺失回退 1500。"""
+def _lambdas(elo, a, b, ou_map=None, year=2026):
+    """两队 → (λ_a, λ_b),中立场(home_adv=0)。
+    异源优先:若 ou_map 命中且能从市场报价反演 (λh,λa),用反演值(含总进球 OU 约束,
+    比纯 Elo 更贴市场);否则 Elo→λ。Elo 缺失回退 1500。"""
+    if ou_map:
+        import compute_odds
+        v = compute_odds.lookup_ou(ou_map, a, b, year)
+        if v is not None:
+            oh, od, oa = v["1x2"]
+            lam = compute_odds.lambda_from_market(oh, od, oa, ou=v.get("ou"),
+                                                  ou_line=v.get("ou_line", 2.5))
+            if lam is not None:
+                return lam
     return wc_predict.elo_to_lambdas(elo.get(a, 1500.0), elo.get(b, 1500.0),
                                      home_adv=0.0)
 
 
-def simulate_group(teams, elo, rng):
+def simulate_group(teams, elo, rng, ou_map=None):
     """单循环 6 场 → 按 (积分, 净胜球, 进球) 排名。返回 [(队, 积分, 净胜球, 进球)]。"""
     pts = {t: 0 for t in teams}
     gf = {t: 0 for t in teams}
     ga = {t: 0 for t in teams}
     for a, b in itertools.combinations(teams, 2):
-        lam_a, lam_b = _lambdas(elo, a, b)
+        lam_a, lam_b = _lambdas(elo, a, b, ou_map)
         sa, sb = rng.poisson(lam_a), rng.poisson(lam_b)
         gf[a] += sa; ga[a] += sb; gf[b] += sb; ga[b] += sa
         if sa > sb:
@@ -132,28 +143,28 @@ def resolve_knockout_draw(team_a, team_b, lam_a, lam_b, rng, elo=None):
     return team_a if rng.random() < 0.5 else team_b
 
 
-def sim_knockout_match(a, b, elo, rng):
+def sim_knockout_match(a, b, elo, rng, ou_map=None):
     """淘汰赛单场:抽比分,平局用 resolve_knockout_draw。返回胜者队名。"""
-    lam_a, lam_b = _lambdas(elo, a, b)
+    lam_a, lam_b = _lambdas(elo, a, b, ou_map)
     sa, sb = rng.poisson(lam_a), rng.poisson(lam_b)
     if sa != sb:
         return a if sa > sb else b
     return resolve_knockout_draw(a, b, lam_a, lam_b, rng, elo=elo)
 
 
-def simulate_bracket(seeded_32, elo, rng):
+def simulate_bracket(seeded_32, elo, rng, ou_map=None):
     """32 队单淘汰(seed 0 最强)。R1 按 BRACKET_R1_PAIRS,R2+ 相邻配对。返回冠军。"""
-    current = [sim_knockout_match(seeded_32[a], seeded_32[b], elo, rng)
+    current = [sim_knockout_match(seeded_32[a], seeded_32[b], elo, rng, ou_map)
                for a, b in BRACKET_R1_PAIRS]
     while len(current) > 1:
-        current = [sim_knockout_match(current[i], current[i + 1], elo, rng)
+        current = [sim_knockout_match(current[i], current[i + 1], elo, rng, ou_map)
                    for i in range(0, len(current), 2)]
     return current[0]
 
 
-def one_tournament(elo, groups, rng):
+def one_tournament(elo, groups, rng, ou_map=None):
     """完整一届:小组赛 → 选 32 强 → seed → 淘汰赛。返回冠军队名。"""
-    rankings = {g: simulate_group(teams, elo, rng) for g, teams in groups.items()}
+    rankings = {g: simulate_group(teams, elo, rng, ou_map) for g, teams in groups.items()}
     # 出线:每组前 2(24)+ 8 最佳第 3
     top2 = []
     thirds = []
@@ -165,17 +176,27 @@ def one_tournament(elo, groups, rng):
     qualified = top2 + [t[0] for t in best_8]      # 32 队
     # 按 Elo 降序 seed(组冠军不打组冠军的真实规则简化为纯 Elo seed)
     seeded = sorted(qualified, key=lambda t: (-elo.get(t, 1500.0), t))
-    return simulate_bracket(seeded, elo, rng)
+    return simulate_bracket(seeded, elo, rng, ou_map)
 
 
-def monte_carlo(n_sims, seed=None):
-    """跑 n_sims 次整届推演,返回 [(队名, 夺冠次数, 概率)] 降序。"""
+def monte_carlo(n_sims, seed=None, ou_map=None):
+    """跑 n_sims 次整届推演,返回 [(队名, 夺冠次数, 概率)] 降序。
+    ou_map 非空时,有 OU+1X2 报价的场用市场反演 λ(异源优先),其余 Elo λ。"""
     elo, _, _ = compute_elo.build_elo(RESULTS)
+    if ou_map is None:   # 调用方未传则自载合并双源(失败兜底空→全 Elo,向后兼容)
+        try:
+            import compute_odds
+            ou_map = dict(compute_odds.load_ou())            # 模式B:1X2+OU(ou_wc.csv)
+            for k, (oh, od, oa) in compute_odds.load_odds().items():   # 模式A:仅1X2(odds_wc.csv)
+                if k not in ou_map:
+                    ou_map[k] = {"1x2": (oh, od, oa), "ou": None, "ou_line": 2.5}
+        except Exception:
+            ou_map = {}
     groups = load_groups()
     rng = np.random.default_rng(seed)
     champs = {}
     for _ in range(n_sims):
-        w = one_tournament(elo, groups, rng)
+        w = one_tournament(elo, groups, rng, ou_map)
         champs[w] = champs.get(w, 0) + 1
     ranking = sorted(champs.items(), key=lambda kv: (-kv[1], kv[0]))
     return [(t, c, c / n_sims) for t, c in ranking]
