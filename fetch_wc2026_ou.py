@@ -1,10 +1,12 @@
 """fetch_wc2026_ou.py — 2026 世界杯 Over/Under(总进球高低)市场报价半自动采集 → ou_wc.csv。
 
-为什么「半自动」而非全自动:
-  BetExplorer 详情页的 Over/Under 数据按 tab 异步加载,无稳定 DOM 锚点(实测:URL hash
-  无效,点 tab 不切子表,DOM 里 121 个 data-odd 但 OU 行结构不稳定)。全自动会变脆弱的
-  模板匹配。故本工具:机器批量取详情链接 + 开页尽力提取 1X2+OU2.5,提取到 OU 则自动写
-  ou_wc.csv(模式B);提取不到则打印该场链接 + 1X2,用户手动补 OU 一行即可。
+机制(2026-06-16 侦察确认):
+  BetExplorer 详情页的 Over/Under 按「Over/Under」锚点 a[data-tab="ou"] 异步加载——点击
+  后页面自带 token 请求 match-content.php,渲染逐报价方的 OU 表(每行 = 总进球线 + Over
+  + Under 两个 data-odd;线值单元格带 table-main__doubleparameter 类名)。早先误以为
+  「无稳定锚点」,实则是没点对元素(点到了内层 span 而非锚点 a[data-tab="ou"])。
+  本工具:机器批量取详情链接 → 开页 → 点 OU 锚点 → 解析 line==2.5 行的 over/under 最优值
+  → 自动写 ou_wc.csv(模式B)。极少数无 OU 报价的场,打印链接 + 1X2 供手补。
 
 降级保证(已在 compute_odds 实现):ou_wc.csv 缺 OU 行时 lambda_from_market 退模式A
 (仅1X2,总量先验),odds_wc.csv 的 1X2 立即可用。模式B(本工具产出)只是增强。
@@ -52,17 +54,21 @@ JS_LINKS = r"""()=>{
   return out;
 }"""
 
-# 详情页尽力提取 OU2.5:页面里所有「数字.5 + 两赔率」片段,优先 2.5 线。
-# 兼容多种容器;提取后由 Python 端筛选最可能是 OU2.5 的配对。
-JS_DETAIL = r"""()=>{
-  const txt = document.body.innerText.replace(/\s+/g,' ');
-  // 抓 "X.5 a b" 片段(X∈0-8,a/b 是 1.x-9.x 赔率)
-  const re = /([0-8]\.5)\s+([1-9]\.\d{2})\s+([1-9]\.\d{2})/g;
-  const hits=[]; let m;
-  while((m=re.exec(txt))) hits.push({line:+m[1], over:+m[2], under:+m[3]});
-  // 1X2 三态:详情页顶部收盘区,取前 3 个 data-odd(1X2 主平客)
-  const odds = [...document.querySelectorAll('[data-odd]')].slice(0,3).map(e=>+e.getAttribute('data-odd'));
-  return {dataodd: document.querySelectorAll('[data-odd]').length, odds, ou: hits};
+# 详情页 OU2.5 提取(在 Python 端点击 a[data-tab="ou"] 异步加载后执行)。
+# OU 表每行:<td class="table-main__doubleparameter">线值</td> + Over data-odd + Under data-odd。
+# 筛 line==2.5 的行,over/under 各取跨报价方最大值(最优 = 最小 overround,去 vig 后最干净)。
+JS_OU25 = r"""()=>{
+  const rows=[];
+  document.querySelectorAll('tr').forEach(tr=>{
+    const cells=[...tr.querySelectorAll('td')];
+    const lineCell = cells.find(td => (td.className||'').includes('doubleparameter'));
+    if(!lineCell) return;
+    if(!/^2\.50?$/.test(lineCell.innerText.trim())) return;
+    const dd=[...tr.querySelectorAll('[data-odd]')].map(e=>parseFloat(e.getAttribute('data-odd'))).filter(x=>!isNaN(x)&&x>1);
+    if(dd.length>=2) rows.push([dd[0], dd[1]]);
+  });
+  if(!rows.length) return null;
+  return {over: Math.max(...rows.map(r=>r[0])), under: Math.max(...rows.map(r=>r[1])), n: rows.length};
 }"""
 
 PREFIX_RE = re.compile(r"""^(?:(?:FIN|FT|HT|POSTP|CANC|AWARDED|AWD|RET)\s+|\d+\s*'\s+|\d{1,2}:\d{2}\s+)""", re.I)
@@ -112,20 +118,6 @@ def parse_row(text):
             if m.group("o1"):
                 odds = [float(m["o1"]), float(m["o2"]), float(m["o3"])]
             return h, a, odds
-    return None
-
-
-def pick_ou25(ou_hits, target=2.5):
-    """从详情页抓的 {line,over,under} 列表选 OU2.5。优先精确 line=2.5;否则取最接近且
-    over/under 在合理区间(1.3-3.5)的首个。无则 None。"""
-    exact = [h for h in ou_hits if abs(h["line"] - target) < 1e-9
-             and 1.3 <= h["over"] <= 3.5 and 1.3 <= h["under"] <= 3.5]
-    if exact:
-        return exact[0]["over"], exact[0]["under"]
-    near = [h for h in ou_hits if 1.3 <= h["over"] <= 3.5 and 1.3 <= h["under"] <= 3.5]
-    near.sort(key=lambda h: abs(h["line"] - target))
-    if near:
-        return near[0]["over"], near[0]["under"]
     return None
 
 
@@ -195,11 +187,17 @@ def main():
             det_odds = None
             try:
                 pg.goto(url, wait_until="domcontentloaded", timeout=45000)
-                pg.wait_for_timeout(5000)
-                det = pg.evaluate(f"({JS_DETAIL})()")
-                ou = pick_ou25(det["ou"])
-                if len(det.get("odds") or []) == 3:
-                    det_odds = det["odds"]
+                pg.wait_for_timeout(4000)
+                # 1X2:详情页顶部收盘区前 3 个 data-odd(主平客)
+                det_odds = pg.evaluate(
+                    "(()=>{const d=[...document.querySelectorAll('[data-odd]')]"
+                    ".slice(0,3).map(e=>+e.getAttribute('data-odd'));"
+                    "return d.length===3?d:null;})()")
+                # 点「Over/Under」锚点 → 页面自带 token 异步渲染 OU 报价表
+                if pg.evaluate("(()=>!!document.querySelector('a[data-tab=\"ou\"]'))()"):
+                    pg.evaluate("document.querySelector('a[data-tab=\"ou\"]').click()")
+                    pg.wait_for_timeout(4000)
+                    ou = pg.evaluate(f"({JS_OU25})()")
             except Exception as e:
                 print(f"  详情页失败 {home}-{away}: {str(e)[:50]}")
             # 1X2 优先概览,其次详情页顶 3 个 data-odd
@@ -211,12 +209,12 @@ def main():
             oh, od, oa = use
             # 有 1X2 即收集(OU 缺则 ou_over/under 空 → tournament_sim 退模式A,仍用反演λ)
             if ou:
-                collected.append((home, away, oh, od, oa, ou[0], ou[1]))
-                print(f"  ✓ {home}-{away}  1X2 {oh:.2f}/{od:.2f}/{oa:.2f}  OU2.5 {ou[0]}/{ou[1]}")
+                collected.append((home, away, oh, od, oa, ou["over"], ou["under"]))
+                print(f"  ✓ {home}-{away}  1X2 {oh:.2f}/{od:.2f}/{oa:.2f}  OU2.5 {ou['over']}/{ou['under']} (n={ou['n']})")
             else:
                 collected.append((home, away, oh, od, oa, None, None))
                 manual.append((home, away, oh, od, oa, url))
-                print(f"  △ {home}-{away}  1X2 {oh:.2f}/{od:.2f}/{oa:.2f}  OU 未提取(入 ou_wc.csv 退模式A,可手补 OU 升模式B)→ {url}")
+                print(f"  △ {home}-{away}  1X2 {oh:.2f}/{od:.2f}/{oa:.2f}  OU 未提取(退模式A,可手补)→ {url}")
         b.close()
 
     print("-" * 60)
