@@ -319,13 +319,17 @@ def _elo_value(team_zh):
     return val
 
 
-def predict_match(team_home, team_away, home_adv_elo=None, verbose=True):
+def predict_match(team_home, team_away, home_adv_elo=None, verbose=True, odds_map=None, year=None):
     """预测一场比赛(按中文队名),返回 (home_win, draw, away_win, matrix, top_scores)。
 
     支持全部 48 队:ELO_RATINGS(24 队手抄)miss 时自动经 ZH_TO_EN → build_elo 查(延迟缓存)。
     内部委托给 predict_from_elo;本函数负责 队名→Elo + 报告打印。
     home_adv_elo=None 时用 Config.HOME_ADV_ELO;
     若主队是 2026 东道主,建议传 Config.HOST_NATION_ADV[队名]。
+
+    异源优先(与 predict_upcoming/predict_one 一致):odds_map+year 命中时 1X2 概率
+    用 devig 市场价(108 场回测 Δ=−0.066 优于 Elo);否则 Elo。matrix/top_scores
+    始终 Elo(odds 无比分维度)。
     """
     elo_h = _elo_value(team_home)
     elo_a = _elo_value(team_away)
@@ -333,20 +337,33 @@ def predict_match(team_home, team_away, home_adv_elo=None, verbose=True):
 
     home_win, draw, away_win, matrix, top_scores = predict_from_elo(elo_h, elo_a, adv)
 
+    src = "elo"
+    if odds_map and year:
+        import compute_odds   # 惰性 import,避免循环依赖(同 compute_ad 模式)
+        en_h = ZH_TO_EN.get(team_home)
+        en_a = ZH_TO_EN.get(team_away)
+        if en_h and en_a:
+            oh = compute_odds.lookup_odds(odds_map, en_h, en_a, year=year)
+            if oh is not None:
+                home_win, draw, away_win = compute_odds.devig_power(*oh)
+                src = "odds"
+
     if verbose:
         lam_h, lam_a = elo_to_lambdas(elo_h, elo_a, home_adv=adv)
         elo_exp = elo_expected_score(elo_h + adv, elo_a)
         _print_report(team_home, team_away, elo_h, elo_a, adv,
-                      lam_h, lam_a, home_win, draw, away_win, elo_exp, top_scores)
+                      lam_h, lam_a, home_win, draw, away_win, elo_exp, top_scores, src)
 
     return home_win, draw, away_win, matrix, top_scores
 
 
 def _print_report(home, away, elo_h, elo_a, adv, lam_h, lam_a,
-                  p_home, p_draw, p_away, elo_exp, top_scores):
+                  p_home, p_draw, p_away, elo_exp, top_scores, src="elo"):
     print("=" * 56)
     print(f"  {home}  vs  {away}")
     print("=" * 56)
+    src_lbl = "市场报价 devig(108场回测 Δ=−0.066 优于 Elo)" if src == "odds" else "Elo"
+    print(f"概率来源:  {src_lbl}")
     print(f"Elo:        {home} {elo_h} (+{adv}主场)   {away} {elo_a}")
     print(f"预期进球:   {home} {lam_h:.2f}   {away} {lam_a:.2f}")
     print("-" * 56)

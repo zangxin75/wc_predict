@@ -77,14 +77,21 @@ def backtest_predictions(cutoff, tournament="FIFA World Cup", until=None, model=
     # 按需建模型(ensemble 两个都建,复用单次 fit)
     elo = None
     ad_params = ad_glob = None
-    if model in ("elo", "ensemble"):
+    odds_map = None
+    rd_map = None
+    if model in ("elo", "ensemble", "ensemble_eo", "elo_hedged"):
         elo, _, _ = compute_elo.build_elo(RESULTS, cutoff_date=cutoff)
     if model in ("ad", "ensemble"):
         import compute_ad
         ad_params, ad_glob = compute_ad.fit_attack_defense(
             RESULTS, cutoff_date=cutoff, halflife_years=halflife_years)
-    if model not in ("elo", "ad", "ensemble"):
-        raise ValueError(f"未知 model: {model}(可选 elo / ad / ensemble)")
+    if model in ("odds", "ensemble_eo"):
+        import compute_odds
+        odds_map = compute_odds.load_odds()
+    if model == "elo_hedged":
+        rd_map = compute_elo.build_rd(RESULTS, cutoff_date=cutoff)
+    if model not in ("elo", "ad", "ensemble", "odds", "ensemble_eo", "elo_hedged"):
+        raise ValueError(f"未知 model: {model}(可选 elo/ad/ensemble/odds/ensemble_eo/elo_hedged)")
 
     for m in matches:
         if model == "elo":
@@ -94,12 +101,40 @@ def backtest_predictions(cutoff, tournament="FIFA World Cup", until=None, model=
                 continue
             # baseline 假设中立场;东道主加成留作后续改进
             hw, dr, aw, _, _ = wc_predict.predict_from_elo(eh, ea, home_adv_elo=0)
+        elif model == "elo_hedged":
+            eh, ea = elo.get(m["home"]), elo.get(m["away"])
+            if eh is None or ea is None:
+                skipped += 1
+                continue
+            # RD 缺失 → 取 rd_max=220(最不可信,最大 hedging)
+            rd_h = rd_map.get(m["home"], 220.0)
+            rd_a = rd_map.get(m["away"], 220.0)
+            hw, dr, aw, _, _ = wc_predict.predict_from_elo_hedged(
+                eh, rd_h, ea, rd_a, home_adv_elo=0)
         elif model == "ad":
             if m["home"] not in ad_params or m["away"] not in ad_params:
                 skipped += 1
                 continue
             hw, dr, aw, _, _ = wc_predict.predict_from_ad(
                 ad_params, ad_glob, m["home"], m["away"], neutral=True)
+        elif model == "odds":
+            oh = compute_odds.lookup_odds(odds_map, m["home"], m["away"], year=int(m["date"][:4]))
+            if oh is None:
+                skipped += 1
+                continue
+            hw, dr, aw = compute_odds.devig_power(*oh)
+        elif model == "ensemble_eo":
+            eh, ea = elo.get(m["home"]), elo.get(m["away"])
+            oh = compute_odds.lookup_odds(odds_map, m["home"], m["away"], year=int(m["date"][:4]))
+            if eh is None or ea is None or oh is None:
+                skipped += 1
+                continue
+            e_hw, e_dr, e_aw, _, _ = wc_predict.predict_from_elo(eh, ea, home_adv_elo=0)
+            o_hw, o_dr, o_aw = compute_odds.devig_power(*oh)
+            w = ensemble_weight
+            hw = w * e_hw + (1 - w) * o_hw
+            dr = w * e_dr + (1 - w) * o_dr
+            aw = w * e_aw + (1 - w) * o_aw
         else:  # ensemble:elo + ad 加权
             eh, ea = elo.get(m["home"]), elo.get(m["away"])
             ad_ok = m["home"] in ad_params and m["away"] in ad_params
@@ -155,8 +190,13 @@ def main():
     ap.add_argument("--cutoff", required=True, help="ISO 日期,如 2018-06-14(该日之前算参数)")
     ap.add_argument("--until", default=None, help="测试集上界(ISO日期);不传则测 cutoff 后全部")
     ap.add_argument("--tournament", default="FIFA World Cup")
-    ap.add_argument("--model", choices=["elo", "ad", "ensemble"], default="elo",
-                    help="elo=Elo+泊松; ad=Dixon-Coles攻防; ensemble=两者加权(验证集成方向)")
+    ap.add_argument("--model",
+                    choices=["elo", "ad", "ensemble", "odds", "ensemble_eo",
+                             "elo_hedged"],
+                    default="elo",
+                    help="elo=Elo+泊松; ad=Dixon-Coles攻防; ensemble=elo+ad加权; "
+                         "odds=博彩赔率去vig(异源信号); ensemble_eo=elo+odds加权; "
+                         "elo_hedged=Elo+RD不确定性hedging(概率向均匀收缩)")
     ap.add_argument("--halflife", type=float, default=3.0,
                     help="ad/ensemble 的 Dixon-Coles 时间衰减半衰期(年);默认3.0")
     ap.add_argument("--ensemble_weight", type=float, default=0.5,

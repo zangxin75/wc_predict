@@ -192,6 +192,12 @@ function probHit(probs, result) {
   return argmax === result;
 }
 
+// 概率来源徽标:odds=收盘报价 devig 后(更准),elo=Elo 推断
+function srcBadge(m) {
+  if (m.source === 'odds') return '<span class="src-badge odds" title="收盘报价 devig 后概率(108场回测 Δ=−0.066 优于 Elo)">📊报价</span>';
+  return '<span class="src-badge elo" title="Elo 推断概率">Elo</span>';
+}
+
 function renderCenter(m) {
   if (m.status === 'finished' && m.score) {
     const [h, a] = m.score;
@@ -209,7 +215,7 @@ function renderCenter(m) {
         + `<div class="score-big ${cls}">${h}<span class="dash">-</span>${a}</div>`
         + predStr
         + probCells(m.probs)
-        + `<div class="topscore"><span class="hitmark ${markCls}">${mark}</span></div>`
+        + `<div class="topscore"><span class="hitmark ${markCls}">${mark}</span>${srcBadge(m)}</div>`
         + `</div>`;
     }
     return `<div class="center-cell"><div class="score-big ${cls}">${h}<span class="dash">-</span>${a}</div>`
@@ -221,7 +227,7 @@ function renderCenter(m) {
   const ts = m.top_score ? `预测 ${m.top_score[0]}-${m.top_score[1]}` : '';
   return `<div class="center-cell">`
     + probCells(m.probs)
-    + `<div class="topscore">${ts}</div></div>`;
+    + `<div class="topscore">${ts}${srcBadge(m)}</div></div>`;
 }
 
 // ── 夺冠榜渲染 ────────────────────────────────────
@@ -308,7 +314,7 @@ function renderBacktest() {
       const markCls = scoreHit ? 'exact' : hitCls;
       const psHtml = ps ? `<span class="bt-pscore ${scoreHit?'exact':''}">${ps[0]}-${ps[1]}</span>` : '<span class="bt-pscore">—</span>';
       const probs = m.probs
-        ? `<span class="bt-probs">主${Math.round(m.probs[0]*100)}·平${Math.round(m.probs[1]*100)}·客${Math.round(m.probs[2]*100)}</span>`
+        ? `<span class="bt-probs">主${Math.round(m.probs[0]*100)}·平${Math.round(m.probs[1]*100)}·客${Math.round(m.probs[2]*100)} ${srcBadge(m)}</span>`
         : '<span class="bt-probs">Elo 缺失</span>';
       html += `<div class="bt-row ${hitCls}">`
         + `<span class="bt-date">${esc(m.date.slice(5))}</span>`

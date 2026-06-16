@@ -26,6 +26,7 @@ if hasattr(sys.stdout, "reconfigure"):
 import wc_predict
 import tournament_sim
 import compute_elo
+import compute_odds
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -66,11 +67,16 @@ def _utc_to_bj(iso_utc):
         return ""
 
 
-def predict_one(home, away, elo):
+def predict_one(home, away, elo, odds_map=None, year=None):
     """单场预测。调 wc_predict.predict_from_elo,返回前端友好 dict。
 
     home/away 为英文队名(匹配 elo 键)。东道主 home 加 HOST_ADV_EN[home]。
     返回 None 表示 Elo 缺失(无法预测)。
+
+    异源优先(与 run_live.predict_upcoming 一致):若 odds_map 非空且该场在
+    当届(year)有收盘报价,1X2 概率用 devig 后的市场价(108 场回测 Δ=−0.066
+    显著优于 Elo);无报价或 odds_map 为空则用 Elo。比分/lambda 始终 Elo(odds
+    无比分维度)。返回 dict 含 source ∈ {"odds","elo"} 供前端显示徽标。
     """
     eh, ea = elo.get(home), elo.get(away)
     if eh is None or ea is None:
@@ -78,6 +84,13 @@ def predict_one(home, away, elo):
     adv = HOST_ADV_EN.get(home, 0)
     hw, dr, aw, _matrix, top = wc_predict.predict_from_elo(eh, ea, home_adv_elo=adv)
     lam_h, lam_a = wc_predict.elo_to_lambdas(eh, ea, home_adv=adv)
+    oh = compute_odds.lookup_odds(odds_map, home, away, year=year) \
+        if (odds_map and year) else None
+    if oh is not None:
+        hw, dr, aw = compute_odds.devig_power(*oh)
+        src = "odds"
+    else:
+        src = "elo"
     return {
         "probs": [round(hw, 4), round(dr, 4), round(aw, 4)],
         "top_score": [top[0][0][0], top[0][0][1]],
@@ -85,6 +98,7 @@ def predict_one(home, away, elo):
         "lam_h": round(lam_h, 3), "lam_a": round(lam_a, 3),
         "elo_h": round(eh), "elo_a": round(ea),
         "host_adv": adv, "neutral": adv == 0,
+        "source": src,
     }
 
 
@@ -126,7 +140,7 @@ def read_schedule():
     return rows
 
 
-def enrich_match(sched_row, elo, results_map):
+def enrich_match(sched_row, elo, results_map, odds_map=None):
     """★【learning 点】把一行赛程 + Elo + 已打结果融合成前端卡片数据契约。
 
     这是"数据 → 视觉"的关键翻译层:本函数返回的字段直接决定前端每张卡片
@@ -185,7 +199,8 @@ def enrich_match(sched_row, elo, results_map):
             m["status"] = "upcoming"
 
     # 取舍 2:已打场也带预测(供前端可选展示"预测 vs 实际")
-    pred = predict_one(home, away, elo)
+    pred = predict_one(home, away, elo, odds_map=odds_map,
+                        year=(sched_row[0][:4] if sched_row[0][:4].isdigit() else None))
     if pred:
         m.update(pred)
     else:
@@ -199,7 +214,11 @@ def build_all(elo):
     给定 Elo(后台线程已用最新 results 重建),产出 API 直接返回的视图。
     """
     results_map = load_results_map()
-    sched = [enrich_match(row, elo, results_map) for row in read_schedule()]
+    try:
+        odds_map = compute_odds.load_odds()
+    except Exception:
+        odds_map = {}
+    sched = [enrich_match(row, elo, results_map, odds_map=odds_map) for row in read_schedule()]
     groups = compute_groups(sched)
     return sched, groups
 
@@ -293,6 +312,10 @@ def build_backtest():
                 if r and r[0] != "date" and len(r) >= 6 and r[5] == "FIFA World Cup"]
 
     out = []
+    try:
+        odds_map = compute_odds.load_odds()
+    except Exception:
+        odds_map = {}
     for label, year, cutoff in FINALS:
         elo, _, _ = compute_elo.build_elo(RESULTS, cutoff_date=cutoff)
         matches = []
@@ -309,9 +332,10 @@ def build_backtest():
                 "home_zh": EN_TO_ZH.get(home, home), "away_zh": EN_TO_ZH.get(away, away),
                 "score": [ihs, ias], "result": result,
             }
-            pred = predict_one(home, away, elo)
+            pred = predict_one(home, away, elo, odds_map=odds_map, year=year)
             if pred:
                 entry["probs"] = pred["probs"]
+                entry["source"] = pred.get("source")
                 entry["pred_result"] = _argmax_result(pred["probs"])
                 entry["hit"] = entry["pred_result"] == result            # 三态(胜负平)命中
                 entry["pred_score"] = pred["top_score"]                 # 预测首选比分 [h, a]

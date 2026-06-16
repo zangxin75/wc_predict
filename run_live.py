@@ -28,6 +28,7 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
 import compute_elo
+import compute_odds
 import wc_predict
 import update_live
 
@@ -65,21 +66,34 @@ def upcoming_matches(sched_path=SCHED, today=None, limit=8):
     return rows[:limit]
 
 
-def predict_upcoming(matches, elo, neutral_default=True):
-    """对未赛列表逐场预测,返回 [(date, home, away, [hw,dr,aw], top_score, adv), ...]。
+def predict_upcoming(matches, elo, neutral_default=True, odds_map=None):
+    """对未赛列表逐场预测,返回 [(date, home, away, [hw,dr,aw], top_score, adv, source), ...]。
 
-    东道主(home 在 HOST_ADV 且非中立)加主场 Elo。其余按中立(默认)。
+    异源优先:若该场在 odds_map 有收盘报价,1X2 概率用 devig 后的市场价(backtest 证明 Δ=−0.066
+    优于 Elo);无则回退 Elo。scoreline(首选比分)始终用 Elo 推断作显示(odds 不含比分)。
+    source ∈ {"odds","elo","miss"}。东道主场(home 在 HOST_ADV 且非中立)加主场 Elo。
     """
+    if odds_map is None:
+        try:
+            odds_map = compute_odds.load_odds()
+        except Exception:
+            odds_map = {}
     out = []
     for r in matches:
         date, home, away = r[0], r[1], r[2]
         eh, ea = elo.get(home), elo.get(away)
         if eh is None or ea is None:
-            out.append((date, home, away, None, None, 0))
+            out.append((date, home, away, None, None, 0, "miss"))
             continue
         adv = HOST_ADV.get(home, 0) if not neutral_default else 0
-        hw, dr, aw, _, top = wc_predict.predict_from_elo(eh, ea, home_adv_elo=adv)
-        out.append((date, home, away, [hw, dr, aw], top[0][0], adv))
+        e_hw, e_dr, e_aw, _, top = wc_predict.predict_from_elo(eh, ea, home_adv_elo=adv)
+        year = int(date[:4]) if date[:4].isdigit() else None
+        oh = compute_odds.lookup_odds(odds_map, home, away, year=year) if year else None
+        if oh is not None:
+            hw, dr, aw = compute_odds.devig_power(*oh)   # 市场价优于 Elo,决策用 odds
+            out.append((date, home, away, [hw, dr, aw], top[0][0], adv, "odds"))
+        else:
+            out.append((date, home, away, [e_hw, e_dr, e_aw], top[0][0], adv, "elo"))
     return out
 
 
@@ -135,20 +149,27 @@ def main():
     preds = predict_upcoming(ups, elo)
     zh = wc_predict.EN_TO_ZH
     OUT = {0: "主胜", 1: "平", 2: "客胜"}
-    print(f"  {'日期':<11}{'对阵':<26}{'主/平/客':<14}{'预测':<5}{'比分':<6}{'主场'}")
-    print("  " + "-" * 68)
-    for date, home, away, probs, top, adv in preds:
+    print(f"  {'日期':<11}{'对阵':<26}{'主/平/客':<14}{'预测':<5}{'比分':<6}{'主场':<5}{'来源'}")
+    print("  " + "-" * 74)
+    n_odds = n_elo = n_miss = 0
+    SRC = {"odds": "报价", "elo": "Elo"}
+    for date, home, away, probs, top, adv, src in preds:
         name = f"{zh.get(home, home)} vs {zh.get(away, away)}"
         if probs is None:
+            n_miss += 1
             print(f"  {date:<11}{name:<26}{'Elo缺失':<14}")
             continue
+        n_odds += src == "odds"
+        n_elo += src == "elo"
         pi = probs.index(max(probs))
         ps = f"{probs[0]*100:>3.0f}/{probs[1]*100:>2.0f}/{probs[2]*100:>3.0f}"
         site = f"+{adv}" if adv else "中立"
-        print(f"  {date:<11}{name:<24}{ps:<16}{OUT[pi]:<5}{top[0]}-{top[1]:<3}{site}")
+        print(f"  {date:<11}{name:<24}{ps:<16}{OUT[pi]:<5}{top[0]}-{top[1]:<3}{site:<6}{SRC.get(src, src)}")
     print("=" * 70)
-    print("  说明:东道主场(墨/美/加)显示主场 Elo 加成;其余按中立。")
-    print("  比分为泊松+Dixon-Coles 首选比分(含条件 boost)。")
+    print(f"  概率来源:{n_odds} 场用市场报价(devig,更准),{n_elo} 场用 Elo 回退"
+          + (f",{n_miss} 场 Elo 缺失。" if n_miss else "。"))
+    print("  说明:有当届收盘报价时 1X2 概率优先用市场价(backtest 108场证明 Δ=−0.066 优于 Elo);")
+    print("  无报价时回退 Elo。比分为 Elo+泊松+Dixon-Coles 首选比分(显示用,odds 不含比分)。")
 
 
 if __name__ == "__main__":

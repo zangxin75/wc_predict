@@ -6,6 +6,12 @@ __pycache__/
 
 # 备份文件
 *.bak
+odds_wc.csv.bak*
+
+# 根目录临时研究/分析脚本(单次产出,不进仓库)
+/_*.py
+/_*.html
+/_*.csv
 
 # 抓取缓存(可由 fetch_wc2026.py 重新生成)
 .wc2026_cache.json
@@ -20,7 +26,7 @@ __pycache__/
 Thumbs.db
 
 # webapp 临时验证/调试产物(不进仓库)
-webapp/_verify.py
+webapp/_verify*.py
 webapp/_mobile_probe.py
 webapp/_shot.py
 webapp/_shots/
