@@ -469,6 +469,18 @@ function renderDrawer(m) {
     if (r.away_archive) html += renderTeamArchive(r.away_archive, 'away');
     html += `</div></div>`;
   }
+  // 赛前情报(web search):默认仅按钮,点击才调 LLM
+  html += `<div class="drawer-section intel-section">`
+    + `<div class="intel-head">`
+    + `<h4>赛前情报 <span class="badge-ws">联网搜索</span></h4>`
+    + `<button class="intel-btn" id="intelBtn">获取赛前情报</button></div>`
+    + `<div id="intelBody" class="intel-body"></div></div>`;
+  // 历史交手(web search):默认仅按钮,点击才调 LLM
+  html += `<div class="drawer-section h2h-section">`
+    + `<div class="h2h-head">`
+    + `<h4>历史交手 <span class="badge-ws">联网搜索</span></h4>`
+    + `<button class="h2h-btn" id="h2hBtn">查询历史交手</button></div>`
+    + `<div id="h2hBody" class="h2h-body"></div></div>`;
   $('drawerBody').innerHTML = html;
   // 反思 toggle:写 localStorage + 重拉 API(带 with_reflection=1)
   const toggle = $('reflectToggle');
@@ -479,6 +491,168 @@ function renderDrawer(m) {
       openDrawer(m.date, m.home, m.away);
     });
   }
+  // 赛前情报按钮:点击触发 web search
+  const intelBtn = $('intelBtn');
+  if (intelBtn) {
+    intelBtn.addEventListener('click', () => fetchIntel(m.date, m.home, m.away));
+  }
+  // 历史交手按钮:点击触发 web search
+  const h2hBtn = $('h2hBtn');
+  if (h2hBtn) {
+    h2hBtn.addEventListener('click', () => fetchH2H(m.date, m.home, m.away));
+  }
+}
+
+// ── 赛前情报(web search)─────────────────────────
+async function fetchIntel(date, home, away) {
+  const btn = $('intelBtn');
+  const body = $('intelBody');
+  if (btn) { btn.disabled = true; btn.textContent = '搜索中…(约 5 秒)'; }
+  if (body) body.innerHTML = '<div class="placeholder">智谱 GLM-4 联网搜索赛前情报…</div>';
+  try {
+    const url = `api/match?date=${encodeURIComponent(date)}&home=${encodeURIComponent(home)}&away=${encodeURIComponent(away)}&with_intel=1`;
+    const m = await getJSON(url);
+    renderIntel(m.intel);
+  } catch (e) {
+    if (body) body.innerHTML = `<div class="placeholder">加载失败: ${esc(e.message)}</div>`;
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = '重新获取赛前情报'; }
+  }
+}
+
+function renderIntel(intel) {
+  const body = $('intelBody');
+  if (!body) return;
+  if (!intel) {
+    body.innerHTML = '<div class="placeholder">无情报数据</div>';
+    return;
+  }
+  if (intel.error) {
+    body.innerHTML = `<div class="placeholder">✗ ${esc(intel.error)}</div>`;
+    return;
+  }
+  const CONF = {high:'高可信', medium:'中可信', low:'低可信'};
+  const IMPACT = {high:'重大影响', medium:'中等', low:'轻微'};
+  let h = '';
+  // 伤停
+  if (intel.injuries && intel.injuries.length) {
+    h += '<div class="intel-subhead">伤停 / 缺阵</div><ul class="intel-list">';
+    for (const inj of intel.injuries) {
+      const cls = inj.impact || 'medium';
+      h += `<li class="intel-inj"><span class="intel-team">${esc(inj.team === intel._home ? '主' : '客')}</span>`
+        + `<span class="intel-player">${esc(inj.player)}</span>`
+        + `<span class="intel-reason">${esc(inj.reason || '')}</span>`
+        + `<span class="intel-impact impact-${esc(cls)}">${esc(IMPACT[cls] || cls)}</span></li>`;
+    }
+    h += '</ul>';
+  }
+  // 近期战绩
+  if (intel.form_home || intel.form_away) {
+    h += '<div class="intel-grid">';
+    if (intel.form_home) {
+      h += `<div class="intel-form"><div class="intel-form-team">主队近期</div>`
+        + `<div class="intel-form-wdl">${renderWDL(intel.form_home.recent5)}</div>`
+        + `<div class="intel-form-note">${esc(intel.form_home.note || '')}</div></div>`;
+    }
+    if (intel.form_away) {
+      h += `<div class="intel-form"><div class="intel-form-team">客队近期</div>`
+        + `<div class="intel-form-wdl">${renderWDL(intel.form_away.recent5)}</div>`
+        + `<div class="intel-form-note">${esc(intel.form_away.note || '')}</div></div>`;
+    }
+    h += '</div>';
+  }
+  // 战术要点
+  if (intel.tactical_notes && intel.tactical_notes.length) {
+    h += '<div class="intel-subhead">战术要点</div><ul class="intel-notes">';
+    for (const n of intel.tactical_notes) h += `<li>${esc(n)}</li>`;
+    h += '</ul>';
+  }
+  // 媒体关注
+  if (intel.headline_concerns && intel.headline_concerns.length) {
+    h += '<div class="intel-subhead">媒体关注</div><ul class="intel-notes">';
+    for (const n of intel.headline_concerns) h += `<li>${esc(n)}</li>`;
+    h += '</ul>';
+  }
+  // 预测暗示
+  if (intel.prediction_hint) {
+    h += `<div class="intel-hint">⚖ ${esc(intel.prediction_hint)}</div>`;
+  }
+  // 元信息
+  h += `<div class="intel-meta">`
+    + `<span class="conf-${esc(intel.confidence || 'low')}">${esc(CONF[intel.confidence] || '?')}</span>`
+    + (intel.search_summary ? `<span class="intel-search-summary">${esc(intel.search_summary)}</span>` : '')
+    + `</div>`;
+  body.innerHTML = h;
+}
+
+function renderWDL(s) {
+  if (!s) return '';
+  return s.split('').map(c => {
+    const m = {W: 'win', D: 'draw', L: 'loss'};
+    return `<span class="wdl-${m[c] || 'draw'}">${c}</span>`;
+  }).join('');
+}
+
+// ── 历史交手(web search)─────────────────────────
+async function fetchH2H(date, home, away) {
+  const btn = $('h2hBtn');
+  const body = $('h2hBody');
+  if (btn) { btn.disabled = true; btn.textContent = '搜索中…(约 5 秒)'; }
+  if (body) body.innerHTML = '<div class="placeholder">智谱 GLM-4 联网搜索历史交手…</div>';
+  try {
+    const url = `api/match?date=${encodeURIComponent(date)}&home=${encodeURIComponent(home)}&away=${encodeURIComponent(away)}&with_h2h=1`;
+    const m = await getJSON(url);
+    renderH2H(m.h2h);
+  } catch (e) {
+    if (body) body.innerHTML = `<div class="placeholder">加载失败: ${esc(e.message)}</div>`;
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = '重新查询历史交手'; }
+  }
+}
+
+function renderH2H(h2h) {
+  const body = $('h2hBody');
+  if (!body) return;
+  if (!h2h) {
+    body.innerHTML = '<div class="placeholder">无交手数据</div>';
+    return;
+  }
+  if (h2h.error) {
+    body.innerHTML = `<div class="placeholder">✗ ${esc(h2h.error)}</div>`;
+    return;
+  }
+  const CONF = {high:'高可信', medium:'中可信', low:'低可信'};
+  let h = '';
+  if (h2h.summary) {
+    h += `<div class="h2h-summary">${esc(h2h.summary)}</div>`;
+  }
+  if (h2h.recent_trend) {
+    h += `<div class="h2h-trend">📈 ${esc(h2h.recent_trend)}</div>`;
+  }
+  const matches = h2h.matches || [];
+  if (matches.length) {
+    h += '<div class="h2h-subhead">交锋明细</div><ul class="h2h-list">';
+    for (const m of matches) {
+      let score = '-';
+      if (Array.isArray(m.score) && m.score.length >= 2) {
+        score = `${m.score[0]}-${m.score[1]}`;
+      } else if (typeof m.score === 'string') {
+        const nums = m.score.match(/\d+/g);
+        if (nums && nums.length >= 2) score = `${nums[0]}-${nums[1]}`;
+      }
+      h += `<li class="h2h-row">`
+        + `<span class="h2h-date mono">${esc(m.date || '')}</span>`
+        + `<span class="h2h-comp">${esc(m.competition || '')}</span>`
+        + `<span class="h2h-score mono">${esc(score)}</span>`
+        + `<span class="h2h-venue">${esc(m.venue || '')}</span>`
+        + `</li>`;
+    }
+    h += '</ul>';
+  }
+  h += `<div class="h2h-meta">`
+    + `<span class="conf-${esc(h2h.confidence || 'low')}">${esc(CONF[h2h.confidence] || '?')}</span>`
+    + `</div>`;
+  body.innerHTML = h || '<div class="placeholder">无交手数据</div>';
 }
 
 // ── 队伍档案渲染(反思系统子模块) ─────────────────

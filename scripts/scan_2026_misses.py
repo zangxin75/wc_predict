@@ -97,6 +97,8 @@ def main():
     ap.add_argument("--max", type=int, default=20, help="最多处理多少场(默认 20)")
     ap.add_argument("--sleep", type=float, default=2.0, help="每场间隔秒数(默认 2)")
     ap.add_argument("--dry-run", action="store_true", help="只列出,不调 LLM")
+    ap.add_argument("--web-search", action="store_true",
+                    help="启用智谱 web_search 工具(基于真实赛后报道归因,慢 3-5s/场)")
     args = ap.parse_args()
 
     env_path = "/home/zx/project/词源效能/token-efficiency/.env"
@@ -136,6 +138,9 @@ def main():
         lesson = lf.fetch_lesson_for_match(
             home, away, date, pred, score,
             tournament=m["tournament"],
+            use_web_search=args.web_search,
+            home_zh=m.get("home_zh", home),
+            away_zh=m.get("away_zh", away),
         )
         if "error" in lesson:
             print(f"  ✗ LLM 失败: {lesson['error'][:80]}")

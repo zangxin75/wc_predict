@@ -31,6 +31,9 @@ import yaml
 HERE = Path(__file__).resolve().parent.parent
 TEAMS_DIR = HERE / "teams"
 
+# web_search 路径下 LLM 来源标签(写入 yaml.llm_source 供前端识别)
+_ZHIPU_MODEL_TAG = "glm-4-flash"
+
 LLM_BASE = os.environ.get("LLM_BASE", "http://localhost:8080/v1").rstrip("/")
 LLM_KEY = os.environ.get("LLM_KEY") or os.environ.get("LITELLM_MASTER_KEY", "")
 LLM_MODEL = os.environ.get("LLM_MODEL", "glm-4-flash")
@@ -62,8 +65,19 @@ PROMPT_TEMPLATE = """你是足球比赛数据分析师。给定一场系统预�
 只输出 JSON,不要任何其他文字。"""
 
 
-def fetch_lesson_for_match(home, away, date, predicted, actual, tournament="2022 卡塔尔世界杯"):
-    """调 LLM 分析一场错场。返回 dict 或 {error: msg}。"""
+def fetch_lesson_for_match(home, away, date, predicted, actual, tournament="2022 卡塔尔世界杯",
+                            use_web_search=False, home_zh=None, away_zh=None):
+    """调 LLM 分析一场错场。返回 dict 或 {error: msg}。
+
+    use_web_search=True 时改用智谱原生 endpoint + web_search 工具,
+    LLM 基于真实搜索结果归因(对 2026 新场质量更好,慢 3-5s)。
+    """
+    if use_web_search:
+        from webapp import websearch_client
+        return websearch_client.search_after_match_insights(
+            home, away, date, predicted, actual, tournament=tournament,
+            home_zh=home_zh, away_zh=away_zh,
+        )
     predicted_str = "-".join(str(x) for x in predicted) if isinstance(predicted, (list, tuple)) else str(predicted)
     actual_str = "-".join(str(x) for x in actual) if isinstance(actual, (list, tuple)) else str(actual)
     prompt = PROMPT_TEMPLATE.format(
@@ -141,7 +155,12 @@ def update_team_yaml(team, lesson, date, vs, predicted, actual,
         "miss_type": miss_type,
         "causes": lesson.get("causes", []),
         "reusable": lesson.get("reusable", False),
-        "llm_source": f"{LLM_MODEL} auto {today}",
+        "llm_source": (f"{_ZHIPU_MODEL_TAG}+web_search auto {today}"
+                       if lesson.get("web_search_used")
+                       else f"{LLM_MODEL} auto {today}"),
+        "web_search_used": bool(lesson.get("web_search_used", False)),
+        "sources": lesson.get("sources") or [],
+        "search_summary": lesson.get("search_summary"),
     })
     data["updated"] = today
 

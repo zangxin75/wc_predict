@@ -72,6 +72,73 @@ def _run_fetch():
         return -1
 
 
+def _web_search_fallback(today_iso=None):
+    """ESPN 抓取失败时:对当天开打但缺比分的 2026 场调 web search 兜底。
+
+    触发条件:fetch_wc2026.py 返回 rc != 0(网络/源站故障)。
+    处理范围:cache 中日期 <= 今天、stage != 未来阶段的 2026 场,status != 'finished'。
+    写入策略:confidence=high + status=finished + 比分合法 → append 到 results.csv。
+    失败容忍:LLM 错/低可信/无 web search key 全部静默跳过,绝不抛。
+
+    返回写入条数。
+    """
+    try:
+        from webapp import websearch_client
+        import update_live
+    except Exception as e:
+        print(f"[updater] web search 兜底模块加载失败: {e}")
+        return 0
+
+    today = today_iso or datetime.date.today().isoformat()
+    sched = cache.get_schedule()
+    candidates = []
+    for m in sched:
+        if str(m.get("date", ""))[:4] != "2026":
+            continue
+        if m.get("status") == "finished":
+            continue
+        if m.get("date", "9999") > today:
+            continue
+        candidates.append(m)
+        if len(candidates) >= 5:  # 每次最多 5 场(成本 + 限速)
+            break
+
+    if not candidates:
+        return 0
+
+    print(f"[updater] ESPN 失败,尝试 web search 兜底 {len(candidates)} 场...")
+    appended = 0
+    for m in candidates:
+        try:
+            res = websearch_client.search_live_score(
+                m["home"], m["away"], m["date"],
+                home_zh=m.get("home_zh"), away_zh=m.get("away_zh"),
+            )
+        except Exception as e:
+            print(f"[updater]   {m['home_zh']} vs {m['away_zh']}: 异常 {e}")
+            continue
+        if "error" in res:
+            print(f"[updater]   {m['home_zh']} vs {m['away_zh']}: {res['error'][:60]}")
+            continue
+        if res.get("confidence") != "high" or res.get("status") != "finished":
+            print(f"[updater]   {m['home_zh']} vs {m['away_zh']}: 跳过(conf={res.get('confidence')}, status={res.get('status')})")
+            continue
+        score = res.get("score") or []
+        if len(score) != 2 or not all(isinstance(x, int) for x in score):
+            print(f"[updater]   {m['home_zh']} vs {m['away_zh']}: 比分非法 {score}")
+            continue
+        # 构造 results.csv 行格式:[date, home, away, hs, as, city]
+        row = [m["date"], m["home"], m["away"], str(score[0]), str(score[1]),
+               m.get("city", "")]
+        try:
+            update_live.append_new([row])
+            appended += 1
+            print(f"[updater]   ✓ {m['home_zh']} {score[0]}-{score[1]} {m['away_zh']}(写入 results.csv)")
+        except Exception as e:
+            print(f"[updater]   {m['home_zh']} vs {m['away_zh']}: 写入失败 {e}")
+    return appended
+
+
 def update_once(force_monte_carlo=False):
     """跑一次完整闭环。任一步失败捕获并记 status,不抛出。
 
@@ -84,6 +151,13 @@ def update_once(force_monte_carlo=False):
         rc = _run_fetch()
         if rc != 0:
             print(f"[updater] fetch 返回 rc={rc}(warning,用现有数据继续)")
+            # ESPN 失败兜底:对当天缺比分的 2026 场调 web search
+            try:
+                ws_n = _web_search_fallback()
+                if ws_n:
+                    print(f"[updater] web search 兜底:补 {ws_n} 场")
+            except Exception as e:
+                print(f"[updater] web search 兜底异常: {e}")
 
         # 2) update_live(函数调用,拿 added)
         import update_live

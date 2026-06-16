@@ -132,11 +132,18 @@ def get_market():
 
 @app.get("/api/match")
 def get_match(date: str = Query(...), home: str = Query(...), away: str = Query(...),
-              with_reflection: int = Query(0)):
-    """单场详情(含 top5 比分概率、Elo、预期进球、AI 反思数据)。
+              with_reflection: int = Query(0), with_intel: int = Query(0),
+              with_h2h: int = Query(0)):
+    """单场详情(含 top5 比分概率、Elo、预期进球、AI 反思数据、赛前情报、历史交手)。
 
     with_reflection=1 时:开启反思系统,从队伍档案读 elo_adjustments 调整 Elo
     后重算预测(第二步)。market 驱动场 probs 不变,Elo 兜底场 probs 基于调整后 Elo。
+
+    with_intel=1 时:调智谱 GLM-4 web_search 拉赛前情报(伤停/近期战绩/战术),
+    塞入 out["intel"](只读,纯展示,不影响 probs)。慢 3-5s,前端用按钮触发。
+
+    with_h2h=1 时:调智谱 GLM-4 web_search 拉历史交手记录,塞入 out["h2h"]
+    (只读,纯展示)。慢 3-5s,前端用按钮触发。
     """
     base = None
     for m in cache.get_schedule():
@@ -180,6 +187,30 @@ def get_match(date: str = Query(...), home: str = Query(...), away: str = Query(
                         out[k] = pred[k]
         except Exception as e:
             out["reflection_error"] = str(e)
+
+    # 第三步:开 intel 时调 web search 拉赛前情报(只读,不影响预测)
+    if with_intel:
+        try:
+            from webapp import websearch_client
+            out["intel"] = websearch_client.search_pre_match_briefing(
+                home, away, date,
+                home_zh=base.get("home_zh"),
+                away_zh=base.get("away_zh"),
+            )
+        except Exception as e:
+            out["intel"] = {"error": str(e)}
+
+    # 第四步:开 h2h 时调 web search 拉历史交手(只读,纯展示)
+    if with_h2h:
+        try:
+            from webapp import websearch_client
+            out["h2h"] = websearch_client.search_head_to_head(
+                home, away,
+                home_zh=base.get("home_zh"),
+                away_zh=base.get("away_zh"),
+            )
+        except Exception as e:
+            out["h2h"] = {"error": str(e)}
 
     return out
 
