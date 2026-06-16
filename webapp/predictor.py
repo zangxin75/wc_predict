@@ -67,7 +67,8 @@ def _utc_to_bj(iso_utc):
         return ""
 
 
-def predict_one(home, away, elo, odds_map=None, year=None):
+def predict_one(home, away, elo, odds_map=None, year=None, ou_map=None,
+                with_reflection=False, market_blend=0.0):
     """单场预测。调 wc_predict.predict_from_elo,返回前端友好 dict。
 
     home/away 为英文队名(匹配 elo 键)。东道主 home 加 HOST_ADV_EN[home]。
@@ -77,28 +78,190 @@ def predict_one(home, away, elo, odds_map=None, year=None):
     当届(year)有收盘报价,1X2 概率用 devig 后的市场价(108 场回测 Δ=−0.066
     显著优于 Elo);无报价或 odds_map 为空则用 Elo。比分/lambda 始终 Elo(odds
     无比分维度)。返回 dict 含 source ∈ {"odds","elo"} 供前端显示徽标。
+
+    数据来源 mode(与 lambda_predict_summary 对齐):ou_map 命中且 lambda_from_market
+    成功 → "B"(有 OU)或 "A"(仅 1X2);否则 odds_map 命中 → "A";否则 "Elo"。
+    抽屉用此字段显示该场可信度,并展示反演 λ vs Elo λ 对比。
+
+    第二步(反思系统):with_reflection=True 时,从双方队伍档案读 elo_adjustments +
+    recent_lessons(LLM 自动归因),按 confidence 加权(high=1.0/medium=0.7/low=0.4)累加
+    到基础 Eh/Ea。recent_lessons 仅 reusable=true 计入,按"实际比分差-预测比分差"方向
+    推导 ±12*cw*年份衰减(15%/年,下限 0.3)。单边 clamp ±15,防止过拟合。
+    market 驱动场 probs 仍用 devig(反思不影响最准的市场预测),Elo 兜底场用调整后 Elo。
+
+    top_score 与 probs 同源对齐:market mode 用 lam_inv 重算比分分布;若仍出现
+    argmax 方向与 top_score 方向不一致,从 top5 里挑同向最高概率作展示。
+
+    第三步混合(market_blend):market 模式 + with_reflection 时,把 devig probs 与
+    reflection-elo probs 加权混合(α=market_blend 为 reflection 权重)。默认 0(关),
+    建议值 0.3 — market 主导但被反思拉回。返回 p_market / p_reflect 供前端展示对比。
+    仅当双方至少一方有反思调整时才混合,否则保持纯 market。
     """
-    eh, ea = elo.get(home), elo.get(away)
-    if eh is None or ea is None:
+    eh_base, ea_base = elo.get(home), elo.get(away)
+    if eh_base is None or ea_base is None:
         return None
     adv = HOST_ADV_EN.get(home, 0)
-    hw, dr, aw, _matrix, top = wc_predict.predict_from_elo(eh, ea, home_adv_elo=adv)
+
+    # ── 反思:Elo 调整(第二步 + 第三步)──
+    # 数据来源:
+    #   1. elo_adjustments(手写,显式 value)→ 直接 confidence 加权
+    #   2. recent_lessons(LLM 生成)→ 仅 reusable=true 计入,按比分差方向 + 衰减推导
+    # clamp 单边 ±15,防止单条 lesson 过度影响。
+    reflection_adj = {"home": 0.0, "away": 0.0}
+    if with_reflection:
+        try:
+            from webapp import reflection
+            import datetime as _dt
+            today_year = _dt.date.today().year
+            for side, team in [("home", home), ("away", away)]:
+                arch = reflection.get_team_archive(team)
+                if not arch:
+                    continue
+                # ① 手写 elo_adjustments
+                for a in arch.get("elo_adjustments") or []:
+                    try:
+                        v = float(a.get("value", 0))
+                    except (TypeError, ValueError):
+                        continue
+                    w = {"high": 1.0, "medium": 0.7, "low": 0.4}.get(
+                        (a.get("confidence") or "medium").lower(), 0.7)
+                    reflection_adj[side] += v * w
+                # ② LLM recent_lessons(只看 reusable=true 的)
+                for les in arch.get("recent_lessons") or []:
+                    if not les.get("reusable"):
+                        continue
+                    try:
+                        ly = int(str(les.get("date", ""))[:4])
+                    except ValueError:
+                        continue
+                    decay = max(0.3, 0.85 ** (today_year - ly))  # 每年衰减 15%,下限 0.3
+                    cw = {"high": 1.0, "medium": 0.7, "low": 0.4}.get(
+                        (les.get("confidence") or "medium").lower(), 0.7)
+                    # 方向:actual 比 pred 更有利己方 → 加,反之 → 减
+                    try:
+                        a_h, a_a = les["actual"].split("-")
+                        p_h, p_a = les["prediction"].split("-")
+                        delta = (int(a_h) - int(a_a)) - (int(p_h) - int(p_a))
+                    except (KeyError, ValueError, AttributeError):
+                        continue
+                    if delta == 0:
+                        continue
+                    sign = 1 if delta > 0 else -1
+                    # 基础 ±12,capped ±15 累计
+                    reflection_adj[side] += sign * 12.0 * cw * decay
+                # clamp
+                if reflection_adj[side] > 15:
+                    reflection_adj[side] = 15.0
+                elif reflection_adj[side] < -15:
+                    reflection_adj[side] = -15.0
+        except Exception:
+            pass
+    eh = eh_base + reflection_adj["home"]
+    ea = ea_base + reflection_adj["away"]
+
+    # 保留 reflection 调整后的 Elo 三态(混合预测会用到)
+    hw_e, dr_e, aw_e, _matrix, top = wc_predict.predict_from_elo(eh, ea, home_adv_elo=adv)
     lam_h, lam_a = wc_predict.elo_to_lambdas(eh, ea, home_adv=adv)
+
+    # ── 数据来源 mode 判定(与 lambda_predict_summary 一致)──
+    mode = "Elo"
+    odds_1x2 = None
+    ou = None
+    ou_line = 2.5
+    lam_inv = None
+    if ou_map and year:
+        ou_v = compute_odds.lookup_ou(ou_map, home, away, year=year)
+        if ou_v is not None:
+            odds_1x2 = ou_v["1x2"]
+            ou = ou_v.get("ou")
+            ou_line = ou_v.get("ou_line", 2.5)
+            lam_inv = compute_odds.lambda_from_market(*odds_1x2, ou=ou, ou_line=ou_line)
+            if lam_inv is not None:
+                mode = "B" if ou else "A"
+    if mode == "Elo" and odds_map and year:
+        hit = compute_odds.lookup_odds(odds_map, home, away, year=year)
+        if hit is not None:
+            odds_1x2 = hit
+            lam_inv = compute_odds.lambda_from_market(*hit)
+            if lam_inv is not None:
+                mode = "A"
+
     oh = compute_odds.lookup_odds(odds_map, home, away, year=year) \
         if (odds_map and year) else None
+    p_market = None  # 记录原 market 三态,供混合预测与展示用
     if oh is not None:
         hw, dr, aw = compute_odds.devig_power(*oh)
         src = "odds"
+        p_market = (hw, dr, aw)
+    elif lam_inv is not None:
+        # 优先用 odds_map 的 1X2(devig);若没有但 ou_map 反演成功(B/A 模式),
+        # 用 lam_inv 算泊松三态作为 market 端(市场价通过 lambda 间接表达)
+        hw_l, dr_l, aw_l, _, _ = wc_predict._poisson_three_way(*lam_inv)
+        hw, dr, aw = hw_l, dr_l, aw_l
+        src = "odds"
+        p_market = (hw, dr, aw)
     else:
+        hw, dr, aw = hw_e, dr_e, aw_e  # 纯 Elo 模式:三态直接取自 predict_from_elo
         src = "elo"
+
+    # ── 混合预测(market + reflection-elo 加权)──
+    # 仅在 market 模式 + 反思开关开启 + blend 权重 > 0 时生效
+    # blend = reflection-elo 的权重(0=纯 market,1=纯 reflection-elo,典型 0.3)
+    actual_blend = 0.0
+    if (market_blend > 0 and p_market is not None
+            and with_reflection
+            and (reflection_adj["home"] != 0 or reflection_adj["away"] != 0)):
+        b = max(0.0, min(1.0, float(market_blend)))
+        hw = p_market[0] * (1 - b) + hw_e * b
+        dr = p_market[1] * (1 - b) + dr_e * b
+        aw = p_market[2] * (1 - b) + aw_e * b
+        s = hw + dr + aw
+        hw, dr, aw = hw / s, dr / s, aw / s
+        actual_blend = b
+
+    # ── top_score 与 probs argmax 方向对齐 ──
+    # probs 三态可能 argmax=客胜 但比分分布最高是 1-0 主胜(devig 三态 与 lam_inv 比分
+    # 分布来源不同,有时背离)。展示上需保证"预测结果方向"和"首选比分"一致。
+    # 做法:按 argmax 方向从原始 Elo matrix 挑该方向概率最高的比分。
+    def _side_of(score):
+        h, a = score
+        return 0 if h > a else (1 if h == a else 2)
+    argmax_idx = int(max(range(3), key=lambda i: [hw, dr, aw][i]))
+    if top and _side_of(top[0][0]) != argmax_idx:
+        # 从原始 elo matrix 挑同向最高
+        n = len(_matrix) - 1
+        cands = []
+        for i in range(n + 1):
+            for j in range(n + 1):
+                if _side_of((i, j)) == argmax_idx:
+                    cands.append(((i, j), _matrix[i][j]))
+        cands.sort(key=lambda kv: kv[1], reverse=True)
+        if cands:
+            picked = cands[0]
+            picked_set = {picked[0]}
+            rest = [t for t in top if t[0] != picked[0]][:4]
+            top = [picked] + rest
     return {
         "probs": [round(hw, 4), round(dr, 4), round(aw, 4)],
         "top_score": [top[0][0][0], top[0][0][1]],
         "top5": [[s[0][0], s[0][1], round(s[1], 4)] for s in top],
         "lam_h": round(lam_h, 3), "lam_a": round(lam_a, 3),
-        "elo_h": round(eh), "elo_a": round(ea),
+        "elo_h": round(eh_base), "elo_a": round(ea_base),
         "host_adv": adv, "neutral": adv == 0,
         "source": src,
+        "mode": mode,
+        "odds_1x2": [round(x, 2) for x in odds_1x2] if odds_1x2 else None,
+        "ou": [round(x, 2) for x in ou] if ou else None,
+        "ou_line": ou_line,
+        "lam_inverted": [round(x, 2) for x in lam_inv] if lam_inv else None,
+        "lam_elo": [round(lam_h, 2), round(lam_a, 2)],
+        "reflection_adj": ({"home": round(reflection_adj["home"]),
+                            "away": round(reflection_adj["away"])}
+                           if with_reflection else None),
+        "market_blend": round(actual_blend, 2),
+        "p_market": [round(x, 4) for x in p_market] if p_market else None,
+        "p_reflect": ([round(hw_e, 4), round(dr_e, 4), round(aw_e, 4)]
+                      if with_reflection else None),
     }
 
 
@@ -140,7 +303,7 @@ def read_schedule():
     return rows
 
 
-def enrich_match(sched_row, elo, results_map, odds_map=None):
+def enrich_match(sched_row, elo, results_map, odds_map=None, ou_map=None):
     """★【learning 点】把一行赛程 + Elo + 已打结果融合成前端卡片数据契约。
 
     这是"数据 → 视觉"的关键翻译层:本函数返回的字段直接决定前端每张卡片
@@ -199,7 +362,7 @@ def enrich_match(sched_row, elo, results_map, odds_map=None):
             m["status"] = "upcoming"
 
     # 取舍 2:已打场也带预测(供前端可选展示"预测 vs 实际")
-    pred = predict_one(home, away, elo, odds_map=odds_map,
+    pred = predict_one(home, away, elo, odds_map=odds_map, ou_map=ou_map,
                         year=(sched_row[0][:4] if sched_row[0][:4].isdigit() else None))
     if pred:
         m.update(pred)
@@ -218,7 +381,12 @@ def build_all(elo):
         odds_map = compute_odds.load_odds()
     except Exception:
         odds_map = {}
-    sched = [enrich_match(row, elo, results_map, odds_map=odds_map) for row in read_schedule()]
+    try:
+        ou_map = compute_odds.load_ou()
+    except Exception:
+        ou_map = {}
+    sched = [enrich_match(row, elo, results_map, odds_map=odds_map, ou_map=ou_map)
+             for row in read_schedule()]
     groups = compute_groups(sched)
     return sched, groups
 

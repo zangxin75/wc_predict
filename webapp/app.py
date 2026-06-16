@@ -131,12 +131,57 @@ def get_market():
 
 
 @app.get("/api/match")
-def get_match(date: str = Query(...), home: str = Query(...), away: str = Query(...)):
-    """单场详情(含 top5 比分概率、Elo、预期进球)。用 query 参数避免队名编码问题。"""
+def get_match(date: str = Query(...), home: str = Query(...), away: str = Query(...),
+              with_reflection: int = Query(0)):
+    """单场详情(含 top5 比分概率、Elo、预期进球、AI 反思数据)。
+
+    with_reflection=1 时:开启反思系统,从队伍档案读 elo_adjustments 调整 Elo
+    后重算预测(第二步)。market 驱动场 probs 不变,Elo 兜底场 probs 基于调整后 Elo。
+    """
+    base = None
     for m in cache.get_schedule():
         if m["date"] == date and m["home"] == home and m["away"] == away:
-            return m
-    raise HTTPException(status_code=404, detail=f"未找到: {date} {home} vs {away}")
+            base = m
+            break
+    if base is None:
+        raise HTTPException(status_code=404, detail=f"未找到: {date} {home} vs {away}")
+    out = dict(base)
+    try:
+        from webapp import reflection
+        out["reflection"] = reflection.get_match_reflection(home, away)
+    except Exception as e:
+        out["reflection"] = {"has_any": False, "summary": "", "error": str(e)}
+
+    # 第二步:开反思时重算预测(覆盖 Elo 相关字段)
+    if with_reflection and out["reflection"].get("has_any"):
+        try:
+            from webapp import predictor
+            import compute_odds
+            year = int(date[:4]) if date[:4].isdigit() else None
+            elo = cache.get_elo() or {}
+            try:
+                odds_map = compute_odds.load_odds()
+            except Exception:
+                odds_map = {}
+            try:
+                ou_map = compute_odds.load_ou()
+            except Exception:
+                ou_map = {}
+            pred = predictor.predict_one(home, away, elo, odds_map=odds_map,
+                                         year=year, ou_map=ou_map,
+                                         with_reflection=True)
+            if pred:
+                # 覆盖预测相关字段(probs/lam/top_score/top5/mode/...)
+                for k in ("probs", "top_score", "top5", "lam_h", "lam_a",
+                          "host_adv", "neutral", "source", "mode",
+                          "odds_1x2", "ou", "ou_line", "lam_inverted",
+                          "lam_elo", "reflection_adj"):
+                    if k in pred:
+                        out[k] = pred[k]
+        except Exception as e:
+            out["reflection_error"] = str(e)
+
+    return out
 
 
 _backtest_cache = None

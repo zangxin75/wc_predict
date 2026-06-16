@@ -372,8 +372,14 @@ async function openDrawer(date, home, away) {
   $('drawer').classList.add('open');
   $('drawerScrim').classList.add('open');
   $('drawer').setAttribute('aria-hidden', 'false');
+  // 反思开关状态(localStorage 持久化,默认关)
+  const storeKey = `wc_reflect_${date}_${home}_${away}`;
+  let refl = false;
+  try { refl = localStorage.getItem(storeKey) === '1'; } catch {}
   try {
-    const m = await getJSON(`api/match?date=${encodeURIComponent(date)}&home=${encodeURIComponent(home)}&away=${encodeURIComponent(away)}`);
+    const url = `api/match?date=${encodeURIComponent(date)}&home=${encodeURIComponent(home)}&away=${encodeURIComponent(away)}`
+      + (refl ? '&with_reflection=1' : '');
+    const m = await getJSON(url);
     renderDrawer(m);
   } catch (e) {
     $('drawerBody').innerHTML = `<div class="placeholder">加载失败: ${esc(e.message)}</div>`;
@@ -409,6 +415,26 @@ function renderDrawer(m) {
       + `<div class="stat-row"><span class="k">客队预期进球 λ</span><span class="v">${m.lam_a}</span></div>`
       + `<div class="stat-row"><span class="k">主场加成</span><span class="v">${m.host_adv ? '+' + m.host_adv : '中立'}</span></div></div>`;
   }
+  if (m.mode) {
+    const MODE_DESC = {B:'赔率 + 大小球(最准)', A:'仅胜负赔率', Elo:'历史实力分(无赔率)'};
+    const MODE_LABEL = {B:'B', A:'A', Elo:'Elo'};
+    html += `<div class="drawer-section"><h4>数据来源</h4>`
+      + `<div class="stat-row"><span class="k">预测依据</span><span class="v src-mode">`
+      + `<b class="mkt-tag mkt-${m.mode.toLowerCase()}">${MODE_LABEL[m.mode]}</b> ${esc(MODE_DESC[m.mode])}</span></div>`;
+    if (m.odds_1x2) {
+      html += `<div class="stat-row"><span class="k">胜负赔率</span><span class="v mono">${m.odds_1x2.join(' / ')}</span></div>`;
+    }
+    if (m.ou) {
+      html += `<div class="stat-row"><span class="k">大小球赔率</span><span class="v mono">≥3 球 ${m.ou[0]} / ≤2 球 ${m.ou[1]}</span></div>`;
+    }
+    if (m.lam_inverted && m.lam_elo) {
+      html += `<div class="stat-row"><span class="k">市场推算 预期进球</span><span class="v mono">主队 ${m.lam_inverted[0]} / 客队 ${m.lam_inverted[1]}</span></div>`
+        + `<div class="stat-row"><span class="k">实力分推算 预期进球</span><span class="v mono dim">主队 ${m.lam_elo[0]} / 客队 ${m.lam_elo[1]}</span></div>`;
+    } else if (m.lam_elo) {
+      html += `<div class="stat-row"><span class="k">实力分推算 预期进球</span><span class="v mono">主队 ${m.lam_elo[0]} / 客队 ${m.lam_elo[1]}</span></div>`;
+    }
+    html += `</div>`;
+  }
   if (m.top5 && m.top5.length) {
     const maxp = m.top5[0][2];
     html += `<div class="drawer-section"><h4>Top5 比分概率</h4><div class="top5-list">`;
@@ -419,7 +445,77 @@ function renderDrawer(m) {
     }
     html += `</div></div>`;
   }
+  // AI 反思(实验):默认关,toggle 切换会重拉 with_reflection=1 重算预测
+  let reflectStoreKey = null;
+  let reflectStored = false;
+  if (m.reflection && m.reflection.has_any) {
+    const r = m.reflection;
+    reflectStoreKey = `wc_reflect_${m.date}_${m.home}_${m.away}`;
+    try { reflectStored = localStorage.getItem(reflectStoreKey) === '1'; } catch {}
+    const adj = m.reflection_adj || {home: 0, away: 0};
+    const modeBadge = reflectStored
+      ? `<span class="ref-mode-badge on">反思预测 主 ${adj.home >= 0 ? '+' : ''}${adj.home} / 客 ${adj.away >= 0 ? '+' : ''}${adj.away}</span>`
+      : `<span class="ref-mode-badge off">基础预测</span>`;
+    html += `<div class="drawer-section reflection-section">`
+      + `<div class="reflection-head">`
+      + `<h4>AI 反思 <span class="badge-exp">实验</span></h4>`
+      + `<label class="switch" title="开启后用队伍历史特征调整 Elo 重算预测(市场驱动场 probs 不变)">`
+      + `<input type="checkbox" id="reflectToggle">`
+      + `<span class="slider"></span></label></div>`
+      + `<div class="reflection-mode-line">${modeBadge}</div>`
+      + `<div class="reflection-summary">${esc(r.summary || '')}</div>`
+      + `<div class="reflection-body">`;
+    if (r.home_archive) html += renderTeamArchive(r.home_archive, 'home');
+    if (r.away_archive) html += renderTeamArchive(r.away_archive, 'away');
+    html += `</div></div>`;
+  }
   $('drawerBody').innerHTML = html;
+  // 反思 toggle:写 localStorage + 重拉 API(带 with_reflection=1)
+  const toggle = $('reflectToggle');
+  if (toggle && reflectStoreKey) {
+    toggle.checked = reflectStored;
+    toggle.addEventListener('change', () => {
+      try { localStorage.setItem(reflectStoreKey, toggle.checked ? '1' : '0'); } catch {}
+      openDrawer(m.date, m.home, m.away);
+    });
+  }
+}
+
+// ── 队伍档案渲染(反思系统子模块) ─────────────────
+function renderTeamArchive(arch, side) {
+  const CONF = {high:'高可信', medium:'中可信', low:'低可信'};
+  let h = `<div class="ref-team ref-${side}">`
+    + `<div class="ref-team-head"><span class="ref-team-flag">${flag(arch.team || arch.name)}</span>`
+    + `<span class="ref-team-name">${esc(arch.name_zh || arch.team || arch.name)}</span></div>`;
+  const adj = arch.elo_adjustments || [];
+  if (adj.length) {
+    h += `<div class="ref-subhead">长期特征(可迁移)</div>`;
+    for (const a of adj) {
+      const sign = a.value > 0 ? '+' : '';
+      h += `<div class="ref-adj">`
+        + `<span class="ref-adj-key mono">${esc(a.key)}</span>`
+        + `<span class="ref-adj-val">${sign}${a.value}</span>`
+        + `<span class="ref-adj-conf conf-${esc(a.confidence)}">${esc(CONF[a.confidence] || '?')}</span>`
+        + `<span class="ref-adj-note">${esc(a.note || '')}</span></div>`;
+    }
+  }
+  const les = arch.recent_lessons || [];
+  if (les.length) {
+    h += `<div class="ref-subhead">历史错场归因</div>`;
+    for (const l of les) {
+      h += `<div class="ref-lesson ${l.reusable ? 'reusable' : 'oneshot'}">`
+        + `<div class="ref-lesson-head">`
+        + `<span class="ref-lesson-date mono">${esc(l.date)}</span>`
+        + `<span class="ref-lesson-vs">vs ${esc(l.vs)} <small>${esc(l.tournament || '')}</small></span>`
+        + `<span class="ref-lesson-score mono">预 ${esc(l.prediction)} / 真 ${esc(l.actual)}</span>`
+        + `<span class="ref-lesson-tag ${l.reusable ? 'tag-reusable' : 'tag-oneshot'}">${l.reusable ? '✓ 可迁移' : '一次性'}</span>`
+        + `</div><ul class="ref-causes">`;
+      for (const c of (l.causes || [])) h += `<li>${esc(c)}</li>`;
+      h += `</ul></div>`;
+    }
+  }
+  h += `</div>`;
+  return h;
 }
 
 // ── 轮询主循环 ────────────────────────────────────

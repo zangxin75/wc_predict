@@ -584,3 +584,61 @@ body::before{
   .mkt-prob{grid-area:prob}
 }
 
+/* ── AI 反思(实验)── 抽屉开关 + 队伍档案 ── */
+.reflection-section{border-color:rgba(229,180,75,.32)!important;background:linear-gradient(180deg,rgba(229,180,75,.04),transparent)}
+.reflection-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.reflection-head h4{margin:0}
+.badge-exp{font-family:var(--ff-mono);font-size:9px;font-weight:700;padding:1px 5px;border-radius:var(--r-tag);color:var(--gold-hi);background:rgba(229,180,75,.16);border:1px solid rgba(229,180,75,.4);letter-spacing:.05em;vertical-align:middle}
+.reflection-mode-line{margin-top:8px}
+.ref-mode-badge{font-family:var(--ff-mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:var(--r-tag);letter-spacing:.04em;display:inline-block}
+.ref-mode-badge.on{color:#3ee6a8;background:rgba(62,230,168,.12);border:1px solid rgba(62,230,168,.36)}
+.ref-mode-badge.off{color:var(--text-mute);background:var(--bg-elev);border:1px solid var(--border)}
+.reflection-summary{font-family:var(--ff-mono);font-size:11px;color:var(--text-mute);margin-top:6px;letter-spacing:.02em}
+.reflection-body{margin-top:12px;display:flex;flex-direction:column;gap:14px}
+.reflection-body[hidden]{display:none}
+
+/* toggle 开关 */
+.switch{position:relative;display:inline-block;width:38px;height:20px;flex-shrink:0}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;cursor:pointer;inset:0;background:var(--bg-elev);border:1px solid var(--border);border-radius:20px;transition:.25s}
+.slider:before{content:"";position:absolute;height:14px;width:14px;left:2px;top:2px;background:var(--text-mute);border-radius:50%;transition:.25s}
+.switch input:checked + .slider{background:rgba(229,180,75,.22);border-color:rgba(229,180,75,.55)}
+.switch input:checked + .slider:before{transform:translateX(18px);background:var(--gold-hi)}
+
+/* 队伍档案分组 */
+.ref-team{padding:10px 12px;border-radius:var(--r-card);background:var(--bg-card);border:1px solid var(--border)}
+.ref-team-head{display:flex;align-items:center;gap:8px;padding-bottom:8px;border-bottom:1px dashed var(--border)}
+.ref-team-flag{font-size:18px}
+.ref-team-name{font-weight:600;color:var(--gold-hi);letter-spacing:.02em}
+.ref-subhead{font-family:var(--ff-mono);font-size:10px;color:var(--text-mute);margin:10px 0 6px;letter-spacing:.08em;text-transform:uppercase}
+
+/* 长期特征行 */
+.ref-adj{display:grid;grid-template-columns:auto auto auto 1fr;gap:8px;align-items:start;padding:4px 0;font-size:12px;line-height:1.5}
+.ref-adj-key{color:var(--gold);min-width:88px}
+.ref-adj-val{color:var(--gold-hi);font-weight:700;min-width:36px;text-align:right}
+.ref-adj-conf{font-size:9px;padding:1px 5px;border-radius:var(--r-tag);font-family:var(--ff-mono);font-weight:700;letter-spacing:.04em;white-space:nowrap}
+.conf-high{color:#3ee6a8;background:rgba(62,230,168,.14);border:1px solid rgba(62,230,168,.32)}
+.conf-medium{color:var(--gold-hi);background:rgba(229,180,75,.12);border:1px solid rgba(229,180,75,.30)}
+.conf-low{color:var(--text-dim);background:var(--bg-elev);border:1px solid var(--border)}
+.ref-adj-note{color:var(--text-dim);font-size:11px;line-height:1.55}
+
+/* 错场归因块 */
+.ref-lesson{padding:8px 10px;border-radius:var(--r-tag);background:var(--bg-elev);border-left:2px solid var(--text-mute);margin-bottom:6px}
+.ref-lesson.reusable{border-left-color:#3ee6a8;background:rgba(62,230,168,.05)}
+.ref-lesson.oneshot{border-left-color:var(--text-mute);opacity:.78}
+.ref-lesson-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:5px;font-size:11px}
+.ref-lesson-date{color:var(--gold);min-width:74px}
+.ref-lesson-vs{color:var(--text);font-weight:600}
+.ref-lesson-vs small{color:var(--text-mute);font-weight:400;font-size:10px;margin-left:4px}
+.ref-lesson-score{color:var(--text-dim);font-size:10px}
+.ref-lesson-tag{font-size:9px;padding:1px 6px;border-radius:var(--r-tag);font-family:var(--ff-mono);font-weight:700;letter-spacing:.04em;margin-left:auto}
+.tag-reusable{color:#3ee6a8;background:rgba(62,230,168,.14);border:1px solid rgba(62,230,168,.32)}
+.tag-oneshot{color:var(--text-dim);background:var(--bg-card);border:1px solid var(--border)}
+.ref-causes{margin:0;padding-left:18px;font-size:11px;color:var(--text-dim);line-height:1.6}
+.ref-causes li{margin-bottom:2px}
+
+@media(max-width:520px){
+  .ref-adj{grid-template-columns:1fr;gap:2px}
+  .ref-adj-key,.ref-adj-val,.ref-adj-conf{min-width:0;text-align:left}
+}
+
