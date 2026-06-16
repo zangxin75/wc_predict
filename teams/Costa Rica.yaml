@@ -1,0 +1,33 @@
+name: Costa Rica
+name_zh: Costa Rica
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-27'
+  tournament: 2022 卡塔尔 错场
+  vs: Japan
+  venue: neutral
+  prediction: 1-1
+  actual: 0-1
+  miss_type: result
+  causes:
+  - 日本队大面积轮换首发阵容(相比击败德国轮换多达5人),导致前场默契度下降且攻坚乏力
+  - 哥斯达黎加放弃首场的开放式打法,采用5后卫极致低位防守,成功限制日本队的边路渗透
+  - 日本队全场得势不得分,攻坚阶段传中质量与终结能力低下,未能将控球率转化为实质威胁
+  - 哥斯达黎加门将纳瓦斯状态神勇,并在全场唯一射门中由富勒完成致命一击
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-17'
+  tournament: 2018 俄罗斯 错场
+  vs: Serbia
+  venue: neutral
+  prediction: 1-1
+  actual: 0-1
+  miss_type: result
+  causes:
+  - 米特洛维奇在前场的支点作用明显，其头球争顶和牵制力打破了哥斯达黎加的防线平衡
+  - 塞尔维亚通过马蒂奇和米林科维奇在中场形成绝对的战术压制，切断了哥斯达黎加的反击发起点
+  - 科拉罗夫高质量的直接任意球破门打破了僵局，在势均力敌的比赛中直接改变了比赛走向
+  - 哥斯达黎加核心球员（如纳瓦斯、鲁伊斯）整体老化，面对欧洲球队的高强度身体对抗处于下风
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

@@ -1,0 +1,60 @@
+name: Germany
+name_zh: Germany
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-23'
+  tournament: 2022 卡塔尔 错场
+  vs: Japan
+  venue: neutral
+  prediction: 1-1
+  actual: 1-2
+  miss_type: result
+  causes:
+  - 日本队主帅森保一上半场稳固防守消耗德国体能，下半场换上三笘薰、浅野拓磨等生力军实施高强度反击战术成功压制
+  - 诺伊尔面对堂安律的近距离补射出现罕见的扑救失误，导致比分被扳平
+  - 权田修一单场贡献多次神扑（特别是上半场面对劳姆和京多安的必进球），力保日本队未在开局崩盘
+  - 德国队中卫吕迪格在防守伊东纯也时出现高傲的“高抬腿”跑动，随后防线整体注意力不集中，被浅野拓磨从死角爆射反超
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-11-27'
+  tournament: 2022 卡塔尔 错场
+  vs: Spain
+  venue: neutral
+  prediction: 1-1
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 系统未能准确量化2022卡塔尔世界杯小组赛末轮德国队背水一战的绝境心理与战术倾巢而出
+  - 系统低估了德国队中后场（如基米希、格雷茨卡）在生死战中的控球与抗压能力
+  - 系统未能预判西班牙主帅恩里克在出线形势大好下的战术保守与控球消耗策略
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-17'
+  tournament: 2018 俄罗斯 错场
+  vs: Mexico
+  venue: neutral
+  prediction: 1-1
+  actual: 0-1
+  miss_type: result
+  causes:
+  - 墨西哥采用极致的快速防守反击战术，利用边路（洛萨诺）的速度直接打穿德国高位防线，洛萨诺第35分钟反击破门
+  - 德国战术严重老化且缺乏突破点，勒夫固执使用无锋阵，导致进攻陷入无效的横向传导，未能制造实质威胁
+  - 墨西哥门将奥乔亚表现开挂，全场贡献9次神勇扑救（特别是化解克罗斯任意球），彻底粉碎德国的进球期望
+  - 卫冕冠军存在明显的心理包袱与轻敌情绪，落后时战术急躁，体能与跑动数据均被墨西哥压制
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-27'
+  tournament: 2018 俄罗斯 错场
+  vs: South Korea
+  venue: neutral
+  prediction: 0-2
+  actual: 2-0
+  miss_type: result
+  causes:
+  - 战术压制：韩国主帅申台龙针对德国队防线转身慢、两翼卫防守空当大的弱点，部署了极具针对性的快速反击和高位逼抢战术
+  - 心理崩溃：作为卫冕冠军的德国队背负着极大的必胜出线压力，导致全队战术急躁、传切配合频频失误，缺乏破密集防守的耐心
+  - 球员表现：韩国门将赵贤祐全场贡献多次神扑（化解维尔纳、格雷茨卡等必进球），并在下半场零封德国队，极大打击了德国队的士气
+  - 体能透支：德国队在下半场大举压上导致阵型严重脱节，在比赛最后阶段（补时阶段）防线体能断崖式下降，被韩国队连入两球
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

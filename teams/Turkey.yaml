@@ -1,0 +1,18 @@
+name: Turkey
+name_zh: Turkey
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2026-06-14'
+  tournament: 2026 美加墨世界杯
+  vs: Australia
+  venue: neutral
+  prediction: 1-1
+  actual: 2-0
+  miss_type: result
+  causes:
+  - 澳大利亚利用北美主场（或地理相近的海外球迷优势）展现出极强的身体对抗和高空轰炸能力，定位球战术成功打破僵局。
+  - 土耳其中场核心在世界杯高压环境下失控，攻防转换节奏被澳大利亚的凶悍逼抢彻底切断，导致进攻端全面哑火。
+  - 系统低估了澳大利亚在洲际大赛中的防守韧性与低位防守组织力，成功零封对手。
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

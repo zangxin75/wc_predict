@@ -1,0 +1,19 @@
+name: Ivory Coast
+name_zh: Ivory Coast
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2026-06-14'
+  tournament: 2026 美加墨世界杯
+  vs: Ecuador
+  venue: neutral
+  prediction: 1-1
+  actual: 1-0
+  miss_type: result
+  causes:
+  - 科特迪瓦中卫阿格博尔多与辛顿组成的防线在世界杯高强度对抗中展现出顶级的低位防守纪律，成功零封厄瓜多尔
+  - 厄瓜多尔核心中场凯塞多遭到科特迪瓦后腰福法纳的贴身肉搏与战术犯规限制，导致其由守转攻的推进和传球网络被切断
+  - 厄瓜多尔过于依赖瓦伦西亚的锋线支点，缺乏第二攻击点的后插上终结能力，导致运动战进攻雷声大雨点小
+  - 厄瓜多尔在下半场比分落后时大举压上，阵型脱节，被科特迪瓦通过快速反击制造致命威胁并转化为唯一进球
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

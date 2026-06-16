@@ -1,0 +1,45 @@
+name: Ecuador
+name_zh: Ecuador
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-25'
+  tournament: 2022 卡塔尔 错场
+  vs: Netherlands
+  venue: neutral
+  prediction: 1-1
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 系统预测的1-1与实际比分完全一致，预测并未出错，系统对这场势均力敌且进球数极少的比赛判断极其精准
+  - 加克波开场早早进球打破僵局，但厄瓜多尔凭借埃斯图皮尼安的进球迅速扳平，随后双方均未能把握住绝对得分机会
+  - 厄瓜多尔全场采用高强度的高位压迫战术，成功限制了荷兰队的中后场出球并掌控了比赛节奏，导致荷兰未能打出预期进攻
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-11-29'
+  tournament: 2022 卡塔尔 错场
+  vs: Senegal
+  venue: neutral
+  prediction: 1-1
+  actual: 1-2
+  miss_type: result
+  causes:
+  - 厄瓜多尔主力后腰门德斯因伤缺阵，导致中场拦截硬度下降并失去攻防转换枢纽
+  - 塞内加尔边锋伊斯梅拉·萨尔状态爆种，造点并亲罚命中，打破了系统预期的平局僵局
+  - 厄瓜多尔在比分落后时大举压上，后防暴露出盯防定位球和高空球的漏洞，被库利巴利角球破门
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-14'
+  tournament: 2026 美加墨世界杯
+  vs: Ivory Coast
+  venue: neutral
+  prediction: 1-1
+  actual: 1-0
+  miss_type: result
+  causes:
+  - 科特迪瓦中卫阿格博尔多与辛顿组成的防线在世界杯高强度对抗中展现出顶级的低位防守纪律，成功零封厄瓜多尔
+  - 厄瓜多尔核心中场凯塞多遭到科特迪瓦后腰福法纳的贴身肉搏与战术犯规限制，导致其由守转攻的推进和传球网络被切断
+  - 厄瓜多尔过于依赖瓦伦西亚的锋线支点，缺乏第二攻击点的后插上终结能力，导致运动战进攻雷声大雨点小
+  - 厄瓜多尔在下半场比分落后时大举压上，阵型脱节，被科特迪瓦通过快速反击制造致命威胁并转化为唯一进球
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

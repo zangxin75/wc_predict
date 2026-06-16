@@ -1,0 +1,59 @@
+name: England
+name_zh: England
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-21'
+  tournament: 2022 卡塔尔 错场
+  vs: Iran
+  venue: neutral
+  prediction: 1-1
+  actual: 6-2
+  miss_type: result
+  causes:
+  - 伊朗门将贝兰万德开场受伤离场，替补门将侯赛尼实力差距导致防线心理与防守体系崩盘
+  - 英格兰前场青春风暴（萨卡、贝林厄姆、斯特林）的穿插跑动对伊朗低位防守形成战术降维打击
+  - 伊朗球员在落后时抗压能力极差，防守端多次出现眼神防守与失位，导致单场净负4球
+  - 超长补时新规放大了强弱差距，英格兰在上下半场补时阶段均取得进球
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-11-25'
+  tournament: 2022 卡塔尔 错场
+  vs: United States
+  venue: neutral
+  prediction: 1-1
+  actual: 0-0
+  miss_type: result
+  causes:
+  - 美国队采用极具破坏性的全场高位逼抢和中路密集防守，成功切断了英格兰双后腰（贝林厄姆与德克兰赖斯）与锋线之间的联系
+  - 英格兰首发边锋（福登、萨卡）被美国队边后卫严密限制，导致球队进攻完全缺乏宽度与纵深，难以制造实质性威胁
+  - 美国队中场核心麦肯尼和亚当斯在攻防两端表现极佳，不仅完全掌控了中场节奏，还在对抗中占据了绝对优势
+  - 英格兰球员在场上表现出轻敌心理，跑动距离与比赛投入度明显不及对手，缺乏破密集防守的有效B计划
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-07-03'
+  tournament: 2018 俄罗斯 错场
+  vs: Colombia
+  venue: neutral
+  prediction: 1-1
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 系统预测的1-1为常规时间比分，但未将淘汰赛晋级机制（加时赛与点球大战）纳入终局预测逻辑，导致对比赛最终结果的判定错误
+  - 英格兰克服了历史性的点球魔咒与心理抗压劣势，门将皮克福德在点球大战中关键扑出巴卡射门
+  - 哥伦比亚在缺少核心J罗（因伤未首发）时进攻组织受阻，但依靠Falcao等人的战术执行力在常规时间尾声绝平将比赛拖入加时
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-07-11'
+  tournament: 2018 俄罗斯 错场
+  vs: Croatia
+  venue: neutral
+  prediction: 1-1
+  actual: 2-1
+  miss_type: result
+  causes:
+  - 英格兰主帅索斯盖特在加时赛末段(118分钟)换下核心前锋哈里·凯恩，导致球队在点球大战前失去前场最重要的战术支点和心理依靠
+  - 克罗地亚门将苏巴西奇在点球大战中扑出亨德森的点球，并凭借心理博弈干扰拉什纳尔等人，直接改变了点球胜负走向
+  - 克罗地亚作为连续经历三场加时赛的球队，展现出极强的战术韧性与抗压能力，在加时赛中并未出现系统预期的体能断崖，反而掌控了比赛节奏
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

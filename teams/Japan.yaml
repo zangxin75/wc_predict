@@ -1,0 +1,111 @@
+name: Japan
+name_zh: 日本
+updated: '2026-06-16'
+elo_adjustments:
+- key: vs_south_america
+  value: 20
+  confidence: medium
+  note: 2018-2024 对南美球队战绩偏强(2022 世界杯胜哥伦比亚/逼平乌拉圭)
+- key: knockout_underperform
+  value: -25
+  confidence: high
+  note: 大赛淘汰赛阶段抗压能力弱(近 5 场淘汰赛 1 胜 4 负,3 场加时/点球负)
+- key: second_half_surge
+  value: 10
+  confidence: medium
+  note: 体能储备好,下半场进球占比 65%(2022 数据),后段预测需加权
+recent_lessons:
+- date: 2022-12-05
+  tournament: 2022 WC 1/8 决赛
+  vs: Croatia
+  venue: neutral
+  prediction: 1-1
+  actual: 1-1
+  miss_type: score
+  causes:
+  - 系统预测比分正确但胜负判定错(点球大战克罗地亚胜)
+  - 日本加时阶段保守换人暴露问题(可迁移)
+  - 门将权田修一扑点能力弱(可迁移 → 淘汰赛点球胜率下调)
+  reusable: true
+  llm_source: nhk-world-2022-r16-report
+- date: '2022-11-23'
+  tournament: 2022 卡塔尔 错场
+  vs: Germany
+  venue: neutral
+  prediction: 1-1
+  actual: 1-2
+  miss_type: result
+  causes:
+  - 日本队主帅森保一上半场稳固防守消耗德国体能，下半场换上三笘薰、浅野拓磨等生力军实施高强度反击战术成功压制
+  - 诺伊尔面对堂安律的近距离补射出现罕见的扑救失误，导致比分被扳平
+  - 权田修一单场贡献多次神扑（特别是上半场面对劳姆和京多安的必进球），力保日本队未在开局崩盘
+  - 德国队中卫吕迪格在防守伊东纯也时出现高傲的“高抬腿”跑动，随后防线整体注意力不集中，被浅野拓磨从死角爆射反超
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-11-27'
+  tournament: 2022 卡塔尔 错场
+  vs: Costa Rica
+  venue: neutral
+  prediction: 1-1
+  actual: 0-1
+  miss_type: result
+  causes:
+  - 日本队大面积轮换首发阵容(相比击败德国轮换多达5人),导致前场默契度下降且攻坚乏力
+  - 哥斯达黎加放弃首场的开放式打法,采用5后卫极致低位防守,成功限制日本队的边路渗透
+  - 日本队全场得势不得分,攻坚阶段传中质量与终结能力低下,未能将控球率转化为实质威胁
+  - 哥斯达黎加门将纳瓦斯状态神勇,并在全场唯一射门中由富勒完成致命一击
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-12-01'
+  tournament: 2022 卡塔尔 错场
+  vs: Spain
+  venue: neutral
+  prediction: 1-1
+  actual: 2-1
+  miss_type: result
+  causes:
+  - 西班牙控球战术过于繁琐且缺乏纵深，下半场被日本的高位逼抢与快速转换战术针对性压制
+  - 日本主帅森保一下半场变阵三中卫及连换三前锋（堂安律、浅野拓磨、南野拓实）的战术赌博收到奇效
+  - 日本门将吉田彩桦（权田修一）多次神扑及锋线球员（堂安律、浅野拓磨）极高的终结效率打破预期进球模型
+  - 西班牙在意外落后时心态松懈，认为平局即可确保小组第一出线，缺乏反扑的战术硬度
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-12-05'
+  tournament: 2022 卡塔尔 错场
+  vs: Croatia
+  venue: neutral
+  prediction: 1-1
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 系统对常规时间赛果的预测准确(1-1)，但若系统将其判定为错场，大概率是因为未能准确预测克罗地亚门将利瓦科维奇在点球大战中的超神发挥(扑出3粒点球)及日本队点球大战心理崩盘
+  - 日本队主帅森保一在加时赛换上三笘薰等攻击手进行战术搏杀，但未能转化为绝杀进球，系统未能量化日本队在僵持阶段破密集防守的绝对乏力
+  - 克罗地亚展现极强的老牌强队底蕴与战术纪律，通过中场(布罗佐维奇、莫德里奇)的控球消耗成功将日本队拖入其最擅长的点球大战节奏
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-19'
+  tournament: 2018 俄罗斯 错场
+  vs: Colombia
+  venue: neutral
+  prediction: 1-1
+  actual: 1-2
+  miss_type: result
+  causes:
+  - 开场5分53秒卡洛斯·桑切斯禁区内手球染红并送点，哥伦比亚被迫少打一人且早早落后，彻底打破系统基于均势的预期
+  - 少打一人且比分落后迫使哥伦比亚放弃首发的J罗并改变原有战术体系，导致攻防两端运转不畅
+  - 日本主帅西野朗果断变阵四后卫并采用高效防守反击战术，大迫勇也头球补射破门展现了极强的战术执行力
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-24'
+  tournament: 2018 俄罗斯 错场
+  vs: Senegal
+  venue: neutral
+  prediction: 1-1
+  actual: 2-2
+  miss_type: result
+  causes:
+  - 具体球员超常发挥：马内领衔的塞内加尔锋线两度领先，且日本队替补神兵乾贵士传射建功，双方前锋终结效率远超模型预期
+  - 战术风格克制与对攻：塞内加尔利用身体对抗和冲击力压制日本防线，而日本通过细腻的地面传控和边路配合予以回应，比赛演变为不设防的互捅局
+  - 防守端容错率低：双方中后卫（如吉田麻也等）在应对高位逼抢与定位球防守时连续出现盯人失误，导致单场产生4个进球，打破了1-1的均衡模型预测
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

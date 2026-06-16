@@ -1,0 +1,32 @@
+name: Cameroon
+name_zh: Cameroon
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-28'
+  tournament: 2022 卡塔尔 错场
+  vs: Serbia
+  venue: neutral
+  prediction: 0-1
+  actual: 3-3
+  miss_type: result
+  causes:
+  - 塞尔维亚防线压上过度且回防缓慢，被喀麦隆利用快速反击（特别是阿布巴卡尔和舒波-莫廷）两分钟内连入两球打穿
+  - 喀麦隆门将奥纳纳缺席导致防线缺乏弹性与后场出球组织，但替补门将埃帕西-姆比表现超预期，且全队展现出极强的逆境韧性
+  - 塞尔维亚主帅斯托伊科维奇战术重攻轻守，领先后阵型松散，未能将控球和身体优势转化为稳固的比分优势
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-12-02'
+  tournament: 2022 卡塔尔 错场
+  vs: Brazil
+  venue: neutral
+  prediction: 0-2
+  actual: 1-0
+  miss_type: result
+  causes:
+  - 巴西队已提前锁定小组第一，主帅蒂特进行大规模轮换，派上纯替补阵容，导致前场进攻缺乏默契与绝对终结能力
+  - 喀麦隆门将埃帕西·姆博基表现出色，全场贡献多次关键扑救力保城门不失
+  - 喀麦隆为争取出线保留理论希望，全队战意极强，防守端众志成城并在比赛最后时刻通过反击由阿布巴卡尔头球绝杀
+  - 巴西替补边锋安东尼多次错失破门良机，且VAR介入吹掉了巴西队一粒进球
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

@@ -1,0 +1,33 @@
+name: Qatar
+name_zh: Qatar
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-25'
+  tournament: 2022 卡塔尔 错场
+  vs: Senegal
+  venue: neutral
+  prediction: 1-1
+  actual: 1-3
+  miss_type: result
+  causes:
+  - 东道主首战惨败后的心理防线崩溃与高压下的抗压能力极差
+  - 塞内加尔依靠身体机能与冲击力（如迪亚、迪耶迪乌）对卡塔尔防线形成绝对的战术压制
+  - 卡塔尔后卫线（如胡希）个人防守失误直接导致丢球，且门将巴里迪昂扑救表现低迷
+  - 系统低估了东道主在世界杯正赛高强度节奏下与非洲顶级球队的真实身体天赋差距
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-13'
+  tournament: 2026 美加墨世界杯
+  vs: Switzerland
+  venue: neutral
+  prediction: 0-2
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 瑞士队阵容老化且处于新老交替期，中场覆盖能力下降，面对卡塔尔的归化球员中场绞杀未能形成有效控制
+  - 卡塔尔作为2022世界杯东道主积累了丰富的大赛经验，且具备中北美洲（美加墨）的气候与地理适应性优势
+  - 瑞士队进攻端缺乏终结能力（锋线乏力），阵地战破密集防守手段单一，未能打进系统预测的第二球
+  - 卡塔尔采取务实的5-4-1防守反击战术，利用阿菲夫的个人能力反击造点或制造威胁，成功偷得一分
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

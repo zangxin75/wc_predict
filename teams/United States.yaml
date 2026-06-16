@@ -1,0 +1,45 @@
+name: United States
+name_zh: United States
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-21'
+  tournament: 2022 卡塔尔 错场
+  vs: Wales
+  venue: neutral
+  prediction: 1-1
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 美国队上半场高位逼抢和快节奏冲击战术奏效，由普利西奇助攻蒂莫西·维阿率先破门
+  - 威尔士下半场通过长传冲吊战术制造威胁，并依靠贝尔在第82分钟凭借个人能力制造点球并主罚命中
+  - 双方在常规战术博弈中互相限制，美国队下半场体能下降导致中场失控，而威尔士缺乏持续穿透防线的运动战能力
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-11-25'
+  tournament: 2022 卡塔尔 错场
+  vs: England
+  venue: neutral
+  prediction: 1-1
+  actual: 0-0
+  miss_type: result
+  causes:
+  - 美国队采用极具破坏性的全场高位逼抢和中路密集防守，成功切断了英格兰双后腰（贝林厄姆与德克兰赖斯）与锋线之间的联系
+  - 英格兰首发边锋（福登、萨卡）被美国队边后卫严密限制，导致球队进攻完全缺乏宽度与纵深，难以制造实质性威胁
+  - 美国队中场核心麦肯尼和亚当斯在攻防两端表现极佳，不仅完全掌控了中场节奏，还在对抗中占据了绝对优势
+  - 英格兰球员在场上表现出轻敌心理，跑动距离与比赛投入度明显不及对手，缺乏破密集防守的有效B计划
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-11-29'
+  tournament: 2022 卡塔尔 错场
+  vs: Iran
+  venue: neutral
+  prediction: 1-1
+  actual: 0-1
+  miss_type: result
+  causes:
+  - 美国队采取了极具侵略性的全场高位逼抢战术，成功切断了伊朗队的后场出球路线，导致伊朗攻防转换彻底瘫痪
+  - 美国队核心边锋克里斯蒂安·普利西奇表现极其出色，并在上半场第38分钟通过极致的套边前插打进关键制胜球
+  - 伊朗队因必须保平才能出线的心理包袱导致战术过于保守，且在比分落后时缺乏有效的B计划进行战术反制
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

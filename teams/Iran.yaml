@@ -1,0 +1,71 @@
+name: Iran
+name_zh: Iran
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-21'
+  tournament: 2022 卡塔尔 错场
+  vs: England
+  venue: neutral
+  prediction: 1-1
+  actual: 6-2
+  miss_type: result
+  causes:
+  - 伊朗门将贝兰万德开场受伤离场，替补门将侯赛尼实力差距导致防线心理与防守体系崩盘
+  - 英格兰前场青春风暴（萨卡、贝林厄姆、斯特林）的穿插跑动对伊朗低位防守形成战术降维打击
+  - 伊朗球员在落后时抗压能力极差，防守端多次出现眼神防守与失位，导致单场净负4球
+  - 超长补时新规放大了强弱差距，英格兰在上下半场补时阶段均取得进球
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-11-29'
+  tournament: 2022 卡塔尔 错场
+  vs: United States
+  venue: neutral
+  prediction: 1-1
+  actual: 0-1
+  miss_type: result
+  causes:
+  - 美国队采取了极具侵略性的全场高位逼抢战术，成功切断了伊朗队的后场出球路线，导致伊朗攻防转换彻底瘫痪
+  - 美国队核心边锋克里斯蒂安·普利西奇表现极其出色，并在上半场第38分钟通过极致的套边前插打进关键制胜球
+  - 伊朗队因必须保平才能出线的心理包袱导致战术过于保守，且在比分落后时缺乏有效的B计划进行战术反制
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-15'
+  tournament: 2018 俄罗斯 错场
+  vs: Morocco
+  venue: neutral
+  prediction: 1-1
+  actual: 0-1
+  miss_type: result
+  causes:
+  - 摩洛哥全场狂攻但锋线终结能力极差（特别是阿姆拉巴特击中横梁），未能将场面优势转化为进球，导致系统预测的进球数偏高
+  - 伊朗主帅奎罗斯布置了极致的低位防守与反击战术，成功限制了摩洛哥的边路起球与中路渗透，使得系统预期的1球未能兑现
+  - 比赛第95分钟发生极低概率事件：摩洛哥替补前锋布哈杜兹在防守伊朗任意球时自摆乌龙，直接将系统预测的1-1平局变为0-1
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-25'
+  tournament: 2018 俄罗斯 错场
+  vs: Portugal
+  venue: neutral
+  prediction: 1-1
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 系统预测的1-1与实际比分完全一致，此为系统预测正确而非错场
+  - 若系统将此场标记为错场，可能是由于对进球时机或比赛进程（如夸雷斯马第45分钟进球与伊朗点球绝平）的动态预期存在偏差
+  - 伊朗队在下半场补时阶段展现出极强的战术执行力与心理韧性，通过高位逼抢制造葡萄牙后卫失误获得点球
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-16'
+  tournament: 2026 美加墨世界杯
+  vs: New Zealand
+  venue: neutral
+  prediction: 1-1
+  actual: 2-2
+  miss_type: result
+  causes:
+  - 新西兰高空轰炸与身体对抗战术奏效，伊朗防线应对传中球时防空能力不足导致定位球与边路起球连续失分
+  - 伊朗队由攻转守阶段阵型松散，中场缺乏有效拦截屏障，被新西兰队多次通过简洁高效的防守反击抓出空当
+  - 新西兰门将超预期发挥与前锋极高的转化率，在处于场面被动及预期进球数（xG）落后的情况下逼平强敌
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

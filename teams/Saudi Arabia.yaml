@@ -1,0 +1,60 @@
+name: Saudi Arabia
+name_zh: Saudi Arabia
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-22'
+  tournament: 2022 卡塔尔 错场
+  vs: Argentina
+  venue: neutral
+  prediction: 2-0
+  actual: 1-2
+  miss_type: result
+  causes:
+  - 沙特采用了极具侵略性的高位防线与造越位战术，导致阿根廷上半场3个进球被吹无效，成功打乱了阿根廷的进攻节奏
+  - 沙特球员在下半场开局阶段通过萨勒姆·达瓦萨里的个人能力连进两球，且全队保持了极高强度的全场逼抢
+  - 阿根廷核心老将（如梅西、迪马利亚、奥塔门迪）面对亚洲球队极端的体能化冲击和身体对抗出现严重的不适应
+  - 沙特门将奥韦斯表现神勇，贡献多次关键扑救，化解了阿根廷预期进球极高的射门机会
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-14'
+  tournament: 2018 俄罗斯 错场
+  vs: Russia
+  venue: neutral
+  prediction: 1-1
+  actual: 5-0
+  miss_type: result
+  causes:
+  - 沙特中场核心阿卜杜拉-奥泰夫伤缺及后腰奥马尔-豪萨维伤退，导致球队中场拦截硬度断崖式下降，防线直接暴露在俄罗斯火力之下
+  - 俄罗斯替补奇兵久巴登场后的战术支点作用（造点+进球）彻底摧毁了沙特脆弱的防线，替补席深度差异巨大
+  - 俄罗斯作为东道主在揭幕战享有极大的主场气势与肾上腺素加成，而沙特球员在全场高压下出现严重的心理溃败与体能断崖
+  - 切里舍夫与戈洛温的边路爆破与终结能力远超系统对俄罗斯进攻效率的预期评估（两人合计3球2助攻）
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-25'
+  tournament: 2018 俄罗斯 错场
+  vs: Egypt
+  venue: neutral
+  prediction: 1-1
+  actual: 2-1
+  miss_type: result
+  causes:
+  - 埃及核心萨拉赫在赛季末欧冠重伤后强行带伤出战，身体状态与终结能力大幅下滑，未能发挥战术核心作用
+  - 沙特针对埃及防线回防慢的弱点，在下半场补时阶段通过边路传中由多萨里完成绝杀
+  - 两队均已提前小组出局，比赛沦为纯粹的荣誉战，系统模型难以量化这种无压力环境下的极端心理波动与防守松懈
+  reusable: false
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-15'
+  tournament: 2026 美加墨世界杯
+  vs: Uruguay
+  venue: neutral
+  prediction: 0-1
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 沙特阿拉伯在2022世界杯击败阿根廷后建立的强强对话自信心与抗压韧性，使其面对南美劲旅时不再未战先怯
+  - 沙特归化球员与欧洲联赛效力的海归球员（如萨勒姆·达瓦萨里等）提升了球队中前场的战术执行力与单兵作战能力，成功打入一球
+  - 乌拉圭处于新老交替期，防线（如戈丁等老将淡出后）在面对亚洲球队快速灵活的防守反击时暴露出转身慢与盯人漏洞
+  - 2026美加墨世界杯的赛地环境（如夏季高温或高海拔）可能削弱了乌拉圭的体能优势，导致领先后未能守住胜局
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

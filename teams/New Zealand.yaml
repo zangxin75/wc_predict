@@ -1,0 +1,18 @@
+name: New Zealand
+name_zh: New Zealand
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2026-06-16'
+  tournament: 2026 美加墨世界杯
+  vs: Iran
+  venue: neutral
+  prediction: 1-1
+  actual: 2-2
+  miss_type: result
+  causes:
+  - 新西兰高空轰炸与身体对抗战术奏效，伊朗防线应对传中球时防空能力不足导致定位球与边路起球连续失分
+  - 伊朗队由攻转守阶段阵型松散，中场缺乏有效拦截屏障，被新西兰队多次通过简洁高效的防守反击抓出空当
+  - 新西兰门将超预期发挥与前锋极高的转化率，在处于场面被动及预期进球数（xG）落后的情况下逼平强敌
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

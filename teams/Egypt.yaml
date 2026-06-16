@@ -1,0 +1,45 @@
+name: Egypt
+name_zh: Egypt
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2018-06-19'
+  tournament: 2018 俄罗斯 错场
+  vs: Russia
+  venue: neutral
+  prediction: 1-1
+  actual: 3-1
+  miss_type: result
+  causes:
+  - 埃及核心萨拉赫伤愈复出后状态平庸且缺乏冲刺爆发力，未能发挥战术牵制作用
+  - 埃及老将法特希在第47分钟防守失误打入灾难性乌龙球，直接导致心理防线崩盘
+  - 俄罗斯利用东道主主场气势与体能优势，通过高中锋久巴的支点作用进行战术压制
+  - 埃及队长埃尔内尼中场失控，未能限制俄罗斯边路高效的下底传中战术
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-25'
+  tournament: 2018 俄罗斯 错场
+  vs: Saudi Arabia
+  venue: neutral
+  prediction: 1-1
+  actual: 2-1
+  miss_type: result
+  causes:
+  - 埃及核心萨拉赫在赛季末欧冠重伤后强行带伤出战，身体状态与终结能力大幅下滑，未能发挥战术核心作用
+  - 沙特针对埃及防线回防慢的弱点，在下半场补时阶段通过边路传中由多萨里完成绝杀
+  - 两队均已提前小组出局，比赛沦为纯粹的荣誉战，系统模型难以量化这种无压力环境下的极端心理波动与防守松懈
+  reusable: false
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-15'
+  tournament: 2026 美加墨世界杯
+  vs: Belgium
+  venue: neutral
+  prediction: 1-1
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 系统预测的1-1与实际结果完全一致，预测逻辑准确命中了比利时进攻端缺乏终结能力与埃及防守反击战术的平衡点
+  - 比利时中场控制力下降，面对埃及密集的低位防守未能有效创造出绝对得分机会，仅依靠个人能力打入一球
+  - 埃及队采用稳守反击战术，防线组织严密且门将发挥出色，成功限制了比利时的进攻火力并利用反击扳平比分
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

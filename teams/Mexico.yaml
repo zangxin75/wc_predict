@@ -1,0 +1,46 @@
+name: Mexico
+name_zh: Mexico
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-22'
+  tournament: 2022 卡塔尔 错场
+  vs: Poland
+  venue: neutral
+  prediction: 1-1
+  actual: 0-0
+  miss_type: result
+  causes:
+  - 波兰门将什琴斯尼神勇发挥并扑出莱万多夫斯基创造的点球，直接扼杀了系统预测的进球预期
+  - 墨西哥主帅马蒂诺采取极其保守的战术，进攻端缺乏纵深与终结能力，未能创造足够实质性威胁
+  - 双方中场陷入低效缠斗，波兰将进攻重任过度集中于莱万，整体进攻体系被墨西哥成功切割限制
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-17'
+  tournament: 2018 俄罗斯 错场
+  vs: Germany
+  venue: neutral
+  prediction: 1-1
+  actual: 0-1
+  miss_type: result
+  causes:
+  - 墨西哥采用极致的快速防守反击战术，利用边路（洛萨诺）的速度直接打穿德国高位防线，洛萨诺第35分钟反击破门
+  - 德国战术严重老化且缺乏突破点，勒夫固执使用无锋阵，导致进攻陷入无效的横向传导，未能制造实质威胁
+  - 墨西哥门将奥乔亚表现开挂，全场贡献9次神勇扑救（特别是化解克罗斯任意球），彻底粉碎德国的进球期望
+  - 卫冕冠军存在明显的心理包袱与轻敌情绪，落后时战术急躁，体能与跑动数据均被墨西哥压制
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-27'
+  tournament: 2018 俄罗斯 错场
+  vs: Sweden
+  venue: neutral
+  prediction: 1-1
+  actual: 0-3
+  miss_type: result
+  causes:
+  - 出线形势与心理压力错配：墨西哥打平即可出线，球员背负极大的‘保平’心理包袱导致动作僵硬；瑞典必须全取三分确保晋级，展现出更强的求胜欲与战术执行力。
+  - 战术针对性压制：瑞典利用高位逼抢和强力身体对抗，成功切断了墨西哥中场与前锋（如埃尔南德斯）的联系，导致墨西哥地面传控体系完全失效。
+  - 定位球防守崩盘：瑞典首开纪录的进球来自卢斯蒂格头球摆渡，奥古斯丁松凌空扫射破门，暴露出墨西哥在防守端对瑞典高大球员的防空与定位球盯防存在严重漏洞。
+  - 防线压上导致反击失血：墨西哥在落后被迫压上进攻时，后场暴露巨大空当，被瑞典的快速反击（格拉奎斯特点球与阿尔瓦雷斯乌龙）连续惩罚。
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

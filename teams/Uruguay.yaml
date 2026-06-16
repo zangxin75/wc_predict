@@ -1,0 +1,59 @@
+name: Uruguay
+name_zh: Uruguay
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-24'
+  tournament: 2022 卡塔尔 错场
+  vs: South Korea
+  venue: neutral
+  prediction: 1-1
+  actual: 0-0
+  miss_type: result
+  causes:
+  - 韩国中卫金英权领衔的防线采取极其谨慎的低位防守，成功限制了达尔文·努涅斯等乌拉圭攻击手的纵深空间
+  - 乌拉圭全场进攻缺乏锐度，中场创造力不足，且运气欠佳（戈丁头球中柱，巴尔韦德远射中柱）
+  - 韩国主帅本托制定了极具针对性的战术，通过双后腰绞杀有效切断了乌拉圭中场与锋线的联系，促成互交白卷
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-11-28'
+  tournament: 2022 卡塔尔 错场
+  vs: Portugal
+  venue: neutral
+  prediction: 1-1
+  actual: 2-0
+  miss_type: result
+  causes:
+  - B费(布鲁诺·费尔南德斯)核心向表现超常,直接包办两球(一传一射),打破双方进攻效率平衡
+  - 佩佩领衔的防线与后腰屏障完美限制苏亚雷斯与卡瓦尼,导致乌拉圭运动战零射正
+  - 乌拉圭主帅塔瓦雷斯保守的战术与迟缓的换人调整(70分钟后才换上努涅斯),导致落后时缺乏反扑锐度
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-30'
+  tournament: 2018 俄罗斯 错场
+  vs: Portugal
+  venue: neutral
+  prediction: 1-1
+  actual: 2-1
+  miss_type: result
+  causes:
+  - 乌拉圭边后卫卡塞雷斯与中卫希门尼斯频繁送出精准长传，成功压制葡萄牙的高位防线，直接策动两粒进球
+  - 乌拉圭前锋埃丁森·卡瓦尼展现顶级终结能力，个人包办两球，其超强的个人状态打破了系统预期的均势
+  - 葡萄牙中场缺乏向前的纵深传球能力，过度依赖C罗回撤接应，导致进攻端在阵地战中缺乏有效穿透
+  - 葡萄牙在落后时换上夸雷斯马改变节奏，其传中助攻制造了进球，这种替补奇兵的战术变阵增加了比赛变数
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-15'
+  tournament: 2026 美加墨世界杯
+  vs: Saudi Arabia
+  venue: neutral
+  prediction: 0-1
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 沙特阿拉伯在2022世界杯击败阿根廷后建立的强强对话自信心与抗压韧性，使其面对南美劲旅时不再未战先怯
+  - 沙特归化球员与欧洲联赛效力的海归球员（如萨勒姆·达瓦萨里等）提升了球队中前场的战术执行力与单兵作战能力，成功打入一球
+  - 乌拉圭处于新老交替期，防线（如戈丁等老将淡出后）在面对亚洲球队快速灵活的防守反击时暴露出转身慢与盯人漏洞
+  - 2026美加墨世界杯的赛地环境（如夏季高温或高海拔）可能削弱了乌拉圭的体能优势，导致领先后未能守住胜局
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

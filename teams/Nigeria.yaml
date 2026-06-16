@@ -1,0 +1,18 @@
+name: Nigeria
+name_zh: Nigeria
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2018-06-22'
+  tournament: 2018 俄罗斯 错场
+  vs: Iceland
+  venue: neutral
+  prediction: 1-1
+  actual: 2-0
+  miss_type: result
+  causes:
+  - 尼日利亚中场战术调整，下半场增加前场紧逼导致迅速取得进球
+  - 冰岛核心球员西于尔兹松状态低迷并在下半场罚失关键点球，彻底断送追平希望
+  - 冰岛体能下降导致防守端无法应对尼日利亚前锋穆萨的个人速度与冲击力
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

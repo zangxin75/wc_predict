@@ -1,0 +1,60 @@
+name: Tunisia
+name_zh: Tunisia
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-22'
+  tournament: 2022 卡塔尔 错场
+  vs: Denmark
+  venue: neutral
+  prediction: 1-1
+  actual: 0-0
+  miss_type: result
+  causes:
+  - 突尼斯主帅卡德里采取了极具针对性的5-4-1低位防守体系，中场密集站位切断了丹麦双核（埃里克森、霍伊别尔）向锋线的渗透路线
+  - 突尼斯门将达门发挥神勇，高接抵挡化解了埃里克森的远射与林德斯特罗姆的近距离抽射
+  - 丹麦首发中锋多尔贝里状态低迷，缺乏支点作用，导致丹麦进攻端陷入无效控球，锋线终结能力严重不足
+  - 突尼斯后腰阿比丁-斯希里在中场的疯狂扫荡和身体对抗，有效限制了丹麦队的进攻转换节奏
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-11-26'
+  tournament: 2022 卡塔尔 错场
+  vs: Australia
+  venue: neutral
+  prediction: 1-1
+  actual: 0-1
+  miss_type: result
+  causes:
+  - 澳大利亚采用极简且高效的战术，放弃控球专注防守反击，利用中卫苏塔的制空权直接长传找前场，完美克制了突尼斯的阵地战
+  - 突尼斯进攻端严重缺乏终结能力，全场狂轰轰滥炸但禁区内缺乏顶级射手，转化率极低
+  - 突尼斯作为北非球队虽具半个主场优势，但面对澳大利亚凶悍的高强度身体对抗时显得不适应，中场失控
+  - 澳大利亚门将马修·瑞安发挥稳健，后防线整体战术执行力极高，成功零封对手
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-11-30'
+  tournament: 2022 卡塔尔 错场
+  vs: France
+  venue: neutral
+  prediction: 1-1
+  actual: 1-0
+  miss_type: result
+  causes:
+  - 法国队大面积轮换（瓦拉内、格列兹曼等核心未首发或替补）导致前场进攻缺乏默契与终结能力
+  - 突尼斯球员（尤其是中场莱杜尼）展现出极强的战术执行力与防守侵略性，成功切断法国中场输送
+  - 突尼斯前锋哈兹里打入一粒非常精彩的个人长途奔袭进球，打破了系统预期的常规进球期望值（xG）转化率
+  - 比赛末段格列兹曼的绝平进球因 VAR 判定越位在先被取消，直接决定了最终比分
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-28'
+  tournament: 2018 俄罗斯 错场
+  vs: Panama
+  venue: neutral
+  prediction: 1-1
+  actual: 1-2
+  miss_type: result
+  causes:
+  - 比赛处于开放对攻节奏而非保守死守，巴拿马防线严重老化且默契不足，导致单场丢2球
+  - 突尼斯前锋哈兹里传射建功，其个人能力打破僵局并决定了比赛胜负
+  - 突尼斯作为非洲球队面对中北美球队时，在身体对抗与反击推进速度上占据战术优势
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

@@ -1,0 +1,59 @@
+name: Senegal
+name_zh: Senegal
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-25'
+  tournament: 2022 卡塔尔 错场
+  vs: Qatar
+  venue: neutral
+  prediction: 1-1
+  actual: 1-3
+  miss_type: result
+  causes:
+  - 东道主首战惨败后的心理防线崩溃与高压下的抗压能力极差
+  - 塞内加尔依靠身体机能与冲击力（如迪亚、迪耶迪乌）对卡塔尔防线形成绝对的战术压制
+  - 卡塔尔后卫线（如胡希）个人防守失误直接导致丢球，且门将巴里迪昂扑救表现低迷
+  - 系统低估了东道主在世界杯正赛高强度节奏下与非洲顶级球队的真实身体天赋差距
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-11-29'
+  tournament: 2022 卡塔尔 错场
+  vs: Ecuador
+  venue: neutral
+  prediction: 1-1
+  actual: 1-2
+  miss_type: result
+  causes:
+  - 厄瓜多尔主力后腰门德斯因伤缺阵，导致中场拦截硬度下降并失去攻防转换枢纽
+  - 塞内加尔边锋伊斯梅拉·萨尔状态爆种，造点并亲罚命中，打破了系统预期的平局僵局
+  - 厄瓜多尔在比分落后时大举压上，后防暴露出盯防定位球和高空球的漏洞，被库利巴利角球破门
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-19'
+  tournament: 2018 俄罗斯 错场
+  vs: Poland
+  venue: neutral
+  prediction: 1-1
+  actual: 1-2
+  miss_type: result
+  causes:
+  - 后防致命失误送礼：波兰中卫西奥内克在禁区内解围失误撞射自家球门，导致球队意外落后，打乱了系统预期的比赛走势
+  - 定位球防守漏人与反击失球：波兰防线在防守任意球时严重漏人，被尼昂偷袭得手扩大比分，暴露了对非洲球队快速反击的不适应
+  - 战术被克制与核心隐身：波兰过度依赖莱万多夫斯基的单点爆破，但面对库利巴利领衔的严密防线毫无作为，且整体两翼齐飞战术被塞内加尔的高位逼抢彻底切断
+  - 中场失控：塞内加尔中场（特别是格耶）在身体对抗和跑动覆盖上完全压制了波兰的克里霍维亚克和泽林斯基，导致波兰攻防转换彻底瘫痪
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-24'
+  tournament: 2018 俄罗斯 错场
+  vs: Japan
+  venue: neutral
+  prediction: 1-1
+  actual: 2-2
+  miss_type: result
+  causes:
+  - 具体球员超常发挥：马内领衔的塞内加尔锋线两度领先，且日本队替补神兵乾贵士传射建功，双方前锋终结效率远超模型预期
+  - 战术风格克制与对攻：塞内加尔利用身体对抗和冲击力压制日本防线，而日本通过细腻的地面传控和边路配合予以回应，比赛演变为不设防的互捅局
+  - 防守端容错率低：双方中后卫（如吉田麻也等）在应对高位逼抢与定位球防守时连续出现盯人失误，导致单场产生4个进球，打破了1-1的均衡模型预测
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

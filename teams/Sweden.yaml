@@ -1,0 +1,45 @@
+name: Sweden
+name_zh: Sweden
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2018-06-18'
+  tournament: 2018 俄罗斯 错场
+  vs: South Korea
+  venue: neutral
+  prediction: 1-1
+  actual: 1-0
+  miss_type: result
+  causes:
+  - 韩国门将赵贤祐全场贡献6次神勇扑救，高接抵挡化解了瑞典多次必进球机会，硬生生将实际比分维持在1球差距
+  - 瑞典队采用极具针对性的身体对抗与高空轰炸战术，完全压制了韩国队，若非门框与运气因素，比分远不止1-0
+  - 韩国核心攻击手孙兴慜被瑞典严密盯防且孤立无援，导致韩国全场0射正，完全丧失了扳平比分的进攻能力
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-27'
+  tournament: 2018 俄罗斯 错场
+  vs: Mexico
+  venue: neutral
+  prediction: 1-1
+  actual: 0-3
+  miss_type: result
+  causes:
+  - 出线形势与心理压力错配：墨西哥打平即可出线，球员背负极大的‘保平’心理包袱导致动作僵硬；瑞典必须全取三分确保晋级，展现出更强的求胜欲与战术执行力。
+  - 战术针对性压制：瑞典利用高位逼抢和强力身体对抗，成功切断了墨西哥中场与前锋（如埃尔南德斯）的联系，导致墨西哥地面传控体系完全失效。
+  - 定位球防守崩盘：瑞典首开纪录的进球来自卢斯蒂格头球摆渡，奥古斯丁松凌空扫射破门，暴露出墨西哥在防守端对瑞典高大球员的防空与定位球盯防存在严重漏洞。
+  - 防线压上导致反击失血：墨西哥在落后被迫压上进攻时，后场暴露巨大空当，被瑞典的快速反击（格拉奎斯特点球与阿尔瓦雷斯乌龙）连续惩罚。
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-07-03'
+  tournament: 2018 俄罗斯 错场
+  vs: Switzerland
+  venue: neutral
+  prediction: 1-1
+  actual: 1-0
+  miss_type: result
+  causes:
+  - 战术克制：瑞典的高空轰炸与身体对抗战术成功压制了瑞士脆弱的防线，导致瑞士防守端频频出现冒顶与解围失误（直接造就福斯贝里的折射进球）
+  - 核心球员表现：瑞士核心沙奇里在瑞典严密的针对性防守下被彻底孤立，导致瑞士进攻端完全脱节，未能打出系统预期的进攻火力
+  - 比赛模型偏差：系统高估了瑞士在淘汰赛中的抗压能力与进攻终结效率，双方在生死战中均采取极度保守的策略，实际比赛质量远低于预期
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

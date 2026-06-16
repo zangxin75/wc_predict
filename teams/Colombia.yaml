@@ -1,0 +1,31 @@
+name: Colombia
+name_zh: Colombia
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2018-06-19'
+  tournament: 2018 俄罗斯 错场
+  vs: Japan
+  venue: neutral
+  prediction: 1-1
+  actual: 1-2
+  miss_type: result
+  causes:
+  - 开场5分53秒卡洛斯·桑切斯禁区内手球染红并送点，哥伦比亚被迫少打一人且早早落后，彻底打破系统基于均势的预期
+  - 少打一人且比分落后迫使哥伦比亚放弃首发的J罗并改变原有战术体系，导致攻防两端运转不畅
+  - 日本主帅西野朗果断变阵四后卫并采用高效防守反击战术，大迫勇也头球补射破门展现了极强的战术执行力
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-07-03'
+  tournament: 2018 俄罗斯 错场
+  vs: England
+  venue: neutral
+  prediction: 1-1
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 系统预测的1-1为常规时间比分，但未将淘汰赛晋级机制（加时赛与点球大战）纳入终局预测逻辑，导致对比赛最终结果的判定错误
+  - 英格兰克服了历史性的点球魔咒与心理抗压劣势，门将皮克福德在点球大战中关键扑出巴卡射门
+  - 哥伦比亚在缺少核心J罗（因伤未首发）时进攻组织受阻，但依靠Falcao等人的战术执行力在常规时间尾声绝平将比赛拖入加时
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

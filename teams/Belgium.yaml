@@ -1,0 +1,59 @@
+name: Belgium
+name_zh: Belgium
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-27'
+  tournament: 2022 卡塔尔 错场
+  vs: Morocco
+  venue: neutral
+  prediction: 1-1
+  actual: 0-2
+  miss_type: result
+  causes:
+  - 比利时黄金一代严重老化,中场核心德布劳内与后防中坚维尔通伦体能下降,导致攻防转换迟缓且缺乏统治力
+  - 摩洛哥主帅雷格拉吉战术布置极具针对性,通过阿姆拉巴特主导的中场绞杀切断了德布劳内与卢卡库/阿扎尔的联系
+  - 比利时左路防守存在致命漏洞,维尔通伦与卡拉斯科镇守的防线被摩洛哥右路齐耶赫与阿什拉夫反复冲击并导致失球
+  - 摩洛哥替补球员表现具有决定性,阿布赫拉尔与阿姆拉巴特(进球者)在下半场登场后彻底终结了比利时疲软的防线
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-12-01'
+  tournament: 2022 卡塔尔 错场
+  vs: Croatia
+  venue: neutral
+  prediction: 1-1
+  actual: 0-0
+  miss_type: result
+  causes:
+  - 比利时黄金一代老化严重，锋线终结能力断崖式下滑（卢卡库全场错失4次绝对进球机会）
+  - 马丁内斯战术保守且迟缓，直到下半场才换上高位逼抢的德布劳内，前场进攻缺乏纵深与活力
+  - 克罗地亚主动采取稳守反击策略，中场铁三角（莫德里奇、布罗佐维奇、科瓦契奇）放弃控球专注防守拦截，压缩了比赛空间
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-07-06'
+  tournament: 2018 俄罗斯 错场
+  vs: Brazil
+  venue: neutral
+  prediction: 1-1
+  actual: 1-2
+  miss_type: result
+  causes:
+  - 比利时采用极具针对性的防守反击战术，通过孔帕尼、维尔通亨和阿尔德韦雷尔德组成的成熟三中卫体系，成功限制并消耗了巴西的阵地战进攻
+  - 费尔南迪尼奥在第13分钟的乌龙球打乱了巴西的赛前部署，导致巴西队过早陷入急躁情绪并放弃战术耐心
+  - 德布劳内出任伪九号/前腰自由人，利用精准的长传和远射彻底打穿巴西高位防线，并直接打入锁定胜局的第二球
+  - 比利时门将库尔图瓦表现神勇，全场贡献9次扑救（特别是终场前极限扑出内马尔的绝平远射），单场超神表现直接改变了比赛结果
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-15'
+  tournament: 2026 美加墨世界杯
+  vs: Egypt
+  venue: neutral
+  prediction: 1-1
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 系统预测的1-1与实际结果完全一致，预测逻辑准确命中了比利时进攻端缺乏终结能力与埃及防守反击战术的平衡点
+  - 比利时中场控制力下降，面对埃及密集的低位防守未能有效创造出绝对得分机会，仅依靠个人能力打入一球
+  - 埃及队采用稳守反击战术，防线组织严密且门将发挥出色，成功限制了比利时的进攻火力并利用反击扳平比分
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

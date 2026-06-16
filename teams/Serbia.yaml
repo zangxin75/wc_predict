@@ -1,0 +1,45 @@
+name: Serbia
+name_zh: Serbia
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-28'
+  tournament: 2022 卡塔尔 错场
+  vs: Cameroon
+  venue: neutral
+  prediction: 0-1
+  actual: 3-3
+  miss_type: result
+  causes:
+  - 塞尔维亚防线压上过度且回防缓慢，被喀麦隆利用快速反击（特别是阿布巴卡尔和舒波-莫廷）两分钟内连入两球打穿
+  - 喀麦隆门将奥纳纳缺席导致防线缺乏弹性与后场出球组织，但替补门将埃帕西-姆比表现超预期，且全队展现出极强的逆境韧性
+  - 塞尔维亚主帅斯托伊科维奇战术重攻轻守，领先后阵型松散，未能将控球和身体优势转化为稳固的比分优势
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-12-02'
+  tournament: 2022 卡塔尔 错场
+  vs: Switzerland
+  venue: neutral
+  prediction: 1-1
+  actual: 2-3
+  miss_type: result
+  causes:
+  - 瑞士队前场核心沙奇里与锋线恩博洛、弗罗伊勒等人的反击转化率极高，前30分钟便取得2-0领先，直接击穿了系统预期的防守数据模型
+  - 塞尔维亚主帅斯托伊科维奇采用极端漏勺型的高位防守与压迫战术，防线（特别是中卫米伦科维奇）频繁失位，导致球队攻守严重失衡
+  - 塞尔维亚在2-3落后且急需进球的下半场，未能展现出强队应有的战术纪律性，米特洛维奇等锋线球员情绪急躁（甚至出现冲突苗头），进攻效率低下
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-17'
+  tournament: 2018 俄罗斯 错场
+  vs: Costa Rica
+  venue: neutral
+  prediction: 1-1
+  actual: 0-1
+  miss_type: result
+  causes:
+  - 米特洛维奇在前场的支点作用明显，其头球争顶和牵制力打破了哥斯达黎加的防线平衡
+  - 塞尔维亚通过马蒂奇和米林科维奇在中场形成绝对的战术压制，切断了哥斯达黎加的反击发起点
+  - 科拉罗夫高质量的直接任意球破门打破了僵局，在势均力敌的比赛中直接改变了比赛走向
+  - 哥斯达黎加核心球员（如纳瓦斯、鲁伊斯）整体老化，面对欧洲球队的高强度身体对抗处于下风
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

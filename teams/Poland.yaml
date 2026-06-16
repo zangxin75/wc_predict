@@ -1,0 +1,32 @@
+name: Poland
+name_zh: Poland
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-22'
+  tournament: 2022 卡塔尔 错场
+  vs: Mexico
+  venue: neutral
+  prediction: 1-1
+  actual: 0-0
+  miss_type: result
+  causes:
+  - 波兰门将什琴斯尼神勇发挥并扑出莱万多夫斯基创造的点球，直接扼杀了系统预测的进球预期
+  - 墨西哥主帅马蒂诺采取极其保守的战术，进攻端缺乏纵深与终结能力，未能创造足够实质性威胁
+  - 双方中场陷入低效缠斗，波兰将进攻重任过度集中于莱万，整体进攻体系被墨西哥成功切割限制
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-19'
+  tournament: 2018 俄罗斯 错场
+  vs: Senegal
+  venue: neutral
+  prediction: 1-1
+  actual: 1-2
+  miss_type: result
+  causes:
+  - 后防致命失误送礼：波兰中卫西奥内克在禁区内解围失误撞射自家球门，导致球队意外落后，打乱了系统预期的比赛走势
+  - 定位球防守漏人与反击失球：波兰防线在防守任意球时严重漏人，被尼昂偷袭得手扩大比分，暴露了对非洲球队快速反击的不适应
+  - 战术被克制与核心隐身：波兰过度依赖莱万多夫斯基的单点爆破，但面对库利巴利领衔的严密防线毫无作为，且整体两翼齐飞战术被塞内加尔的高位逼抢彻底切断
+  - 中场失控：塞内加尔中场（特别是格耶）在身体对抗和跑动覆盖上完全压制了波兰的克里霍维亚克和泽林斯基，导致波兰攻防转换彻底瘫痪
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

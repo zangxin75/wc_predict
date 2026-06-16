@@ -1,0 +1,31 @@
+name: Iceland
+name_zh: Iceland
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2018-06-16'
+  tournament: 2018 俄罗斯 错场
+  vs: Argentina
+  venue: neutral
+  prediction: 1-0
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 冰岛队采取了极致的深度低位防守（大巴战术）与全员退防，在禁区内形成密集的防守站位，成功封锁了阿根廷的传切与突破空间
+  - 冰岛门将哈尔多松表现神勇，不仅高接抵挡多次化解必进球，还在下半场扑出了梅西的点球，直接改变了比赛结果
+  - 阿根廷缺乏破密集防守的有效手段，进攻过度依赖梅西回撤组织与个人单打，缺乏禁区内的战术变化与强力高空轰炸能力
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-22'
+  tournament: 2018 俄罗斯 错场
+  vs: Nigeria
+  venue: neutral
+  prediction: 1-1
+  actual: 2-0
+  miss_type: result
+  causes:
+  - 尼日利亚中场战术调整，下半场增加前场紧逼导致迅速取得进球
+  - 冰岛核心球员西于尔兹松状态低迷并在下半场罚失关键点球，彻底断送追平希望
+  - 冰岛体能下降导致防守端无法应对尼日利亚前锋穆萨的个人速度与冲击力
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

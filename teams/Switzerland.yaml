@@ -1,0 +1,59 @@
+name: Switzerland
+name_zh: Switzerland
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-12-02'
+  tournament: 2022 卡塔尔 错场
+  vs: Serbia
+  venue: neutral
+  prediction: 1-1
+  actual: 2-3
+  miss_type: result
+  causes:
+  - 瑞士队前场核心沙奇里与锋线恩博洛、弗罗伊勒等人的反击转化率极高，前30分钟便取得2-0领先，直接击穿了系统预期的防守数据模型
+  - 塞尔维亚主帅斯托伊科维奇采用极端漏勺型的高位防守与压迫战术，防线（特别是中卫米伦科维奇）频繁失位，导致球队攻守严重失衡
+  - 塞尔维亚在2-3落后且急需进球的下半场，未能展现出强队应有的战术纪律性，米特洛维奇等锋线球员情绪急躁（甚至出现冲突苗头），进攻效率低下
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-17'
+  tournament: 2018 俄罗斯 错场
+  vs: Brazil
+  venue: neutral
+  prediction: 1-0
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 瑞士队针对性的防守反击战术与中场绞杀（特别是扎卡和贝赫拉米）成功切断了巴西前场攻击群的联系
+  - 瑞士中卫舍尔利用角球机会在开场不久头球破门，打乱了系统预测的常规比赛走势
+  - 瑞士门将索默表现神勇，高接抵挡化解了巴西队（如库蒂尼奥、热苏斯等）的多次必进球机会
+  - 巴西队破密集防守的手段相对单一，且核心内马尔被瑞士后防线重点盯防限制
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-07-03'
+  tournament: 2018 俄罗斯 错场
+  vs: Sweden
+  venue: neutral
+  prediction: 1-1
+  actual: 1-0
+  miss_type: result
+  causes:
+  - 战术克制：瑞典的高空轰炸与身体对抗战术成功压制了瑞士脆弱的防线，导致瑞士防守端频频出现冒顶与解围失误（直接造就福斯贝里的折射进球）
+  - 核心球员表现：瑞士核心沙奇里在瑞典严密的针对性防守下被彻底孤立，导致瑞士进攻端完全脱节，未能打出系统预期的进攻火力
+  - 比赛模型偏差：系统高估了瑞士在淘汰赛中的抗压能力与进攻终结效率，双方在生死战中均采取极度保守的策略，实际比赛质量远低于预期
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-13'
+  tournament: 2026 美加墨世界杯
+  vs: Qatar
+  venue: neutral
+  prediction: 0-2
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 瑞士队阵容老化且处于新老交替期，中场覆盖能力下降，面对卡塔尔的归化球员中场绞杀未能形成有效控制
+  - 卡塔尔作为2022世界杯东道主积累了丰富的大赛经验，且具备中北美洲（美加墨）的气候与地理适应性优势
+  - 瑞士队进攻端缺乏终结能力（锋线乏力），阵地战破密集防守手段单一，未能打进系统预测的第二球
+  - 卡塔尔采取务实的5-4-1防守反击战术，利用阿菲夫的个人能力反击造点或制造威胁，成功偷得一分
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

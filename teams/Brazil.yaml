@@ -1,0 +1,74 @@
+name: Brazil
+name_zh: Brazil
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-12-02'
+  tournament: 2022 卡塔尔 错场
+  vs: Cameroon
+  venue: neutral
+  prediction: 0-2
+  actual: 1-0
+  miss_type: result
+  causes:
+  - 巴西队已提前锁定小组第一，主帅蒂特进行大规模轮换，派上纯替补阵容，导致前场进攻缺乏默契与绝对终结能力
+  - 喀麦隆门将埃帕西·姆博基表现出色，全场贡献多次关键扑救力保城门不失
+  - 喀麦隆为争取出线保留理论希望，全队战意极强，防守端众志成城并在比赛最后时刻通过反击由阿布巴卡尔头球绝杀
+  - 巴西替补边锋安东尼多次错失破门良机，且VAR介入吹掉了巴西队一粒进球
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-12-09'
+  tournament: 2022 卡塔尔 错场
+  vs: Croatia
+  venue: neutral
+  prediction: 0-1
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 克罗地亚中场莫德里奇与布罗佐维奇的极致控球与节奏掌控，成功抵消了巴西预期的进攻压制
+  - 巴西主帅蒂特在加时赛领先后换下内马尔与帕奎塔，导致中场失控且防守端缺乏有效保护
+  - 克罗地亚前锋佩特科维奇在比赛末段的关键扳平进球，展现了球队极强的逆商与韧性
+  - 巴西加时赛与点球大战阶段战术保守，核心球员心理压力过大导致点球大战发挥失常
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-17'
+  tournament: 2018 俄罗斯 错场
+  vs: Switzerland
+  venue: neutral
+  prediction: 1-0
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 瑞士队针对性的防守反击战术与中场绞杀（特别是扎卡和贝赫拉米）成功切断了巴西前场攻击群的联系
+  - 瑞士中卫舍尔利用角球机会在开场不久头球破门，打乱了系统预测的常规比赛走势
+  - 瑞士门将索默表现神勇，高接抵挡化解了巴西队（如库蒂尼奥、热苏斯等）的多次必进球机会
+  - 巴西队破密集防守的手段相对单一，且核心内马尔被瑞士后防线重点盯防限制
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-07-06'
+  tournament: 2018 俄罗斯 错场
+  vs: Belgium
+  venue: neutral
+  prediction: 1-1
+  actual: 1-2
+  miss_type: result
+  causes:
+  - 比利时采用极具针对性的防守反击战术，通过孔帕尼、维尔通亨和阿尔德韦雷尔德组成的成熟三中卫体系，成功限制并消耗了巴西的阵地战进攻
+  - 费尔南迪尼奥在第13分钟的乌龙球打乱了巴西的赛前部署，导致巴西队过早陷入急躁情绪并放弃战术耐心
+  - 德布劳内出任伪九号/前腰自由人，利用精准的长传和远射彻底打穿巴西高位防线，并直接打入锁定胜局的第二球
+  - 比利时门将库尔图瓦表现神勇，全场贡献9次扑救（特别是终场前极限扑出内马尔的绝平远射），单场超神表现直接改变了比赛结果
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-13'
+  tournament: 2026 美加墨世界杯
+  vs: Morocco
+  venue: neutral
+  prediction: 1-1
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 系统预测逻辑存在误区：系统将1-1的平局判定为'预测错误'，但实际上系统对比分的预测是完全精准的
+  - 战术层面的相互克制：巴西的锋线个人能力与摩洛哥阿姆拉巴特领衔的绞肉机中场及低位防守形成完美抵消
+  - 比赛节奏与心理博弈：双方在世界杯小组赛阶段采取相对务实的控分策略，均未在常规时间进行极致搏杀
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

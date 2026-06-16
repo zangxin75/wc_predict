@@ -1,0 +1,60 @@
+name: Russia
+name_zh: Russia
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2018-06-14'
+  tournament: 2018 俄罗斯 错场
+  vs: Saudi Arabia
+  venue: neutral
+  prediction: 1-1
+  actual: 5-0
+  miss_type: result
+  causes:
+  - 沙特中场核心阿卜杜拉-奥泰夫伤缺及后腰奥马尔-豪萨维伤退，导致球队中场拦截硬度断崖式下降，防线直接暴露在俄罗斯火力之下
+  - 俄罗斯替补奇兵久巴登场后的战术支点作用（造点+进球）彻底摧毁了沙特脆弱的防线，替补席深度差异巨大
+  - 俄罗斯作为东道主在揭幕战享有极大的主场气势与肾上腺素加成，而沙特球员在全场高压下出现严重的心理溃败与体能断崖
+  - 切里舍夫与戈洛温的边路爆破与终结能力远超系统对俄罗斯进攻效率的预期评估（两人合计3球2助攻）
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-19'
+  tournament: 2018 俄罗斯 错场
+  vs: Egypt
+  venue: neutral
+  prediction: 1-1
+  actual: 3-1
+  miss_type: result
+  causes:
+  - 埃及核心萨拉赫伤愈复出后状态平庸且缺乏冲刺爆发力，未能发挥战术牵制作用
+  - 埃及老将法特希在第47分钟防守失误打入灾难性乌龙球，直接导致心理防线崩盘
+  - 俄罗斯利用东道主主场气势与体能优势，通过高中锋久巴的支点作用进行战术压制
+  - 埃及队长埃尔内尼中场失控，未能限制俄罗斯边路高效的下底传中战术
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-07-01'
+  tournament: 2018 俄罗斯 错场
+  vs: Spain
+  venue: neutral
+  prediction: 0-2
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 俄罗斯采用极致的5后卫低位防守战术，放弃控球权并扎紧防线，成功限制了西班牙的正面渗透
+  - 西班牙陷入无效的横向传控（U型传球）怪圈，缺乏向前的纵深穿透和禁区内的高空轰炸能力，导致进攻只开花不结果
+  - 俄罗斯门将阿金费耶夫本场状态开挂，并在点球大战中两次扑出点球，成为西班牙无法逾越的叹息之墙
+  - 东道主球队在卢日尼基球场享有极大的主场观众声势加持，俄罗斯球员展现出极强的战术执行力和跑动积极性
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-07-07'
+  tournament: 2018 俄罗斯 错场
+  vs: Croatia
+  venue: neutral
+  prediction: 1-1
+  actual: 2-2
+  miss_type: result
+  causes:
+  - 东道主超常发挥的体能与意志力：俄罗斯队全场奔跑距离创赛事纪录，将比赛硬生生拖入加时与点球大战
+  - 核心球员超水平爆发：费尔南德斯在常规时间第115分钟头球绝平，打破了系统对克罗地亚领先即可守住的预期
+  - 战术博弈与消耗：俄罗斯采用极具针对性的高强度身体对抗和防守反击，成功消耗了克罗地亚的中场控制力，导致莫德里奇等人体能下降，未能守住胜局
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

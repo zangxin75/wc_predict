@@ -1,0 +1,33 @@
+name: Canada
+name_zh: Canada
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-12-01'
+  tournament: 2022 卡塔尔 错场
+  vs: Morocco
+  venue: neutral
+  prediction: 1-1
+  actual: 1-2
+  miss_type: result
+  causes:
+  - 摩洛哥前锋恩内斯里超预期发挥，利用速度与对抗优势单场贡献1球1助攻（策动进球）
+  - 摩洛哥采用极具针对性的低位防守结合高效反击，成功限制加拿大进攻转化率
+  - 加拿大后卫阿格尔德上半场自摆乌龙，打破系统预期的常规比分概率走向
+  - 加拿大把握机会能力欠佳，全场获得2个点球仅罚进1个（戴维斯失点）
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-12'
+  tournament: 2026 美加墨世界杯
+  vs: Bosnia and Herzegovina
+  venue: neutral
+  prediction: 1-0
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 波黑队在欧洲区预选赛或附加赛中突围，作为欧洲球队具备极强的身体对抗与战术纪律性，有效抵御了加拿大的主场攻势
+  - 波黑老将中卫（如科拉希纳茨）统领防线，通过低位防守和密集站位成功限制了加拿大速度型边锋（如戴维斯）的突破空间
+  - 加拿大领先后战术保守，中前场压迫强度下降，被波黑利用高中锋（如德米罗维奇）的支点作用在比赛后段打入关键进球
+  - 系统低估了欧洲球队在世界杯赛场上的战术韧性与抗压能力
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

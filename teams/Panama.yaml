@@ -1,0 +1,18 @@
+name: Panama
+name_zh: Panama
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2018-06-28'
+  tournament: 2018 俄罗斯 错场
+  vs: Tunisia
+  venue: neutral
+  prediction: 1-1
+  actual: 1-2
+  miss_type: result
+  causes:
+  - 比赛处于开放对攻节奏而非保守死守，巴拿马防线严重老化且默契不足，导致单场丢2球
+  - 突尼斯前锋哈兹里传射建功，其个人能力打破僵局并决定了比赛胜负
+  - 突尼斯作为非洲球队面对中北美球队时，在身体对抗与反击推进速度上占据战术优势
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

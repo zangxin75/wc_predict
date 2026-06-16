@@ -1,0 +1,46 @@
+name: Australia
+name_zh: Australia
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-26'
+  tournament: 2022 卡塔尔 错场
+  vs: Tunisia
+  venue: neutral
+  prediction: 1-1
+  actual: 0-1
+  miss_type: result
+  causes:
+  - 澳大利亚采用极简且高效的战术，放弃控球专注防守反击，利用中卫苏塔的制空权直接长传找前场，完美克制了突尼斯的阵地战
+  - 突尼斯进攻端严重缺乏终结能力，全场狂轰轰滥炸但禁区内缺乏顶级射手，转化率极低
+  - 突尼斯作为北非球队虽具半个主场优势，但面对澳大利亚凶悍的高强度身体对抗时显得不适应，中场失控
+  - 澳大利亚门将马修·瑞安发挥稳健，后防线整体战术执行力极高，成功零封对手
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-11-30'
+  tournament: 2022 卡塔尔 错场
+  vs: Denmark
+  venue: neutral
+  prediction: 1-1
+  actual: 1-0
+  miss_type: result
+  causes:
+  - 丹麦进攻端严重乏力，主力中锋布莱斯维特等球员多次错失绝佳进球机会，终结能力低下
+  - 丹麦主帅尤勒曼战术冒进，在必须赢球才能出线的情况下，下半场阵型过度前压导致攻守失衡
+  - 澳大利亚主帅阿诺德针对性部署5-4-1深度防守体系，中场密集拦截有效切断了丹麦的肋部渗透
+  - 澳大利亚前锋马修·莱基在反击中展现了极高的战术执行力和单兵破门能力，打入制胜球
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-14'
+  tournament: 2026 美加墨世界杯
+  vs: Turkey
+  venue: neutral
+  prediction: 1-1
+  actual: 2-0
+  miss_type: result
+  causes:
+  - 澳大利亚利用北美主场（或地理相近的海外球迷优势）展现出极强的身体对抗和高空轰炸能力，定位球战术成功打破僵局。
+  - 土耳其中场核心在世界杯高压环境下失控，攻防转换节奏被澳大利亚的凶悍逼抢彻底切断，导致进攻端全面哑火。
+  - 系统低估了澳大利亚在洲际大赛中的防守韧性与低位防守组织力，成功零封对手。
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

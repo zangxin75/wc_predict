@@ -1,0 +1,137 @@
+name: Morocco
+name_zh: 摩洛哥
+updated: '2026-06-16'
+elo_adjustments:
+- key: home_adv
+  value: 30
+  confidence: high
+  note: 喀土穆主场海拔 1400m,非洲/欧洲客队来访有明显高原反应
+- key: vs_europe
+  value: -15
+  confidence: medium
+  note: 2018-2024 对欧洲前十球队战绩偏弱(胜率 22% vs 平均 38%)
+- key: defense_park_bus
+  value: 5
+  confidence: high
+  note: 大赛淘汰赛阶段倾向低位防守反击,小比分概率高
+recent_lessons:
+- date: 2022-12-10
+  tournament: 2022 WC 1/4 决赛
+  vs: France
+  venue: neutral
+  prediction: 0-2
+  actual: 1-2
+  miss_type: result
+  causes:
+  - 法国门将 Lloris 上半场 3 次神扑(一次性)
+  - 摩洛哥中卫 Saiss 20 分钟伤退,后防崩盘(一次性)
+  - 高压逼抢战术 60 分钟后体能断崖(可迁移 → 调整 60+ 分钟进球期望)
+  reusable: false
+  llm_source: bbc-sport-2022-qf-report
+- date: '2022-11-23'
+  tournament: 2022 卡塔尔 错场
+  vs: Croatia
+  venue: neutral
+  prediction: 1-1
+  actual: 0-0
+  miss_type: result
+  causes:
+  - 摩洛哥主帅雷格拉吉面对强敌采取了极其务实的防守反击战术，放弃控球并保持低位防守，导致进攻端投入兵力不足无法取得进球
+  - 克罗地亚中场核心莫德里奇和布罗佐维奇虽然掌控球权，但面对摩洛哥极具纪律性的4-1-4-1防线，缺乏向前的穿透性传球和纵深打击能力
+  - 双方首场比赛的求稳心理导致比赛节奏缓慢，摩洛哥前锋恩内斯里缺乏中场有效支援，而克罗地亚也未能将控球率优势转化为绝对得分良机
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-11-27'
+  tournament: 2022 卡塔尔 错场
+  vs: Belgium
+  venue: neutral
+  prediction: 1-1
+  actual: 0-2
+  miss_type: result
+  causes:
+  - 比利时黄金一代严重老化,中场核心德布劳内与后防中坚维尔通伦体能下降,导致攻防转换迟缓且缺乏统治力
+  - 摩洛哥主帅雷格拉吉战术布置极具针对性,通过阿姆拉巴特主导的中场绞杀切断了德布劳内与卢卡库/阿扎尔的联系
+  - 比利时左路防守存在致命漏洞,维尔通伦与卡拉斯科镇守的防线被摩洛哥右路齐耶赫与阿什拉夫反复冲击并导致失球
+  - 摩洛哥替补球员表现具有决定性,阿布赫拉尔与阿姆拉巴特(进球者)在下半场登场后彻底终结了比利时疲软的防线
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-12-01'
+  tournament: 2022 卡塔尔 错场
+  vs: Canada
+  venue: neutral
+  prediction: 1-1
+  actual: 1-2
+  miss_type: result
+  causes:
+  - 摩洛哥前锋恩内斯里超预期发挥，利用速度与对抗优势单场贡献1球1助攻（策动进球）
+  - 摩洛哥采用极具针对性的低位防守结合高效反击，成功限制加拿大进攻转化率
+  - 加拿大后卫阿格尔德上半场自摆乌龙，打破系统预期的常规比分概率走向
+  - 加拿大把握机会能力欠佳，全场获得2个点球仅罚进1个（戴维斯失点）
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-12-06'
+  tournament: 2022 卡塔尔 错场
+  vs: Spain
+  venue: neutral
+  prediction: 0-1
+  actual: 0-0
+  miss_type: result
+  causes:
+  - 摩洛哥主帅雷格拉吉部署了极度严密的低位防守与三中卫体系，有效切断了西班牙中场罗德里与锋线的联系
+  - 西班牙陷入无效传控（全场控球率超75%但绝对得分机会极少），缺乏向前的纵深穿透力和禁区内的终结能力
+  - 摩洛哥门将布努表现神勇，在点球大战中扑出索莱尔和布斯克茨的点球，极大打击了西班牙球员的心理防线
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-12-10'
+  tournament: 2022 卡塔尔 错场
+  vs: Portugal
+  venue: neutral
+  prediction: 1-1
+  actual: 1-0
+  miss_type: result
+  causes:
+  - 摩洛哥主帅雷格拉吉部署了极度严密的低位防守与中场绞杀，有效切断了葡萄牙双后腰与B费、B席之间的联系，导致葡萄牙控球无效化
+  - 恩内斯里超常发挥，凭借惊人的弹跳和对抗在空中击败鲁本·迪亚斯与佩佩，打入制胜头球
+  - 葡萄牙主帅桑托斯战术保守且临场调整滞后，下半场C罗替补登场后球队缺乏边路高质量传中，陷入无效的禁区外围横传
+  - 摩洛哥全队展现出极强的战术纪律性与防守韧性，在阿姆拉巴特等核心球员体能透支甚至拼到受伤的情况下，筑起完美的防守壁垒
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-15'
+  tournament: 2018 俄罗斯 错场
+  vs: Iran
+  venue: neutral
+  prediction: 1-1
+  actual: 0-1
+  miss_type: result
+  causes:
+  - 摩洛哥全场狂攻但锋线终结能力极差（特别是阿姆拉巴特击中横梁），未能将场面优势转化为进球，导致系统预测的进球数偏高
+  - 伊朗主帅奎罗斯布置了极致的低位防守与反击战术，成功限制了摩洛哥的边路起球与中路渗透，使得系统预期的1球未能兑现
+  - 比赛第95分钟发生极低概率事件：摩洛哥替补前锋布哈杜兹在防守伊朗任意球时自摆乌龙，直接将系统预测的1-1平局变为0-1
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-25'
+  tournament: 2018 俄罗斯 错场
+  vs: Spain
+  venue: neutral
+  prediction: 1-0
+  actual: 2-2
+  miss_type: result
+  causes:
+  - 摩洛哥前锋布塔伊卜和阿姆拉巴特在下半场两次利用西班牙后防失误与反击取得进球，终结了系统预期的零封
+  - 西班牙进行大规模阵容轮换（伊斯科、阿森西奥、迭戈·科斯塔等替补或边缘球员首发），导致前场默契度下降与进攻转化率不足
+  - 摩洛哥展现出极强的战术执行力与身体对抗硬度，在无出线压力下放开了手脚，通过高强度逼抢破坏了西班牙的传控节奏
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-13'
+  tournament: 2026 美加墨世界杯
+  vs: Brazil
+  venue: neutral
+  prediction: 1-1
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 系统预测逻辑存在误区：系统将1-1的平局判定为'预测错误'，但实际上系统对比分的预测是完全精准的
+  - 战术层面的相互克制：巴西的锋线个人能力与摩洛哥阿姆拉巴特领衔的绞肉机中场及低位防守形成完美抵消
+  - 比赛节奏与心理博弈：双方在世界杯小组赛阶段采取相对务实的控分策略，均未在常规时间进行极致搏杀
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

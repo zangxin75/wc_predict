@@ -1,0 +1,19 @@
+name: Cape Verde
+name_zh: Cape Verde
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2026-06-15'
+  tournament: 2026 美加墨世界杯
+  vs: Spain
+  venue: neutral
+  prediction: 2-0
+  actual: 0-0
+  miss_type: result
+  causes:
+  - 佛得角采用5-4-1深度防守阵型，通过双后腰保护禁区前沿，成功切断了西班牙传统的肋部渗透路线
+  - 佛得角门将沃扎尔状态超神，高接抵挡贡献9次扑救，化解了西班牙预期进球高达2.8的绝对得分机会
+  - 西班牙主力中卫拉波尔特因肌肉伤势缺席，导致替补中卫勒诺尔芒出球能力受限，面对对手低位防守时无法提供有效的纵深传球打破僵局
+  - 西班牙前锋莫拉塔在对方极度的身体对抗下完全迷失，全场0次禁区内有效触球，缺乏破密集防守的B计划
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

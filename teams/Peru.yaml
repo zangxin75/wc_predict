@@ -1,0 +1,31 @@
+name: Peru
+name_zh: Peru
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2018-06-16'
+  tournament: 2018 俄罗斯 错场
+  vs: Denmark
+  venue: neutral
+  prediction: 1-1
+  actual: 0-1
+  miss_type: result
+  causes:
+  - 丹麦中场核心埃里克森战术执行力强，其精准的直塞球与调度有效撕裂了秘鲁防线，制造了致胜点球
+  - 秘鲁前锋格雷罗伤愈初愈状态低迷，且奎瓦罚失关键点球，导致秘鲁狂轰20余脚射门却未能转化为进球
+  - 丹麦防守体系极其严密，中卫克里斯滕森与克亚尔领衔的防线成功顶住了秘鲁的侧翼进攻与高压逼抢
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-21'
+  tournament: 2018 俄罗斯 错场
+  vs: France
+  venue: neutral
+  prediction: 1-1
+  actual: 1-0
+  miss_type: result
+  causes:
+  - 秘鲁进攻端严重缺乏终结能力，全场15次射门仅1次射正，格雷罗等前锋未能把握住得分机会
+  - 法国采取务实战术，取得领先后阵型回收并依靠坎特的中场拦截破坏了秘鲁的进攻组织
+  - 姆巴佩打入关键进球展现球星个人能力，打破了系统基于两队整体攻防预期的平衡模型
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

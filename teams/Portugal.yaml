@@ -1,0 +1,87 @@
+name: Portugal
+name_zh: Portugal
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-28'
+  tournament: 2022 卡塔尔 错场
+  vs: Uruguay
+  venue: neutral
+  prediction: 1-1
+  actual: 2-0
+  miss_type: result
+  causes:
+  - B费(布鲁诺·费尔南德斯)核心向表现超常,直接包办两球(一传一射),打破双方进攻效率平衡
+  - 佩佩领衔的防线与后腰屏障完美限制苏亚雷斯与卡瓦尼,导致乌拉圭运动战零射正
+  - 乌拉圭主帅塔瓦雷斯保守的战术与迟缓的换人调整(70分钟后才换上努涅斯),导致落后时缺乏反扑锐度
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-12-02'
+  tournament: 2022 卡塔尔 错场
+  vs: South Korea
+  venue: neutral
+  prediction: 1-1
+  actual: 2-1
+  miss_type: result
+  causes:
+  - 葡萄牙大面积轮换(轮休B费、B席、佩佩等核心)导致球队整体控制力和防守默契下降
+  - 韩国队金英权利用角球乱战破门,打破了系统预期的常规防守数据模型
+  - 韩国队孙兴慜在比赛第91分钟长途奔袭助攻黄喜灿绝杀,超级巨星的个人能力与反击执行力超出了系统预测的概率
+  - 葡萄牙作为已提前出线的球队,求胜欲望和防守压迫强度明显不及背水一战的韩国队
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-12-10'
+  tournament: 2022 卡塔尔 错场
+  vs: Morocco
+  venue: neutral
+  prediction: 1-1
+  actual: 1-0
+  miss_type: result
+  causes:
+  - 摩洛哥主帅雷格拉吉部署了极度严密的低位防守与中场绞杀，有效切断了葡萄牙双后腰与B费、B席之间的联系，导致葡萄牙控球无效化
+  - 恩内斯里超常发挥，凭借惊人的弹跳和对抗在空中击败鲁本·迪亚斯与佩佩，打入制胜头球
+  - 葡萄牙主帅桑托斯战术保守且临场调整滞后，下半场C罗替补登场后球队缺乏边路高质量传中，陷入无效的禁区外围横传
+  - 摩洛哥全队展现出极强的战术纪律性与防守韧性，在阿姆拉巴特等核心球员体能透支甚至拼到受伤的情况下，筑起完美的防守壁垒
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-15'
+  tournament: 2018 俄罗斯 错场
+  vs: Spain
+  venue: neutral
+  prediction: 1-1
+  actual: 3-3
+  miss_type: result
+  causes:
+  - 迭戈·科斯塔极强的个人背身单打与对抗能力独进两球，打破了系统对西班牙阵地战破密集防守的常规预期
+  - C罗超强的个人能力与主罚任意球的心理素质，包揽全部3球（含关键绝平任意球），凭一己之力改变了预测模型基于平均期望值算出的1-1概率分布
+  - 西班牙临时换帅耶罗导致战术容错率与防守纪律性下降，比赛演变为大开大合的对攻战，而非模型预测的相互限制的中低比分
+  - 纳乔世界波远射等高难度神仙球出现，属于足球比赛中极低概率的随机爆发事件
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-25'
+  tournament: 2018 俄罗斯 错场
+  vs: Iran
+  venue: neutral
+  prediction: 1-1
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 系统预测的1-1与实际比分完全一致，此为系统预测正确而非错场
+  - 若系统将此场标记为错场，可能是由于对进球时机或比赛进程（如夸雷斯马第45分钟进球与伊朗点球绝平）的动态预期存在偏差
+  - 伊朗队在下半场补时阶段展现出极强的战术执行力与心理韧性，通过高位逼抢制造葡萄牙后卫失误获得点球
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-30'
+  tournament: 2018 俄罗斯 错场
+  vs: Uruguay
+  venue: neutral
+  prediction: 1-1
+  actual: 2-1
+  miss_type: result
+  causes:
+  - 乌拉圭边后卫卡塞雷斯与中卫希门尼斯频繁送出精准长传，成功压制葡萄牙的高位防线，直接策动两粒进球
+  - 乌拉圭前锋埃丁森·卡瓦尼展现顶级终结能力，个人包办两球，其超强的个人状态打破了系统预期的均势
+  - 葡萄牙中场缺乏向前的纵深传球能力，过度依赖C罗回撤接应，导致进攻端在阵地战中缺乏有效穿透
+  - 葡萄牙在落后时换上夸雷斯马改变节奏，其传中助攻制造了进球，这种替补奇兵的战术变阵增加了比赛变数
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

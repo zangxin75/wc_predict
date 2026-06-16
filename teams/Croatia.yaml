@@ -1,0 +1,111 @@
+name: Croatia
+name_zh: Croatia
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-23'
+  tournament: 2022 卡塔尔 错场
+  vs: Morocco
+  venue: neutral
+  prediction: 1-1
+  actual: 0-0
+  miss_type: result
+  causes:
+  - 摩洛哥主帅雷格拉吉面对强敌采取了极其务实的防守反击战术，放弃控球并保持低位防守，导致进攻端投入兵力不足无法取得进球
+  - 克罗地亚中场核心莫德里奇和布罗佐维奇虽然掌控球权，但面对摩洛哥极具纪律性的4-1-4-1防线，缺乏向前的穿透性传球和纵深打击能力
+  - 双方首场比赛的求稳心理导致比赛节奏缓慢，摩洛哥前锋恩内斯里缺乏中场有效支援，而克罗地亚也未能将控球率优势转化为绝对得分良机
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-12-01'
+  tournament: 2022 卡塔尔 错场
+  vs: Belgium
+  venue: neutral
+  prediction: 1-1
+  actual: 0-0
+  miss_type: result
+  causes:
+  - 比利时黄金一代老化严重，锋线终结能力断崖式下滑（卢卡库全场错失4次绝对进球机会）
+  - 马丁内斯战术保守且迟缓，直到下半场才换上高位逼抢的德布劳内，前场进攻缺乏纵深与活力
+  - 克罗地亚主动采取稳守反击策略，中场铁三角（莫德里奇、布罗佐维奇、科瓦契奇）放弃控球专注防守拦截，压缩了比赛空间
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-12-05'
+  tournament: 2022 卡塔尔 错场
+  vs: Japan
+  venue: neutral
+  prediction: 1-1
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 系统对常规时间赛果的预测准确(1-1)，但若系统将其判定为错场，大概率是因为未能准确预测克罗地亚门将利瓦科维奇在点球大战中的超神发挥(扑出3粒点球)及日本队点球大战心理崩盘
+  - 日本队主帅森保一在加时赛换上三笘薰等攻击手进行战术搏杀，但未能转化为绝杀进球，系统未能量化日本队在僵持阶段破密集防守的绝对乏力
+  - 克罗地亚展现极强的老牌强队底蕴与战术纪律，通过中场(布罗佐维奇、莫德里奇)的控球消耗成功将日本队拖入其最擅长的点球大战节奏
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-12-09'
+  tournament: 2022 卡塔尔 错场
+  vs: Brazil
+  venue: neutral
+  prediction: 0-1
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 克罗地亚中场莫德里奇与布罗佐维奇的极致控球与节奏掌控，成功抵消了巴西预期的进攻压制
+  - 巴西主帅蒂特在加时赛领先后换下内马尔与帕奎塔，导致中场失控且防守端缺乏有效保护
+  - 克罗地亚前锋佩特科维奇在比赛末段的关键扳平进球，展现了球队极强的逆商与韧性
+  - 巴西加时赛与点球大战阶段战术保守，核心球员心理压力过大导致点球大战发挥失常
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-21'
+  tournament: 2018 俄罗斯 错场
+  vs: Argentina
+  venue: neutral
+  prediction: 1-1
+  actual: 0-3
+  miss_type: result
+  causes:
+  - 阿根廷主帅桑保利战术实验失败，弃用伊瓜因并使用3中卫体系，导致中场完全失控，无法抵御克罗地亚的传导
+  - 克罗地亚中场莫德里奇与拉基蒂奇展现出绝对的战术压制力，掌控了比赛节奏并双双完成进球或助攻
+  - 阿根廷后防线出现致命个人失误，特别是门将卡巴列罗在下半场初段的传球失误直接导致球队心理防线崩盘
+  - 阿根廷前场核心梅西被克罗地亚针对性切割，完全切断其与中场及边路的联系，导致进攻端彻底瘫痪
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-07-01'
+  tournament: 2018 俄罗斯 错场
+  vs: Denmark
+  venue: neutral
+  prediction: 1-1
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 系统预测的1-1为常规时间比分，但未将世界杯淘汰赛进入加时赛的高概率纳入最终赛果计算
+  - 丹麦门将小舒梅切尔在加时赛扑出莫德里奇关键点球，展现了极强的单场抗压与门线终结能力
+  - 克罗地亚在淘汰赛阶段展现出极强的韧性，连续通过加时赛和点球大战晋级，消耗巨大但心理素质极佳
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-07-07'
+  tournament: 2018 俄罗斯 错场
+  vs: Russia
+  venue: neutral
+  prediction: 1-1
+  actual: 2-2
+  miss_type: result
+  causes:
+  - 东道主超常发挥的体能与意志力：俄罗斯队全场奔跑距离创赛事纪录，将比赛硬生生拖入加时与点球大战
+  - 核心球员超水平爆发：费尔南德斯在常规时间第115分钟头球绝平，打破了系统对克罗地亚领先即可守住的预期
+  - 战术博弈与消耗：俄罗斯采用极具针对性的高强度身体对抗和防守反击，成功消耗了克罗地亚的中场控制力，导致莫德里奇等人体能下降，未能守住胜局
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-07-11'
+  tournament: 2018 俄罗斯 错场
+  vs: England
+  venue: neutral
+  prediction: 1-1
+  actual: 2-1
+  miss_type: result
+  causes:
+  - 英格兰主帅索斯盖特在加时赛末段(118分钟)换下核心前锋哈里·凯恩，导致球队在点球大战前失去前场最重要的战术支点和心理依靠
+  - 克罗地亚门将苏巴西奇在点球大战中扑出亨德森的点球，并凭借心理博弈干扰拉什纳尔等人，直接改变了点球胜负走向
+  - 克罗地亚作为连续经历三场加时赛的球队，展现出极强的战术韧性与抗压能力，在加时赛中并未出现系统预期的体能断崖，反而掌控了比赛节奏
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

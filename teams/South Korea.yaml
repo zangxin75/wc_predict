@@ -1,0 +1,73 @@
+name: South Korea
+name_zh: South Korea
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-24'
+  tournament: 2022 卡塔尔 错场
+  vs: Uruguay
+  venue: neutral
+  prediction: 1-1
+  actual: 0-0
+  miss_type: result
+  causes:
+  - 韩国中卫金英权领衔的防线采取极其谨慎的低位防守，成功限制了达尔文·努涅斯等乌拉圭攻击手的纵深空间
+  - 乌拉圭全场进攻缺乏锐度，中场创造力不足，且运气欠佳（戈丁头球中柱，巴尔韦德远射中柱）
+  - 韩国主帅本托制定了极具针对性的战术，通过双后腰绞杀有效切断了乌拉圭中场与锋线的联系，促成互交白卷
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-11-28'
+  tournament: 2022 卡塔尔 错场
+  vs: Ghana
+  venue: neutral
+  prediction: 1-1
+  actual: 2-3
+  miss_type: result
+  causes:
+  - 加纳前锋穆罕默德·库杜斯(Mohammed Kudus)超常发挥,全场2射1传主导比赛,其个人远射能力打破僵局
+  - 韩国队防空能力严重不足,两次被加纳通过角球战术(萨利苏、库杜斯)头球破门
+  - 韩国主帅本托上半场战术保守落后,半场果断连换两人(孙兴慜位置前移、李刚仁替补)开启疯狂传中战术,导致比赛彻底大开大合
+  - 韩国全场高达61%的控球率和35脚传中,放弃了系统预期的中场控制与防守平衡,将比赛变成互捅局
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-12-02'
+  tournament: 2022 卡塔尔 错场
+  vs: Portugal
+  venue: neutral
+  prediction: 1-1
+  actual: 2-1
+  miss_type: result
+  causes:
+  - 葡萄牙大面积轮换(轮休B费、B席、佩佩等核心)导致球队整体控制力和防守默契下降
+  - 韩国队金英权利用角球乱战破门,打破了系统预期的常规防守数据模型
+  - 韩国队孙兴慜在比赛第91分钟长途奔袭助攻黄喜灿绝杀,超级巨星的个人能力与反击执行力超出了系统预测的概率
+  - 葡萄牙作为已提前出线的球队,求胜欲望和防守压迫强度明显不及背水一战的韩国队
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-18'
+  tournament: 2018 俄罗斯 错场
+  vs: Sweden
+  venue: neutral
+  prediction: 1-1
+  actual: 1-0
+  miss_type: result
+  causes:
+  - 韩国门将赵贤祐全场贡献6次神勇扑救，高接抵挡化解了瑞典多次必进球机会，硬生生将实际比分维持在1球差距
+  - 瑞典队采用极具针对性的身体对抗与高空轰炸战术，完全压制了韩国队，若非门框与运气因素，比分远不止1-0
+  - 韩国核心攻击手孙兴慜被瑞典严密盯防且孤立无援，导致韩国全场0射正，完全丧失了扳平比分的进攻能力
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-27'
+  tournament: 2018 俄罗斯 错场
+  vs: Germany
+  venue: neutral
+  prediction: 0-2
+  actual: 2-0
+  miss_type: result
+  causes:
+  - 战术压制：韩国主帅申台龙针对德国队防线转身慢、两翼卫防守空当大的弱点，部署了极具针对性的快速反击和高位逼抢战术
+  - 心理崩溃：作为卫冕冠军的德国队背负着极大的必胜出线压力，导致全队战术急躁、传切配合频频失误，缺乏破密集防守的耐心
+  - 球员表现：韩国门将赵贤祐全场贡献多次神扑（化解维尔纳、格雷茨卡等必进球），并在下半场零封德国队，极大打击了德国队的士气
+  - 体能透支：德国队在下半场大举压上导致阵型严重脱节，在比赛最后阶段（补时阶段）防线体能断崖式下降，被韩国队连入两球
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

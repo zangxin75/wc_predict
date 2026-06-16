@@ -1,0 +1,18 @@
+name: Wales
+name_zh: Wales
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-21'
+  tournament: 2022 卡塔尔 错场
+  vs: United States
+  venue: neutral
+  prediction: 1-1
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 美国队上半场高位逼抢和快节奏冲击战术奏效，由普利西奇助攻蒂莫西·维阿率先破门
+  - 威尔士下半场通过长传冲吊战术制造威胁，并依靠贝尔在第82分钟凭借个人能力制造点球并主罚命中
+  - 双方在常规战术博弈中互相限制，美国队下半场体能下降导致中场失控，而威尔士缺乏持续穿透防线的运动战能力
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

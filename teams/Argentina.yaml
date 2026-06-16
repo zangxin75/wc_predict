@@ -1,0 +1,73 @@
+name: Argentina
+name_zh: Argentina
+updated: '2026-06-16'
+elo_adjustments: []
+recent_lessons:
+- date: '2022-11-22'
+  tournament: 2022 卡塔尔 错场
+  vs: Saudi Arabia
+  venue: neutral
+  prediction: 2-0
+  actual: 1-2
+  miss_type: result
+  causes:
+  - 沙特采用了极具侵略性的高位防线与造越位战术，导致阿根廷上半场3个进球被吹无效，成功打乱了阿根廷的进攻节奏
+  - 沙特球员在下半场开局阶段通过萨勒姆·达瓦萨里的个人能力连进两球，且全队保持了极高强度的全场逼抢
+  - 阿根廷核心老将（如梅西、迪马利亚、奥塔门迪）面对亚洲球队极端的体能化冲击和身体对抗出现严重的不适应
+  - 沙特门将奥韦斯表现神勇，贡献多次关键扑救，化解了阿根廷预期进球极高的射门机会
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-12-09'
+  tournament: 2022 卡塔尔 错场
+  vs: Netherlands
+  venue: neutral
+  prediction: 1-1
+  actual: 2-2
+  miss_type: result
+  causes:
+  - 梅西历史级的个人能力打破平衡：全场2球1助攻，特别是加时赛绝杀助攻，超出了系统基于常规预期进球(xG)的概率模型
+  - 荷兰队极端的战术B计划奏效：主帅范加尔换上高中锋韦霍斯特，放弃地面采用极致的定位球和长传冲吊，连入两球（含读秒绝平）打破常规运动战预期
+  - 120分钟高消耗导致防线脱节：双方在加时赛下半段体能断崖，阿根廷中场失势，荷兰孤注一掷的轰炸导致系统预测的常规1-1平衡比分被打破
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-12-18'
+  tournament: 2022 卡塔尔 错场
+  vs: France
+  venue: neutral
+  prediction: 1-1
+  actual: 3-3
+  miss_type: result
+  causes:
+  - 梅西在高压决赛中的超常发挥及点球破门打破了系统预期的常规进球期望值
+  - 法国队前70分钟采用保守战术导致被动，随后换上穆阿尼和图拉姆等生力军疯狂反扑，导致比赛呈现极端的两次高潮
+  - 姆巴佩个人极致的爆点能力与抗压大心脏（97秒连入两球）超出了系统对单一球员爆发力的概率模型
+  - 加时赛阶段双方体能断崖导致防守端连续出现致命失误（如蒙铁尔手球送点）
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-16'
+  tournament: 2018 俄罗斯 错场
+  vs: Iceland
+  venue: neutral
+  prediction: 1-0
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 冰岛队采取了极致的深度低位防守（大巴战术）与全员退防，在禁区内形成密集的防守站位，成功封锁了阿根廷的传切与突破空间
+  - 冰岛门将哈尔多松表现神勇，不仅高接抵挡多次化解必进球，还在下半场扑出了梅西的点球，直接改变了比赛结果
+  - 阿根廷缺乏破密集防守的有效手段，进攻过度依赖梅西回撤组织与个人单打，缺乏禁区内的战术变化与强力高空轰炸能力
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-21'
+  tournament: 2018 俄罗斯 错场
+  vs: Croatia
+  venue: neutral
+  prediction: 1-1
+  actual: 0-3
+  miss_type: result
+  causes:
+  - 阿根廷主帅桑保利战术实验失败，弃用伊瓜因并使用3中卫体系，导致中场完全失控，无法抵御克罗地亚的传导
+  - 克罗地亚中场莫德里奇与拉基蒂奇展现出绝对的战术压制力，掌控了比赛节奏并双双完成进球或助攻
+  - 阿根廷后防线出现致命个人失误，特别是门将卡巴列罗在下半场初段的传球失误直接导致球队心理防线崩盘
+  - 阿根廷前场核心梅西被克罗地亚针对性切割，完全切断其与中场及边路的联系，导致进攻端彻底瘫痪
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16

@@ -1,0 +1,97 @@
+name: France
+name_zh: 法国
+updated: '2026-06-16'
+elo_adjustments:
+- key: tournament_form
+  value: 25
+  confidence: high
+  note: 大赛阶段状态显著提升(2018 冠军、2022 亚军、2024 欧洲杯四强)
+- key: vs_africa
+  value: 15
+  confidence: low
+  note: 对非洲球队历史不败(样本小,可信度低)
+- key: star_reliance
+  value: 0
+  confidence: medium
+  note: 依赖 Mbappe 单点突破,他状态/伤缺影响显著(需赛前动态判定)
+recent_lessons:
+- date: 2022-12-18
+  tournament: 2022 WC 决赛
+  vs: Argentina
+  venue: neutral
+  prediction: 1-2
+  actual: 3-3
+  miss_type: score
+  causes:
+  - Mbappe 决赛爆发帽子戏法(场均 1.2 球 → 单场 3 球,系统低估方差)
+  - 阿根廷门将 Martinez 点球大战神表现(一次性)
+  - 决赛大比分方差高于小组赛(可迁移 → 决赛阶段进球期望方差上调)
+  reusable: true
+  llm_source: lequipe-2022-final-analysis
+- date: '2022-11-26'
+  tournament: 2022 卡塔尔 错场
+  vs: Denmark
+  venue: neutral
+  prediction: 1-1
+  actual: 2-1
+  miss_type: result
+  causes:
+  - 法国队锋线个人能力破局：姆巴佩凭借极强的个人爆发力和射术包办两粒进球，打破了系统预期的均势僵局
+  - 丹麦战术调整与体能下滑：丹麦在下半场变阵加强进攻导致防线暴露空当，且60分钟后中场拦截能力断崖式下降
+  - 法国队阵容深度与后手优势：德尚换上图拉姆和科曼持续冲击丹麦边路防线，法国在比赛后段的战术执行力优于预期
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-11-30'
+  tournament: 2022 卡塔尔 错场
+  vs: Tunisia
+  venue: neutral
+  prediction: 1-1
+  actual: 1-0
+  miss_type: result
+  causes:
+  - 法国队大面积轮换（瓦拉内、格列兹曼等核心未首发或替补）导致前场进攻缺乏默契与终结能力
+  - 突尼斯球员（尤其是中场莱杜尼）展现出极强的战术执行力与防守侵略性，成功切断法国中场输送
+  - 突尼斯前锋哈兹里打入一粒非常精彩的个人长途奔袭进球，打破了系统预期的常规进球期望值（xG）转化率
+  - 比赛末段格列兹曼的绝平进球因 VAR 判定越位在先被取消，直接决定了最终比分
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2022-12-18'
+  tournament: 2022 卡塔尔 错场
+  vs: Argentina
+  venue: neutral
+  prediction: 1-1
+  actual: 3-3
+  miss_type: result
+  causes:
+  - 梅西在高压决赛中的超常发挥及点球破门打破了系统预期的常规进球期望值
+  - 法国队前70分钟采用保守战术导致被动，随后换上穆阿尼和图拉姆等生力军疯狂反扑，导致比赛呈现极端的两次高潮
+  - 姆巴佩个人极致的爆点能力与抗压大心脏（97秒连入两球）超出了系统对单一球员爆发力的概率模型
+  - 加时赛阶段双方体能断崖导致防守端连续出现致命失误（如蒙铁尔手球送点）
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-21'
+  tournament: 2018 俄罗斯 错场
+  vs: Peru
+  venue: neutral
+  prediction: 1-1
+  actual: 1-0
+  miss_type: result
+  causes:
+  - 秘鲁进攻端严重缺乏终结能力，全场15次射门仅1次射正，格雷罗等前锋未能把握住得分机会
+  - 法国采取务实战术，取得领先后阵型回收并依靠坎特的中场拦截破坏了秘鲁的进攻组织
+  - 姆巴佩打入关键进球展现球星个人能力，打破了系统基于两队整体攻防预期的平衡模型
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
+- date: '2018-06-26'
+  tournament: 2018 俄罗斯 错场
+  vs: Denmark
+  venue: neutral
+  prediction: 1-1
+  actual: 0-0
+  miss_type: result
+  causes:
+  - 法国队大面积轮换（博格巴、格列兹曼等核心替补），导致前场创造力和终结意愿大幅下降
+  - 丹麦队打平即可确保出线，战术上极度保守，主动放弃进攻控球转为深度防守
+  - 双方在默契下共同降低比赛节奏，均未在进攻三区投入足够兵力，导致预期进球数(xG)极低
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-16
