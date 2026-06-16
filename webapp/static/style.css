@@ -221,8 +221,8 @@ body::before{
 /* ── 赛程列表 ─────────────────────────────────── */
 .schedule-list{display:flex;flex-direction:column;gap:26px}
 .day-block{animation:fadeUp .4s var(--ease) both}
-.hist-fold{margin-top:8px;padding-top:18px;border-top:1px dashed var(--border)}
-.hist-toggle{display:flex;align-items:center;gap:10px;width:100%;justify-content:center;background:var(--bg-elev);border:1px solid var(--border);color:var(--text-mute);font-family:var(--ff-mono);font-size:12px;font-weight:600;letter-spacing:.04em;padding:10px 16px;border-radius:var(--r-tag);cursor:pointer;transition:color .18s,border-color .18s,background .18s}
+.hist-fold{margin-top:8px;padding-top:18px;border-top:1px dashed var(--line)}
+.hist-toggle{display:flex;align-items:center;gap:10px;width:100%;justify-content:center;background:var(--bg-elev);border:1px solid var(--line);color:var(--text-mute);font-family:var(--ff-mono);font-size:12px;font-weight:600;letter-spacing:.04em;padding:10px 16px;border-radius:var(--r-tag);cursor:pointer;transition:color .18s,border-color .18s,background .18s}
 .hist-toggle:hover{color:var(--gold-hi);border-color:rgba(201,169,97,.42);background:rgba(201,169,97,.06)}
 .hist-toggle .hist-count{color:var(--gold);font-weight:700}
 .hist-toggle .hist-arrow{margin-left:auto;font-size:11px}
@@ -353,6 +353,9 @@ body::before{
 .hitmark.hit{color:var(--signal-ok);background:rgba(111,181,133,.12)}
 .hitmark.miss{color:var(--text-dim);background:var(--bg-elev)}
 .no-elo{font-family:var(--ff-mono);font-size:11px;color:var(--text-mute)}
+.src-badge{font-family:var(--ff-mono);font-size:9px;font-weight:700;letter-spacing:.04em;padding:1px 5px;border-radius:var(--r-tag);margin-left:6px;display:inline-block;vertical-align:middle}
+.src-badge.odds{color:var(--gold-hi);background:rgba(229,180,75,.14);border:1px solid rgba(229,180,75,.30)}
+.src-badge.elo{color:var(--text-dim);background:var(--bg-elev)}
 
 /* ── 夺冠榜 ─────────────────────────────────────── */
 .champ-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:22px;flex-wrap:wrap;gap:8px}
