@@ -31,3 +31,6 @@ webapp/_mobile_probe.py
 webapp/_shot.py
 webapp/_shots/
 webapp/_taste_skill_tmp.md
+
+# 运行日志(增量采集脚本输出,每次跑都变,可重新生成)
+*.log
