@@ -33,12 +33,15 @@ CACHE = os.path.join(HERE, "webapp", "data", "cache.json")   # 含 groups→2026
 # 该 URL 是 WC2026 专属页,所有行均属 WC,无需联赛过滤。
 EXTRACT_WC = r"""(pageType)=>{
   const out = [];
-  const olis = [...document.querySelectorAll('li.table-main__oddsLi')];
-  for(const li of olis){
-    const odds = [...li.querySelectorAll('[data-odd]')].map(e=>e.getAttribute('data-odd'));
+  // 2026-06 BetExplorer 改版:每场=ul.table-main__matchInfo > 3 li(状态/队名+/赔率).
+  const uls = [...document.querySelectorAll('ul.table-main__matchInfo')];
+  for(const ul of uls){
+    const oddsLi = ul.querySelector(':scope > li.table-main__oddsLi.mobileGap');
+    if(!oddsLi) continue;
+    const odds = [...oddsLi.querySelectorAll('[data-odd]')].map(e=>e.getAttribute('data-odd'));
     if(odds.length < 3) continue;
-    const mi = li.parentElement;   // UL.table-main__matchInfo(含队名)
-    const txt = mi ? (mi.innerText||'').replace(/\n/g,' ').replace(/\s+/g,' ').trim() : '';
+    const txt = (ul.innerText||'').replace(/\n/g,' ').replace(/\s+/g,' ').trim();
+    if(!txt) continue;
     out.push({page:pageType, text:txt, odds:odds.slice(0,3)});
   }
   return out;
@@ -109,7 +112,11 @@ def harvest_page(pg, page_type):
     """渲染一页,返回 [(home,away,score,oh,od,oa)]。"""
     path = "results/" if page_type == "results" else "fixtures/"
     pg.goto(BASE + path, wait_until="domcontentloaded", timeout=45000)
-    pg.wait_for_timeout(5000)   # 给 JS 渲染;不用 networkidle(长轮询会卡)
+    # 等待赔率 cells 渲染(改版后异步加载)
+    try:
+        pg.wait_for_selector("li.table-main__oddsLi.mobileGap [data-odd]", timeout=15000)
+    except Exception:
+        pass  # 超时则尽力而为(可能该页无赔率)
     raw = pg.evaluate(f"({EXTRACT_WC})({page_type!r})")
     out = []
     for rec in raw:
