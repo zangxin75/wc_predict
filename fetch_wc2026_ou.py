@@ -90,7 +90,7 @@ def load_wc_teams():
 
 
 def parse_row(text):
-    """概览行文本 → (home, away, [oh,od,oa] or None)。纯文本正则,不依赖 DOM odds 位置。
+    r"""概览行文本 → (home, away, [oh,od,oa] or None)。纯文本正则,不依赖 DOM odds 位置。
 
     已赛:[前缀] HOME sH : sA AWAY OH OD OA  例 "FIN Saudi Arabia 1 : 1 Uruguay 7.55 4.09 1.49"
     未赛:[时分] HOME - AWAY OH OD OA        例 "03:00 Iran - New Zealand"(概览未赛常无赔率)

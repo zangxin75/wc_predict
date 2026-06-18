@@ -1,15 +1,14 @@
-"""fetch_wc2026_odds.py — 抓取 2026 世界杯小组赛(及进行中淘汰赛)实时报价,写入 odds_wc.csv。
+"""fetch_wc2026_odds.py — 抓 WC2026 1X2 → odds_wc.csv
 
-背景:BetExplorer 2026 页是 JS 渲染的 div 版"通用直播/赛程"页,静态 HTML 无赔率。
-本脚本用 Playwright 渲染 results(已赛)+ fixtures(未赛)页,定位 "WORLD CHAMPIONSHIP 2026"
-区块,逐行解析 (主,客,比分,oh,od,oa),merge 进 odds_wc.csv(year=2026)。
+⚠️ 2026-06-19 大改:
+  1. BetExplorer URL 路径从 world-cup-2026 → world-championship-2026
+     (原路径被 301 → 首页,抓取静默拿到 0 场)
+  2. 赔率容器选择器从 li.table-main__oddsLi → td.table-main__odds > button[data-odd]
+  3. 赔率直接在静态 HTML,无需 Playwright,改用 requests + BS4
+     (快 ~10x,反爬风险低,失败模式更可诊断)
 
-为什么 Playwright 而非 requests:2026 数据 JS 后渲染,requests 拿到的是 no-js 空壳(零 table/data-odd)。
-为什么 merge:保护历史 108 场(1998-2022),只更新 2026 行。
-
-⚠️ 最佳努力(best-effort):BetExplorer 反爬/页面结构可能变动;抓不到的场 odds_wc.csv 不写,
-webapp 自动回退 Elo(predict_one 的 None→elo 兜底)。可反复跑(每日),随小组赛推进累积场次。
-手动补数据:直接在 odds_wc.csv 追加 `2026,YYYY-MM-DD,Home,Away,score,oh,od,oa` 行即可,无需改代码。
+保持原函数签名(main / --dry / merge_to_csv 不变),update_odds.sh 不用动。
+对 OU 抓取仍需 Playwright(详情页 OU 是异步加载),见 fetch_wc2026_ou.py。
 """
 import argparse
 import csv
@@ -21,44 +20,28 @@ import sys
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
+import requests
+from bs4 import BeautifulSoup
+
 import compute_odds as co
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT_CSV = co.OUT_CSV
-BASE = "https://www.betexplorer.com/football/world/world-cup-2026/"   # 概览页:抓1X2+取详情链接
-CACHE = os.path.join(HERE, "webapp", "data", "cache.json")   # 含 groups→2026 参赛队白名单
+CACHE = os.path.join(HERE, "webapp", "data", "cache.json")
+OVERVIEW = "https://www.betexplorer.com/football/world/world-championship-2026/"
 
-# 锚点:li.table-main__oddsLi 的父级 = UL.table-main__matchInfo,文本含完整一行
-# "FIN Saudi Arabia 1 : 1 Uruguay 7.55 4.09 1.49"(状态前缀 + 队名 + 比分 + 队名 + 赔率)。
-# 该 URL 是 WC2026 专属页,所有行均属 WC,无需联赛过滤。
-EXTRACT_WC = r"""(pageType)=>{
-  const out = [];
-  // 2026-06 BetExplorer 改版:每场=ul.table-main__matchInfo > 3 li(状态/队名+/赔率).
-  const uls = [...document.querySelectorAll('ul.table-main__matchInfo')];
-  for(const ul of uls){
-    const oddsLi = ul.querySelector(':scope > li.table-main__oddsLi.mobileGap');
-    if(!oddsLi) continue;
-    const odds = [...oddsLi.querySelectorAll('[data-odd]')].map(e=>e.getAttribute('data-odd'));
-    if(odds.length < 3) continue;
-    const txt = (ul.innerText||'').replace(/\n/g,' ').replace(/\s+/g,' ').trim();
-    if(!txt) continue;
-    out.push({page:pageType, text:txt, odds:odds.slice(0,3)});
-  }
-  return out;
-}"""
-
-# 行解析(去掉尾部 3 赔率后):
-#   已赛/进行:  [状态前缀] HOME sH : sA AWAY   例 "FIN Saudi Arabia 1 : 1 Uruguay"
-#   未赛:       [时间] HOME - AWAY              例 "12:30 Spain - Brazil"
-# 状态前缀:FIN/FT/HT/POSTP/CANC/AWARDED/AWD/18'/12:30(进行/未赛时分)
-PREFIX_RE = re.compile(r"""^(?:(?:FIN|FT|HT|POSTP|CANC|AWARDED|AWD|RET)\s+|\d+\s*'\s+|\d{1,2}:\d{2}\s+)""", re.I)
-ROW_RE_SCORE = re.compile(r"""^(?P<home>.+?)\s+(?P<sh>\d+)\s*:\s*(?P<sa>\d+)\s+(?P<away>.+?)\s*$""")
-ROW_RE_DASH = re.compile(r"""^(?P<home>.+?)\s+-\s+(?P<away>.+?)\s*$""")
+UA = {
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+                  "(KHTML, like Gecko) Chrome/120.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Connection": "keep-alive",
+}
 
 
 def load_wc_teams():
-    """从 webapp cache.json 的 groups 提取 2026 参赛队集合(经 normalize),用于过滤掉
-    BetExplorer 通用概览页混入的周边联赛(巴西 Serie B 等)。失败返回 None=不过滤。"""
+    """参赛队白名单:从 webapp cache.json 提(用于过滤 BetExplorer 混入的非 WC 比赛)。"""
     if not os.path.exists(CACHE):
         return None
     try:
@@ -74,56 +57,77 @@ def load_wc_teams():
     return teams or None
 
 
-def parse_row(rec):
-    """raw {text, odds} → (home, away, score, oh, od, oa) or None(队名/赔率不全)。"""
-    text, odds = rec["text"], rec["odds"]
-    if not text or len(odds) != 3:
+def parse_row(tr):
+    """一个 <tr> → (home, away, score or None, [oh,od,oa] or None)。
+
+    新版 DOM 结构(2026-06-19 确认):
+      <tr>
+        <td class="table-main__datetime">...</td>
+        <td><a class="in-match"><span>HOME</span> - <span>AWAY</span></a></td>
+        <td class="h-text-center">  ← 已赛有比分 "1 : 2",未赛为空
+        <td class="table-main__odds"><button data-odd="..."></button></td>  ×3
+      </tr>
+    前 3 个 data-odd 严格按 H/D/A 顺序。
+    """
+    a = tr.find("a", class_="in-match")
+    if not a:
         return None
-    # 剥离行尾已知 3 赔率(DOM 的 data-odd 比 text 里的数字更可靠)
-    body = text
-    for o in reversed(odds):
-        i = body.rfind(o)
-        if i >= 0:
-            body = body[:i].rstrip()
-    body = PREFIX_RE.sub("", body, count=1).strip()   # 去 FIN/HT/18'/时分 前缀
-    score = None
-    m = ROW_RE_SCORE.match(body)
-    if m:
-        home, away = m["home"], m["away"]
-        score = f"{m['sh']}:{m['sa']}"
-    else:
-        m = ROW_RE_DASH.match(body)
-        if m:
-            home, away = m["home"], m["away"]
-        else:
-            return None
-    home = co.normalize_team(home.strip())
-    away = co.normalize_team(away.strip())
+    spans = a.find_all("span")
+    if len(spans) < 2:
+        return None
+    home = co.normalize_team(spans[0].get_text(strip=True))
+    away = co.normalize_team(spans[-1].get_text(strip=True))
     if len(home) < 2 or len(away) < 2:
         return None
-    try:
-        oh, od, oa = float(odds[0]), float(odds[1]), float(odds[2])
-    except ValueError:
-        return None
-    return home, away, score, oh, od, oa
+
+    # 比分:已赛 td.table-main__score 含 "1 : 2";未赛 td.h-text-center 空
+    score = None
+    score_td = tr.find("td", class_=re.compile(r"table-main__score"))
+    if score_td:
+        s = score_td.get_text(strip=True).replace(" ", "")
+        if re.match(r"^\d+:\d+$", s):
+            score = s
+    # 若无 score td 但有 h-text-center,试提取(部分老 DOM 残留)
+    if score is None:
+        center_td = tr.find("td", class_="h-text-center")
+        if center_td:
+            s = center_td.get_text(strip=True).replace(" ", "")
+            if re.match(r"^\d+:\d+$", s):
+                score = s
+
+    # 1X2:tr 内前 3 个 button[data-odd],严格 H/D/A 顺序
+    odds = []
+    for btn in tr.find_all("button", attrs={"data-odd": True}):
+        try:
+            odds.append(float(btn["data-odd"]))
+        except (ValueError, KeyError):
+            continue
+        if len(odds) >= 3:
+            break
+
+    return home, away, score, odds[:3] if len(odds) >= 3 else None
 
 
-def harvest_page(pg, page_type):
-    """渲染一页,返回 [(home,away,score,oh,od,oa)]。"""
-    path = "results/" if page_type == "results" else "fixtures/"
-    pg.goto(BASE + path, wait_until="domcontentloaded", timeout=45000)
-    # 等待赔率 cells 渲染(改版后异步加载)
-    try:
-        pg.wait_for_selector("li.table-main__oddsLi.mobileGap [data-odd]", timeout=15000)
-    except Exception:
-        pass  # 超时则尽力而为(可能该页无赔率)
-    raw = pg.evaluate(f"({EXTRACT_WC})({page_type!r})")
-    out = []
-    for rec in raw:
-        parsed = parse_row(rec)
-        if parsed:
-            out.append(parsed)
-    return out
+def fetch_page(path):
+    """拉概览页(results / fixtures) → BS4 soup,失败抛。"""
+    url = OVERVIEW + path
+    r = requests.get(url, headers=UA, timeout=30)
+    r.raise_for_status()
+    return BeautifulSoup(r.text, "html.parser")
+
+
+def harvest(path):
+    """拉一页 → [(home, away, score or None, odds3 or None)]。
+    不做白名单过滤(留给 main),便于调试输出原始行数。"""
+    soup = fetch_page(path)
+    rows = []
+    for tr in soup.find_all("tr"):
+        result = parse_row(tr)
+        if result is None:
+            continue
+        home, away, score, odds3 = result
+        rows.append((home, away, score, odds3))
+    return rows
 
 
 def merge_to_csv(rows_2026):
@@ -133,17 +137,19 @@ def merge_to_csv(rows_2026):
         with open(OUT_CSV, newline="", encoding="utf-8") as f:
             for r in csv.DictReader(f):
                 by_key[(r["year"], r["home"], r["away"])] = r
-    # 清掉旧 2026(本次全量替换 2026),保留其他届
+    # 清掉旧 2026(本次全量替换),保留其他届
     merged = {k: v for k, v in by_key.items() if k[0] != "2026"}
     added = 0
     for home, away, score, oh, od, oa in rows_2026:
         merged[("2026", home, away)] = {
             "year": "2026", "date": "", "home": home, "away": away,
-            "score": score or "", "odds_h": f"{oh:.2f}", "odds_d": f"{od:.2f}", "odds_a": f"{oa:.2f}",
+            "score": score or "", "odds_h": f"{oh:.2f}",
+            "odds_d": f"{od:.2f}", "odds_a": f"{oa:.2f}",
         }
         added += 1
     fields = ["year", "date", "home", "away", "score", "odds_h", "odds_d", "odds_a"]
-    all_rows = sorted(merged.values(), key=lambda m: (str(m["year"]), m["home"], m["away"]))
+    all_rows = sorted(merged.values(),
+                      key=lambda m: (str(m["year"]), m["home"], m["away"]))
     with open(OUT_CSV, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=fields)
         w.writeheader()
@@ -154,49 +160,52 @@ def merge_to_csv(rows_2026):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="抓取 2026 世界杯小组赛实时报价 → odds_wc.csv")
-    ap.add_argument("--dry", action="store_true", help="只打印抓到的,不写 CSV")
+    ap = argparse.ArgumentParser(
+        description="抓 2026 世界杯 1X2 报价(BetExplorer, requests+BS4)")
+    ap.add_argument("--dry", action="store_true", help="只打印,不写 CSV")
     args = ap.parse_args()
 
-    from playwright.sync_api import sync_playwright
     print("=" * 60)
-    print("  抓取 2026 世界杯小组赛报价(BetExplorer, Playwright 渲染)")
+    print("  抓取 WC2026 1X2 报价(BetExplorer · world-championship-2026)")
     print("=" * 60)
     wc_set = load_wc_teams()
-    all_rows = []
-    with sync_playwright() as p:
-        b = p.chromium.launch(headless=True)
-        pg = b.new_page()
-        for pt in ("results", "fixtures"):
-            try:
-                rows = harvest_page(pg, pt)
-                if wc_set:
-                    before = len(rows)
-                    rows = [r for r in rows if r[0] in wc_set and r[1] in wc_set]
-                    print(f"  [{pt}] 解析 {before} 场 → 白名单过滤后 {len(rows)} 场 WC2026")
-                else:
-                    print(f"  [{pt}] 解析出 {len(rows)} 场(无白名单,未过滤)")
-                for home, away, score, oh, od, oa in rows[:8]:
-                    sc = score or "-"
-                    print(f"    {home} {sc} {away}  {oh:.2f}/{od:.2f}/{oa:.2f}")
-                all_rows.extend(rows)
-            except Exception as e:
-                print(f"  [{pt}] 抓取失败({str(e)[:80]})——该页跳过,不影响已抓")
-        b.close()
+    print(f"  参赛队白名单: {len(wc_set) if wc_set else 0} 队")
 
-    # 去重(同场在 results+fixtures 都出现时取 fixtures 的未赛或 results 的已赛)
-    seen = {}
-    for home, away, score, oh, od, oa in all_rows:
-        seen[(home, away)] = (home, away, score, oh, od, oa)   # 后者覆盖(results 优先)
+    collected = {}  # (home, away) → (home, away, score, oh, od, oa)
+
+    for pt in ("results/", "fixtures/"):
+        try:
+            rows = harvest(pt)
+        except Exception as e:
+            print(f"  [{pt}] 拉取失败: {str(e)[:80]}")
+            continue
+        before = len(rows)
+        if wc_set:
+            rows = [r for r in rows
+                    if r[0] in wc_set and r[1] in wc_set]
+        print(f"  [{pt}] 解析 {before} 行 → 白名单 {len(rows)} 场")
+        for home, away, score, odds3 in rows:
+            if odds3:
+                collected[(home, away)] = (
+                    home, away, score, odds3[0], odds3[1], odds3[2])
+                sc = f"({score})" if score else ""
+                print(f"    ✓ {home:22s} vs {away:22s} {sc:8s}  "
+                      f"{odds3[0]:.2f}/{odds3[1]:.2f}/{odds3[2]:.2f}")
+            else:
+                print(f"    ✗ {home:22s} vs {away:22s}  无赔率")
 
     print("-" * 60)
-    print(f"  去重后 {len(seen)} 场")
+    print(f"  合计 {len(collected)} 场有 1X2")
     if args.dry:
         print("  --dry,不写 CSV")
         return
-    added, kept = merge_to_csv(list(seen.values()))
-    print(f"✓ odds_wc.csv:2026 写入 {added} 场,保留历史 {kept} 场")
-    print(f"  现在 webapp 2026 小组赛卡片中这些场将显示「📊报价」(自动生效)。")
+
+    if not collected:
+        print("  ⚠ 无任何 1X2 产出,odds_wc.csv 未改")
+        return
+
+    added, kept = merge_to_csv([v for v in collected.values()])
+    print(f"✓ odds_wc.csv: 2026 写入 {added} 场,保留历史 {kept} 场")
 
 
 if __name__ == "__main__":
