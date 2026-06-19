@@ -12,14 +12,23 @@
 set -u
 
 cd "$(dirname "$0")"
-PY="${PYTHON:-python}"
+# 默认用本地 venv python(cron 环境 PATH 可能不含 python),可被环境变量覆盖
+if [ -z "${PYTHON:-}" ] && [ -x "./.venv/bin/python" ]; then
+  PY="./.venv/bin/python"
+else
+  PY="${PYTHON:-python}"
+fi
 LOG="update_odds.log"
 TS() { date '+%Y-%m-%d %H:%M:%S'; }
 
 echo "[$(TS)] === 开始增量采集(1X2 + OU) ===" | tee -a "$LOG"
 
-# ---------- 1X2 ----------
-echo "[$(TS)] --- 1X2(fetch_wc2026_odds) ---" | tee -a "$LOG"
+# 注意(2026-06-19):The Odds API 已拆到 update_odds_api.sh 独立 cron 跑(quota 限制)。
+# 本脚本只跑 BetExplorer(免费),可放心挂每小时 cron。
+# fetch_wc2026_odds.py 的 merge 语义已改为"只填空",不会覆盖 The Odds API 优质数据。
+
+# ---------- 1X2(BetExplorer)----------
+echo "[$(TS)] --- 1X2(fetch_wc2026_odds,只填空) ---" | tee -a "$LOG"
 if ! "$PY" fetch_wc2026_odds.py >>"$LOG" 2>&1; then
   echo "[$(TS)] ⚠ 1X2 抓取失败,继续 OU" | tee -a "$LOG"
 fi
