@@ -51,6 +51,12 @@ if [ -n "$REMAINING" ] && [ "$REMAINING" -lt 50 ] 2>/dev/null; then
   echo "[$(TS)] ⚠ 配额仅剩 $REMAINING(本月快用完),考虑付费或降低频率" | tee -a "$LOG"
 fi
 
+# B 方案:每次 fetch 后跑一次价值下注扫描(pure compute,不耗 quota)
+# 写到 webapp/data/value_bets.json 供 /api/value-bets 缓存读取(可选)
+echo "[$(TS)] --- 价值下注扫描(Elo vs 市场) ---" | tee -a "$LOG"
+"$PY" scripts/scan_value_bets.py --min-edge 0.03 --output value_bets_$(date +%Y%m%d_%H%M).json >>"$LOG" 2>&1 || \
+  echo "[$(TS)] ⚠ value-bets scan 失败(继续)" | tee -a "$LOG"
+
 # 提交(若有变)
 if git diff --quiet -- odds_wc.csv ou_wc.csv; then
   echo "[$(TS)] 无新报价,跳过提交" | tee -a "$LOG"

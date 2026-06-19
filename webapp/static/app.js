@@ -30,7 +30,7 @@ let prevScoreMap = {};      // key -> "h-a" 用于检测比分变化
 let firstRender = true;     // 首次渲染(带 staggered 动画)
 let activeStage = 'all';
 let histExpanded = false;  // 历史赛果折叠区展开状态
-let cache = { schedule:[], status:{}, champions:[], groups:{}, backtest:null, market:null };
+let cache = { schedule:[], status:{}, champions:[], groups:{}, backtest:null, market:null, value:null };
 
 // ── 工具 ──────────────────────────────────────────
 const $ = (id) => document.getElementById(id);
@@ -163,7 +163,7 @@ function teamBlock(en, zh, elo, side) {
 // 48 方块概率条(官方 48 单元 DNA - 48 个参赛国)+ 三态百分比标签
 // 三重编码(色弱/快读冗余):① 三档金明度 ② 方块填充数 ③ 数字
 // prefix='drawer' 用抽屉尺寸/精度,decimals 控制百分比小数位
-function probCells(probs, prefix, decimals) {
+function probCells(probs, prefix, decimals, asOdds) {
   const [ph, pd] = probs;
   const TOTAL = 48;
   const nHome = Math.round(ph * TOTAL);
@@ -177,7 +177,13 @@ function probCells(probs, prefix, decimals) {
   }
   const barCls = prefix ? `${prefix}-probbar` : 'probbar';
   const lblCls = prefix ? `${prefix}-problabels` : 'problabels';
-  const fmt = (v) => decimals ? (v * 100).toFixed(decimals) : Math.round(v * 100);
+  const fmt = (v) => {
+    if (asOdds) {
+      const odds = v > 0 ? (1 / v).toFixed(2) : '-';
+      return prefix === 'drawer' ? odds : `赔率${odds}`;
+    }
+    return decimals ? (v * 100).toFixed(decimals) : Math.round(v * 100);
+  };
   const lbl = (cls, key, val) =>
     `<span class="pl ${cls}"><span class="pk">${key}</span><span class="pv">${fmt(val)}</span></span>`;
   return `<div class="${barCls}">${cells}</div>`
@@ -214,7 +220,7 @@ function renderCenter(m) {
       return `<div class="center-cell">`
         + `<div class="score-big ${cls}">${h}<span class="dash">-</span>${a}</div>`
         + predStr
-        + probCells(m.probs)
+        + probCells(m.probs, '', 0, true)
         + `<div class="topscore"><span class="hitmark ${markCls}">${mark}</span>${srcBadge(m)}</div>`
         + `</div>`;
     }
@@ -226,7 +232,7 @@ function renderCenter(m) {
   }
   const ts = m.top_score ? `预测 ${m.top_score[0]}-${m.top_score[1]}` : '';
   return `<div class="center-cell">`
-    + probCells(m.probs)
+    + probCells(m.probs, '', 0, true)
     + `<div class="topscore">${ts}${srcBadge(m)}</div></div>`;
 }
 
@@ -341,6 +347,7 @@ function renderMarket() {
     `<b class="mkt-tag mkt-a">A</b> 仅1X2反演 ${s.mode_a} 场(${pct(s.mode_a)}%) · ` +
     `<b class="mkt-tag mkt-e">Elo</b> 纯 Elo ${s.elo} 场(${pct(s.elo)}%) · ` +
     (s.mode_b ? `<b class="mkt-tag mkt-b">B</b> 1X2+OU反演 ${s.mode_b} 场 · ` : '');
+  $('vbNote') && ($('vbNote').textContent = '');  // noop safety
   const tagHtml = m => `<b class="mkt-tag mkt-${m.toLowerCase()}">${m}</b>`;
   const tri = p => p ? `主${pct2(p[0])} 平${pct2(p[1])} 客${pct2(p[2])}` : '—';
   const pct2 = x => (x * 100).toFixed(0) + '%';
@@ -385,6 +392,42 @@ async function openDrawer(date, home, away) {
     $('drawerBody').innerHTML = `<div class="placeholder">加载失败: ${esc(e.message)}</div>`;
   }
 }
+function renderValue() {
+  const d = cache.value;
+  if (!d) return;
+  // 顶部警示
+  $('vbNote').textContent = d.calibration_note || '';
+  // 分布摘要
+  const dist = d.edge_distribution;
+  if (dist && dist.n) {
+    const pct = x => (x * 100).toFixed(1) + '%';
+    $('vbSummary').innerHTML =
+      `<div class="vb-stat">扫描 <b>${dist.n}</b> 场(max edge)</div>` +
+      `<div class="vb-stat">平均 <b>${pct(dist.mean)}</b> · 中位 <b>${pct(dist.median)}</b> · 最大 <b>${pct(dist.max)}</b></div>` +
+      `<div class="vb-stat">阈值 ≥1% ${dist.thresholds['1%']} 场 · ≥3% ${dist.thresholds['3%']} 场 · ≥5% ${dist.thresholds['5%']} 场 · ≥10% ${dist.thresholds['10%']} 场</div>` +
+      `<div class="vb-stat vb-warn">⚠ ${d.n_value_bets} 场 ≥3% edge,但大多在冷门队(Elo 数据稀疏),实际不可信</div>`;
+  } else {
+    $('vbSummary').innerHTML = '<div class="placeholder">无 odds 数据,稍后再试</div>';
+  }
+  // Top 20 表格
+  const fmt = x => (x * 100).toFixed(0) + '%';
+  const edgeClass = e => e >= 0.10 ? 'edge-huge' : e >= 0.05 ? 'edge-strong' : 'edge-weak';
+  const rows = (d.upcoming || []).map(v => {
+    const elo = v.p_elo.map(fmt).join('/');
+    const mkt = v.p_mkt.map(fmt).join('/');
+    return `<div class="vb-row ${edgeClass(v.max_edge)}">
+      <span class="vb-date">${v.date}</span>
+      <span class="vb-match">${v.home_zh} vs ${v.away_zh}</span>
+      <span class="vb-elo">Elo ${elo}</span>
+      <span class="vb-mkt">市场 ${mkt}</span>
+      <span class="vb-edge">${(v.max_edge*100).toFixed(1)}%</span>
+      <span class="vb-pick"><b>${v.picked}</b> @ ${v.odds.toFixed(2)}</span>
+      <span class="vb-kelly">Kelly ${(v.kelly*100).toFixed(1)}%</span>
+    </div>`;
+  }).join('');
+  $('vbList').innerHTML = rows || '<div class="placeholder">未赛 ≥3% 价值机会 0 场</div>';
+}
+
 function closeDrawer() {
   $('drawer').classList.remove('open');
   $('drawerScrim').classList.remove('open');
@@ -422,10 +465,10 @@ function renderDrawer(m) {
       + `<div class="stat-row"><span class="k">预测依据</span><span class="v src-mode">`
       + `<b class="mkt-tag mkt-${m.mode.toLowerCase()}">${MODE_LABEL[m.mode]}</b> ${esc(MODE_DESC[m.mode])}</span></div>`;
     if (m.odds_1x2) {
-      html += `<div class="stat-row"><span class="k">胜负赔率</span><span class="v mono">${m.odds_1x2.join(' / ')}</span></div>`;
+      html += `<div class="stat-row"><span class="k">BetExplorer 胜负赔率</span><span class="v mono">${m.odds_1x2.join(' / ')}</span></div>`;
     }
     if (m.ou) {
-      html += `<div class="stat-row"><span class="k">大小球赔率</span><span class="v mono">≥3 球 ${m.ou[0]} / ≤2 球 ${m.ou[1]}</span></div>`;
+      html += `<div class="stat-row"><span class="k">BetExplorer 大小球赔率</span><span class="v mono">≥3 球 ${m.ou[0]} / ≤2 球 ${m.ou[1]}</span></div>`;
     }
     if (m.lam_inverted && m.lam_elo) {
       html += `<div class="stat-row"><span class="k">市场推算 预期进球</span><span class="v mono">主队 ${m.lam_inverted[0]} / 客队 ${m.lam_inverted[1]}</span></div>`
@@ -750,6 +793,10 @@ function bindEvents() {
         if (!cache.market) {
           getJSON('api/market').then(d => { cache.market = d; renderMarket(); }).catch(()=>{});
         } else { renderMarket(); }
+      } else if (t.dataset.tab === 'value') {
+        if (!cache.value) {
+          getJSON('api/value-bets?min_edge=0.03').then(d => { cache.value = d; renderValue(); }).catch(()=>{});
+        } else { renderValue(); }
       }
     });
   });

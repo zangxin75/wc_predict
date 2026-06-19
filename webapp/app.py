@@ -130,6 +130,129 @@ def get_market():
     return _market_cache
 
 
+_value_bets_cache = None
+_value_bets_lock = threading.Lock()
+
+
+@app.get("/api/value-bets")
+def get_value_bets(min_edge: float = Query(0.03, ge=0.0, le=0.5,
+                                            description="最小 edge 阈值(默认 3%%)")):
+    """价值下注面板(纯 Elo vs 市场 devig)— B 方案。
+
+    返回:
+      - edge_distribution: max edge 分布统计(平均/分位/各阈值场数)
+      - upcoming: 未赛价值机会 Top 20(按 Kelly 降序),含 Elo/Mkt 三态 + 推荐下注
+      - calibration_note: 已知结论(Elo 已被最优校准,与市场 corr +0.87)
+
+    静态(随 odds_wc.csv 变),首次请求计算后内存缓存。如需重算可重启服务。
+    """
+    global _value_bets_cache
+    if _value_bets_cache is None or _value_bets_cache.get("min_edge") != min_edge:
+        with _value_bets_lock:
+            if _value_bets_cache is None or _value_bets_cache.get("min_edge") != min_edge:
+                import csv as _csv
+                import compute_elo as _ce
+                import compute_odds as _co
+                from webapp import predictor as _pred
+                from datetime import date as _date
+                elo, _, _ = _ce.build_elo(os.path.join(HERE, "..", "results.csv"))
+                odds_map = _co.load_odds()
+                ZH = ["主胜", "平", "客胜"]
+
+                def _devig(oh, od, oa):
+                    if not (oh and od and oa) or oh <= 1 or od <= 1 or oa <= 1:
+                        return None
+                    s = 1.0 / oh + 1.0 / od + 1.0 / oa
+                    return (1.0 / oh / s, 1.0 / od / s, 1.0 / oa / s)
+
+                played, upcoming = [], []
+                today = _date.today().isoformat()
+                live_p = os.path.join(HERE, "..", "wc2026_live.csv")
+                sched_p = os.path.join(HERE, "..", "wc2026_schedule.csv")
+                played_keys = set()
+                if os.path.exists(live_p):
+                    with open(live_p, newline="", encoding="utf-8") as f:
+                        for r in _csv.DictReader(f):
+                            try:
+                                played_keys.add((r["home_team"], r["away_team"]))
+                            except KeyError:
+                                continue
+                if os.path.exists(sched_p):
+                    with open(sched_p, newline="", encoding="utf-8") as f:
+                        for r in _csv.DictReader(f):
+                            try:
+                                hs = int(r.get("home_score") or 0)
+                                as_ = int(r.get("away_score") or 0)
+                            except ValueError:
+                                hs = as_ = 0
+                            if r["date"] >= today and hs == 0 and as_ == 0:
+                                if (r["home_team"], r["away_team"]) in played_keys:
+                                    continue
+                                upcoming.append((r["date"], r["home_team"], r["away_team"],
+                                                  r.get("stage", "")))
+
+                all_edges, value_bets = [], []
+                for date_, home, away, stage in upcoming:
+                    pe = _pred.predict_one(home, away, elo, with_reflection=False)
+                    if not pe:
+                        continue
+                    ot = _co.lookup_odds(odds_map, home, away, 2026)
+                    if not ot:
+                        continue
+                    oh, od, oa = ot
+                    pm = _devig(oh, od, oa)
+                    if not pm:
+                        continue
+                    edges = [pe["probs"][i] - pm[i] for i in range(3)]
+                    bi = max(range(3), key=lambda i: edges[i])
+                    odds = [oh, od, oa][bi]
+                    p = pe["probs"][bi]
+                    b = odds - 1
+                    kelly = max(0, (b * p - (1 - p)) / b) if b > 0 else 0
+                    rec = {
+                        "date": date_, "home": home, "away": away, "stage": stage,
+                        "home_zh": _pred.EN_TO_ZH.get(home, home),
+                        "away_zh": _pred.EN_TO_ZH.get(away, away),
+                        "p_elo": list(pe["probs"]),
+                        "p_mkt": list(pm),
+                        "edges": edges,
+                        "max_edge": max(edges),
+                        "picked": ZH[bi],
+                        "odds": odds,
+                        "kelly": kelly,
+                    }
+                    all_edges.append(max(edges))
+                    if max(edges) >= min_edge:
+                        value_bets.append(rec)
+                value_bets.sort(key=lambda x: -x["kelly"])
+
+                dist = {}
+                if all_edges:
+                    dist = {
+                        "n": len(all_edges),
+                        "mean": sum(all_edges) / len(all_edges),
+                        "median": sorted(all_edges)[len(all_edges) // 2],
+                        "max": max(all_edges),
+                        "min": min(all_edges),
+                        "thresholds": {
+                            f"{int(t*100)}%": sum(1 for e in all_edges if e >= t)
+                            for t in [0.01, 0.02, 0.03, 0.05, 0.10]
+                        },
+                    }
+                _value_bets_cache = {
+                    "min_edge": min_edge,
+                    "calibration_note": (
+                        "Elo 已校准最优(corr +0.87 vs 市场)。"
+                        "扫描出的大 edge 多在冷门队(Elo 数据稀疏),实际不可信。"
+                        "价值在监控 edge 漂移,真信号会持续 ≥ 5% 在主流对阵上。"
+                    ),
+                    "edge_distribution": dist,
+                    "upcoming": value_bets[:20],
+                    "n_value_bets": len(value_bets),
+                }
+    return _value_bets_cache
+
+
 @app.get("/api/match")
 def get_match(date: str = Query(...), home: str = Query(...), away: str = Query(...),
               with_reflection: int = Query(0), with_intel: int = Query(0),

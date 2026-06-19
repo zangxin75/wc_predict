@@ -46,6 +46,7 @@
   <button class="tab" data-tab="groups">小组积分</button>
   <button class="tab" data-tab="backtest">历史回测</button>
   <button class="tab" data-tab="market">数据来源</button>
+  <button class="tab" data-tab="value">价值下注</button>
 </nav>
 
 <main class="deck">
@@ -110,6 +111,16 @@
     </div>
     <div id="mktList" class="mkt-wrap">
       <div class="placeholder">切换至此页加载数据来源…</div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-value">
+    <h2 class="panel-title">价值下注 · 系统 Elo vs 市场 devig(纯对比,不下注)</h2>
+    <div class="vb-note" id="vbNote"></div>
+    <div class="vb-summary" id="vbSummary"></div>
+    <h3 class="vb-sub">未赛 Top 20 价值机会(按 Kelly 降序)</h3>
+    <div id="vbList" class="vb-wrap">
+      <div class="placeholder">切换至此页加载价值下注数据…</div>
     </div>
   </section>
 

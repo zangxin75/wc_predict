@@ -28,8 +28,11 @@ if hasattr(sys.stdout, "reconfigure"):
 import fetch_odds_api as foa  # 复用 fetch_odds()
 
 
-def best_per_outcome(match):
+def best_per_outcome(match, book_keys=None):
     """对一场比赛,聚合所有博彩的 h2h 报价 → (best_h, book_h, best_d, book_d, best_a, book_a)。
+
+    book_keys: 可选 set,只保留这些博彩(如 {"pinnacle", "betfair_ex_uk"} 限定锐盘)。
+                None 或空 = 所有博彩。
 
     Returns None 若任一态缺。
     """
@@ -39,6 +42,9 @@ def best_per_outcome(match):
         return None
     best = {"h": (None, None), "d": (None, None), "a": (None, None)}
     for bm in match.get("bookmakers", []) or []:
+        bk = bm.get("key", "")
+        if book_keys and bk not in book_keys:
+            continue
         for mkt in bm.get("markets", []):
             if mkt.get("key") != "h2h":
                 continue
@@ -63,10 +69,13 @@ def best_per_outcome(match):
     return best["h"][0], best["h"][1], best["d"][0], best["d"][1], best["a"][0], best["a"][1]
 
 
-def best_totals(match):
+def best_totals(match, book_keys=None):
     """对一场比赛,聚合所有博彩的 totals 报价(分 line)→ {line: (best_over, book_o, best_under, book_u)}"""
     out = {}
     for bm in match.get("bookmakers", []) or []:
+        bk = bm.get("key", "")
+        if book_keys and bk not in book_keys:
+            continue
         for mkt in bm.get("markets", []):
             if mkt.get("key") != "totals":
                 continue
@@ -82,7 +91,7 @@ def best_totals(match):
                     out[point] = {"o": (None, None), "u": (None, None)}
                 cur, _ = out[point]["o" if name == "Over" else "u"]
                 if cur is None or price > cur:
-                    out[point]["o" if name == "Over" else "u"] = (price, bm.get("key", ""))
+                    out[point]["o" if name == "Over" else "u"] = (price, bk)
     # 过滤完整配对
     return {l: v for l, v in out.items() if v["o"][0] and v["u"][0]}
 
@@ -158,8 +167,14 @@ def main():
                     help="最小利润率%%过滤(默认 0,显示所有 < 1 的机会)")
     ap.add_argument("--markets", default="h2h,totals",
                     help="市场(默认 h2h,totals)")
+    ap.add_argument("--books", default="",
+                    help="博彩白名单,逗号分隔(如 pinnacle,betfair_ex_uk,matchbook)。空=全部")
     ap.add_argument("--output", help="可选:写 JSON 到指定文件")
     args = ap.parse_args()
+
+    book_keys = set(k.strip() for k in args.books.split(",") if k.strip()) or None
+    if book_keys:
+        print(f"  ⚙ 限定博彩: {sorted(book_keys)}")
 
     api_key = foa.get_api_key()
     print("=" * 60)
@@ -188,18 +203,18 @@ def main():
         away = m.get("away_team", "")
         commence = m.get("commence_time", "")
         # 1X2
-        b = best_per_outcome(m)
+        b = best_per_outcome(m, book_keys)
         if b:
             o = arb_1x2(home, away, commence, b)
             if o and o["margin_pct"] >= args.min_margin:
                 opps_1x2.append(o)
         # OU(分 line)
-        for line, v in best_totals(m).items():
+        for line, v in best_totals(m, book_keys).items():
             o = arb_ou(home, away, commence, line, v["o"][0], v["o"][1],
                        v["u"][0], v["u"][1])
             if o and o["margin_pct"] >= args.min_margin:
                 opps_ou.append(o)
-        if not b and not best_totals(m):
+        if not b and not best_totals(m, book_keys):
             no_data += 1
 
     # 排序:利润率降序

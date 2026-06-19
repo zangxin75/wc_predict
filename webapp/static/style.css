@@ -754,3 +754,27 @@ body::before{
   .h2h-score{text-align:left}
 }
 
+/* 价值下注面板(B 方案) */
+.vb-note{font-size:12px;color:var(--text-dim);background:var(--bg-card);padding:10px 14px;border-radius:var(--r-card);border-left:3px solid var(--accent);margin-bottom:12px}
+.vb-summary{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--text-dim);margin-bottom:14px}
+.vb-stat{background:var(--bg-card);padding:8px 12px;border-radius:var(--r-card)}
+.vb-stat b{color:var(--text-bright);font-weight:600}
+.vb-stat.vb-warn{color:#e5b44b;border-left:3px solid #e5b44b}
+.vb-sub{font-size:13px;color:var(--text-dim);margin:18px 0 8px;font-weight:500}
+.vb-wrap{display:flex;flex-direction:column;gap:6px}
+.vb-row{display:grid;grid-template-columns:90px 1.5fr 1fr 1fr 60px 110px 90px;gap:10px;align-items:center;padding:8px 10px;border-radius:var(--r-card);background:var(--bg-card);border:1px solid var(--border);font-size:12px}
+.vb-row.edge-huge{border-color:rgba(229,180,75,.5);background:rgba(229,180,75,.06)}
+.vb-row.edge-strong{border-color:rgba(229,180,75,.3)}
+.vb-row.edge-weak{border-color:var(--border)}
+.vb-date{font-family:var(--ff-mono);color:var(--text-dim)}
+.vb-match{font-weight:600;font-size:13px}
+.vb-elo,.vb-mkt{font-family:var(--ff-mono);font-size:11px;color:var(--text-dim)}
+.vb-edge{font-family:var(--ff-mono);font-weight:700;color:#e5b44b;text-align:right}
+.vb-pick{font-family:var(--ff-mono);font-size:12px}
+.vb-pick b{color:var(--accent)}
+.vb-kelly{font-family:var(--ff-mono);font-size:11px;color:var(--text-dim);text-align:right}
+@media(max-width:760px){
+  .vb-row{grid-template-columns:1fr 1fr;gap:6px}
+  .vb-elo,.vb-mkt,.vb-edge,.vb-kelly{display:none}
+}
+
