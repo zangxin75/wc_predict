@@ -1,6 +1,6 @@
 name: Portugal
 name_zh: Portugal
-updated: '2026-06-16'
+updated: '2026-06-20'
 elo_adjustments: []
 recent_lessons:
 - date: '2022-11-28'
@@ -85,3 +85,20 @@ recent_lessons:
   - 葡萄牙在落后时换上夸雷斯马改变节奏，其传中助攻制造了进球，这种替补奇兵的战术变阵增加了比赛变数
   reusable: true
   llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-17'
+  tournament: 2026 美加墨世界杯
+  vs: DR Congo
+  venue: neutral
+  prediction: 1-0
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 葡萄牙破密集防守乏力，面对民主刚果五后卫低位防线缺乏纵深穿透与边路爆点
+  - 民主刚果反击战术执行力强，利用巴坎布或塞克等锋线球员的速度直接打击葡萄牙防线身后
+  - 系统低估了非洲球队的身体对抗优势与在禁区内的防守韧性，导致预期进球数(xG)被高估
+  - 葡萄牙领先后战术保守，中场控制力下降，被持续施加高压最终导致丢球
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-20
+  web_search_used: false
+  sources: []
+  search_summary: null

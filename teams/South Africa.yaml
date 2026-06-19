@@ -1,0 +1,21 @@
+name: South Africa
+name_zh: South Africa
+updated: '2026-06-20'
+elo_adjustments: []
+recent_lessons:
+- date: '2026-06-18'
+  tournament: 2026 美加墨世界杯
+  vs: Czech Republic
+  venue: neutral
+  prediction: 1-0
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 南非队下半场体能与对抗优势显现，通过高强度跑动弥补了与欧洲球队的技术差距
+  - 南非队边路快速反击战术奏效，成功抓住捷克防线压上后的身后空当扳平比分
+  - 捷克队破密集防守手段单一，领先后退守过深导致中场失控，未能扩大比分
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-20
+  web_search_used: false
+  sources: []
+  search_summary: null

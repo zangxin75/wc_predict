@@ -1,6 +1,6 @@
 name: Netherlands
 name_zh: Netherlands
-updated: '2026-06-16'
+updated: '2026-06-20'
 elo_adjustments: []
 recent_lessons:
 - date: '2022-11-25'
@@ -29,3 +29,19 @@ recent_lessons:
   - 120分钟高消耗导致防线脱节：双方在加时赛下半段体能断崖，阿根廷中场失势，荷兰孤注一掷的轰炸导致系统预测的常规1-1平衡比分被打破
   reusable: true
   llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-14'
+  tournament: 2026 美加墨世界杯
+  vs: Japan
+  venue: neutral
+  prediction: 1-0
+  actual: 2-2
+  miss_type: result
+  causes:
+  - 系统低估了日本队中前场的快速传切能力与反击效率,久保建英和三笘薰在边路成功撕破了荷兰队的高位防线
+  - 荷兰队后腰单防能力不足且防线压上后留出巨大空当,被日本队多次针对性直塞球打穿导致单场丢2球
+  - 日本队展现出极强的战术韧性与抗压能力,在落后局面下通过积极的跑动和高强度逼抢两度扳平比分
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-20
+  web_search_used: false
+  sources: []
+  search_summary: null

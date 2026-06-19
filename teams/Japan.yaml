@@ -1,6 +1,6 @@
 name: Japan
 name_zh: 日本
-updated: '2026-06-16'
+updated: '2026-06-20'
 elo_adjustments:
 - key: vs_south_america
   value: 20
@@ -109,3 +109,19 @@ recent_lessons:
   - 防守端容错率低：双方中后卫（如吉田麻也等）在应对高位逼抢与定位球防守时连续出现盯人失误，导致单场产生4个进球，打破了1-1的均衡模型预测
   reusable: true
   llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-14'
+  tournament: 2026 美加墨世界杯
+  vs: Netherlands
+  venue: neutral
+  prediction: 1-0
+  actual: 2-2
+  miss_type: result
+  causes:
+  - 系统低估了日本队中前场的快速传切能力与反击效率,久保建英和三笘薰在边路成功撕破了荷兰队的高位防线
+  - 荷兰队后腰单防能力不足且防线压上后留出巨大空当,被日本队多次针对性直塞球打穿导致单场丢2球
+  - 日本队展现出极强的战术韧性与抗压能力,在落后局面下通过积极的跑动和高强度逼抢两度扳平比分
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-20
+  web_search_used: false
+  sources: []
+  search_summary: null
