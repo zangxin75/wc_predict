@@ -555,23 +555,25 @@ def claim_session(request: Request, session_id: str = Query(..., description="St
         raise HTTPException(400, f"invalid session_id: {e}")
 
     # 从 Stripe session 提取 email (customer_email 优先, 其次 metadata.email)
-    email = (
-        (sess.get("customer_email") or "").strip()
-        or (sess.get("metadata", {}) or {}).get("email", "").strip()
-    )
+    # 注意: _stripe.checkout.Session.retrieve 返回 StripeObject, 用属性访问, 不是 dict.get
+    customer_email = (getattr(sess, "customer_email", None) or "").strip()
+    metadata = getattr(sess, "metadata", None) or {}
+    metadata_email = (metadata.get("email", "") if isinstance(metadata, dict) else "")
+    email = customer_email or metadata_email.strip()
     if not email:
         raise HTTPException(400, "no email associated with this checkout session")
     email = email.lower()
 
     # 验证支付状态(必须 paid 才发 session)
-    if sess.get("payment_status") not in ("paid", "no_payment_required"):
+    payment_status = getattr(sess, "payment_status", "") or ""
+    if payment_status not in ("paid", "no_payment_required"):
         # 订阅模式可能 immediate 时 payment_status 还是 unpaid, 看 mode + status
-        mode = sess.get("mode", "payment")
-        status = sess.get("status", "")
+        mode = getattr(sess, "mode", "payment") or "payment"
+        status = getattr(sess, "status", "") or ""
         if mode == "subscription" and status in ("complete", "trialing"):
             pass
         else:
-            raise HTTPException(402, f"checkout not paid (status={status}, payment_status={sess.get('payment_status')})")
+            raise HTTPException(402, f"checkout not paid (status={status}, payment_status={payment_status})")
 
     # 写 session, Set-Cookie 由 SessionMiddleware 下发
     auth.set_session_user(request, email)
