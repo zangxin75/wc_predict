@@ -377,12 +377,16 @@ def get_backtest():
 # ── Stripe 订阅 ────────────────────────────────────────
 @app.post("/api/create-checkout-session")
 def create_checkout(email: str = Query(...), price_id: str = Query(...),
-                     origin: str = Query(default="http://localhost:8000")):
-    """创建 Stripe Checkout Session,返回支付 URL。"""
+                     origin: str = Query(default="http://localhost:8000"),
+                     locale: str = Query(default="auto", description="语言代码,如 zh-CN/es/pt/ar/fr/en")):
+    """创建 Stripe Checkout Session,返回支付 URL。
+
+    locale 映射到 Stripe 支持的 Checkout 语言,使支付页面与前端语言一致。
+    """
     if not payments.STRIPE_SECRET_KEY:
         raise HTTPException(503, "Stripe not configured")
     try:
-        url = payments.create_checkout_session(email, price_id, origin)
+        url = payments.create_checkout_session(email, price_id, origin, locale=locale)
         return {"url": url}
     except Exception as e:
         raise HTTPException(400, str(e))

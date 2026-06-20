@@ -25,6 +25,20 @@ PRICE_MONTHLY = os.environ.get("STRIPE_PRICE_MONTHLY", "")
 PRICE_TOURNAMENT = os.environ.get("STRIPE_PRICE_TOURNAMENT", "")
 WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
 
+# 前端 locale → Stripe Checkout locale 映射
+# Stripe 支持列表: auto, bg, cs, da, de, el, en, en-GB, es, es-419, et,
+# fi, fil, fr, fr-CA, hr, hu, id, it, ja, ko, lt, lv, ms, mt, nb, nl,
+# pl, pt, pt-BR, ro, ru, sk, sl, sv, th, tr, vi, zh, zh-HK, zh-TW
+# 注意: ar(阿拉伯语)不受支持,回退 auto
+LOCALE_MAP = {
+    "zh-CN": "zh",
+    "zh-TW": "zh-HK",
+    "es": "es",
+    "pt": "pt-BR",
+    "fr": "fr",
+    "ar": "auto",
+}
+
 # 前端 placeholder → 真实 price_id 映射
 PRICE_MAP = {
     "price_monthly": PRICE_MONTHLY,
@@ -52,9 +66,13 @@ def _save_users(users: dict) -> None:
         json.dump(users, f, indent=2, ensure_ascii=False)
 
 
-def create_checkout_session(email: str, price_id: str, origin: str) -> str:
-    """创建 Stripe Checkout Session,返回支付链接。"""
+def create_checkout_session(email: str, price_id: str, origin: str, locale: str = "auto") -> str:
+    """创建 Stripe Checkout Session,返回支付链接。
+
+    locale: 前端语言代码(如 zh-CN),映射为 Stripe 支持的语言。
+    """
     resolved = resolve_price_id(price_id)
+    stripe_locale = LOCALE_MAP.get(locale, "auto")
     session = stripe.checkout.Session.create(
         customer_email=email,
         mode="subscription",
@@ -62,6 +80,7 @@ def create_checkout_session(email: str, price_id: str, origin: str) -> str:
         success_url=origin.rstrip("/") + "/?checkout=success",
         cancel_url=origin.rstrip("/") + "/",
         metadata={"email": email},
+        locale=stripe_locale,
     )
     return session.url
 

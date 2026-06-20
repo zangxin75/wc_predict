@@ -162,10 +162,11 @@ async function handleCheckout(plan) {
   const priceIdMap = { monthly: 'price_monthly', tournament: 'price_tournament' };
   const base = window.location.origin + window.location.pathname.replace(/\/$/, '');
   const origin = base;
+  const locale = (window.I18N && I18N.current) || 'auto';
   const btn = plan === 'monthly' ? $('planMonthly') : $('planTournament');
   if (btn) btn.disabled = true;
   try {
-    const r = await fetch(`api/create-checkout-session?email=${encodeURIComponent(email)}&price_id=${priceIdMap[plan]}&origin=${encodeURIComponent(origin)}`, { method: 'POST' });
+    const r = await fetch(`api/create-checkout-session?email=${encodeURIComponent(email)}&price_id=${priceIdMap[plan]}&origin=${encodeURIComponent(origin)}&locale=${encodeURIComponent(locale)}`, { method: 'POST' });
     if (!r.ok) throw new Error(await r.text());
     const data = await r.json();
     if (data.url) { window.location.href = data.url; }
