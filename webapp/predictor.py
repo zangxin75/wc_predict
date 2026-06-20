@@ -161,7 +161,8 @@ def predict_one(home, away, elo, odds_map=None, year=None, ou_map=None,
 
     # 保留 reflection 调整后的 Elo 三态(混合预测会用到)
     hw_e, dr_e, aw_e, _matrix, top = wc_predict.predict_from_elo(eh, ea, home_adv_elo=adv)
-    lam_h, lam_a = wc_predict.elo_to_lambdas(eh, ea, home_adv=adv)
+    lam_h_elo, lam_a_elo = wc_predict.elo_to_lambdas(eh, ea, home_adv=adv)
+    lam_h, lam_a = lam_h_elo, lam_a_elo  # 默认用 Elo λ,市场可用时再覆盖
 
     # ── 数据来源 mode 判定(与 lambda_predict_summary 一致)──
     mode = "Elo"
@@ -186,6 +187,15 @@ def predict_one(home, away, elo, odds_map=None, year=None, ou_map=None,
             if lam_inv is not None:
                 mode = "A"
 
+    # 市场 λ 可用时,用市场 λ 重算比分矩阵和 top5(不再始终 Elo)
+    # 多轮讨论共识:market λ 比分分布优于 Elo λ(OU 让 Top3 +6.7pp)
+    draw_flag = False
+    if lam_inv is not None:
+        hw_m, dr_m, aw_m, _matrix, top = wc_predict._poisson_three_way(*lam_inv)
+        lam_h, lam_a = lam_inv  # 同步更新展示 λ 为市场值
+        if dr_m > 0.28 and abs(lam_inv[0] - lam_inv[1]) < 0.3:
+            draw_flag = True
+
     oh = compute_odds.lookup_odds(odds_map, home, away, year=year) \
         if (odds_map and year) else None
     p_market = None  # 记录原 market 三态,供混合预测与展示用
@@ -194,10 +204,7 @@ def predict_one(home, away, elo, odds_map=None, year=None, ou_map=None,
         src = "odds"
         p_market = (hw, dr, aw)
     elif lam_inv is not None:
-        # 优先用 odds_map 的 1X2(devig);若没有但 ou_map 反演成功(B/A 模式),
-        # 用 lam_inv 算泊松三态作为 market 端(市场价通过 lambda 间接表达)
-        hw_l, dr_l, aw_l, _, _ = wc_predict._poisson_three_way(*lam_inv)
-        hw, dr, aw = hw_l, dr_l, aw_l
+        hw, dr, aw = hw_m, dr_m, aw_m
         src = "odds"
         p_market = (hw, dr, aw)
     else:
@@ -254,7 +261,7 @@ def predict_one(home, away, elo, odds_map=None, year=None, ou_map=None,
         "ou": [round(x, 2) for x in ou] if ou else None,
         "ou_line": ou_line,
         "lam_inverted": [round(x, 2) for x in lam_inv] if lam_inv else None,
-        "lam_elo": [round(lam_h, 2), round(lam_a, 2)],
+        "lam_elo": [round(lam_h_elo, 2), round(lam_a_elo, 2)],
         "reflection_adj": ({"home": round(reflection_adj["home"]),
                             "away": round(reflection_adj["away"])}
                            if with_reflection else None),
@@ -262,6 +269,7 @@ def predict_one(home, away, elo, odds_map=None, year=None, ou_map=None,
         "p_market": [round(x, 4) for x in p_market] if p_market else None,
         "p_reflect": ([round(hw_e, 4), round(dr_e, 4), round(aw_e, 4)]
                       if with_reflection else None),
+        "draw_flag": draw_flag,
     }
 
 

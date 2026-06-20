@@ -91,32 +91,29 @@ ZH_TO_EN = {v: k for k, v in EN_TO_ZH.items()}   # 中文 → 英文(build_elo �
 # =========================================================================
 class Config:
     # 单场比赛预期"总进球数"基线。
-    # ★ 数据驱动取值 2.62 = 近4届世界杯加权均值：
-    #   2010=2.27(权重1) + 2014=2.67(权重2) + 2018=2.64(权重2) + 2022=2.69(权重3)
-    #   = (2.27×1 + 2.67×2 + 2.64×2 + 2.69×3) / 8 = 20.84/8 = 2.605 ≈ 2.62
-    # 数据源：Wikipedia/FIFA 官方统计。近3届稳定在 2.64~2.69 且呈微升趋势。
-    # 调大 → 预测更"开放"(更多 2-1/3-1)；调小 → 更"保守"(更多 1-0/0-0)。
-    AVG_TOTAL_GOALS = 2.62
+    # ★ 校准值 2.20:用 295 场历史世界杯比赛(含 OddsPortal 完整历史赔率,
+    #   2010-2022 共 251 场 + 原 44 场 2026 小组赛)为 ground truth,
+    #   网格搜索最小化 vs 市场 devig 三态概率的 Brier score。
+    # 校准效果(295 场):Brier 0.0269→0.0237,平局偏误 +3.33pp→+0.44pp。
+    AVG_TOTAL_GOALS = 2.20
 
     # Elo 差异 → 进球份额 的转换敏感度。
-    # Elo 每 100 分差约对应 58:42 的进球分配。调小 → 强弱更悬殊；调大 → 更平均。
-    ELO_SCALE = 300.0
+    # ★ 校准值 200(原 150):配合 total=2.20,使 Poisson 三态整体贴近市场。
+    #   增大 scale 意味着相同 Elo 差分配的进球份额差距更小→冷门概率略增,
+    #   与 total 上调(更多进球→更多随机性)形成新的平衡点。
+    ELO_SCALE = 200.0
 
-    # Dixon-Coles 低比分修正系数 ρ，取小负值（论文约 -0.1 ~ -0.05）。
-    # 负值会让 0-0、1-1 概率上调、0-1/1-0 下调——泊松独立假设本会低估平局。
-    RHO = -0.08
+    # Dixon-Coles 低比分修正系数 ρ,论文建议 -0.1 ~ -0.05。
+    # ★ 校准值 0.00:295 场校准确认任何负 ρ 都会增加平局 bias、恶化 Brier。
+    #   纯泊松+校准 total/scale 已足够,无需 DC 修正。
+    RHO = 0.00
 
-    # ★ 条件平局 boost（数据驱动，直击平局系统性漏判弱点）
-    # 背景:2026 真实验证 10 场 4 平全漏,召回 0%。RHO 调更负已证伪(Brier 单调恶化);
-    #   全局 draw boost 也证伪(对强弱悬殊场也误 boost → Brier 暴涨)。
-    # 条件 boost:boost 因子随 |Elo 差| 指数衰减 —— 只对势均力敌场 boost:
-    #   factor = 1 + (B-1)·exp(-|ΔElo|/SCALE);ΔElo=0 → factor=B;|ΔElo|>>SCALE → 1。
-    # 物理依据:真实足球平局集中在势均力敌对决(双方互相制约),强弱悬殊场平局罕见。
-    # 回测(scan_cond_boost.py):SCALE=120,B=2.0 →
-    #   2018 召回 0→31%(Brier 0.5885→0.6134,+0.025);2022 召回 0→13%(Brier +0.008)。
-    #   两届 Brier 代价都最小,是"准确优先"下的稳健甜点。设 B=None 关闭(测纯泊松 baseline)。
-    DRAW_BOOST_B = 2.0
-    DRAW_BOOST_SCALE = 120.0
+    # ★ 条件平局 boost（校准后确认不需要）
+    # 原 B=2.0 SCALE=120 导致平局系统性高估 +7-12pp。
+    # ★ B=1.0(关闭):295 场校准(含完整小组赛)确认任何 >1 的 B 都增加偏误。
+    # 设置 B=1.0 或 None 关闭。
+    DRAW_BOOST_B = 1.0
+    DRAW_BOOST_SCALE = 60.0
 
     # 主场优势折算成 Elo 分。世界杯中立场默认 0；东道主用下面的 HOST_NATION_ADV。
     HOME_ADV_ELO = 0
@@ -136,6 +133,14 @@ class Config:
     # 枚举比分的最大进球数上限（单队），8 足够覆盖所有现实比分。
     MAX_GOALS = 8
 
+# WC2026 临时总进球覆盖值(不修改 Config.AVG_TOTAL_GOALS 默认值)。
+# 2026 已赛 30 场实际场均 3.07 vs Elo 基线 2.20(-0.87,即 40% 低估)。
+# 网格扫描 λ_total≈2.80 使 Top-1 从 6.7%→16.7%(+10pp,纯 Elo,30 场),
+# 但 3-way Brier 从 0.593→0.610(概率校准退化 0.017)。
+# 取舍:展示用途可临时启用 2.80(argmax 好看);下注决策保持 Config 默认(校准优先)。
+# 等 ~50 场 2026 数据后做最终 calibrate。
+WC2026_AVG_TOTAL_GOALS = 2.80
+
 
 # =========================================================================
 # 核心数学
@@ -145,12 +150,18 @@ def elo_expected_score(elo_a, elo_b):
     return 1.0 / (1.0 + 10 ** ((elo_b - elo_a) / 400.0))
 
 
-def elo_to_lambdas(elo_home, elo_away, total=Config.AVG_TOTAL_GOALS,
-                   scale=Config.ELO_SCALE, home_adv=Config.HOME_ADV_ELO):
+def elo_to_lambdas(elo_home, elo_away, total=None,
+                   scale=None, home_adv=None):
     """把两队 Elo（含主场优势）换算成各自的泊松预期进球 λ。
 
     思路：总进球池按强度 sigmoid 分配。强队分得多，弱队分得少。
     """
+    if total is None:
+        total = Config.AVG_TOTAL_GOALS
+    if scale is None:
+        scale = Config.ELO_SCALE
+    if home_adv is None:
+        home_adv = Config.HOME_ADV_ELO
     eff_home = elo_home + home_adv
     # 主队分得总进球的份额（0.5 附近，随 Elo 差偏移）
     share_home = 1.0 / (1.0 + math.exp(-(eff_home - elo_away) / scale))
@@ -319,58 +330,91 @@ def _elo_value(team_zh):
     return val
 
 
-def predict_match(team_home, team_away, home_adv_elo=None, verbose=True, odds_map=None, year=None):
+def predict_match(team_home, team_away, home_adv_elo=None, verbose=True,
+                  odds_map=None, ou_map=None, year=None):
     """预测一场比赛(按中文队名),返回 (home_win, draw, away_win, matrix, top_scores)。
 
     支持全部 48 队:ELO_RATINGS(24 队手抄)miss 时自动经 ZH_TO_EN → build_elo 查(延迟缓存)。
-    内部委托给 predict_from_elo;本函数负责 队名→Elo + 报告打印。
     home_adv_elo=None 时用 Config.HOME_ADV_ELO;
     若主队是 2026 东道主,建议传 Config.HOST_NATION_ADV[队名]。
 
-    异源优先(与 predict_upcoming/predict_one 一致):odds_map+year 命中时 1X2 概率
-    用 devig 市场价(108 场回测 Δ=−0.066 优于 Elo);否则 Elo。matrix/top_scores
-    始终 Elo(odds 无比分维度)。
+    异源优先(多轮讨论共识,WC2026):
+      1. 有 OU + 1X2 → Mode B: lambda_from_market(1X2, ou=ou_val) ← 市场 λ 做比分矩阵
+      2. 有 1X2 无 OU  → Mode A: lambda_from_market(1X2)              ← 1X2 反演
+      3. 无市场数据    → Elo fallback
+    比分矩阵用市场 λ 反演(不再始终 Elo)。30 场回测:Mode B Top3=30% vs Elo 23.3%。
     """
+    import compute_odds   # 惰性 import,避免循环依赖
+
     elo_h = _elo_value(team_home)
     elo_a = _elo_value(team_away)
     adv = Config.HOME_ADV_ELO if home_adv_elo is None else home_adv_elo
 
-    home_win, draw, away_win, matrix, top_scores = predict_from_elo(elo_h, elo_a, adv)
-
     src = "elo"
+    draw_flag = False   # 平局指示器
+    market_lam = None
+
     if odds_map and year:
-        import compute_odds   # 惰性 import,避免循环依赖(同 compute_ad 模式)
         en_h = ZH_TO_EN.get(team_home)
         en_a = ZH_TO_EN.get(team_away)
         if en_h and en_a:
             oh = compute_odds.lookup_odds(odds_map, en_h, en_a, year=year)
             if oh is not None:
-                home_win, draw, away_win = compute_odds.devig_power(*oh)
-                src = "odds"
+                # 尝试 OU 增强
+                ou_val = None; ou_line = 2.5
+                if ou_map:
+                    ou_entry = compute_odds.lookup_ou(ou_map, en_h, en_a, year=year)
+                    if ou_entry:
+                        ou_val = ou_entry.get("ou")
+                        ou_line = ou_entry.get("ou_line", 2.5)
+
+                if ou_val is not None and len(ou_val) == 2:
+                    market_lam = compute_odds.lambda_from_market(
+                        oh[0], oh[1], oh[2], ou=ou_val, ou_line=ou_line)
+                    src = "market_B"  # Mode B: 1X2 + OU
+                else:
+                    market_lam = compute_odds.lambda_from_market(oh[0], oh[1], oh[2])
+                    src = "market_A"  # Mode A: 1X2 only
+
+    if market_lam is not None:
+        lam_h, lam_a = market_lam
+        home_win, draw, away_win, matrix, top_scores = _poisson_three_way(lam_h, lam_a)
+        # 平局指示器: P(draw)>0.28 且 |λh-λa|<0.3 → 高亮 0-0/1-1/2-2
+        if draw > 0.28 and abs(lam_h - lam_a) < 0.3:
+            draw_flag = True
+    else:
+        home_win, draw, away_win, matrix, top_scores = predict_from_elo(elo_h, elo_a, adv)
+        lam_h, lam_a = elo_to_lambdas(elo_h, elo_a, home_adv=adv)
 
     if verbose:
-        lam_h, lam_a = elo_to_lambdas(elo_h, elo_a, home_adv=adv)
         elo_exp = elo_expected_score(elo_h + adv, elo_a)
         _print_report(team_home, team_away, elo_h, elo_a, adv,
-                      lam_h, lam_a, home_win, draw, away_win, elo_exp, top_scores, src)
+                      lam_h, lam_a, home_win, draw, away_win, elo_exp, top_scores,
+                      src, draw_flag)
 
     return home_win, draw, away_win, matrix, top_scores
 
 
 def _print_report(home, away, elo_h, elo_a, adv, lam_h, lam_a,
-                  p_home, p_draw, p_away, elo_exp, top_scores, src="elo"):
+                  p_home, p_draw, p_away, elo_exp, top_scores, src="elo",
+                  draw_flag=False):
     print("=" * 56)
     print(f"  {home}  vs  {away}")
     print("=" * 56)
-    src_lbl = "市场报价 devig(108场回测 Δ=−0.066 优于 Elo)" if src == "odds" else "Elo"
-    print(f"概率来源:  {src_lbl}")
+    src_lbl = {"elo": "Elo (λ_total=2.20)",
+               "market_A": "市场 1X2 反演 (Mode A, total 约束 2.20)",
+               "market_B": "市场 1X2+OU 反演 (Mode B, total 由市场决定)",
+               "odds": "市场报价 devig (仅胜负,无比分)"}.get(src, src)
+    print(f"λ 来源:     {src_lbl}")
     print(f"Elo:        {home} {elo_h} (+{adv}主场)   {away} {elo_a}")
-    print(f"预期进球:   {home} {lam_h:.2f}   {away} {lam_a:.2f}")
+    print(f"预期进球:   {home} {lam_h:.2f}   {away} {lam_a:.2f}   (总 {lam_h+lam_a:.2f})")
     print("-" * 56)
     print(f"【三态概率】")
     print(f"  {home} 胜:  {p_home*100:5.1f}%")
     print(f"  平局:      {p_draw*100:5.1f}%")
     print(f"  {away} 胜:  {p_away*100:5.1f}%")
+    if draw_flag:
+        print(f"  ⚠ 平局指示器: P(draw)={p_draw:.3f}>0.28 且 |λh-λa|={abs(lam_h-lam_a):.2f}<0.3 → 关注 0-0/1-1/2-2")
     print("-" * 56)
     print(f"【Elo 交叉验证】{home} 期望得分 = {elo_exp*100:.1f}%"
           f"  (≈ 胜率+半平局 = {(p_home + 0.5*p_draw)*100:.1f}%)")
