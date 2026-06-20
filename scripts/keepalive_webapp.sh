@@ -52,9 +52,12 @@ done
 sleep 1
 
 # ── 3. 后台拉起 ─────────────────────────────────────────
-log "starting: cd ${PROJ} && ./.venv/bin/python -m uvicorn webapp.app:app --host 127.0.0.1 --port ${PORT}"
+# 绑 172.17.0.1(docker0 bridge 网关)而不是 127.0.0.1:
+#   token-efficiency-nginx-proxy 容器经 host.docker.internal(=172.17.0.1)反代 /wc
+#   绑 0.0.0.0 会与 token-efficiency-portal-backend(:8000)冲突
+log "starting: cd ${PROJ} && ./.venv/bin/python -m uvicorn webapp.app:app --host 172.17.0.1 --port ${PORT}"
 cd "$PROJ" || { log "ABORT  cannot cd to ${PROJ}"; exit 1; }
-nohup ./.venv/bin/python -m uvicorn webapp.app:app --host 127.0.0.1 --port "$PORT" \
+nohup ./.venv/bin/python -m uvicorn webapp.app:app --host 172.17.0.1 --port "$PORT" \
   >> "$LOG" 2>&1 &
 echo $! > "$PIDFILE"
 new_pid=$(cat "$PIDFILE")
