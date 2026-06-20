@@ -59,7 +59,7 @@ def _extract_json(content):
     return json.loads(content)
 
 
-def _call_zhipu(prompt, max_tokens=600, temperature=0.3, enable_search=True):
+def _call_zhipu(prompt, max_tokens=600, temperature=0.3, enable_search=True, timeout=30):
     """调智谱原生端点。返回 {content, sources[]} 或 {error}。"""
     key = _load_key()
     if not key:
@@ -77,7 +77,7 @@ def _call_zhipu(prompt, max_tokens=600, temperature=0.3, enable_search=True):
                 "max_tokens": max_tokens,
                 "temperature": temperature,
             },
-            timeout=30,
+            timeout=timeout,
         )
         r.raise_for_status()
         msg = r.json()["choices"][0]["message"]
