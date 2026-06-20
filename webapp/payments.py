@@ -147,13 +147,23 @@ def create_checkout_session(email: str, price_id: str, origin: str, locale: str 
     return session.url
 
 
-def is_paid(email: str | None) -> bool:
-    """查询邮箱是否已付费订阅。"""
+def is_paid(email: str | None, users: dict | None = None) -> bool:
+    """查询邮箱是否已付费订阅。
+
+    share 计划按 pro_expires_at 判断过期(默认 24h,见 SHARE_CODE_TTL);
+    invite / subscription / payment 计划只要 active:true 即视为长期 Pro。
+    users:可选注入,默认从 paid_users.json 加载(测试用)。
+    """
     if not email:
         return False
-    users = _load_users()
+    if users is None:
+        users = _load_users()
     rec = users.get(email.strip().lower())
-    return bool(rec and rec.get("active"))
+    if not (rec and rec.get("active")):
+        return False
+    if rec.get("plan") == "share":
+        return time.time() < (rec.get("pro_expires_at") or 0)
+    return True
 
 
 # ── 一次性邀请码 ────────────────────────────────────────────
@@ -245,18 +255,21 @@ SHARE_CODE_TTL = 86400  # 24h
 SHARE_PLATFORM_PREFIX = {"x": "X", "reddit": "RD", "telegram": "TG", "weibo": "WB"}
 
 
-def _existing_recent_code(platform: str, email: str, codes: dict, now: int) -> dict | None:
-    """同 (platform, email) 24h 内是否已有未 redeem 或已 redeem 的码。
+def _existing_recent_code(platform: str, handle: str, codes: dict, now: int) -> dict | None:
+    """同 (platform, handle) 24h 内是否已有未 redeem 或已 redeem 的码。
 
-    返回该码记录(或 None)。调用方据此决定 reused 或拒绝。
+    handle 来自 tweet URL 的 @handle 字段(同 X 账号 24h 内只允许 1 个有效码,
+    跨 email 共用限流 — 防止换邮箱绕开)。handle 大小写不敏感、自动去 `@` 前缀。
+    返回该码记录(或 None)。调用方据此决定 reused 或生成新码。
     """
     cutoff = now - SHARE_CODE_TTL
-    target_email = email.strip().lower()
+    target_handle = (handle or "").lstrip("@").lower()
     for rec in codes.values():
         meta = rec.get("source_meta") or {}
         if meta.get("platform") != platform:
             continue
-        if (meta.get("email", "") or "").strip().lower() != target_email:
+        rec_handle = (meta.get("handle", "") or "").lstrip("@").lower()
+        if rec_handle != target_handle:
             continue
         # 未用且未过期
         if not rec.get("used") and rec.get("expires_at", 0) > now:
@@ -267,27 +280,41 @@ def _existing_recent_code(platform: str, email: str, codes: dict, now: int) -> d
     return None
 
 
+def _next_available_at(rec: dict, now: int) -> int:
+    """基于现有码,推算下次可生成新码的时间戳(unix 秒)。
+
+    - 已 redeem → used_at + 24h
+    - 未用未过期 → 自身 expires_at(到那时自然过期,可领新码)
+    """
+    if rec.get("used"):
+        return int(rec.get("used_at", now)) + SHARE_CODE_TTL
+    return int(rec.get("expires_at", now))
+
+
 def generate_share_code(platform: str, email: str, source_meta: dict,
                        expected_email: str | None = None) -> dict:
     """生成或复用分享邀请码。
 
-    同 (platform, email) 24h 内只允许 1 个有效码:
-      - 已有未用未过期 → 返回旧码(reused=True)
-      - 已有已用且 24h 内 → 返回旧码(reused=True, 已 redeemed)
-      - 否则 → 生成新码(reused=False)
+    同 (platform, X-handle) 24h 内只允许 1 个有效码(handle 从 source_meta 提取,
+    跨 email 共用限流 — 防止换邮箱绕开):
+      - 已有未用未过期 → 返回旧码(reused=True, status="active")
+      - 已有已用且 24h 内 → 返回旧码(reused=True, status="redeemed")
+      - 否则 → 生成新码(reused=False, status="new")
 
     expected_email: F-08 绑定。若非空,redeem 时必须由同 email 兑换,否则返回
       email_mismatch。None 表示不绑定(向后兼容)。
 
-    返回 {"code", "expires_at", "reused", "status": "new|active|redeemed"}。
+    返回 {"code", "expires_at", "reused", "status": "new|active|redeemed",
+          "next_available_at": ts(秒)}。
     """
     email = (email or "").strip().lower()
     platform = (platform or "").strip().lower()
     expected_email = (expected_email or "").strip().lower() or None
+    handle = ((source_meta or {}).get("handle") or "").lstrip("@").lower()
     now = int(time.time())
     with _invite_lock:
         codes = _load_codes()
-        existing = _existing_recent_code(platform, email, codes, now)
+        existing = _existing_recent_code(platform, handle, codes, now)
         if existing is not None:
             if existing.get("used"):
                 status = "redeemed"
@@ -298,6 +325,7 @@ def generate_share_code(platform: str, email: str, source_meta: dict,
                 "expires_at": existing.get("expires_at"),
                 "reused": True,
                 "status": status,
+                "next_available_at": _next_available_at(existing, now),
             }
         prefix = SHARE_PLATFORM_PREFIX.get(platform, platform.upper()[:2])
         # 8 字符 base32: token_urlsafe(6) → ~8 字符 url-safe
@@ -320,7 +348,13 @@ def generate_share_code(platform: str, email: str, source_meta: dict,
             "used_at": None,
         }
         _save_codes(codes)
-    return {"code": code, "expires_at": expires, "reused": False, "status": "new"}
+    return {
+        "code": code,
+        "expires_at": expires,
+        "reused": False,
+        "status": "new",
+        "next_available_at": expires,  # 新码:下次可领 = 自身过期时间
+    }
 
 
 def redeem_share_code(email: str, code: str) -> dict:
