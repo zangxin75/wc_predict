@@ -143,7 +143,18 @@ function openUpgrade() {
   const e = $('upgradeError');
   if (e) e.hidden = true;
   // 确保弹窗文案跟随当前语言
-  if (window.I18N) I18N.applyDOM();
+  if (window.I18N) {
+    const titleEl = $('upgradeTitle');
+    if (titleEl) titleEl.textContent = I18N.t('sub.upgrade_title');
+    const descEl = document.querySelector('.upgrade-desc');
+    if (descEl) descEl.textContent = I18N.t('sub.upgrade_desc');
+    const planNameEls = document.querySelectorAll('.plan-name');
+    const planActionEls = document.querySelectorAll('.plan-action');
+    if (planNameEls[0]) planNameEls[0].textContent = I18N.t('sub.monthly');
+    if (planNameEls[1]) planNameEls[1].textContent = I18N.t('sub.tournament');
+    if (planActionEls[0]) planActionEls[0].textContent = I18N.t('sub.pay_monthly');
+    if (planActionEls[1]) planActionEls[1].textContent = I18N.t('sub.pay_tournament');
+  }
   const emailInput = $('upgradeEmail');
   if (emailInput) { if (userEmail) emailInput.value = userEmail; requestAnimationFrame(() => emailInput.focus()); }
 }
