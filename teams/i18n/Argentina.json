@@ -1,0 +1,120 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "1aaca48f50865bee": "أدى حارس مرمى السعودية عويس إلى أداء مذهل، حيث ساهم في إسقاط العديد من الفرص الخطيرة للأرجنتين",
+        "1b154821a2388355": "استخدمت منتخب إيسلندا دفاعًا عميقًا منخفضًا (تكتيك الحافلة) مع الانسحاب الجماعي، مما شكل دفاعًا مكثفًا في منطقة الجزاء، مما أدى إلى حجب مساحة التمرير والتسجيل للأرجنتين",
+        "1f82cee6a990f8c0": "يفتقر الأرجنتين إلى وسائل فعالة لكسر الدفاع المكثف، يعتمد الهجوم بشكل كبير على ميسي في التراجع التنظيمي والهجمات الفردية، ويعتمد على نقص التغيرات التكتيكية في منطقة الجزاء والهجمات الجوية القوية",
+        "33309af48739a857": "قوة ميسي الشخصية التاريخية قامت بكسر التوازن: سجل 2 أهداف وأسس لهدف آخر، خاصة في الوقت الإضافي حيث ساعد في هز الشباك، مما تجاوز نموذج xG التقليدي للإهداف المتوقعة",
+        "37ce1b32ac94ec7e": "فشل المدرب الأرجنتيني سان بولي في تجربة التكتيك، حيث أستبدل إيغواين واستخدم نظام الدفاع الثلاثي مما أدى إلى فقدان وسط الميدان، مما لم يتمكن من مقاومة التمريرات الكرواتية",
+        "390ef28542293c7c": "حدث خطأ شخصي فادح في دفاع الأرجنتين، خاصة خطأ حارس المرمى كاباليرو في ركلة التمرير في بداية الشوط الثاني مما أدى إلى انهيار خط الدفاع النفسي للفريق",
+        "3ecf7c2d99d0c2f2": "نجح التكتيك البديل القاسي للهولندا: أستبدل المدرب فان جال لاعب الوسط العالي فيخوست، ورفض اللعب بالأرضية واستخدم الهجمات بالكرة الثابتة والتمريرات الطويلة، وسجل 2 أهداف (بما في ذلك التعادل في الثواني الأخيرة) مما كسر التوقعات التقليدية للهجمات",
+        "77afbf1668008124": "سجل لاعبو السعودية اثنين من الأهداف في بداية الشوط الثاني بفضل مهارات سالم داواساري الشخصية، وحقق الفريق ضغطًا مكثفًا طوال المباراة",
+        "7875d5027720a9a9": "أداء ميسي الاستثنائي في المباراة النهائية والهدف من ركلة الجزاء كسر التوقعات التقليدية للإهداف المتوقعة",
+        "9e3b6eff45454566": "أظهر اللاعبان الكرواتيان مودريتش وراكيتيتش قوة تكتيكية مطلقة، حيث سيطرا على رhythm المباراة وأكملوا هدفيًا وأسسا",
+        "a20f9d1a5828668d": "تم قطع ميسي النجم للأرجنتين بشكل ممنهج من قبل الكرواتيين، مما قطع الاتصال بينه وبين وسط الميدان والجانبين، مما أدى إلى توقف الهجوم بشكل كامل",
+        "bc7b5783079167e5": "قدرات مبابي الشخصية القوية والقدرة على تحمل الضغط (سجل 2 أهداف في 97 ثانية) تجاوزت نموذج النشاط الفردي لللاعبين",
+        "d140f2af0478273c": "السعودية استخدمت دفاعًا مرتفعًا ومهاجمًا في منتصف الميدان مع تكتيكات إيقاف الهجوم، مما أدى إلى إلغاء 3 أهداف لليونيز في الشوط الأول من قبل الأرجنتين، مما أدى إلى تعطيل رhythm الهجوم للأرجنتين",
+        "da83bb4047828e9f": "انخفاض الطاقة في المرحلة الإضافية أدى إلى أخطاء دفاعية خطيرة متكررة (مثل خطأ مونتيرو في ركلة الجزاء)",
+        "db9f4222d5802fd0": "120 دقيقة من الإرهاق الشديد أدت إلى انفصال الدفاع: في نهاية الشوط الإضافي، انخفضت طاقة الفرق بشكل حاد، ولم يعد الأرجنتين في وسط الميدان، مما أدى إلى هجوم الهولندا المكثف الذي دمر التوقعات التقليدية 1-1",
+        "e5688876a8f72c3b": "لم يعد اللاعبون الأساسيين للأرجنتين (مثل ميسي، ديماريا، أوتامندي) يتكيفون بشكل سيء مع الهجوم الجسدي والفسيولوجي للفرق الآسيوية",
+        "ea7c4251e6c91ef6": "استخدمت فرق فرنسا تكتيكًا دفاعيًا في أول 70 دقيقة مما أدى إلى الضعف، ثم أستبدلت مورايني وتورام وغيرهم من اللاعبين الجدد وأطلقت هجمات مكثفة مما أدى إلى ظهور اثنين من الذروتين في المباراة",
+        "edbf83083306cd83": "أدى حارس مرمى إيسلندا هارالدسون إلى أداء مذهل، حيث ساهم في إسقاط العديد من الأهداف القاتلة، وتمكن أيضًا من إسقاط ركلة الجزاء لليونيز في الشوط الثاني، مما غير نتيجة المباراة"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "1aaca48f50865bee": "Saudi goalkeeper Owes performed heroically, contributing multiple key saves and thwarting Argentina's high-probability shots.",
+        "1b154821a2388355": "Iceland adopted an extreme deep low defense (bus strategy) and full-retreat defense, forming a dense defensive formation in the penalty area, successfully blocking Argentina's passing and breaking space.",
+        "1f82cee6a990f8c0": "Argentina lacks effective means to break through dense defenses, over-relying on Messi's withdrawal organization and individual dribbling, lacking tactical changes in the penalty area and strong high-altitude bombing ability.",
+        "33309af48739a857": "Messi's historically great individual ability broke the balance: scoring two goals and providing one assist throughout the game, especially the winning assist in extra time, which exceeded the system's probability model based on expected goals (xG).",
+        "37ce1b32ac94ec7e": "Argentina coach Sampaoli's tactical experiment failed, dropping Iguain and using a 3-center-back system, leading to complete control of the midfield and being unable to resist Croatia's passing.",
+        "390ef28542293c7c": "Argentina's backline made fatal individual mistakes, especially goalkeeper Caballero's passing error in the early second half, which directly led to the collapse of the team's psychological defense.",
+        "3ecf7c2d99d0c2f2": "The Netherlands' extreme tactical Plan B worked: coach Van Gaal brought on the tall striker Wijnaldum, abandoned ground play, and adopted extreme set pieces and long balls, scoring two goals (including a last-minute equalizer) to break the conventional offensive expectations.",
+        "77afbf1668008124": "In the early stages of the second half, Saudi players scored two goals in a row through the individual ability of Salem Dawsari, and the team maintained a high-intensity full-field press.",
+        "7875d5027720a9a9": "Messi's extraordinary performance and penalty shootout in the high-pressure final shattered the system's expected goal expectation value.",
+        "9e3b6eff45454566": "Croatia's midfielders Modric and Rakitic showed absolute tactical dominance, controlling the match rhythm and both scoring or assisting.",
+        "a20f9d1a5828668d": "Argentina's forward core Messi was targeted by Croatia, completely cutting off his connection with the midfield and flanks, leading to a complete paralysis of the offensive end.",
+        "bc7b5783079167e5": "Mbappe's personal extreme breakthrough ability and strong mental fortitude (scoring two goals in 97 seconds) exceeded the system's probability model for a single player's explosive power.",
+        "d140f2af0478273c": "Saudi Arabia adopted an extremely aggressive high defensive line and offside tactics, resulting in three goals for Argentina being disallowed in the first half, successfully disrupting Argentina's offensive rhythm.",
+        "da83bb4047828e9f": "The cliff-like drop in physical endurance during the extra time period led to consecutive fatal mistakes on the defensive side (such as Montiel's handball leading to a penalty).",
+        "db9f4222d5802fd0": "The 120-minute high-intensity match led to a breakdown in the defense: both teams experienced a cliff-like drop in physical endurance in the second half of extra time, Argentina's midfield lost its advantage, and the Netherlands' all-out bombing shattered the system's predicted 1-1 balance.",
+        "e5688876a8f72c3b": "Argentina's core veterans (such as Messi, Di Maria, and Otamendi) showed serious discomfort in adapting to the extreme physical impact and physical confrontation of Asian teams.",
+        "ea7c4251e6c91ef6": "The French team adopted a conservative strategy in the first 70 minutes, leading to passivity, but then substituted in fresh players like Mouani and Toulalan to launch a fierce counterattack, leading to two extreme highs in the match.",
+        "edbf83083306cd83": "Iceland goalkeeper Halldorsson performed heroically, not only making multiple saves to thwart certain goals but also stopping Messi's penalty in the second half, directly changing the outcome of the match."
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "1aaca48f50865bee": "El portero de Arabia Saudita, Owais, se destacó con varias salvadas clave, desviando oportunidades de gol de Argentina con un alto porcentaje de probabilidades de anotación.",
+        "1b154821a2388355": "Islandia adoptó una defensa baja y profunda (táctica del autobús) y una retención total, formando una defensa densa en el área penal, logrando bloquear el espacio de pase y ruptura de Argentina.",
+        "1f82cee6a990f8c0": "Argentina careció de métodos efectivos para romper la defensa densa, dependiendo demasiado de Messi para la organización de retroceso y el juego individual, careciendo de cambios tácticos en el área penal y de capacidad de bombardeo aéreo fuerte.",
+        "33309af48739a857": "La habilidad personal histórica de Messi rompió el equilibrio: dos goles y una asistencia en todo el partido, especialmente el asistencia decisiva en la prórroga que superó las probabilidades del modelo de expectativas de goles (xG) basado en el sistema.",
+        "37ce1b32ac94ec7e": "El experimento táctico del entrenador argentino Sampaoli falló, descartando a Iguain y utilizando un sistema de tres centrales, lo que resultó en una pérdida total del control del medio campo y una incapacidad para resistir la transmisión de Croacia.",
+        "390ef28542293c7c": "La defensa argentina cometió errores personales mortales, especialmente el error de pase del portero Caballero en la primera mitad del segundo tiempo, lo que llevó a la caída psicológica de la defensa del equipo.",
+        "3ecf7c2d99d0c2f2": "El plan táctico extremo B del equipo de Holanda funcionó: el entrenador Van Gaal introdujo al delantero alto韦霍斯特, renunciando al juego terrestre y optando por cornerazos y largos pases, marcando dos goles (incluido el empate en el último segundo) que rompieron las expectativas del juego ofensivo convencional.",
+        "77afbf1668008124": "Los jugadores de Arabia Saudita, en el inicio del segundo tiempo, lograron marcar dos goles con la habilidad personal de Salem Dawsari, manteniendo una alta intensidad en la presión total del campo.",
+        "7875d5027720a9a9": "El desempeño sobrehumano de Messi en el partido decisivo y el gol desde el punto penal rompieron las expectativas del sistema de la expectativa de goles habituales.",
+        "9e3b6eff45454566": "El mediocampo croata Modrić y Rakitić mostraron una supremacía táctica absoluta, controlando el ritmo del juego y anotando o asistiendo.",
+        "a20f9d1a5828668d": "El núcleo ofensivo argentino Messi fue cortado de manera específica por Croacia, cortando completamente su conexión con el medio campo y las alas, lo que llevó a la parálisis total del ataque.",
+        "bc7b5783079167e5": "La capacidad de punto de explosión personal de Mbappé y su gran corazón bajo presión (marcando dos goles en 97 segundos) superaron el modelo de probabilidad de explosión de un solo jugador del sistema.",
+        "d140f2af0478273c": "Arabia Saudita adoptó una defensa alta y agresiva y tácticas de offside, lo que resultó en que tres goles de Argentina en la primera mitad fueran anulados, logrando desequilibrar el ritmo ofensivo de Argentina.",
+        "da83bb4047828e9f": "En la fase de prórroga, el colapso en la resistencia física de ambos equipos llevó a errores críticos en la defensa, como el mano a mano de Montiel.",
+        "db9f4222d5802fd0": "Las 120 minutos de alta demanda llevaron a la descoordinación en la defensa: en la segunda mitad de la prórroga, ambos equipos experimentaron un colapso en la resistencia física, Argentina perdió el control en el medio campo, y el bombardeo desesperado de Holanda rompió el equilibrio de 1-1 predicho por el sistema.",
+        "e5688876a8f72c3b": "El núcleo veterano de Argentina (como Messi, Di María, Otamendi) mostró una grave inadaptación frente a los extremos de impacto físico y de resistencia de los equipos asiáticos.",
+        "ea7c4251e6c91ef6": "Francia adoptó una táctica defensiva conservadora en los primeros 70 minutos, lo que resultó en una posición pasiva, pero luego introdujo a Mouani y Toulalan como refuerzos, desencadenando dos picos extremos en el juego.",
+        "edbf83083306cd83": "El portero islandés Halldórsson se destacó con varias salvadas heroicas, no solo evitando goles inevitables, sino también deteniendo el penal de Messi en la segunda mitad, lo que cambió directamente el resultado del partido."
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "1aaca48f50865bee": "Le gardien saoudien Owais a joué magnifiquement, effectuant plusieurs arrêts de sauvegardes clés et évitant des occasions de buts potentielles pour l'Argentine.",
+        "1b154821a2388355": "L'équipe d'Islande a adopté une défense basse et profonde (stratégie du bus) et une retraite collective, formant une défense compacte dans la surface de réparation, bloquant ainsi l'espace de passe et de percée de l'Argentine.",
+        "1f82cee6a990f8c0": "L'Argentine manque de moyens efficaces pour briser une défense compacte, dépendant trop de la retrait de Messi pour organiser et de l'attaque individuelle, manquant de changements tactiques dans la surface de réparation et de la capacité de bombardement aérien puissant.",
+        "33309af48739a857": "La capacité individuelle historique de Messi a rompu l'équilibre : deux buts et une passe décisive en tout, en particulier l'assistance décisive en prolongation, qui dépasse les probabilités du modèle de prévision d'objectif(xG) basé sur les attentes conventionnelles.",
+        "37ce1b32ac94ec7e": "L'entraîneur argentin Sampaoli a échoué dans son expérimentation tactique, abandonnant Iguain et utilisant un système de trois défenseurs centraux, ce qui a conduit à une perte totale de contrôle du milieu de terrain et à une inability à résister à la transmission de la Croatie.",
+        "390ef28542293c7c": "La défense argentine a commis des erreurs critiques individuelles, en particulier la passe ratée du gardien Caballero au début de la deuxième mi-temps, ce qui a conduit à une défaillance psychologique de la défense de l'équipe.",
+        "3ecf7c2d99d0c2f2": "L'équipe néerlandaise a réussi avec son plan B extrême en stratégie : l'entraîneur Van Gaal a sorti le grand homme de terrain Wesley Hoedt, a abandonné le jeu au sol pour utiliser des coups de corner et des longs ballons, marquant deux buts (y compris l'égalisation en dernière minute), brisant les attentes conventionnelles du jeu de mouvement.",
+        "77afbf1668008124": "Les joueurs saoudiens ont marqué deux buts au début de la deuxième mi-temps grâce à la capacité individuelle de Salem Dawsari, tout en maintenant une pression constante sur tout le terrain.",
+        "7875d5027720a9a9": "Le superbe exploit de Messi et le but de pénalty ont dépassé les attentes conventionnelles du système pour les buts normaux.",
+        "9e3b6eff45454566": "Le milieu de terrain croate Modrić et Rakitić ont montré une suprématie tactique absolue, contrôlant le rythme du match et marquant ou assistant à la fois.",
+        "a20f9d1a5828668d": "Le joueur clé de l'attaque argentine, Messi, a été coupé par la Croatie de manière ciblée, coupant ainsi son lien avec le milieu de terrain et les côtés, ce qui a conduit à un blocage complet de l'attaque.",
+        "bc7b5783079167e5": "La capacité de pointe maximale de Mbappé et son grand cœur sous pression (deux buts en 97 secondes) dépassent le modèle de probabilité de puissance explosive d'un seul joueur du système.",
+        "d140f2af0478273c": "L'Arabie saoudite a adopté une défense haute et agressive avec des coups de pied de balle, ce qui a conduit à trois buts annulés pour l'Argentine en première mi-temps, réussissant à désorganiser l'attaque argentine.",
+        "da83bb4047828e9f": "La chute vertigineuse de l'endurance des deux équipes au cours de la prolongation a conduit à des erreurs critiques en défense (comme la faute de main de Montiel).",
+        "db9f4222d5802fd0": "120 minutes de haute consommation ont conduit à une déconnexion défensive : les deux équipes ont montré une chute vertigineuse de leur endurance en fin de prolongation, l'Argentine a perdu le contrôle du milieu de terrain, et l'attaque dérisoire des Néerlandais a brisé le score prévu de 1-1 par le système.",
+        "e5688876a8f72c3b": "Les anciens joueurs argentins de premier plan (comme Messi, Di Maria, Otamendi) ont montré une mauvaise adaptation face aux attaques physiques extrêmes des équipes asiatiques.",
+        "ea7c4251e6c91ef6": "Les 70 premières minutes de l'équipe de France ont été marquées par une stratégie défensive, mais après avoir sorti Mouani et Toulalan, etc., ils ont lancé une contre-attaque furieuse, ce qui a conduit à deux sommets extrêmes dans le match.",
+        "edbf83083306cd83": "Le gardien islandais Haldorsson a joué magnifiquement, non seulement effectuant plusieurs arrêts de sauvegardes cruciaux, mais aussi arrêtant le penalty de Messi en deuxième mi-temps, changeant directement le résultat du match."
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "1aaca48f50865bee": "O goleiro saudita Owais se destacou com várias defesas cruciais, evitando oportunidades de gols altamente esperadas pelos argentinos.",
+        "1b154821a2388355": "A equipe islandesa adotou uma defesa baixa e profunda (tática do \"bús\") e uma retranca total, formando uma defesa densa na área penal, bloqueando o espaço de transição e de ataque da Argentina.",
+        "1f82cee6a990f8c0": "A Argentina falta de meios eficazes para romper a defesa densa, dependendo excessivamente da organização de Messi e de ataques individuais, sem variação tática na área penal e falta de capacidade de bombardeio aéreo forte.",
+        "33309af48739a857": "A habilidade individual histórica de Messi quebrou o equilíbrio: dois gols e uma assistência no jogo inteiro, especialmente a assistência para o gol no tempo extra, que ultrapassou o modelo de probabilidade de gols esperados (xG) baseado no sistema.",
+        "37ce1b32ac94ec7e": "O treinador argentino Sampaoli falhou no experimento tático, descontinuando Iguain e usando um sistema de três zagueiros, resultando em um controle total da meio-campo e incapacidade de resistir à transmissão da Croácia.",
+        "390ef28542293c7c": "A defesa argentina cometeu erros individuais fatais, especialmente a falta de transmissão do goleiro Cabralero no início do segundo tempo, resultando em uma queda psicológica da equipe.",
+        "3ecf7c2d99d0c2f2": "A equipe holandesa implementou com sucesso o plano B extremamente tático: o treinador Van Gaal introduziu o atacante alto韦霍斯特, abandonando o jogo no chão para usar bolas de canto e passes longos, marcando dois gols (inclusive um empate no último segundo) que quebraram as expectativas de jogo convencional.",
+        "77afbf1668008124": "No início da segunda metade, os jogadores sauditas, através da habilidade individual de Salem Dawsari, marcaram dois gols consecutivos, mantendo uma pressão alta durante todo o jogo.",
+        "7875d5027720a9a9": "A atuação excepcional de Messi no jogo decisivo e o gol na penalidade batido ultrapassaram as expectativas de gols normais do sistema.",
+        "9e3b6eff45454566": "O meio-campo croata Modrić e Rakitić mostraram uma pressão tática absoluta, controlando o ritmo do jogo e ambos marcando gols ou assistências.",
+        "a20f9d1a5828668d": "O atacante central argentino Messi foi cortado de propósito pela Croácia, cortando completamente sua conexão com o meio-campo e a lateral, resultando em um colapso total no ataque.",
+        "bc7b5783079167e5": "A capacidade de ponto de chama pessoal de Mbappé e sua grande estabilidade mental (marcando dois gols em 97 segundos) ultrapassaram o modelo de probabilidade de explosão de um único jogador do sistema.",
+        "d140f2af0478273c": "A Arábia Saudita adotou uma defesa alta e agressiva com a tática de offside, resultando em três gols de Argentina no primeiro tempo serem anulados, e com sucesso desorganizando o ataque argentino.",
+        "da83bb4047828e9f": "A fase de prorrogação resultou em uma queda abrupta na força física dos dois times, resultando em erros defensivos fatais consecutivos (como a falta de Montiel que resultou em pênalti).",
+        "db9f4222d5802fd0": "A alta demanda de 120 minutos resultou em uma falha na linha defensiva: ambos os times ficaram sem energia no segundo tempo extra, a meio-campo argentino perdeu o controle, e a pressão massiva dos holandeses quebraram o equilíbrio de 1-1 previsto pelo sistema.",
+        "e5688876a8f72c3b": "O jogador argentino e veterano (como Messi, Di Maria, Otamendi) não se adaptaram bem ao estilo físico e de confronto das equipes asiáticas.",
+        "ea7c4251e6c91ef6": "A equipe francesa usou uma tática defensiva conservadora nos primeiros 70 minutos, resultando em uma posição passiva, mas em seguida, introduziu Moane e Toulalan para uma contra-ataque frenético, resultando em dois picos extremos no jogo.",
+        "edbf83083306cd83": "O goleiro islandês Haldorsson se destacou com várias defesas cruciais, além de defender a penalidade de Messi no segundo tempo, mudando diretamente o resultado do jogo."
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

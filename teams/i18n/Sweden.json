@@ -1,0 +1,80 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "017a0f52f42a76f8": "الهجوم على الدفاع أدى إلى فقدان الهجوم: عندما أجبر المكسيك على الهجوم بسبب التخلف،留出巨大的空当， وتعرض للعقاب من قبل الهجمات السريعة للسويد (ركلتي الترجيح من غراكيس والهدف الذاتي من ألواريس).",
+        "05b3822a3531193d": "حافظ حارس مرمى كوريا الجنوبية تشاو هيون يو على 6 حذف رائع في المباراة، وأوقف عدة فرص للتسجيل للسويد، مما أبقى الفارق في النتيجة عند هدف واحد",
+        "127de66cd69e370d": "أداء اللاعبين الأساسيين: تم إبعاد لاعب سويسرا الأساسي ساكيري تحت الدفاع السويدي الدقيق، مما أدى إلى انقطاع الهجوم السويسري بشكل كامل، ولم يتمكن من إطلاق النار بناءً على التوقعات النظامية",
+        "30b33ef176cc535e": "الضغط التكتيكي المركزي: استخدمت السويد الضغط العالي والتحدي الجسدي القوي، مما أدى إلى قطع التواصل بين وسط الميدان والهجوم (مثل إلنرديس) مما أدى إلى فشل نظام التمرير على الأرض للمكسيك بشكل كامل.",
+        "33179e38f56d39b6": "استخدمت السويد تكتيكات دفاعية مخصصة وأسلوب الهجوم من خلال الهجمات الجوية، مما أضعف كوريا الجنوبية، وإذا لم يكن هناك عارضة وحظ، فإن النتيجة لن تكون 1-0",
+        "38af4ccb56e24482": "فشل دفاع定位ية: جاءت هدف السويد الأول من رأسية لويستيج، وأسقط أغوستينسون ركلته العالية، مما كشف عن ثغرات خطيرة لدى المكسيك في دفاعه ضد اللاعبين الكبار السويديين وكذلك في مراقبة ركلات الترجيح.",
+        "4861e480baca77b1": "كان هجومي كوريا الجنوبية سون هيون مين تحت مراقبة دقيقة من قبل السويد ولم يكن لديه دعم، مما أدى إلى عدم تسجيل أي هدف في المباراة، وعدم وجود قدرة على تعديل النتيجة",
+        "4a4a3f5282877f23": "انحراف نموذج المباراة: تم تقدير قدرة سويسرا على تحمل الضغط في الدور التالي من قبل النظام، حيث اتبعت الطرفان استراتيجيات دفاعية متشددة في المباراة الفاصلة، مما أدى إلى انخفاض جودة المباراة بشكل كبير عن التوقعات",
+        "720407e5df1912a3": "التكتيكات المضادة: نجحت الهجمات الجوية السويدية والتحديات الجسدية في تقييد دفاع سويسرا الهش، مما أدى إلى تكرار الأخطاء في الدفاع السويسري في إزالة الكرات (ما أدى إلى هدفي فوسبري عبر الرقصة)",
+        "7b5463c936632e29": "عدم التطابق بين الوضع والتوتر النفسي: يمكن للمكسيك التأهل بالتعادل، لكن اللاعبين يحملون عبء نفسي كبير للتحفظ على التعادل مما أدى إلى تعقيد الحركات; يجب على السويد تحقيق الفوز بثلاث نقاط لضمان التقدم، مما يظهر رغبة أقوى في الفوز وتنفيذ استراتيجية أكثر دقة."
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "017a0f52f42a76f8": "Defensive pressing led to loss of counter-attacking momentum: When Mexico was trailing and had to push up for offense, a huge gap was exposed in the backline, leading to consecutive penalties (Gr奎s' penalty and Alvarez's own goal) from Sweden's fast counterattacks.",
+        "05b3822a3531193d": "South Korea's goalkeeper, Cho Hyun-woo, made 6 heroic saves throughout the game, intercepting and blocking multiple sure goals from Sweden, keeping the actual score within a one-goal difference.",
+        "127de66cd69e370d": "Core player performance: Switzerland's core player Shaqiri was completely isolated under Sweden's tight targeted defense, leading to Switzerland's complete disconnection on the offensive end and failing to unleash the expected offensive power",
+        "30b33ef176cc535e": "Tactical suppression with targeted focus: Sweden used high pressing and strong physical confrontation, successfully cutting off the connection between Mexico's midfielders and forwards (such as Hernandez), leading to the complete failure of Mexico's ground passing and control system.",
+        "33179e38f56d39b6": "Sweden's team adopted highly targeted physical confrontation and aerial bombardment tactics, completely压制了 South Korea, and if not for the goalpost and luck factors, the score would not have been just 1-0.",
+        "38af4ccb56e24482": "Set-piece defense collapsed: Sweden's first goal came from Lustig's header pass, with Augustinsson's overhead shot finding the back of the net, exposing serious flaws in Mexico's defense against Sweden's tall players and set-piece marking.",
+        "4861e480baca77b1": "South Korea's core attacker, Son Heung-min, was closely guarded and isolated by Sweden, leading to South Korea having zero shots on target throughout the game and completely losing the offensive ability to equalize the score.",
+        "4a4a3f5282877f23": "Match model bias: The system overestimated Switzerland's ability to withstand pressure and offensive finishing efficiency in the knockout stage, and both teams adopted extremely conservative strategies in the do-or-die match, with the actual match quality far below expectations",
+        "720407e5df1912a3": "Tactical dominance: Sweden's high-altitude bombing and physical confrontation tactics successfully suppressed Switzerland's fragile defense, leading to frequent mistakes in heading and clearance by Switzerland's defense (directly resulting in Forsberg's deflected goal)",
+        "7b5463c936632e29": "Mismatch between qualification situation and psychological pressure: Mexico could qualify with a draw, but the players were burdened with a huge 'hold the draw' psychological pressure, leading to stiff actions; Sweden had to secure all three points to ensure advancement, showing stronger desire to win and tactical execution."
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "017a0f52f42a76f8": "La presión en la defensa provocó una hemorragia en las contras: México, al verse obligado a presionar alto en el ataque debido a la derrota, dejó enormes huecos en la defensa, siendo castigado repetidamente por las contras rápidas de Suecia (penalti de Gr奎s y gol en propia puerta de Álvarez).",
+        "05b3822a3531193d": "El portero surcoreano Jo Hyeon-woo contribuyó con 6 atajadas heroicas durante todo el partido, desviando múltiples oportunidades de gol claras de Suecia, manteniendo la diferencia en el marcador en un solo gol.",
+        "127de66cd69e370d": "Actuación de jugadores clave: El jugador clave suizo Shaqiri fue completamente aislado bajo la defensa exhaustiva de Suecia, lo que llevó a que el ataque suizo se desintegrara completamente y no pudiera desplegar el poder de ataque esperado por el sistema",
+        "30b33ef176cc535e": "Presión táctica específica: Suecia utilizó la presión alta y el fuerte contraste físico, logrando cortar la conexión entre el mediocampo y los delanteros mexicanos (como Hernández), lo que llevó a que el sistema de control terrestre mexicano fallara completamente.",
+        "33179e38f56d39b6": "El equipo sueco utilizó una táctica de confrontación física y bombardeo aéreo muy específica, completamente dominando a Corea del Sur, y si no fuera por el marco y la suerte, el marcador no hubiera sido 1-0.",
+        "38af4ccb56e24482": "La defensa de los corner cayó en picado: el primer gol de Suecia llegó por un centro de Lustig con cabeza, seguido de un disparo de Augusdsson que se introdujo en la portería, revelando graves lagunas en la defensa mexicana contra jugadores altos suecos y en la defensa de los corner.",
+        "4861e480baca77b1": "El atacante central surcoreano Son Heung-min fue marcado de cerca por Suecia y se encontró sin apoyo, lo que llevó a que Corea del Sur no tuviera un disparo a puerta durante todo el partido, perdiendo completamente la capacidad de empatar el marcador.",
+        "4a4a3f5282877f23": "Desviación del modelo de partido: El sistema sobreestimó la capacidad de resistencia y la eficiencia de finalización de ataque de Suiza en las eliminatorias, y ambos equipos adoptaron estrategias extremadamente conservadoras en la batalla por la supervivencia, lo que llevó a que la calidad real del partido fuera mucho menor de lo esperado",
+        "720407e5df1912a3": "Táctica de control: La bombardera aérea y la táctica de contragolpe de Suecia lograron suprimir eficazmente la débil defensa suiza, lo que llevó a que la defensa suiza cometiera continuamente errores de despeje y descompensación (lo que directamente llevó al gol reflexo de Fosbury)",
+        "7b5463c936632e29": "La situación de clasificación y la presión psicológica no coinciden: México podía clasificarse con un empate, pero los jugadores cargaban con una gran carga psicológica de 'mantener el empate', lo que causó movimientos rígidos; Suecia necesitaba tres puntos para asegurar su clasificación, mostrando una mayor voluntad de ganar y una mejor ejecución táctica."
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "017a0f52f42a76f8": "La montée de la défense a entraîné une perte de sang dans les contres : le Mexique, en retard, a été forcé de monter en attaque, laissant des espaces énormes à l'arrière, ce qui a permis à la Suède de subir des contres rapides (penalty de Gr奎s et but contre son camp d'Alvarez) en série.",
+        "05b3822a3531193d": "Le gardien sud-coréen Cho Hyun-woo a réalisé six arrêts de grande classe tout au long du match, repoussant plusieurs occasions de but certain pour la Suède, maintenait ainsi la différence de buts réelle à un seul but.",
+        "127de66cd69e370d": "Performance des joueurs clés : le joueur clé suisse Shaqiri a été complètement isolé sous la défense ciblée de la Suède, ce qui a conduit à une complète déconnexion de l'attaque suisse et à une absence de la puissance d'attaque attendue par le système",
+        "30b33ef176cc535e": "Suppression tactique ciblée : la Suède a utilisé des pressions hautes et des confrontations physiques fortes, réussissant à couper les liaisons entre le milieu de terrain mexicain et les attaquants (comme Hernandez), rendant le système de passe et de contrôle mexicain au sol complètement inefficace.",
+        "33179e38f56d39b6": "L'équipe suédoise a utilisé une tactique de combat corporel et de bombardement aérien très ciblée, complètement en压制 le South Korea, si ce n'était de la barre et de la chance, le score ne serait pas resté à 1-0.",
+        "38af4ccb56e24482": "Défaillance de la défense des coups de pied arrêtés : le premier but de la Suède est venu d'une passe de tête de Lustig, une frappe aérienne de Augustinsson qui a marqué, révélant des failles graves de la défense mexicaine contre les joueurs de grande taille suédois en défense aérienne et en coups de pied arrêtés.",
+        "4861e480baca77b1": "L'attaquant central sud-coréen Son Heung-min est étroitement surveillé et isolé par la Suède, ce qui a conduit à zéro tir cadré pour le South Korea tout au long du match, complètement privant l'équipe de la capacité d'égaliser le score.",
+        "4a4a3f5282877f23": "Déviation du modèle de match : le système a surestimé la capacité de résistance et l'efficacité de finition offensive de la Suisse en phase de élimination, et les deux équipes ont adopté une stratégie extrêmement conservatrice dans le match crucial, la qualité réelle du match étant bien inférieure aux attentes",
+        "720407e5df1912a3": "Tactique de contrepoids : les bombardements aériens et les tactiques de combat corporel de la Suède ont réussi à contenir la défense vulnérable de la Suisse, entraînant des erreurs fréquentes de déviation et de dégagement de la défense suisse (directement causant le but dévié de Fosbury)",
+        "7b5463c936632e29": "Mauvaise concordance entre la situation de qualification et la pression psychologique : le Mexique pouvait se qualifier avec un match nul, mais les joueurs portaient un énorme fardeau psychologique pour 'garder le match nul', ce qui rendait leurs mouvements rigides ; la Suède devait absolument remporter les trois points pour être qualifiée, montrant ainsi une plus grande envie de gagner et une meilleure exécution tactique."
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "017a0f52f42a76f8": "Pressão na linha de defesa resultou em perda de contra-ataques: quando o México estava em desvantagem e forçado a atacar, deixou enormes espaços na retaguarda, punido repetidamente pelos contra-ataques rápidos suecos (pênalti de Gra奎s e gol de autogolo de Álvares).",
+        "05b3822a3531193d": "O goleiro sul-coreano Jo Hyeon-woo contribuiu com seis defesas heróicas durante todo o jogo, interceptando e impedindo várias chances de gol certas da Suécia, mantendo a diferença de um gol na prática.",
+        "127de66cd69e370d": "Desempenho de jogadores-chave: O jogador-chave da Suíça, Shaqiri, foi completamente isolado sob a defesa rigorosa e específica da Suécia, resultando em uma completa desconexão no ataque da Suíça, que não conseguiu desenvolver a força de ataque esperada pelo sistema",
+        "30b33ef176cc535e": "Supressão tática específica: a Suécia usou pressão alta e forte confronto físico, cortando com sucesso a ligação entre o meio-campo e os atacantes mexicanos (como Elmander), resultando na completa falha do sistema de passe e controle de terra do México.",
+        "33179e38f56d39b6": "A Suécia adotou uma tática de confronto físico e bombardeio aéreo altamente específica, completamente dominando a Coreia do Sul, e se não fosse a trave e a sorte, o placar não seria 1-0.",
+        "38af4ccb56e24482": "Desmoronamento na defesa de falta: o primeiro gol da Suécia veio de um cabeçada de Lustig, Augustinsson fez um remate de arco-íris para marcar, revelando uma grande falha da defesa mexicana na cobertura aérea e na defesa de falta contra jogadores altos suecos.",
+        "4861e480baca77b1": "O atacante central sul-coreano Son Heung-min foi vigiado de perto e isolado pela Suécia, resultando em zero finalizações de gol da Coreia do Sul durante todo o jogo, perdendo completamente a capacidade de igualar o placar.",
+        "4a4a3f5282877f23": "Desvio no modelo de jogo: O sistema sobreestimou a capacidade de resistência e a eficiência de conclusão de ataque da Suíça nas eliminatórias, e ambos os times adotaram estratégias extremamente conservadoras na decisão de vida ou morte, resultando em uma qualidade de jogo bem abaixo das expectativas",
+        "720407e5df1912a3": "Tática de contenção: A bomba aérea e a tática de confronto física da Suécia suprimiram com sucesso a vulnerável defesa da Suíça, resultando em frequentes erros de desvio e de defesa da Suíça (diretamente criando o gol reflexo de Fosbury)",
+        "7b5463c936632e29": "A mismatch entre a situação de classificação e a pressão psicológica: o México só precisava de um empate para avançar, mas os jogadores carregavam uma grande carga psicológica de 'manter o empate', resultando em movimentos rígidos; a Suécia precisava de três pontos para garantir a classificação, mostrando uma maior vontade de vencer e execução tática."
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

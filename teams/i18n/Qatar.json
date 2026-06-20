@@ -1,0 +1,70 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "16885e8444dafe33": "تشكلت تشكيلة المنتخب السويسري من اللاعبين الكبار والشباب، مما أدى إلى انخفاض في قدرته على تغطية الوسط، ولم يتمكن من السيطرة على وسط قطر الذي كان يتمتع باللاعبين المحترفين",
+        "2fd9e848f7888c44": "قدم النظام تقييماً غير دقيق للفارق الحقيقي في قدرات البلد المضيف البدنية مقارنة بالفرق الأفريقية الرائدة في الدوريات العالمية",
+        "494a932d029ff994": "كانت خطوة الهجوم للمنتخب السويسري تعاني من نقص في القدرة على التسجيل (عدم وجود قوة في خط الهجوم)، كما أن وسيلة الهجوم كانت محدودة في الهجمات على الدفاع المتشابك، ولم يتمكن من تسجيل الهدف الثاني الذي تنبأ به النظام",
+        "6c5abbfc2269298d": "اعتمدت قطر على تكتيك الدفاع الديناميكي 5-4-1، واستخدمت قدرات أفيف الشخصية في الهجمات للتحول إلى نقاط هجومية أو تهديدات، مما ساعدها في تحقيق نتيجة إيجابية",
+        "b8b7fd5ccc0ef802": "استخدمت السنغال قدرتها البدنية والقوة الهجومية (مثل ديا، ديهديو) لتشكيل ضغط تكتيكي كامل على دفاع قطر",
+        "c13d0eca4692d95a": "خط الدفاع القطرية (مثل هوشي) ارتكب أخطاء دفاعية شخصية أدت إلى تسجيل الهدف، كما أن حارس المرمى باريديون كان له أداء ضعيف في مرماه",
+        "c2541741c461d23a": "بعد الهزيمة الكبيرة في المباراة الاولى للبلد المضيف، انهار خط الدفاع النفسي وسوء تحمل الضغط",
+        "d42b8d967e2f05a5": "جمعت قطر تجربة غنية في المنافسات الكبرى كبلد مضيف في كأس العالم 2022، كما أنها كانت تتمتع بمزايا التكيف بالمناخ والجغرافيا في شمال أمريكا الوسطى (الولايات المتحدة وكندا والمكسيك)"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "16885e8444dafe33": "The Swiss team is aging and in a period of新老交替, the midfield coverage ability has decreased, and they failed to form effective control against Qatar's naturalized players in the midfield.",
+        "2fd9e848f7888c44": "The system underestimated the real physical talent gap between the host team and the top African teams under the high-intensity rhythm of the World Cup.",
+        "494a932d029ff994": "The Swiss team lacks finishing ability on the offensive end (the front line is weak), has a single method of breaking through dense defenses in positional warfare, and failed to score the second goal predicted by the system.",
+        "6c5abbfc2269298d": "Qatar adopted a pragmatic 5-4-1 defensive counter-attack strategy, utilizing the individual ability of Afif to counter-attack for scoring opportunities or threats, and successfully snatched a point.",
+        "b8b7fd5ccc0ef802": "Senegal relies on physical fitness and impact power (such as Dia, Diédhiou) to form absolute tactical suppression on the Qatari defense.",
+        "c13d0eca4692d95a": "The Qatari backline (such as Hushi) suffered individual defensive mistakes that directly led to goals, and goalkeeper Baridiang's save performance was poor.",
+        "c2541741c461d23a": "The host team's psychological defense collapsed after a惨败 in the first match, and their ability to withstand pressure under high pressure is extremely poor.",
+        "d42b8d967e2f05a5": "As the host of the 2022 World Cup, Qatar has accumulated rich experience in major competitions and has the advantage of climate and geographical adaptability in Central and North America (USA, Canada, Mexico)."
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "16885e8444dafe33": "El equipo suizo está envejeciendo y en una fase de transición entre viejos y nuevos, la capacidad de cobertura en el mediocampo ha disminuido, y frente a los jugadores de mediocampo naturalizados de Catar, no pudo formar un control efectivo",
+        "2fd9e848f7888c44": "El sistema subestimó la diferencia real en la capacidad física de los anfitriones bajo el ritmo alto de los partidos oficiales de la Copa del Mundo con los equipos africanos de élite",
+        "494a932d029ff994": "El ataque del equipo suizo carece de capacidad de finalización (la delantera es débil), tiene métodos únicos para romper la defensa densa en el juego de campo, y no logró marcar el segundo gol predicho por el sistema",
+        "6c5abbfc2269298d": "Catar adoptó la táctica defensiva ofensiva realista de 5-4-1, aprovechando la capacidad individual de Afif para contraatacar y crear puntos o amenazas, logrando robar un punto",
+        "b8b7fd5ccc0ef802": "Senegal depende de la función física y la fuerza de impacto (como Diaby, Diédhiou) para formar una presión táctica absoluta sobre la defensa de Catar",
+        "c13d0eca4692d95a": "La línea de defensa de Catar (como Husi) cometió errores individuales en la defensa que llevaron directamente a la pérdida de la pelota, y el portero Barriadiang mostró una actuación baja en los ataques",
+        "c2541741c461d23a": "La defensa psicológica del anfitrión se desmoronó después de la derrota en el primer partido y tiene una capacidad de resistencia muy baja bajo presión",
+        "d42b8d967e2f05a5": "Catar, como anfitrión de la Copa del Mundo 2022, ha acumulado una rica experiencia en grandes eventos y tiene ventajas en la adaptación climática y geográfica de América Central y del Norte (Estados Unidos, Canadá, México)"
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "16885e8444dafe33": "L'équipe de Suisse est vieillissante et en pleine transition entre générations, la capacité de couverture au milieu de terrain a diminué, et face à la stratégie de harcèlement au milieu de terrain des joueurs naturalisés du Qatar, elle n'a pas pu former un contrôle efficace.",
+        "2fd9e848f7888c44": "Le système a sous-estimé la réelle差距 en termes de talent physique des équipes africaines de premier plan par rapport à l'hôte sous le rythme intense des matches officiels de la Coupe du Monde.",
+        "494a932d029ff994": "L'attaque de l'équipe de Suisse manque de capacité de finition (la ligne d'attaque est faible), les moyens de briser la défense dense sont uniques, et elle n'a pas réussi à marquer le deuxième but prévu par le système.",
+        "6c5abbfc2269298d": "Le Qatar a adopté une stratégie défensive offensive réaliste en 5-4-1, utilisant les capacités individuelles d'Affi pour contre-attaquer, créer des occasions ou des menaces, et a réussi à obtenir un point.",
+        "b8b7fd5ccc0ef802": "Le Sénégal, grâce à sa mécanique corporelle et à son impact (comme Dia, Diédhiou), a formé une suppression tactique absolue sur la défense du Qatar.",
+        "c13d0eca4692d95a": "La ligne de défense du Qatar (comme Hoshi) a commis des erreurs individuelles en défense, ce qui a directement conduit à des buts perdus, et le gardien Bara Diang a montré une performance de sauvetage médiocre.",
+        "c2541741c461d23a": "La défense psychologique de l'hôte s'est effondrée après une défaite cuisante lors du premier match, et sa capacité à résister sous la pression est extrêmement faible.",
+        "d42b8d967e2f05a5": "Le Qatar, en tant qu'hôte de la Coupe du Monde 2022, a accumulé une riche expérience de grandes compétitions et dispose d'avantages d'adaptation climatique et géographique pour l'Amérique centrale et latine (États-Unis, Canada, Mexique)."
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "16885e8444dafe33": "A equipe da Suíça está envelhecendo e está em uma fase de transição entre gerações, a capacidade de cobertura do meio-campo diminuiu, e não foi possível formar um controle eficaz contra a pressão do meio-campo dos jogadores naturalizados do Catar",
+        "2fd9e848f7888c44": "O sistema subestimou a verdadeira diferença de talentos físicos dos anfitriões em relação às equipes africanas de elite sob o ritmo alto das partidas da Copa do Mundo",
+        "494a932d029ff994": "A equipe da Suíça falta de capacidade de finalização no ataque (a linha de ataque é fraca), métodos de romper a defesa densa no jogo de posse de bola são singulares, e não foi possível marcar o segundo gol previsto pelo sistema",
+        "6c5abbfc2269298d": "O Catar adotou a tática defensiva ofensiva 5-4-1 prática, utilizando a capacidade individual de Afif para contra-atacar, criar pontos ou ameaças, e obter um ponto com sucesso",
+        "b8b7fd5ccc0ef802": "O Senegal depende das funções físicas e da força de impacto (como Diaby, Diédhiou) para formar uma supressão tática absoluta na defesa do Catar",
+        "c13d0eca4692d95a": "A linha de zaga do Catar (como Husi) cometeu erros individuais de defesa que resultaram em gols, e o goleiro Barriadiang teve uma atuação fraca nos salvamentos",
+        "c2541741c461d23a": "A defesa psicológica da equipe anfitriã desmoronou após a derrota na primeira partida, e a capacidade de resistência sob pressão é extremamente fraca",
+        "d42b8d967e2f05a5": "O Catar, como anfitrião da Copa do Mundo de 2022, acumulou uma vasta experiência em grandes competições e possui vantagens adaptativas climáticas e geográficas da América Central e do Norte (EUA, Canadá, México)"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

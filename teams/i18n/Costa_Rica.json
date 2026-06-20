@@ -1,0 +1,70 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "56fa78c3ea65b4fb": "كان ميتروفيتش يلعب دورًا بارزًا كنقطة دعم في خط الهجوم، حيث كسر توازن دفاع كوستاريكا بالتمسك بالرأس والتحكم في اللعب",
+        "6c6863552f44abbb": "أحرز كولاروف هدفًا رائعًا من ركلة جزاء، مما كسر الجمود في المباراة المساوية، مما غير مسار المباراة مباشرة",
+        "ab9378b2fe4e0f9a": "يبدو أن لاعبي كوستاريكا الرئيسيين (مثل نافاس ورويز) يتقدمون في العمر، ويكونون في عيب أمام اللاعبين الأوروبيين في المواجهات الجسدية العالية الكثافة",
+        "af68b46c2d9bcf87": "أوقف فريق كوستاريكا أسلوب اللعب المفتوح في المباراة الأولى، واستخدم دفاعًا منخفضًا بـ 5 حارسين، مما نجح في تقييد اختراق اليابان في الجانبين",
+        "b4d70f3776bad4d3": "كان حارس مرمى كوستاريكا نافاس في حالة رائعة، وأحرز هدفًا حاسمًا في الهدف الوحيد في المباراة من قبل فولر",
+        "c33570bdd43073fc": "استطاع فريق صربيا من تشكيل ضغط تكتيكي كبير من خلال ماتيتش وميلينكوفيتش في وسط الملعب، مما قطع خطوات الهجوم الكوستاريكي",
+        "e0b9f5487aee2140": "فريق اليابان قام بتغيير كبير في تشكيله الأساسي (مقارنة بفوزهم على ألمانيا حيث تم تغيير 5 لاعبين)، مما أدى إلى انخفاض التكامل في خط الهجوم وتعثر في الهجمات",
+        "e69bc7b28b8df272": "لم يتمكن فريق اليابان من تسجيل أي هدف على الرغم من امتلاكه للملكية الكاملة للكرة، حيث كانت جودة التسديدات في المراحل الهجومية منخفضة وقدرة التهديف ضعيفة، مما لم يكن قادرًا على تحويل نسبة التحكم في الكرة إلى تهديد حقيقي"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "56fa78c3ea65b4fb": "Mitrovic played a significant role as a pivot in the front, breaking Costa Rica's defensive balance with his headers and holding power",
+        "6c6863552f44abbb": "Kolarov's high-quality direct free kick goal broke the deadlock, directly changing the direction of the game in an evenly matched match",
+        "ab9378b2fe4e0f9a": "Costa Rica's core players (such as Navas, Ruiz) are aging overall, and are at a disadvantage in terms of high-intensity physical confrontation against European teams",
+        "af68b46c2d9bcf87": "Costa Rica abandoned the open style of play in the first match, adopting a 5-back extreme low defense, successfully limiting the penetration of the Japanese team's flanks",
+        "b4d70f3776bad4d3": "Costa Rica's goalkeeper Navas was in excellent form and scored the decisive goal in the only shot of the game by Fuller",
+        "c33570bdd43073fc": "Serbia formed an absolute tactical dominance in the midfield through Matić and Milinković, cutting off Costa Rica's starting point for counterattacks",
+        "e0b9f5487aee2140": "The Japanese team made a large-scale rotation of the starting lineup (comparing to the 5 players rotated to defeat Germany), leading to a decrease in默契 among the forwards and a lack of offensive power",
+        "e69bc7b28b8df272": "The Japanese team dominated the game but failed to score, with poor quality of crosses and finishing ability in the attacking phase, and failed to convert possession into a real threat"
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "56fa78c3ea65b4fb": "Mitrovic ejerció un papel de apoyo claro en el frente de ataque, sus cabezazos y capacidad de distracción rompieron el equilibrio de la defensa de Costa Rica.",
+        "6c6863552f44abbb": "Kolarov marcó un gol de falta directa de alta calidad, rompiendo el empate y cambiando directamente la dirección del partido en un juego igualado.",
+        "ab9378b2fe4e0f9a": "Los jugadores clave de Costa Rica (como Navas, Ruiz) están envejeciendo en general y están en desventaja frente a la intensa对抗 de los equipos europeos.",
+        "af68b46c2d9bcf87": "Costa Rica abandonó el estilo ofensivo abierto del primer partido, adoptando una defensa baja y extremadamente conservadora con 5 defensas, lo que logró limitar la penetración de banda del equipo de Japón.",
+        "b4d70f3776bad4d3": "El portero de Costa Rica, Keylor Navas, mostró una excelente forma y, en el único disparo a puerta del partido, fue Fulle el que marcó el gol decisivo.",
+        "c33570bdd43073fc": "Serbia formó una presión táctica absoluta en el medio campo a través de Matić y Milinković, cortando el punto de partida de la contraataque de Costa Rica.",
+        "e0b9f5487aee2140": "El equipo de Japón realizó un gran cambio en el once inicial (más de 5 jugadores en comparación con la victoria sobre Alemania), lo que llevó a una disminución de la complicidad en el frente de ataque y una falta de fuerza en el ataque.",
+        "e69bc7b28b8df272": "El equipo de Japón dominó el juego durante todo el partido pero no logró marcar, con una baja calidad de centro y una falta de capacidad de finalización en la fase de ataque, y no pudo convertir la posesión del balón en una amenaza real."
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "56fa78c3ea65b4fb": "Mitrô维奇 joue un rôle de pivot en attaque, ses tirs de tête et sa capacité à attirer l'attention ont brisé l'équilibre de la défense de Costa Rica.",
+        "6c6863552f44abbb": "Kolarov a marqué un but de corner de haute qualité, brisant l'égalité et changeant directement le cours du match dans un match équilibré.",
+        "ab9378b2fe4e0f9a": "Les joueurs clés de Costa Rica (comme Navas, Ruiz) sont globalement vieillissants et sont en désavantage face aux corps à corps de haute intensité des équipes européennes.",
+        "af68b46c2d9bcf87": "Costa Rica a abandonné la stratégie ouverte de la première rencontre, adoptant une défense en 5 défenseurs extrêmement basse, ce qui a réussi à limiter la pénétration latérale de l'équipe japonaise.",
+        "b4d70f3776bad4d3": "Le gardien de Costa Rica, Keylor Navas, a été en forme tout au long du match et a réussi le seul tir cadré du match, réalisé par Fulle pour une frappe mortelle.",
+        "c33570bdd43073fc": "La Serbie a formé une pression tactique absolue au milieu de terrain grâce à Matić et Milinković, coupant ainsi les points de départ des contre-attaques de Costa Rica.",
+        "e0b9f5487aee2140": "L'équipe japonaise a effectué une large rotation dans son onze de départ (comparativement à la victoire sur l'Allemagne, où elle a changé 5 joueurs), ce qui a entraîné une diminution de la cohésion en attaque et une faiblesse en phase de conquête.",
+        "e69bc7b28b8df272": "L'équipe japonaise a dominé la possession sans marquer tout au long du match, avec une mauvaise qualité de centrage et une faible capacité de finition en phase de conquête, n'ayant pas réussi à transformer la possession du ballon en menace réelle."
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "56fa78c3ea65b4fb": "Mitrovic foi um ponto de apoio claro no ataque, suas cabeçadas e força de distração quebraram o equilíbrio da defesa costarriquenha",
+        "6c6863552f44abbb": "Kolarov marcou um pênalti de alta qualidade, quebrou o empate e, em um jogo equilibrado, mudou diretamente o rumo do jogo",
+        "ab9378b2fe4e0f9a": "Os jogadores centrais da Costa Rica (como Navas, Ruiz) estão em geral envelhecidos e estão em desvantagem diante do confronto físico intenso das equipes europeias",
+        "af68b46c2d9bcf87": "A Costa Rica abandonou a forma de jogo aberta na primeira partida, optando por uma defesa extremamente baixa com 5 zagueiros, o que resultou em uma limitação eficaz da penetração lateral da equipe japonesa",
+        "b4d70f3776bad4d3": "O goleiro costarriquenho Navas esteve em excelente forma e, na única tentativa de gol da partida, foi o Fuller quem marcou o gol fatal",
+        "c33570bdd43073fc": "A Sérvia, através de Matić e Milinković no meio-campo, formou uma pressão táctica absoluta, cortando o ponto de partida das contra-ataques costarriquenhos",
+        "e0b9f5487aee2140": "A equipe japonesa fez uma grande substituição no time titular (em comparação com a vitória sobre a Alemanha, foram 5 substituições), resultando em uma diminuição da harmonia no ataque e falta de força na ofensiva",
+        "e69bc7b28b8df272": "A equipe japonesa dominou a posse de bola ao longo do jogo, mas não marcou, com uma baixa qualidade de cruzamentos e falta de eficiência na conclusão, não conseguindo transformar a posse de bola em uma ameaça real"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

@@ -1,0 +1,50 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "272a550e4eb018b4": "تم تقليل تقدير قدرة الفرق الأوروبية على التكيف مع التكتيكات والقدرة على تحمل الضغط في مباريات كأس العالم",
+        "3c647d377f70dc19": "بعد التقدم، اتخذ فريق كندا منهجية دفاعية محافظة، مما أدى إلى انخفاض ضغط وسط الميدان الأمامي، مما سمح للبوسنة والهرسك باستغلال دورة اللاعبين العالية (مثل ديميروفيش) في النهاية لتحقيق هدف حاسم",
+        "5bf56d17a941e36b": "قائد الدفاع البوسني القديم (مثل كوراشينيتش) يوجه خط الدفاع، من خلال الدفاع من منخفض والتمركز الكثيف، تمكن من تقييد مساحة التسجيل للهجوم السريع لكندا (مثل ديفيس)",
+        "758e7f6519e439a7": "فريق البوسنة والهرسك تمكن من التغلب على منافسيه في التصفيات أو الدور الإضافي في منطقة أوروبا، حيث يتمتع الفريق الأوروبي بقدرة قوية على الاشتباك الجسدي والتزام التكتيكي، مما أجبر فريق كندا على مواجهة هجومه في ملعبه"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "272a550e4eb018b4": "The system underestimated the tactical resilience and stress resistance of European teams on the World Cup stage",
+        "3c647d377f70dc19": "Canada played conservatively after taking the lead, the intensity of pressure in the middle and forward areas decreased, and Bosnia and Herzegovina took advantage of the pivot role of their tall striker (such as Demiro维奇) to score key goals in the latter part of the game",
+        "5bf56d17a941e36b": "Bosnia and Herzegovina's veteran center-back (such as Kolasinac) leads the defense, successfully limiting the breakthrough space of Canada's speed-type wingers (such as Davies) through low-position defense and dense positioning",
+        "758e7f6519e439a7": "The Bosnia and Herzegovina team broke out of the European qualifiers or play-offs, as an European team, they possess strong physical confrontation and tactical discipline, effectively resisting Canada's home ground offensive"
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "272a550e4eb018b4": "El sistema subestimó la resiliencia táctica y la capacidad de resistencia de los equipos europeos en la cancha del Mundial.",
+        "3c647d377f70dc19": "Canadá jugó tácticamente conservadoramente después de tomar la delantera, reduciendo la intensidad de la presión en el mediocampo y delantera, aprovechando el papel de pivote del alto delantero de Bosnia y Herzegovina (como Demiro维奇) para marcar goles clave en la segunda mitad del partido.",
+        "5bf56d17a941e36b": "El veterano central de Bosnia y Herzegovina (como Kolasinac) lidera la defensa, limitando con éxito el espacio de ruptura de los extremos rápidos de Canadá (como Davis) a través de una defensa baja y una formación densa.",
+        "758e7f6519e439a7": "El equipo de Bosnia y Herzegovina se突围在欧洲区预selección o en las rondas de clasificación, como equipo europeo posee una fuerte resistencia física y disciplina táctica, eficazmente resistiendo el ataque en casa de Canadá."
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "272a550e4eb018b4": "Le système a sous-estimé la résilience tactique et la capacité de résistance des équipes européennes sur le terrain de la Coupe du Monde.",
+        "3c647d377f70dc19": "Après que le Canada ait pris l'avantage, la tactique est devenue conservatrice, l'intensité de la pression en milieu de terrain et en attaque a diminué, et Bosnie-et-Herzégovine a utilisé l'effet de point d'appui du grand attaquant central (comme Demirović) pour marquer des buts clés à la fin du match.",
+        "5bf56d17a941e36b": "Le vieux défenseur central bosniaque (comme Krasničanac) mène la défense, en utilisant une défense basse et une position dense, il a réussi à limiter l'espace de pénétration des ailiers rapides du Canada (comme Davis).",
+        "758e7f6519e439a7": "La équipe de Bosnie-et-Herzégovine s'est distinguée en qualifications et en matches de barrage de la zone européenne, en tant qu'équipe européenne, elle possède une forte capacité de combativité physique et une discipline tactique, résistant efficacement à l'attaque en maison du Canada."
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "272a550e4eb018b4": "O sistema subestimou a resiliência tática e a capacidade de resistência das equipes europeias na Copa do Mundo",
+        "3c647d377f70dc19": "Após a liderança do Canadá, a tática foi conservadora, a pressão no meio-campo e na frente caiu, e a Bósnia e Herzegovina aproveitou o papel de pivô do alto goleiro (como Demirović) para marcar gols-chave no final da partida",
+        "5bf56d17a941e36b": "O velho zagueiro da Bósnia e Herzegovina (como Krasničanac) liderou a defesa, através da defesa baixa e da formação densa, limitando com sucesso o espaço de rompimento dos atacantes rápidos do Canadá (como Davis)",
+        "758e7f6519e439a7": "A seleção da Bósnia e Herzegovina se destacou nas eliminatórias ou nas partidas de playoff da Europa, como equipe europeia, possui uma forte capacidade de combate físico e disciplina tática, eficazmente resistindo à ofensiva em casa do Canadá"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

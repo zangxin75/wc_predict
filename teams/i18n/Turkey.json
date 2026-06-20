@@ -1,0 +1,45 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "01f263aa746b99fa": "توقع النظام بشكل غير صحيح قدرة أستراليا على الدفاع في البطولات القارية في قدرته على الدفاع المتين وتنظيم الدفاع في المناطق السفلية، مما أدى إلى حجز اللقاء بدون أهداف.",
+        "397f2f112b2a68d9": "فقد لاعب وسط تركيا النجمي السيطرة في بيئة الضغط العالمي، مما أدى إلى قطع روتين الهجوم والدفاع من قبل اللاعبين الأستراليين القويين، مما أدى إلى توقف الهجوم التركي بشكل كامل.",
+        "ac7316375139418d": "استفادت أستراليا من ميزة المدرج في أمريكا الشمالية (أو ميزة الجماهير في الخارج القريبة جغرافيًا) بقدرتها على القوة الجسدية والهجمات الجوية، مما أدى إلى فتح الأبواب للهجوم من خلال التكتيكات في الركلات الحرة."
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "01f263aa746b99fa": "The system underestimated Australia's defensive resilience and low-position defensive organization in intercontinental competitions, successfully keeping a clean sheet against the opponent.",
+        "397f2f112b2a68d9": "Turkey's midfield core lost control under the high-pressure environment of the World Cup, with the rhythm of attack and defense being completely cut off by Australia's fierce pressing, leading to a complete silence on the offensive end.",
+        "ac7316375139418d": "Australia utilized the North American home advantage (or the advantage of geographically close overseas fans) to show strong physical confrontation and aerial bombardment capabilities, successfully breaking the deadlock with set-piece tactics."
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "01f263aa746b99fa": "The system underestimated Australia's defensive resilience and low-position defensive organization in intercontinental competitions, successfully keeping a clean sheet against the opponent.",
+        "397f2f112b2a68d9": "Turkey's core midfielder lost control under the high-pressure environment of the World Cup, the rhythm of attack and defense conversion was completely cut off by Australia's fierce pressing, leading to a complete silence on the offensive end.",
+        "ac7316375139418d": "Australia utilized the North American home advantage (or the advantage of geographically close overseas fans) to show strong physical confrontation and aerial bombardment capabilities, successfully breaking the deadlock with set-piece tactics."
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "01f263aa746b99fa": "Le système a sous-estimé la résilience défensive et l'organisation de la défense en position basse de l'Australie dans les compétitions intercontinentales, réussissant à garder le score nul.",
+        "397f2f112b2a68d9": "Le joueur central du milieu de terrain turc perd le contrôle sous la pression élevée de la Coupe du Monde, la transition entre l'attaque et la défense est complètement coupée par la pression agressive de l'Australie, entraînant une panne complète de l'attaque.",
+        "ac7316375139418d": "L'Australie, profitant de l'avantage du terrain nord-américain (ou de l'avantage des supporters éloignés mais géographiquement proches), montre une grande force physique et une capacité de bombardement aérien, réussissant à briser le statu quo grâce à la stratégie de coups de pied arrêtés."
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "01f263aa746b99fa": "O sistema subestimou a resiliência defensiva e a organização defensiva da Austrália em competições continentais, conseguindo um jogo sem gols.",
+        "397f2f112b2a68d9": "O jogador central da Turquia perdeu o controle sob a pressão alta da Copa do Mundo, a transição entre ataque e defesa foi cortada completamente pela pressão agressiva da Austrália, resultando em um ataque completamente estagnado.",
+        "ac7316375139418d": "A Austrália, aproveitando a vantagem da casa no Norte da América (ou a vantagem dos torcedores estrangeiros próximos), mostrou uma forte capacidade de luta física e de bombeamento aéreo, com uma tática de pênaltis que quebrou o empate."
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

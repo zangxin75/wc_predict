@@ -1,0 +1,120 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "05b3822a3531193d": "حافظ حارس مرمى كوريا الجنوبية تشاو هيون يو على 6 حذف رائع في المباراة، وأوقف عدة فرص للتسجيل للسويد، مما أبقى الفارق في النتيجة عند هدف واحد",
+        "076f2ed66138f432": "هداف غانا محمد كودوس يظهر بشكل استثنائي، يسجل هدفين ويقدم تمريرة حاسمة يقود بها اللقاء، وقد تمكن من كسر الجمود بقدرته على التسديد من مسافة بعيدة",
+        "197b0838765bddf0": "استنفاد اللياقة البدنية: أدى الهجوم الكبير في الشوط الثاني إلى انقسام التشكيلة الألمانية بشكل كبير، مما أدى إلى انخفاض كبير في لياقة الدفاع في المراحل الأخيرة من المباراة (في الوقت الإضافي) مما سمح لكوريا الجنوبية بتحقيق هدفين متتاليين",
+        "28f96e78d55bdbaf": "قوة دفاع كوريا الجنوبية ضعيفة بشكل كبير، حيث تمكنت غانا من تسجيل هدفين من خلال هجمات ركنية (سالي سو وكودوس) بتمريرات رأسية",
+        "2b2092d6718fa2fb": "البرتغال، كفريق قد تأكد من التقدم، كان لديه رغبة أقل في الفوز وضغط دفاعي أقل مقارنة بكوريا الجنوبية التي كانت في موقف لا مفر منه",
+        "33179e38f56d39b6": "استخدمت السويد تكتيكات دفاعية مخصصة وأسلوب الهجوم من خلال الهجمات الجوية، مما أضعف كوريا الجنوبية، وإذا لم يكن هناك عارضة وحظ، فإن النتيجة لن تكون 1-0",
+        "4861e480baca77b1": "كان هجومي كوريا الجنوبية سون هيون مين تحت مراقبة دقيقة من قبل السويد ولم يكن لديه دعم، مما أدى إلى عدم تسجيل أي هدف في المباراة، وعدم وجود قدرة على تعديل النتيجة",
+        "52a3e076ace48f75": "هجوم أوروغواي كان خاليًا من الحدة، ولم يكن لديه إبداع في وسط الملعب، وكان حظيًا سيئًا (غودين أحرز رأسية على العارضة، وبالفيديريز أحرز رأسية على العارضة)",
+        "80f6a3ba63889d16": "لاعب كوريا الجنوبية كيم يونغ كوانغ استخدم ركلتي الزاوية في الفوضى للهدف، مما كسر النموذج المتوقع للدفاع التقليدي",
+        "83f60632b0161f97": "مدرب كوريا الجنوبية بنتو كان تقليدياً في الشوط الأول وأعتمد على الترياق، لكنه قرر تبديل لاعبين في الشوط الثاني (تحريك سونغ هيونغ مين للأمام، وإدخال لي كانغ إن كاحلاً) لبدء هجوم بالتمريرات العالية، مما أدى إلى تغيير كبير في اللقاء",
+        "8a3b406eb1d5141e": "دفاع كوريا الجنوبية بقيادة المدافع الكوري جينغ يونغ كوان يتبع دفاعًا منخفضًا ومدروسًا، مما نجح في تقييد مساحة العمق للهجوميين الأوروغويين مثل دارفين نونيز",
+        "92b23f4f2fcd5d5f": "في كامل المباراة، وصلت نسبة السيطرة على الكرة لدى كوريا الجنوبية إلى 61% و35 تمريرة، لكنها تخلت عن السيطرة المتوقعة في وسط الملعب والدفاع، مما جعل اللقاء مشابهاً لسلسلة من الهجمات والهجمات العكسية",
+        "9a00c7a86d91aa4b": "لاعب كوريا الجنوبية سون هيونغ مين في الدقيقة 91 قام بجري طويل للتمرير لهدف هونغ شيانغ، حيث تجاوزت قدراته الشخصية والتنفيذ في الهجوم ما كان يتنبأ به النموذج",
+        "ac0c4274bebed5b2": "تغييرات البرتغال الكبيرة (استراحة بفيرناندز، بفيس، بيريز، إلخ) أدت إلى انخفاض في التحكم العام للفريق وروابط الدفاع",
+        "c609556ec4ac5e5d": "أداء اللاعب: قدم حارس مرمى كوريا الجنوبية تشوي سون يو عدة تصديات رائعة (تصدي لفيلر وغرازكا وغيرهم) وفي الشوط الثاني أغلق المرمى على ألمانيا، مما ألحق ضررًا كبيرًا بروح الفريق الألماني",
+        "ce9d767ca4002a19": "أعدد مدرب كوريا الجنوبية بينتو تكتيكات دفاعية مخصصة، من خلال استخدام الثنائي في وسط الدفاع لقطع التواصل بين وسط الملعب والخط الأمامي، مما أدى إلى تعادل صفر-صفر",
+        "cf507e7ec2079063": "انهيار نفسي: كان على فريق ألمانيا كالبطل الحالي حمل ضغط الفوز بشكل لا يصدق، مما أدى إلى تعجلة التكتيكات والكثير من الأخطاء في التبادل والتشكيل، وعدم وجود صبر في破اع الدفاع الكثيف",
+        "d0f1786d9ed8a29a": "تكتيك الضغط: قام مدرب كوريا الجنوبية شين تاي لونغ بتكتيك هجوم سريع ومكافحة عالية ضد نقاط ضعف دفاع ألمانيا مثل التدوير البطيء والفراغات في الجانبين"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "05b3822a3531193d": "South Korea's goalkeeper, Cho Hyun-woo, made 6 heroic saves throughout the game, intercepting and blocking multiple sure goals from Sweden, keeping the actual score within a one-goal difference.",
+        "076f2ed66138f432": "Ghana forward Mohammed Kudus (Mohammed Kudus) performs exceptionally, scoring 2 goals and making 1 assist to dominate the game, his personal long-range shooting ability breaking the deadlock",
+        "197b0838765bddf0": "Physical Exhaustion: Germany's team's aggressive push in the second half led to a serious disconnection in the formation, and the defense's physical energy dropped dramatically in the final stages (stoppage time), leading to two goals by South Korea.",
+        "28f96e78d55bdbaf": "South Korea's air defense capability is severely lacking, being scored on twice by Ghana through corner kick tactics (Saliou, Kudus) with headers",
+        "2b2092d6718fa2fb": "As a team that had already qualified, Portugal showed less desire to win and a lower defensive pressure than South Korea, which was fighting for survival",
+        "33179e38f56d39b6": "Sweden's team adopted highly targeted physical confrontation and aerial bombardment tactics, completely压制了 South Korea, and if not for the goalpost and luck factors, the score would not have been just 1-0.",
+        "4861e480baca77b1": "South Korea's core attacker, Son Heung-min, was closely guarded and isolated by Sweden, leading to South Korea having zero shots on target throughout the game and completely losing the offensive ability to equalize the score.",
+        "52a3e076ace48f75": "Uruguay's full-game offense lacks sharpness, the midfield lacks creativity, and the team is unlucky (Goded's header hits the post, Balvede's long shot hits the post).",
+        "80f6a3ba63889d16": "South Korea's Kim Young-gwon scored from a corner in a chaotic situation, breaking the conventional defensive data model expected by the system",
+        "83f60632b0161f97": "South Korea's head coach Bentot was conservative and trailing in the first half, making a decisive change of two players (Son Heung-min moved forward, Lee Kang-in substituted) in the first half to open up a wild cross战术, leading to the game becoming a back-and-forth affair",
+        "8a3b406eb1d5141e": "South Korea's center-back Kim Young-gwon leads a defense that employs an extremely cautious low-positioned defense, successfully limiting the depth space of Uruguay's attackers such as Darwin Nunez.",
+        "92b23f4f2fcd5d5f": "South Korea's 61% possession rate and 35 crosses throughout the game abandoned the expected system of midfield control and defense balance, turning the match into a mutual poking game",
+        "9a00c7a86d91aa4b": "In the 91st minute, South Korea's Son Heung-min made a long-distance run to assist for Hong Hee-chan's decisive goal, with the super star's individual ability and counter-attack execution surpassing the system's predicted probability",
+        "ac0c4274bebed5b2": "Portugal's widespread rotation (resting key players like Bruno Fernandes, Bernardo Silva, Pepe, etc.) led to a decrease in overall team control and defensive cohesion",
+        "c609556ec4ac5e5d": "Player Performance: South Korea's goalkeeper, Kwon Hyun, made multiple excellent saves (deflecting goals from Werner, Goretzka, etc.), and kept a clean sheet against Germany in the second half, greatly demoralizing Germany's team.",
+        "ce9d767ca4002a19": "South Korea's coach, Bento, has formulated highly targeted tactics, effectively cutting off the connection between Uruguay's midfield and forwards through a double defensive midfielder, resulting in a goalless draw.",
+        "cf507e7ec2079063": "Psychological Collapse: As the defending champion, Germany's team was under great pressure to qualify, leading to impulsive tactics, frequent passing errors, and a lack of patience to break through dense defenses.",
+        "d0f1786d9ed8a29a": "Tactical Suppression: South Korea's coach Shin Taeyong exploited Germany's weaknesses in slow defense turning and large gaps in wing-back defense, deploying highly targeted fast counter-attack and high-position pressing tactics."
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "05b3822a3531193d": "El portero surcoreano Jo Hyeon-woo contribuyó con 6 atajadas heroicas durante todo el partido, desviando múltiples oportunidades de gol claras de Suecia, manteniendo la diferencia en el marcador en un solo gol.",
+        "076f2ed66138f432": "El delantero de Ghana Mohammed Kudus sobresale, anotando 2 goles y asistiendo 1, dominando el partido con su habilidad en los remates de larga distancia",
+        "197b0838765bddf0": "Agotamiento físico: el equipo alemán se desesperó por atacar en la segunda mitad, lo que llevó a una desarticulación grave de la formación, y en la fase final del partido (la fase de añadido), la energía de la defensa cayó en picado, permitiendo que Corea del Sur marcase dos goles consecutivos",
+        "28f96e78d55bdbaf": "La defensa aérea de Corea del Sur es gravemente deficiente, siendo anotado dos goles por Ghana mediante la táctica de corner (Saliou, Kudus) con cabezazos",
+        "2b2092d6718fa2fb": "Portugal, como equipo que ya se clasificó, tiene menos deseo de ganar y presión defensiva que el Corea del Sur que lucha contra la desesperación",
+        "33179e38f56d39b6": "El equipo sueco utilizó una táctica de confrontación física y bombardeo aéreo muy específica, completamente dominando a Corea del Sur, y si no fuera por el marco y la suerte, el marcador no hubiera sido 1-0.",
+        "4861e480baca77b1": "El atacante central surcoreano Son Heung-min fue marcado de cerca por Suecia y se encontró sin apoyo, lo que llevó a que Corea del Sur no tuviera un disparo a puerta durante todo el partido, perdiendo completamente la capacidad de empatar el marcador.",
+        "52a3e076ace48f75": "La ofensiva uruguaya careció de agilidad durante todo el partido, la creatividad en el mediocampo fue insuficiente, y la suerte no acompañó (Gómez cabeceó al poste, Baldeiro disparó al poste).",
+        "80f6a3ba63889d16": "Kim Young-gwon del equipo surcoreano aprovecha el desorden en el corner para marcar, rompiendo el modelo de datos de defensa esperado por el sistema",
+        "83f60632b0161f97": "El entrenador de Corea del Sur, Bento, es conservador en la primera mitad y se encuentra en desventaja, pero cambia dos jugadores de manera decisiva en el descanso (moviendo a Son Heung-min hacia adelante, sustituyendo a Lee Kang-in) para comenzar una táctica frenética de centrocesiones, haciendo que el partido sea completamente caótico",
+        "8a3b406eb1d5141e": "La defensa liderada por el mediocampista surcoreano Kim Young-gwon adoptó una defensa baja y extremadamente cautelosa, logrando limitar el espacio en profundidad de atacantes uruguayos como Darwin Núñez.",
+        "92b23f4f2fcd5d5f": "Corea del Sur tiene un alto porcentaje de posesión del balón de 61% y 35 centrocesiones en todo el partido, abandonando el sistema esperado de control y equilibrio en el medio campo y defensa, convirtiendo el partido en una serie de intercepciones mutuas",
+        "9a00c7a86d91aa4b": "Son Heung-min del equipo surcoreano asiste a Huang Xi-can en el minuto 91 con una carrera larga, logrando el gol decisivo, la habilidad personal y la ejecución de contragolpe del superestrella superan las probabilidades predichas por el sistema",
+        "ac0c4274bebed5b2": "La gran rotación de Portugal (descansando a B费、B席、Pepe y otros jugadores clave) reduce la capacidad de control y la armonía defensiva del equipo",
+        "c609556ec4ac5e5d": "Actuación del jugador: el portero surcoreano Kwon Hyun-woo contribuyó con múltiples atajadas heroicas (desviando goles obligatorios de Werner y Goretzka, entre otros), y en la segunda mitad, mantuvo a Alemania a cero, golpeando fuertemente la moral del equipo alemán",
+        "ce9d767ca4002a19": "El entrenador surcoreano Bento diseñó una táctica muy específica, cortando efectivamente la comunicación entre el mediocampo y la delantera uruguaya mediante la doble mediocampista, logrando un empate a cero.",
+        "cf507e7ec2079063": "La crisis psicológica: el equipo alemán, como campeón defensor, carga con una gran presión de clasificación obligatoria, lo que lleva a que toda la estrategia sea desesperada, las transiciones de pase fallan con frecuencia y falta la paciencia para romper la defensa densa",
+        "d0f1786d9ed8a29a": "La presión táctica: el entrenador surcoreano Shin Taeyong se enfocó en las debilidades del sistema defensivo alemán, como la lentitud en la rotación y los huecos en las alas, desplegando tácticas de contragolpe rápido y presión alta altamente específicas"
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "05b3822a3531193d": "Le gardien sud-coréen Cho Hyun-woo a réalisé six arrêts de grande classe tout au long du match, repoussant plusieurs occasions de but certain pour la Suède, maintenait ainsi la différence de buts réelle à un seul but.",
+        "076f2ed66138f432": "Le attaquant ghanéen Mohammed Kudus (Mohammed Kudus) joue au-delà de ses capacités, marquant 2 buts et délivrant une passe décisive tout au long du match, son tir lointain brisant l'égalité",
+        "197b0838765bddf0": "Épuisement physique : l'équipe allemande, en se concentrant sur l'attaque en seconde mi-temps, a vu sa formation se détacher gravement, et sa défense a connu une chute vertigineuse en termes de fatigue physique à la fin du match (en prolongation), permettant à la Corée de marquer deux buts consécutifs.",
+        "28f96e78d55bdbaf": "La capacité de défense aérienne de l'équipe coréenne est gravement insuffisante, elle est marquée deux fois par des tirs au corner de la Ghana (Saliou, Kudus) marqués au bout de la tête",
+        "2b2092d6718fa2fb": "La détermination à gagner de l'équipe portugaise, déjà qualifiée, est nettement inférieure à celle de la Corée du Sud, qui joue sa peau contre la montagne",
+        "33179e38f56d39b6": "L'équipe suédoise a utilisé une tactique de combat corporel et de bombardement aérien très ciblée, complètement en压制 le South Korea, si ce n'était de la barre et de la chance, le score ne serait pas resté à 1-0.",
+        "4861e480baca77b1": "L'attaquant central sud-coréen Son Heung-min est étroitement surveillé et isolé par la Suède, ce qui a conduit à zéro tir cadré pour le South Korea tout au long du match, complètement privant l'équipe de la capacité d'égaliser le score.",
+        "52a3e076ace48f75": "L'attaque uruguayenne manque de piquant tout au long du match, la création de jeu au milieu de terrain est insuffisante, et la chance n'est pas de leur côté (Gödech remet en corner, Baldeau frappe au poteau).",
+        "80f6a3ba63889d16": "Kim Young-gwon de la Corée du Sud utilise un corner pour marquer dans la confusion, brisant le modèle de données conventionnel de défense prévu",
+        "83f60632b0161f97": "L'entraîneur coréen Bentô (Bento) joue de manière conservatrice en première mi-temps et est en retard, changeant deux joueurs d'affilée à la pause (Sun Xingmin avançant sa position, Li Gangren remplaçant) pour ouvrir une stratégie de passes frénétiques, rendant le match complètement erratique",
+        "8a3b406eb1d5141e": "La défense menée par le milieu de terrain sud-coréen Kim Young-gwon adopte une défense basse et extrêmement prudente, réussissant à limiter l'espace de profondeur des attaquants uruguayens tels que Darwin Núñez.",
+        "92b23f4f2fcd5d5f": "Avec une proportion de possession de balle de 61% tout au long du match et 35 passes frappées, la Corée abandonne le contrôle de milieu de terrain et l'équilibre défensif attendus par le système, transformant le match en une série de frappes à tout-va",
+        "9a00c7a86d91aa4b": "Son Heung-min de la Corée du Sud assiste en long cours à la 91e minute pour une victoire décisive de Hwang Hee-chan, la capacité individuelle et l'exécution de contre-attaque de ce super-star dépassent les probabilités prédites par le système",
+        "ac0c4274bebed5b2": "Le grand remplacement de l'équipe portugaise (B. Fernandes, B. Silva, Pepe, etc.) réduit la cohésion et la discipline défensive de l'équipe",
+        "c609556ec4ac5e5d": "Performance des joueurs : le gardien coréen, Kwon Hyun, a apporté plusieurs sauvegardes miracles (en neutralisant des buts obligatoires de Werner et Goretzka), et a réussi à bloquer l'équipe allemande en seconde mi-temps, frappant ainsi la moralité de l'équipe allemande.",
+        "ce9d767ca4002a19": "L'entraîneur sud-coréen Bento a élaboré une tactique très ciblée, coupant efficacement la liaison entre le milieu de terrain et l'avant du Uruguay par un double pivot, menant à un match nul sans buts.",
+        "cf507e7ec2079063": "Crise psychologique : l'équipe allemande, championne en titre, portant une énorme pression pour gagner, s'est montrée tactiquement pressée, avec des erreurs fréquentes de passe et un manque de patience pour briser une défense dense.",
+        "d0f1786d9ed8a29a": "Tactique de pression : le sélectionneur coréen, Shin Taeyong, a déployé une contre-attaque rapide et une pression haute ciblée sur les faiblesses de la défense allemande, à savoir une mauvaise rotation et des espaces de défense latéraux."
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "05b3822a3531193d": "O goleiro sul-coreano Jo Hyeon-woo contribuiu com seis defesas heróicas durante todo o jogo, interceptando e impedindo várias chances de gol certas da Suécia, mantendo a diferença de um gol na prática.",
+        "076f2ed66138f432": "O atacante do Gana, Mohammed Kudus (Mohammed Kudus), se destacou, com 2 tentativas a gol e 1 assistência, dominando a partida, sua habilidade de remate de longa distância quebrou o empate",
+        "197b0838765bddf0": "Esgotamento físico: a Alemanha pressionou fortemente no segundo tempo, resultando em uma formação severamente desalinhada, e a linha defensiva caiu abruptamente no último estágio do jogo (tempo de desconto), permitindo que a Coreia do Sul marcase dois gols consecutivos",
+        "28f96e78d55bdbaf": "A capacidade de defesa aérea da seleção coreana é gravemente insuficiente, foi marcada duas vezes pelo Gana através da tática de escanteio (Saliou, Kudus) com cabeçadas",
+        "2b2092d6718fa2fb": "A seleção portuguesa, que já havia garantido a classificação, mostrou uma menor vontade de vencer e intensidade defensiva em comparação com a Coreia do Sul, que estava em uma situação de tudo ou nada",
+        "33179e38f56d39b6": "A Suécia adotou uma tática de confronto físico e bombardeio aéreo altamente específica, completamente dominando a Coreia do Sul, e se não fosse a trave e a sorte, o placar não seria 1-0.",
+        "4861e480baca77b1": "O atacante central sul-coreano Son Heung-min foi vigiado de perto e isolado pela Suécia, resultando em zero finalizações de gol da Coreia do Sul durante todo o jogo, perdendo completamente a capacidade de igualar o placar.",
+        "52a3e076ace48f75": "A ofensiva uruguaia foi carecedora de agressividade durante todo o jogo, com falta de criatividade no meio-campo e má sorte (Gómez cabeceou para o pilar, Baldeiro chutou para o pilar).",
+        "80f6a3ba63889d16": "Kim Young-gwon da seleção coreana marcou um gol em uma confusão de escanteio, quebrou o modelo de dados de defesa convencional esperado",
+        "83f60632b0161f97": "O treinador da seleção coreana, Bento, foi conservador na primeira metade da partida e ficou para trás, trocou dois jogadores decisivamente na pausa (Song Min-kyu foi avançado, Lee Kang-in entrou como substituto) e iniciou a tática frenética de passes laterais, transformando a partida em um jogo de ida e volta",
+        "8a3b406eb1d5141e": "A defesa liderada pelo zagueiro sul-coreano Kim Young-gwon adota uma defesa baixa e extremamente cautelosa, limitando com sucesso o espaço de profundidade dos atacantes uruguaios como Darwin Núñez.",
+        "92b23f4f2fcd5d5f": "A seleção coreana manteve 61% de posse de bola e 35 passes laterais na partida inteira, abandonando o controle de meio-campo e a defesa equilibrada esperados pelo sistema, transformando a partida em um jogo de intercalação de passes",
+        "9a00c7a86d91aa4b": "Son Heung-min da seleção coreana assistiu a um contra-ataque na 91ª minuto, marcou um gol decisivo para Hyun Chul, a capacidade individual e a execução da contra-ataque do superastro superaram as probabilidades previstas pelo sistema",
+        "ac0c4274bebed5b2": "A grande rotatividade da seleção portuguesa (descansando B费, B席, Pepe e outros jogadores-chave) resultou em uma queda na controle geral da equipe e na coordenação defensiva",
+        "c609556ec4ac5e5d": "Desempenho do jogador: o goleiro sul-coreano Jo Hyeon-woo contribuiu com várias defesas heroicas (desviando gols certos de Werner, Goretzka e outros), e manteve a Alemanha em 0-0 no segundo tempo,极大打击了德国队的士气",
+        "ce9d767ca4002a19": "O treinador sul-coreano Bento elaborou uma tática altamente específica, cortando eficazmente a ligação entre o meio-campo uruguaio e a linha ofensiva com a dupla de volantes, resultando em um empate a zero.",
+        "cf507e7ec2079063": "A desmoronamento psicológico: como o campeão em título, a Alemanha carrega uma grande pressão de vencer a classificação, resultando em uma tática apressada, erros frequentes na transmissão e falta de paciência para romper a defesa densa",
+        "d0f1786d9ed8a29a": "A pressão tática: o treinador coreano Shin Taek-yong se concentrou nas fraquezas da linha defensiva alemã, como a lentidão na viragem e as lacunas na defesa dos lados, implementando um contra-ataque rápido e pressão alta altamente específica"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

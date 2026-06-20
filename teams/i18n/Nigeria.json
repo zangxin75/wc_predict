@@ -1,0 +1,45 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "247b94dc5af1272f": "Iceland's core player Sigurdsson is in a low state and missed a crucial penalty in the second half, completely destroying the hope of drawing",
+        "6764f011560c77e8": "Iceland's physical decline led to the defense being unable to cope with the personal speed and impact of Nigeria's striker Musa",
+        "e9203893e1fa836e": "Nigeria's midfield tactical adjustment, increased pressing in the front line in the second half led to a quick goal"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "247b94dc5af1272f": "Iceland's core player Sigurdsson was in low form and missed a crucial penalty in the second half, completely destroying the hope of drawing level",
+        "6764f011560c77e8": "Iceland's physical decline led to their defense being unable to cope with the personal speed and impact of Nigeria's striker Musa",
+        "e9203893e1fa836e": "Nigeria's midfield made tactical adjustments, increasing high-pressure upfront in the second half, leading to a quick goal"
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "247b94dc5af1272f": "Iceland's core player Sigurðsson is in a low state and misses a crucial penalty in the second half, completely destroying the hope of drawing",
+        "6764f011560c77e8": "Iceland's physical decline leads to the defense being unable to cope with the individual speed and impact of Nigeria's striker Musa",
+        "e9203893e1fa836e": "Nigeria adjusts the midfield tactics, increasing the tight press in the second half, leading to a quick goal"
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "247b94dc5af1272f": "Iceland's core player Sigurdsson is in a low form and missed a crucial penalty in the second half, completely destroying the hope of drawing",
+        "6764f011560c77e8": "Iceland's physical decline led to the defense being unable to cope with the personal speed and impact of Nigeria's striker Musa",
+        "e9203893e1fa836e": "The Nigerian midfield made tactical adjustments, increasing high-pressure in the front in the second half, leading to a quick goal"
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "247b94dc5af1272f": "Iceland's core player Sigurdsson is in a low form and missed a crucial penalty in the second half, completely destroying the hope of drawing",
+        "6764f011560c77e8": "Iceland's physical decline led to the defense being unable to cope with the individual speed and impact of Nigeria's striker Musa",
+        "e9203893e1fa836e": "The Nigerian midfield made tactical adjustments, increasing high-pressure in the front line in the second half, leading to a quick goal"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

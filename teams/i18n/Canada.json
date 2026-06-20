@@ -1,0 +1,70 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "102803e408c2a3ab": "كندا ضعيفة في استغلال الفرص، حيث حصلت على 2 ركلة جزاء فقط وأحرزت منها واحدة فقط (فقد دافيس الركلة)",
+        "272a550e4eb018b4": "تم تقليل تقدير قدرة الفرق الأوروبية على التكيف مع التكتيكات والقدرة على تحمل الضغط في مباريات كأس العالم",
+        "359a785076dc799b": "يتبع المغرب دفاعًا منخفضًا ومرنًا، يدمج مع هجمات مضادة فعالة، مما يحد من معدل تحويل الهجمات الكندية",
+        "3c647d377f70dc19": "بعد التقدم، اتخذ فريق كندا منهجية دفاعية محافظة، مما أدى إلى انخفاض ضغط وسط الميدان الأمامي، مما سمح للبوسنة والهرسك باستغلال دورة اللاعبين العالية (مثل ديميروفيش) في النهاية لتحقيق هدف حاسم",
+        "5bf56d17a941e36b": "قائد الدفاع البوسني القديم (مثل كوراشينيتش) يوجه خط الدفاع، من خلال الدفاع من منخفض والتمركز الكثيف، تمكن من تقييد مساحة التسجيل للهجوم السريع لكندا (مثل ديفيس)",
+        "5ff7e26c69667706": "دفاع كندا، اللاعب آغيلد، يسجل هدفًا غير مقصود في الشوط الأول، مما يكسر توقعات النتيجة التقليدية",
+        "758e7f6519e439a7": "فريق البوسنة والهرسك تمكن من التغلب على منافسيه في التصفيات أو الدور الإضافي في منطقة أوروبا، حيث يتمتع الفريق الأوروبي بقدرة قوية على الاشتباك الجسدي والتزام التكتيكي، مما أجبر فريق كندا على مواجهة هجومه في ملعبه",
+        "7c66f9ddc38b2564": "هداف المغرب إينيسري يظهر بشكل أفضل من التوقعات، يستغل سرعته ومقدرته على التدخل في المباراة الواحدة بتسجيل هدف وتسخير تسديدة (تحريك الهدف)"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "102803e408c2a3ab": "Canada lacks the ability to seize opportunities, scoring only 1 of the 2 penalties awarded throughout the match (Davis missed the penalty)",
+        "272a550e4eb018b4": "The system underestimated the tactical resilience and stress resistance of European teams on the World Cup stage",
+        "359a785076dc799b": "Morocco employs highly targeted low defense combined with efficient counterattacks, successfully limiting Canada's offensive conversion rate",
+        "3c647d377f70dc19": "Canada played conservatively after taking the lead, the intensity of pressure in the middle and forward areas decreased, and Bosnia and Herzegovina took advantage of the pivot role of their tall striker (such as Demiro维奇) to score key goals in the latter part of the game",
+        "5bf56d17a941e36b": "Bosnia and Herzegovina's veteran center-back (such as Kolasinac) leads the defense, successfully limiting the breakthrough space of Canada's speed-type wingers (such as Davies) through low-position defense and dense positioning",
+        "5ff7e26c69667706": "Canadian defender Agger scored an own goal in the first half, breaking the conventional probability trend of the expected scoreline",
+        "758e7f6519e439a7": "The Bosnia and Herzegovina team broke out of the European qualifiers or play-offs, as an European team, they possess strong physical confrontation and tactical discipline, effectively resisting Canada's home ground offensive",
+        "7c66f9ddc38b2564": "Moroccan striker Ennesri exceeds expectations, contributing 1 goal and 1 assist (setting up a goal) with his speed and对抗优势"
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "102803e408c2a3ab": "Canadá es deficiente en la capacidad de aprovechar las oportunidades, en todo el partido obtuvo 2 penaltis pero solo convirtió 1 (Davis falló el penal)",
+        "272a550e4eb018b4": "El sistema subestimó la resiliencia táctica y la capacidad de resistencia de los equipos europeos en la cancha del Mundial.",
+        "359a785076dc799b": "Marruecos utiliza una defensa baja altamente específica combinada con contragolpes eficientes, logrando limitar la tasa de conversión del ataque canadiense",
+        "3c647d377f70dc19": "Canadá jugó tácticamente conservadoramente después de tomar la delantera, reduciendo la intensidad de la presión en el mediocampo y delantera, aprovechando el papel de pivote del alto delantero de Bosnia y Herzegovina (como Demiro维奇) para marcar goles clave en la segunda mitad del partido.",
+        "5bf56d17a941e36b": "El veterano central de Bosnia y Herzegovina (como Kolasinac) lidera la defensa, limitando con éxito el espacio de ruptura de los extremos rápidos de Canadá (como Davis) a través de una defensa baja y una formación densa.",
+        "5ff7e26c69667706": "El defensa canadiense Agerd marcó un autogol en la primera mitad, rompiendo la probabilidad de puntuación esperada del sistema",
+        "758e7f6519e439a7": "El equipo de Bosnia y Herzegovina se突围在欧洲区预selección o en las rondas de clasificación, como equipo europeo posee una fuerte resistencia física y disciplina táctica, eficazmente resistiendo el ataque en casa de Canadá.",
+        "7c66f9ddc38b2564": "El delantero marroquí Ennesri sobrepasa las expectativas, aprovechando su velocidad y ventaja en la对抗 para contribuir con 1 gol y 1 asistencia (generador de gol)"
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "102803e408c2a3ab": "Le Canada manque de capacité à saisir les occasions, ne convertissant que 1 des 2 pénalités obtenues lors du match (Davis rate un penalty)",
+        "272a550e4eb018b4": "Le système a sous-estimé la résilience tactique et la capacité de résistance des équipes européennes sur le terrain de la Coupe du Monde.",
+        "359a785076dc799b": "Le Maroc utilise une défense basse et très ciblée, combinée à des contres efficaces, réussissant à limiter le taux de conversion des attaques du Canada",
+        "3c647d377f70dc19": "Après que le Canada ait pris l'avantage, la tactique est devenue conservatrice, l'intensité de la pression en milieu de terrain et en attaque a diminué, et Bosnie-et-Herzégovine a utilisé l'effet de point d'appui du grand attaquant central (comme Demirović) pour marquer des buts clés à la fin du match.",
+        "5bf56d17a941e36b": "Le vieux défenseur central bosniaque (comme Krasničanac) mène la défense, en utilisant une défense basse et une position dense, il a réussi à limiter l'espace de pénétration des ailiers rapides du Canada (comme Davis).",
+        "5ff7e26c69667706": "Le défenseur canadien Aggerd a marqué un but contre son camp dans la première mi-temps, brisant le schéma prévu de probabilité de score conventionnel",
+        "758e7f6519e439a7": "La équipe de Bosnie-et-Herzégovine s'est distinguée en qualifications et en matches de barrage de la zone européenne, en tant qu'équipe européenne, elle possède une forte capacité de combativité physique et une discipline tactique, résistant efficacement à l'attaque en maison du Canada.",
+        "7c66f9ddc38b2564": "Le attaquant marocain Ennesri surprend les attentes, utilisant sa vitesse et sa capacité à se battre pour contribuer avec 1 but et 1 passe décisive (initier le but)"
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "102803e408c2a3ab": "A capacidade do Canadá de aproveitar as oportunidades foi fraca, ao longo do jogo conquistou 2 pênaltis e apenas um foi convertido (Davis perdeu o pênalti)",
+        "272a550e4eb018b4": "O sistema subestimou a resiliência tática e a capacidade de resistência das equipes europeias na Copa do Mundo",
+        "359a785076dc799b": "O Marrocos adotou uma defesa baixa altamente específica combinada com contra-ataques eficientes, limitando com sucesso a taxa de conversão de ataque do Canadá",
+        "3c647d377f70dc19": "Após a liderança do Canadá, a tática foi conservadora, a pressão no meio-campo e na frente caiu, e a Bósnia e Herzegovina aproveitou o papel de pivô do alto goleiro (como Demirović) para marcar gols-chave no final da partida",
+        "5bf56d17a941e36b": "O velho zagueiro da Bósnia e Herzegovina (como Krasničanac) liderou a defesa, através da defesa baixa e da formação densa, limitando com sucesso o espaço de rompimento dos atacantes rápidos do Canadá (como Davis)",
+        "5ff7e26c69667706": "O zagueiro canadense Aggerd marcou um autogol no primeiro tempo, quebrando a probabilidade convencional de pontuação prevista pelo sistema",
+        "758e7f6519e439a7": "A seleção da Bósnia e Herzegovina se destacou nas eliminatórias ou nas partidas de playoff da Europa, como equipe europeia, possui uma forte capacidade de combate físico e disciplina tática, eficazmente resistindo à ofensiva em casa do Canadá",
+        "7c66f9ddc38b2564": "O atacante marroquino Ennesri se destacou acima das expectativas, utilizando sua velocidade e vantagem na defesa para contribuir com 1 gol e 1 assistência (planejando o gol)"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

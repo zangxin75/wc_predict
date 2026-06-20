@@ -1,0 +1,45 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "a15eea0a738c7984": "في معركة التكتيكات التقليدية، قام الفريقان بتحديد بعضهما البعض، حيث أدى انخفاض مستوى الطاقة في الفريق الأمريكي في الشوط الثاني إلى فقدان السيطرة في وسط الملعب، بينما كان للفريق الويلزي نقص في القدرة على اختراق الدفاع بعمق متواصل",
+        "aed0ae52efc21a5a": "الفريق الأمريكي نجح في الهجوم العالي السرعة في الشوط الأول، بفضل تمريرة من بريسيšić إلى تيموثي وياه الذي سجل الهدف الأول",
+        "c510277d75b2a8df": "استخدم الفريق الويلزي في الشوط الثاني تكتيكات التسديد بالطول والارتفاع لخلق تهديدات، واستغل بيل في الدقيقة 82 قدرته الشخصية لإنشاء ركلة جزاء وأحرزها بنفسه"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "a15eea0a738c7984": "Both teams restricted each other in the tactical game, with the U.S. team's physical decline in the second half leading to a loss of control in the midfield, while Wales lacked the sustained offensive ability to penetrate the defense",
+        "aed0ae52efc21a5a": "The U.S. team's high pressing and fast-paced offensive tactics in the first half worked, with Pulisic assisting Timothy Weah to score the first goal",
+        "c510277d75b2a8df": "Wales created threats through long passes and lofted crosses in the second half, and Bell, with his personal ability, manufactured a penalty in the 82nd minute and scored the kick himself"
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "a15eea0a738c7984": "Ambos equipos se limitaron mutuamente en la lucha táctica convencional, la disminución de la condición física del equipo de Estados Unidos en la segunda mitad llevó a la pérdida del control del mediocampo, y Gales careció de capacidad para perforar la defensa en una batalla de movimiento constante",
+        "aed0ae52efc21a5a": "El equipo de Estados Unidos aplicó con éxito la táctica de presión alta y ritmo rápido en la primera mitad, con un asistencia de Príscio para que Timothy Weah marcase el primer gol",
+        "c510277d75b2a8df": "Gales creó peligro en la segunda mitad mediante la táctica de largos pases y remates aéreos, y dependiendo de su habilidad personal, Gareth Bale marcó un penal y lo convirtió en el minuto 82"
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "a15eea0a738c7984": "Les deux équipes se limitent mutuellement dans les combats tactiques conventionnels, l'équipe américaine voit sa fatigue s'installer en deuxième mi-temps, ce qui entraîne une perte de contrôle au milieu de terrain, tandis que le Pays de Galles manque de capacité à percer la défense par des mouvements de jeu continus",
+        "aed0ae52efc21a5a": "L'équipe américaine a réussi en première mi-temps avec une pression haute et une attaque rapide, avec une assistance de Pulisic, Timothy Weah ouvre le score d'abord",
+        "c510277d75b2a8df": "L'équipe du Pays de Galles a créé des menaces en deuxième mi-temps grâce à des passes longues et des coups de tête, et grâce à Bell, qui a créé un penalty à la 82e minute en utilisant ses capacités personnelles et a marqué"
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "a15eea0a738c7984": "Both teams restricted each other in the conventional tactical game, with the US team's physical decline in the second half leading to a loss of control in the midfield, while Wales lacked the ability to penetrate the defense consistently",
+        "aed0ae52efc21a5a": "The US team's high pressing and fast-paced offensive tactics were effective in the first half, with Prisic assisting Timothy Weah to score the first goal",
+        "c510277d75b2a8df": "Wales created threats through long balls and lofted crosses in the second half, and Bell, with his personal ability, manufactured a penalty in the 82nd minute and scored the penalty"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

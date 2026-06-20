@@ -1,0 +1,100 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "1a28b9f0947ba2dd": "أداء استثنائي من لاعبين معينين: قاد ماني خط الهجوم السنغالي في مرة ثانية، ونجح اللاعب البديل الياباني كازوي تاكاجي في تسجيل الأهداف، مما جعل فعالية هجميي الطرفين أعلى بكثير من التوقعات",
+        "22bc2801f3f60a60": "خطأ فادح في الدفاع الخلفي يقدم الهدايا: دفاع بولندا في منطقة الجزاء ارتكب خطأ في التسديد، مما أدى إلى تسجيل هدف في مرماه الخاص، مما أدى إلى خسارة فادحة للفريق وخلل توقعات مسار المباراة",
+        "2875dafdd1d0192a": "فقدان السيطرة في وسط الملعب: وسط السنغال (خاصة غيي) قام بضغط جسدي وتغطية سريعة على كريخوفياك وزلينسكي من بولندا، مما أدى إلى تعطيل التبادل بين الهجوم والدفاع للفريق البولندي",
+        "2fd9e848f7888c44": "قدم النظام تقييماً غير دقيق للفارق الحقيقي في قدرات البلد المضيف البدنية مقارنة بالفرق الأفريقية الرائدة في الدوريات العالمية",
+        "5f0d5f767d7b3b8b": "استراتيجية تحتاج إلى التكيف مع الضعف في المركز واللاعب الرئيسي يختفي: تعتمد بولندا بشكل كبير على هجوم ليفاندوفسكي، لكنها لم تستطع تحقيق أي شيء أمام دفاع قوي يقوده كوليبالي، وتم قطع استراتيجية الطيران الجانبي الكامل من قبل الضغط العالي للسنغاليين",
+        "848427bef56e3fd9": "درجة التسامح في الدفاع منخفضة: شهد المدافعون المركزيون (مثل يوشي هاشيدا) أخطاء متكررة في التعامل مع الضغط العالي والدفاع على الكرات الثابتة، مما أدى إلى تسجيل 4 أهداف في المباراة الواحدة، مما破了 نموذج التوقعات 1-1",
+        "8af503d9ab1058e0": "في حالته الخلفية، تعرض الإكوادور لثغرات في مراقبة الكرات العالية والركلات الحرة، مما أدى إلى هدف كوليبالي من ركلته الحرة",
+        "a58274e5ad39bb90": "كان لاعب اليمين السنغالي إسماعيل سار في حالة فائقة، حيث ساهم في ركل الترجيح وأحرزها بنفسه، مما كسر حالة التعادل التي تنبأ بها النظام",
+        "a9004503f3a3e001": "غاب المدافع الرئيسي للإكوادور مينديز بسبب الإصابة، مما أدى إلى تراجع قوة التغطية في وسط الملعب وضياع محور التبادل الهجومي الدفاعي",
+        "b8b7fd5ccc0ef802": "استخدمت السنغال قدرتها البدنية والقوة الهجومية (مثل ديا، ديهديو) لتشكيل ضغط تكتيكي كامل على دفاع قطر",
+        "bf85e7e75972e579": "فشل في دفاع الركلات الحرة وتسجيل هدف في الهجوم: دفاع بولندا في ركلة الحرة ارتكب خطأ في التغطية، مما سمح لنيمان بتحقيق هدف يزيد من الفارق، مما كشف عن عدم التكيف مع الهجمات السريعة للفرق الأفريقية",
+        "c13d0eca4692d95a": "خط الدفاع القطرية (مثل هوشي) ارتكب أخطاء دفاعية شخصية أدت إلى تسجيل الهدف، كما أن حارس المرمى باريديون كان له أداء ضعيف في مرماه",
+        "c2541741c461d23a": "بعد الهزيمة الكبيرة في المباراة الاولى للبلد المضيف، انهار خط الدفاع النفسي وسوء تحمل الضغط",
+        "fb520acfa2ed0888": "تكتيكات التكيف والهجوم المتبادل: استخدم السنغاليون مقاومة الجسم والقوة في الضغط على دفاع اليابانيين، بينما استجاب اليابانيون من خلال التمريرات الدقيقة والتعاون في الهجمات الجانبية، مما أدى إلى تحول اللعبة إلى معركة غير محصنة"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "1a28b9f0947ba2dd": "Specific player's exceptional performance: Senegal's attacking line led by Sadio Mane took the lead twice, and substitute sensation Gakushi Kimura of Japan made a significant impact with assists and goals, with both teams' forwards achieving a finishing efficiency far beyond the model's expectations",
+        "22bc2801f3f60a60": "致命失误送礼：Poland's central defender Thiونek's clearance mistake in the penalty area led to a self-goalkick, causing the team to fall behind unexpectedly and disrupting the expected game momentum",
+        "2875dafdd1d0192a": "Midfield chaos: Senegal's midfield (especially Gueye) completely dominated Poland's Krychowiak and Zielinski in physical confrontation and running coverage, causing Poland's attack and defense transitions to be completely paralyzed",
+        "2fd9e848f7888c44": "The system underestimated the real physical talent gap between the host team and the top African teams under the high-intensity rhythm of the World Cup.",
+        "5f0d5f767d7b3b8b": "Tactics suppressed and core player invisible: Poland overrelied on Lewandowski's solo explosions, but against the tight defense led by Kalou, they were ineffective, and the overall tactic of both wings flying together was completely cut off by Senegal's high-pressure marking",
+        "848427bef56e3fd9": "Low error tolerance on defense: Both central defenders (such as Maya Ueta) made consecutive marking mistakes when dealing with high pressing and set-piece defense, leading to 4 goals in a single match, breaking the 1-1 equilibrium model prediction",
+        "8af503d9ab1058e0": "When Ecuador was trailing in the score, they pressed heavily, exposing vulnerabilities in marking set pieces and high balls, and were scored on by Koulibaly from a corner kick.",
+        "a58274e5ad39bb90": "Senegal winger Ismaila Sarr was in top form, creating a penalty and scoring from the spot, breaking the system's expected draw deadlock.",
+        "a9004503f3a3e001": "Ecuador's main central midfielder, Mendes, was absent due to injury, leading to a decrease in the strength of midfield interception and the loss of the pivot for offensive and defensive transitions.",
+        "b8b7fd5ccc0ef802": "Senegal relies on physical fitness and impact power (such as Dia, Diédhiou) to form absolute tactical suppression on the Qatari defense.",
+        "bf85e7e75972e579": "Set-piece defense lapses and counter-attack goals: Poland's defense severely missed a man during the free-kick defense, allowing Niang to score a surprise goal and expand the score, exposing the team's lack of adaptability against African teams' fast counterattacks",
+        "c13d0eca4692d95a": "The Qatari backline (such as Hushi) suffered individual defensive mistakes that directly led to goals, and goalkeeper Baridiang's save performance was poor.",
+        "c2541741c461d23a": "The host team's psychological defense collapsed after a惨败 in the first match, and their ability to withstand pressure under high pressure is extremely poor.",
+        "fb520acfa2ed0888": "Tactical style克制 and counterattack: Senegal suppressed Japan's defense with physical confrontation and impact, while Japan responded with refined ground passing and flank cooperation, turning the match into an unguarded mutual poking game"
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "1a28b9f0947ba2dd": "Desempeño sobresaliente de jugadores individuales: el delantero Mane lidera la línea de ataque de Senegal en dos ocasiones, y el suplente japonés Inui Kaito logra un tanto y una asistencia, la eficiencia de finalización de ambos delanteros supera las expectativas del modelo",
+        "22bc2801f3f60a60": "致命失误送礼：波兰中卫西奥内克在禁区内解围失误撞射自家球门，导致球队意外落后，打乱了系统预期的比赛走势",
+        "2875dafdd1d0192a": "中场失控：塞内加尔中场（特别是格耶）在身体对抗和跑动覆盖上完全压制了波兰的克里霍维亚克和泽林斯基，导致波兰攻防转换彻底瘫痪",
+        "2fd9e848f7888c44": "El sistema subestimó la diferencia real en la capacidad física de los anfitriones bajo el ritmo alto de los partidos oficiales de la Copa del Mundo con los equipos africanos de élite",
+        "5f0d5f767d7b3b8b": "战术被克制与核心隐身：波兰过度依赖莱万多夫斯基的单点爆破，但面对库利巴利领衔的严密防线毫无作为，且整体两翼齐飞战术被塞内加尔的高位逼抢彻底切断",
+        "848427bef56e3fd9": "Baja tolerancia a errores en defensa: los centrales de ambos equipos (como Yashiro Mayu) cometieron errores de marcación consecutivos al enfrentar la presión alta y la defensa de balones parados, lo que llevó a la的产生 de 4 goles en un solo partido, rompiendo el modelo predictivo de 1-1",
+        "8af503d9ab1058e0": "When Ecuador was trailing in the score, they pressed heavily, exposing vulnerabilities in marking set pieces and high balls, which led to a corner goal by Koulibaly.",
+        "a58274e5ad39bb90": "Senegal winger Ismaila Sarr was in top form, creating a penalty and scoring from the spot, breaking the system's expected draw deadlock.",
+        "a9004503f3a3e001": "Ecuador's main central midfielder, Mendes, was absent due to injury, leading to a decrease in the strength of midfield interception and the loss of the pivot for attack and defense transitions.",
+        "b8b7fd5ccc0ef802": "Senegal depende de la función física y la fuerza de impacto (como Diaby, Diédhiou) para formar una presión táctica absoluta sobre la defensa de Catar",
+        "bf85e7e75972e579": "定位球防守漏人与反击失球：波兰防线在防守任意球时严重漏人，被尼昂偷袭得手扩大比分，暴露了对非洲球队快速反击的不适应",
+        "c13d0eca4692d95a": "La línea de defensa de Catar (como Husi) cometió errores individuales en la defensa que llevaron directamente a la pérdida de la pelota, y el portero Barriadiang mostró una actuación baja en los ataques",
+        "c2541741c461d23a": "La defensa psicológica del anfitrión se desmoronó después de la derrota en el primer partido y tiene una capacidad de resistencia muy baja bajo presión",
+        "fb520acfa2ed0888": "Estilo táctico de contención y ofensivo: Senegal utiliza la对抗性和冲击力 para presionar la defensa japonesa, mientras que Japón responde con una delicada posesión del balón y combinaciones en banda, el partido se convierte en una lucha sin defensa"
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "1a28b9f0947ba2dd": "Performances exceptionnelles de joueurs individuels : la ligne d'attaque sénégalaise, menée par Sadio Mané, a pris deux fois la lead, et le remplaçant japonais Gakushi Kimura a marqué et servi, ce qui a dépassé les attentes du modèle de finition des buts",
+        "22bc2801f3f60a60": "致命失误送礼：波兰中卫西奥内克在禁区内解围失误撞射自家球门，导致球队意外落后，打乱了系统预期的比赛走势",
+        "2875dafdd1d0192a": "中场失控：塞内加尔中场（特别是格耶）在身体对抗和跑动覆盖上完全压制了波兰的克里霍维亚克和泽林斯基，导致波兰攻防转换彻底瘫痪",
+        "2fd9e848f7888c44": "Le système a sous-estimé la réelle差距 en termes de talent physique des équipes africaines de premier plan par rapport à l'hôte sous le rythme intense des matches officiels de la Coupe du Monde.",
+        "5f0d5f767d7b3b8b": "战术被克制与核心隐身：波兰过度依赖莱万多夫斯基的单点爆破，但面对库利巴利领衔的严密防线毫无作为，且整体两翼齐飞战术被塞内加尔的高位逼抢彻底切断",
+        "848427bef56e3fd9": "Faible tolérance aux erreurs défensives : les défenseurs centraux des deux équipes (comme Mayu Yoshida) ont commis des erreurs de marquage à plusieurs reprises face au pressing haut et à la défense des coups de pied arrêtés, ce qui a entraîné 4 buts en un seul match, brisant le modèle prévu d'équilibre 1-1",
+        "8af503d9ab1058e0": "When Ecuador was trailing in the score, they pressed heavily, exposing vulnerabilities in marking set pieces and high balls, which led to a corner goal by Koulibaly.",
+        "a58274e5ad39bb90": "Senegal winger Ismaila Sarr was in top form, creating a penalty and scoring from the spot, breaking the system's expected draw deadlock.",
+        "a9004503f3a3e001": "Ecuador's main central midfielder, Mendes, was absent due to injury, leading to a decrease in the strength of midfield interception and the loss of the pivot for attacking and defending transitions.",
+        "b8b7fd5ccc0ef802": "Le Sénégal, grâce à sa mécanique corporelle et à son impact (comme Dia, Diédhiou), a formé une suppression tactique absolue sur la défense du Qatar.",
+        "bf85e7e75972e579": "定位球防守漏人与反击失球：波兰防线在防守任意球时严重漏人，被尼昂偷袭得手扩大比分，暴露了对非洲球队快速反击的不适应",
+        "c13d0eca4692d95a": "La ligne de défense du Qatar (comme Hoshi) a commis des erreurs individuelles en défense, ce qui a directement conduit à des buts perdus, et le gardien Bara Diang a montré une performance de sauvetage médiocre.",
+        "c2541741c461d23a": "La défense psychologique de l'hôte s'est effondrée après une défaite cuisante lors du premier match, et sa capacité à résister sous la pression est extrêmement faible.",
+        "fb520acfa2ed0888": "Style tactique de克制与对攻 : le Sénégal a utilisé la résistance physique et la force de frappe pour contenir la défense japonaise, tandis que le Japon a répondu par une passe de balle fine et des combinaisons latérales, transformant le match en une bataille d'attaque sans défense"
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "1a28b9f0947ba2dd": "Desempenho acima da média de jogadores específicos: a linha ofensiva do Senegal liderada por Sadio Mané liderou duas vezes, e o substituto do Japão, Gakuto Kojima, marcou e assistiu, a eficiência de finalização dos atacantes dos dois lados foi muito superior ao esperado pelo modelo",
+        "22bc2801f3f60a60": "致命失误后防送礼：波兰中卫西奥内克在禁区内解围失误撞射自家球门，导致球队意外落后，打乱了系统预期的比赛走势",
+        "2875dafdd1d0192a": "中场失控：塞内加尔中场（特别是格耶）在身体对抗和跑动覆盖上完全压制了波兰的克里霍维亚克和泽林斯基，导致波兰攻防转换彻底瘫痪",
+        "2fd9e848f7888c44": "O sistema subestimou a verdadeira diferença de talentos físicos dos anfitriões em relação às equipes africanas de elite sob o ritmo alto das partidas da Copa do Mundo",
+        "5f0d5f767d7b3b8b": "战术被克制与核心隐身：波兰过度依赖莱万多夫斯基的单点爆破，但面对库利巴利领衔的严密防线毫无作为，且整体两翼齐飞战术被塞内加尔的高位逼抢彻底切断",
+        "848427bef56e3fd9": "Baixa taxa de erro na defesa: os zagueiros dos dois lados (como Mayujiya) continuaram a cometer erros de marcação na pressão alta e na defesa de pênaltis, resultando em 4 gols no jogo, quebrou o modelo de equilíbrio de 1-1",
+        "8af503d9ab1058e0": "When Ecuador was behind in the score, they pressed heavily, exposing vulnerabilities in marking set pieces and high balls, and were scored on by Koulibaly from a corner kick.",
+        "a58274e5ad39bb90": "Senegal winger Ismaila Sarr was in top form, creating a penalty and scoring from the spot, breaking the system's expected draw deadlock.",
+        "a9004503f3a3e001": "Ecuador's main central midfielder, Mendes, was absent due to injury, leading to a decrease in the strength of the midfield interception and the loss of the pivot for offensive and defensive transitions.",
+        "b8b7fd5ccc0ef802": "O Senegal depende das funções físicas e da força de impacto (como Diaby, Diédhiou) para formar uma supressão tática absoluta na defesa do Catar",
+        "bf85e7e75972e579": "定位球防守漏人与反击失球：波兰防线在防守任意球时严重漏人，被尼昂偷袭得手扩大比分，暴露了对非洲球队快速反击的不适应",
+        "c13d0eca4692d95a": "A linha de zaga do Catar (como Husi) cometeu erros individuais de defesa que resultaram em gols, e o goleiro Barriadiang teve uma atuação fraca nos salvamentos",
+        "c2541741c461d23a": "A defesa psicológica da equipe anfitriã desmoronou após a derrota na primeira partida, e a capacidade de resistência sob pressão é extremamente fraca",
+        "fb520acfa2ed0888": "Estilo tático de contenção e ataque: o Senegal usou a resistência física e a força de impacto para suprimir a defesa japonesa, enquanto o Japão respondeu com passes precisos no chão e combinações laterais, transformando o jogo em um intercâmbio sem defesas"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

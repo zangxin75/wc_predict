@@ -1,0 +1,45 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "1ef71fe1803f9be9": "يعتمد فريق تشيكوسلوفاكيا على طريقة واحدة لكسر الدفاع الكثيف، مما أدى إلى تراجع زائد في الدفاع بعد التقدم في الهجوم مما أدى إلى فقدان السيطرة في وسط الملعب ولم يتمكن من توسيع الفارق في النتيجة",
+        "218c238f36d41de6": "فريق جنوب أفريقيا أظهر في الشوط الثاني ميزة في الطاقة البدنية والتحدي، وملأ الفجوة التقنية مع الفرق الأوروبية من خلال الركض العالي الكثافة",
+        "2d5e4f568407461b": "نجحت تكتيكات الهجوم السريع من الجانب الأيسر لفريق جنوب أفريقيا، واستطاع استغلال الفراغات في دفاع تشيكوسلوفاكيا بعد التقدم في الهجوم وربما تعادل النتيجة"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "1ef71fe1803f9be9": "The Czech team's methods to break through dense defense are single, and after taking the lead, they retreated too deeply, leading to loss of control in the midfield and failing to expand the score",
+        "218c238f36d41de6": "The South African team showed physical and对抗 advantages in the second half, compensating for the technical gap with European teams through high-intensity running",
+        "2d5e4f568407461b": "The South African team's quick counter-attack on the flanks worked effectively, successfully capitalizing on the space behind the Czech defense after they pressed forward to level the score"
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "1ef71fe1803f9be9": "La defensa en zona del equipo checo presentó métodos limitados para romper la marcación densa, y al retroceder demasiado para defender el liderazgo, perdió el control del mediocampo, sin poder ampliar la diferencia en el marcador.",
+        "218c238f36d41de6": "El equipo de Sudáfrica mostró ventajas en condición física y en la对抗 en la segunda mitad, compensando la brecha técnica con un ritmo de alta intensidad.",
+        "2d5e4f568407461b": "La estrategia de contragolpe rápido por banda del equipo de Sudáfrica funcionó, aprovechando el hueco detrás de la defensa checa tras su avance para empatar el marcador."
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "1ef71fe1803f9be9": "Les Tchèques ont utilisé une seule méthode pour briser la défense dense, et en avançant trop tôt après la prise d'avance, ils ont laissé le milieu de terrain hors de contrôle, ne réussissant pas à élargir le score",
+        "218c238f36d41de6": "L'équipe d'Afrique du Sud a montré son avantage en termes de condition physique et de combativité en deuxième mi-temps, compensant ainsi son déficit technique par des courses à haute intensité",
+        "2d5e4f568407461b": "La stratégie de contre-attaque rapide sur les côtés de l'équipe d'Afrique du Sud a été efficace, réussissant à égaliser en exploitant les espaces laissés vacants derrière la défense tchèque après son avancée"
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "1ef71fe1803f9be9": "A equipe da Tchecoslováquia apresentou uma única maneira de quebrar a defesa compacta, recuando para defender profundamente após a liderança, resultando em perda de controle no meio-campo e falha em ampliar a vantagem.",
+        "218c238f36d41de6": "A equipe da África do Sul mostrou vantagem em força física e contra-ataque na segunda metade da partida, compensando a diferença técnica das equipes europeias por meio de corridas intensas.",
+        "2d5e4f568407461b": "A equipe da África do Sul aplicou com sucesso a tática de contra-ataque rápido pelas laterais, aproveitando o espaço vago na defesa da Tchecoslováquia após o avanço, empatando a partida."
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

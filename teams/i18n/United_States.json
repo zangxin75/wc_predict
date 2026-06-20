@@ -1,0 +1,80 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "018acf543f8f3c92": "ظهرت رغبة في التفوق في عقل لاعبي إنجلترا، حيث كانت مسافات الحركة ومشاركتهم في اللعبة أقل بكثير من منافسيهم، مما أدى إلى عدم وجود خطة بديلة فعالة لكسر الدفاع المكثف",
+        "2f338c260190e140": "لاعب الوسط الأيسر الأساسي للفريق الأمريكي كريستيانو بريسيšić أظهر أداءً مذهلاً وأحرز هدفًا حاسمًا في الدقيقة 38 من الشوط الأول من خلال تمرير داخلي ممتاز",
+        "3cb0fe5897d29821": "الفريق الإيراني اضطر إلى الحفاظ على التعادل من أجل التأهل، مما أدى إلى تبني استراتيجية دفاعية متحفظة، وعدم وجود خطة بديلة فعالة عند التخلف في النتيجة",
+        "884356404aab5f22": "أدى لاعب وسط المنتخب الأمريكي مكني وأدمز إلى أداء ممتاز في الجانبين الهجومي والدفاعي، حيث سيطرا تمامًا على إيقاع الوسط، كما سيطروا على الميزة في المواجهات",
+        "91cce54b21761b8c": "استخدمت المنتخب الأمريكي استراتيجية ضغط مرتفع دائم في جميع أنحاء الملعب ودفاعًا مكثفًا في منتصف الملعب، مما أدى إلى قطع التواصل بين الوسطاء (بيلينغهام وديكلان ريس) والخط الأمامي",
+        "a15eea0a738c7984": "في معركة التكتيكات التقليدية، قام الفريقان بتحديد بعضهما البعض، حيث أدى انخفاض مستوى الطاقة في الفريق الأمريكي في الشوط الثاني إلى فقدان السيطرة في وسط الملعب، بينما كان للفريق الويلزي نقص في القدرة على اختراق الدفاع بعمق متواصل",
+        "aed0ae52efc21a5a": "الفريق الأمريكي نجح في الهجوم العالي السرعة في الشوط الأول، بفضل تمريرة من بريسيšić إلى تيموثي وياه الذي سجل الهدف الأول",
+        "c510277d75b2a8df": "استخدم الفريق الويلزي في الشوط الثاني تكتيكات التسديد بالطول والارتفاع لخلق تهديدات، واستغل بيل في الدقيقة 82 قدرته الشخصية لإنشاء ركلة جزاء وأحرزها بنفسه",
+        "c8647c04ccfbee9d": "تم حظر هجومي إنجلترا في الهجوم الأولي (فودن، ساكا) من قبل دفاع المنتخب الأمريكي، مما أدى إلى فقدان فسحة الابتداء والعمق في الهجوم، مما جعل من الصعب إنتاج تهديدات حقيقية",
+        "db3809877c3c0ee4": "فريق الولايات المتحدة اتبع استراتيجية ضغط مرتفع هجومي على كامل الملعب، مما أدى إلى قطع خطوط الهجوم للفريق الإيراني، مما تسبب في توقف الهجوم والدفاع الإيراني بشكل كامل"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "018acf543f8f3c92": "English players showed a complacent attitude on the field, with significantly less running distance and lower level of engagement compared to their opponents, lacking an effective B plan to break through dense defenses.",
+        "2f338c260190e140": "The US team's core wing forward, Christian Pulisic, performed exceptionally well and scored the crucial winning goal through a perfect cutback in the 38th minute of the first half.",
+        "3cb0fe5897d29821": "Due to the psychological burden of needing a draw to qualify, the Iran team's tactics were overly conservative, and they lacked an effective B plan for tactical counterattacks when trailing in the score.",
+        "884356404aab5f22": "The US team's core midfielder McKennie and Adams performed exceptionally well on both offense and defense, not only completely controlling the rhythm of the midfield but also dominating the confrontation.",
+        "91cce54b21761b8c": "The US team adopted a highly disruptive full-field high pressing and mid-field dense defense, successfully cutting off the connection between England's two central midfielders (Bellingham and Declan Rice) and the front line.",
+        "a15eea0a738c7984": "Both teams restricted each other in the tactical game, with the U.S. team's physical decline in the second half leading to a loss of control in the midfield, while Wales lacked the sustained offensive ability to penetrate the defense",
+        "aed0ae52efc21a5a": "The U.S. team's high pressing and fast-paced offensive tactics in the first half worked, with Pulisic assisting Timothy Weah to score the first goal",
+        "c510277d75b2a8df": "Wales created threats through long passes and lofted crosses in the second half, and Bell, with his personal ability, manufactured a penalty in the 82nd minute and scored the kick himself",
+        "c8647c04ccfbee9d": "England's starting wing forwards (Foden, Saka) were tightly restricted by the US team's wing defenders, leading to the team's attack lacking width and depth, and being unable to create substantial threats.",
+        "db3809877c3c0ee4": "The US team adopted an extremely aggressive high-line pressing tactic throughout the game, successfully cutting off Iran's backline passing routes, leading to a complete paralysis of Iran's attack and defense transition."
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "018acf543f8f3c92": "Los jugadores de Inglaterra mostraron una actitud de desdén en el campo, la distancia de carrera y el grado de dedicación al partido eran significativamente inferiores a los oponentes, y carecían de un plan B efectivo para romper la defensa densa",
+        "2f338c260190e140": "El extremo izquierdo central del equipo de Estados Unidos, Christian Pulisic, se destacó por su excelente desempeño y marcó el gol clave en el minuto 38 del primer tiempo, realizando una inserción lateral perfecta.",
+        "3cb0fe5897d29821": "El equipo iraní, debido al peso psicológico de necesitar empatar para avanzar, adoptó una táctica demasiado conservadora y careció de un plan B efectivo para reaccionar tácticamente cuando estaba en desventaja en el marcador.",
+        "884356404aab5f22": "El núcleo mediocampista de Estados Unidos McKennie y Adams se destacaron en ambos extremos del ataque y la defensa, no solo controlaron completamente el ritmo del mediocampo, sino que también ocuparon una ventaja absoluta en la lucha",
+        "91cce54b21761b8c": "El equipo de Estados Unidos utilizó una presión alta y defensiva en el centro del campo, logrando cortar la conexión entre los dos mediocampistas centrales (Bellinger y Declan Rice) y la delantera",
+        "a15eea0a738c7984": "Ambos equipos se limitaron mutuamente en la lucha táctica convencional, la disminución de la condición física del equipo de Estados Unidos en la segunda mitad llevó a la pérdida del control del mediocampo, y Gales careció de capacidad para perforar la defensa en una batalla de movimiento constante",
+        "aed0ae52efc21a5a": "El equipo de Estados Unidos aplicó con éxito la táctica de presión alta y ritmo rápido en la primera mitad, con un asistencia de Príscio para que Timothy Weah marcase el primer gol",
+        "c510277d75b2a8df": "Gales creó peligro en la segunda mitad mediante la táctica de largos pases y remates aéreos, y dependiendo de su habilidad personal, Gareth Bale marcó un penal y lo convirtió en el minuto 82",
+        "c8647c04ccfbee9d": "Los extremos iniciales de Inglaterra (Foden, Saka) fueron estrictamente limitados por los laterales estadounidenses, lo que llevó a que el ataque del equipo careciera de anchura y profundidad, y fuera difícil crear una amenaza real",
+        "db3809877c3c0ee4": "El equipo de Estados Unidos adoptó una táctica de presión alta y agresiva en todo el campo, logrando cortar las líneas de salida del equipo iraní en el fondo, lo que llevó a que la transición ofensiva y defensiva de Irán se paralizara completamente."
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "018acf543f8f3c92": "Les joueurs anglais montrent une mentalité de léger favori sur le terrain, avec une distance de course et un degré d'implication dans le match nettement inférieurs à ceux de leurs adversaires, manquant d'un plan B efficace pour briser une défense dense",
+        "2f338c260190e140": "Le joueur clé de l'équipe américaine, le latéral offensif Cristiano Pulisic, a joué d'une manière exceptionnelle et a marqué le but décisif par une insertion latérale parfaite à la 38e minute de la première mi-temps.",
+        "3cb0fe5897d29821": "L'équipe iranienne, sous la pression psychologique de devoir obtenir un match nul pour passer, a joué une stratégie trop conservatrice et a manqué d'un plan B efficace pour contre-attaquer en cas de retard au score.",
+        "884356404aab5f22": "Le cœur de milieu de l'équipe américaine McKenny et Adams ont eu une performance excellente à la fois en attaque et en défense, non seulement en contrôlant parfaitement le rythme du milieu de terrain, mais aussi en occupant une position d'avantage absolu dans les confrontations",
+        "91cce54b21761b8c": "L'équipe américaine a utilisé une pression haute et destructrice sur tout le terrain et une défense dense au milieu, réussissant à couper les liaisons entre les deux milieux de terrain de l'Angleterre (Bellingham et Declan Rice) et l'avant",
+        "a15eea0a738c7984": "Les deux équipes se limitent mutuellement dans les combats tactiques conventionnels, l'équipe américaine voit sa fatigue s'installer en deuxième mi-temps, ce qui entraîne une perte de contrôle au milieu de terrain, tandis que le Pays de Galles manque de capacité à percer la défense par des mouvements de jeu continus",
+        "aed0ae52efc21a5a": "L'équipe américaine a réussi en première mi-temps avec une pression haute et une attaque rapide, avec une assistance de Pulisic, Timothy Weah ouvre le score d'abord",
+        "c510277d75b2a8df": "L'équipe du Pays de Galles a créé des menaces en deuxième mi-temps grâce à des passes longues et des coups de tête, et grâce à Bell, qui a créé un penalty à la 82e minute en utilisant ses capacités personnelles et a marqué",
+        "c8647c04ccfbee9d": "Les deux avants latéraux de départ de l'Angleterre (Foden, Saka) ont été strictement limités par les arrières latéraux américains, ce qui a conduit à une absence de largeur et de profondeur dans l'attaque de l'équipe, rendant difficile la création de menaces réelles",
+        "db3809877c3c0ee4": "L'équipe américaine a adopté une stratégie de pressing haut et agressif tout au long du match, réussissant à couper les lignes de passe arrière de l'équipe iranienne, ce qui a complètement paralysé la transition offensive et défensive de l'Iran."
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "018acf543f8f3c92": "Os jogadores da Inglaterra mostraram uma mentalidade de desleixo no campo, a distância de corrida e o grau de envolvimento no jogo eram significativamente inferiores aos adversários, faltando um plano B eficaz para romper a defesa densa",
+        "2f338c260190e140": "O meia-esquerdo titular da equipe dos EUA, Christian Pulisic, se destacou extremamente bem e marcou um gol crucial na 38ª minuto do primeiro tempo com uma inserção lateral perfeita",
+        "3cb0fe5897d29821": "A equipe do Irã, devido ao peso psicológico de precisar de um empate para avançar, adotou uma tática muito conservadora e, ao perder o marcador, faltou um plano B eficaz para reverter a situação tática",
+        "884356404aab5f22": "O centro-campo americano McKennie e Adams se destacaram tanto no ataque quanto na defesa, controlando completamente o ritmo do meio-campo e ocupando uma vantagem absoluta no confronto",
+        "91cce54b21761b8c": "A equipe dos EUA adotou uma pressão alta e destrutiva em toda a campo e uma defesa densa no meio-campo, cortando com sucesso a conexão entre os dois meias de campo central da Inglaterra (Bellinger e Declan Rice) e a linha ofensiva",
+        "a15eea0a738c7984": "Both teams restricted each other in the conventional tactical game, with the US team's physical decline in the second half leading to a loss of control in the midfield, while Wales lacked the ability to penetrate the defense consistently",
+        "aed0ae52efc21a5a": "The US team's high pressing and fast-paced offensive tactics were effective in the first half, with Prisic assisting Timothy Weah to score the first goal",
+        "c510277d75b2a8df": "Wales created threats through long balls and lofted crosses in the second half, and Bell, with his personal ability, manufactured a penalty in the 82nd minute and scored the penalty",
+        "c8647c04ccfbee9d": "Os laterais de início da Inglaterra (Foden, Saka) foram rigorosamente limitados pelos laterais americanos, resultando em falta de largura e profundidade na ofensiva da equipe, dificultando a criação de ameaças reais",
+        "db3809877c3c0ee4": "A equipe dos EUA adotou uma tática de pressão alta e agressiva em todo o campo, com sucesso em cortar as linhas de saída da equipe do Irã, resultando em uma conversão total da defesa e ataque do Irã"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

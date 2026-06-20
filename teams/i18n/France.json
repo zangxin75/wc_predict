@@ -1,0 +1,150 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "14b0ae07a4211e03": "تعديل تكتيكات دنمارك وتدهور الطاقة البدنية: أدت تغييرات تكتيكية دنمارك في الشوط الثاني لتعزيز الهجوم إلى كشف ثغرات في الدفاع، وانهيار قدرات التدخل في وسط الملعب بعد مرور 60 دقيقة",
+        "2b13f75ff46d7e3c": "خط الهجوم الفرنسي أظهر قدرات فردية مذهلة: مبايب بفضل قوته الشخصية ومهاراته في التسديد حقق هدفين، مما كسر التوازن المتوقع",
+        "2bbfc3dee738de78": "الفرق في النتائج في المباراة النهائية أعلى من الفرق في المباراة المجموعية (يمكن نقل ذلك → تعديل توقعات هدفي المباراة النهائية)",
+        "2f2c86b71039151b": "لاعبو تونس (خاصة في وسط الملعب Le Duni) أظهروا تنفيذًا استراتيجيًا قويًا وعدوانية دفاعية، مما أدى إلى قطع تدفق وسط فرنسا",
+        "34f0d9ef0894d4f4": "لاعب تونس Hazri سجل هدفًا رائعًا من رحلة طويلة، مما破了 توقعات النظام التقليدية لتحويل توقعات هدفي (xG)",
+        "3a2dd1984507ee87": "Mbappe أحرز هدفاً في المباراة النهائية بثلاثية (متوسط 1.2 هدفاً في المباراة الواحدة → 3 أهداف في المباراة الواحدة، تقدير النظام غير دقيق للتنوع)",
+        "3b9d1ad143da969f": "هدفي غريزمان في نهاية المباراة تم إلغاؤه بسبب قرار VAR بوجود خطأ في التهديد بالتهديد بالتهديد، مما قرر النتيجة النهائية",
+        "42311be5ea1c9aa3": "قام فريق فرنسا بتبديل واسع (بوجبا، غريزمان، إلخ) مما أدى إلى انخفاض في قدرة الهجوم والرغبة في التسجيل",
+        "59fb4a159f3a8c78": "في الجانب الهجومي، كانت بيرو تعاني من نقص في القدرة على التهديف، حيث سجلوا 15 ركلة فقط ولم يصبوا سوى مرة واحدة، ولم يتمكن لاعبون مثل Guerrero من استغلال فرص التسجيل",
+        "5af8a6bdb3fd56b0": "اتفق الطرفان على خفض وتيرة المباراة، ولم يكن هناك كافيًا من القوى في منطقة الهجوم الثلاثة، مما أدى إلى انخفاض كبير في عدد الأهداف المتوقعة (xG)",
+        "7875d5027720a9a9": "أداء ميسي الاستثنائي في المباراة النهائية والهدف من ركلة الجزاء كسر التوقعات التقليدية للإهداف المتوقعة",
+        "8ddc76651d799302": "عمق تشكيلة فريق فرنسا والفوائد الاستراتيجية: قام مدرب فرنسا ديشان بتبديل ثنائي (رام، كومان) لمهاجمة خط دفاع دنمارك الجانبي، وأظهرت فرنسا تنفيذ تكتيكاتها في نهاية المباراة بشكل أفضل من المتوقع",
+        "8def881fde44cf5d": "كان فريق دنمارك يهدف إلى الحصول على التعادل لضمان التأهل، مما أدى إلى تبني تكتيك دفاعي عميق وترك الهجوم",
+        "9e1a77feb39749da": "سجل Mbappe هدفًا حاسمًا أظهر قدرته الشخصية، مما دمر نموذج التوازن بين الهجوم والدفاع للنظام القائم على توقعات الفريقين",
+        "bc7b5783079167e5": "قدرات مبابي الشخصية القوية والقدرة على تحمل الضغط (سجل 2 أهداف في 97 ثانية) تجاوزت نموذج النشاط الفردي لللاعبين",
+        "c8ce4eeb32dece51": "فرنسا قامت بتبديل واسع (لم يشارك في المباراة الرئيسية لاعبون مثل Varane وGriezmann) مما أدى إلى نقص التآلف والقدرة على التهديف في خط الهجوم",
+        "da83bb4047828e9f": "انخفاض الطاقة في المرحلة الإضافية أدى إلى أخطاء دفاعية خطيرة متكررة (مثل خطأ مونتيرو في ركلة الجزاء)",
+        "ea7c4251e6c91ef6": "استخدمت فرق فرنسا تكتيكًا دفاعيًا في أول 70 دقيقة مما أدى إلى الضعف، ثم أستبدلت مورايني وتورام وغيرهم من اللاعبين الجدد وأطلقت هجمات مكثفة مما أدى إلى ظهور اثنين من الذروتين في المباراة",
+        "f0967d95494eba6c": "حارس مرمى الأرجنتين Martinez أظهر أداءً رائعاً في معركة ركلات الجزاء (مرة واحدة)",
+        "feb61dc86bf04ae3": "فرنسا اتبعت استراتيجية عملية، حيث سحبت تشكيلها بعد التقدم في النتيجة واعتمدت على توقيف Kant في وسط الملعب لتدمير تنظيم الهجوم البيروفي"
+      },
+      "notes": {
+        "1bf2722dd951b64d": "مستوى المباراة في المراحل الكبرى ارتفع بشكل ملحوظ (2018 البطل، 2022 المركز الثاني، 2024 نهائيات كأس أوروبا)",
+        "51801fc3ac8a46a2": "يعتمد على تسجيل Mbappe كنقطة قوة، حالة/غيابه يؤثر بشكل كبير (يحتاج إلى تحديد ديناميكي قبل المباراة)",
+        "eb3b108164c920c0": "لم يخسر من الفرق الأفريقية في التاريخ (عينة صغيرة، ثقة منخفضة)"
+      }
+    },
+    "en": {
+      "causes": {
+        "14b0ae07a4211e03": "Denmark's tactical adjustment and physical decline: Denmark's adjustment to strengthen进攻 in the second half exposed gaps in the defense, and the midfield interception ability dropped dramatically after 60 minutes.",
+        "2b13f75ff46d7e3c": "France's frontline individual ability breaks the deadlock: Mbappe, with his strong individual burst and shooting skills, scores two goals, breaking the stalemate expected by the system.",
+        "2bbfc3dee738de78": "The variance in the final was higher than in the group stage (transferable → the expected goal variance in the final stage was adjusted upwards)",
+        "2f2c86b71039151b": "Tunisian players (especially midfielder Laidouni) showed strong tactical execution and defensive aggression, successfully cutting off the French midfield's supply line",
+        "34f0d9ef0894d4f4": "Tunisian striker Hazzari scored a very impressive long-range goal, breaking the system's conventional expected goal (xG) conversion rate",
+        "3a2dd1984507ee87": "Mbappe erupted in the final with a hat-trick (from 1.2 goals per game to 3 goals in a single match, the system underestimated the variance)",
+        "3b9d1ad143da969f": "Greizmann's equalizing goal at the end of the match was canceled due to VAR's offside ruling, directly determining the final score",
+        "42311be5ea1c9aa3": "France's extensive rotation (Pogba, Griezmann, etc., core substitutes) led to a significant drop in front-line creativity and finishing intent.",
+        "59fb4a159f3a8c78": "Peru's offensive end severely lacked finishing ability, with only 1 shot on target out of 15 shots throughout the game, forwards like Guerrero failed to capitalize on scoring opportunities",
+        "5af8a6bdb3fd56b0": "Both teams lowered the pace of the game in默契, neither investing sufficient forces in the attacking third, resulting in an extremely low expected goal number (xG).",
+        "7875d5027720a9a9": "Messi's extraordinary performance and penalty shootout in the high-pressure final shattered the system's expected goal expectation value.",
+        "8ddc76651d799302": "France's team depth and tactical advantage: Deschamps' substitution of Kehl and Koman continued to attack Denmark's flank defense, and France's tactical execution in the latter part of the game was better than expected.",
+        "8def881fde44cf5d": "Denmark's team aims to draw and secure qualification, adopting an extremely conservative tactical approach, actively giving up offensive ball control and shifting to deep defense.",
+        "9e1a77feb39749da": "Mbappe's key goal showcased his individual star quality, breaking the system's balanced model based on the overall offensive and defensive expectations of the two teams",
+        "bc7b5783079167e5": "Mbappe's personal extreme breakthrough ability and strong mental fortitude (scoring two goals in 97 seconds) exceeded the system's probability model for a single player's explosive power.",
+        "c8ce4eeb32dece51": "France's team made extensive rotations (with players like Varane and Griezmann not starting or coming on as substitutes), leading to a lack of coordination and finishing ability in the front line",
+        "da83bb4047828e9f": "The cliff-like drop in physical endurance during the extra time period led to consecutive fatal mistakes on the defensive side (such as Montiel's handball leading to a penalty).",
+        "ea7c4251e6c91ef6": "The French team adopted a conservative strategy in the first 70 minutes, leading to passivity, but then substituted in fresh players like Mouani and Toulalan to launch a fierce counterattack, leading to two extreme highs in the match.",
+        "f0967d95494eba6c": "Argentina's goalkeeper Martinez delivered a stunning performance in the penalty shootout (one-time)",
+        "feb61dc86bf04ae3": "France adopted a pragmatic tactical approach, pulled back the formation after taking the lead and relied on Kanté's midfield interception to disrupt Peru's offensive organization"
+      },
+      "notes": {
+        "1bf2722dd951b64d": "His performance significantly improved in major tournaments (2018 Champion, 2022 Runner-up, 2024 UEFA Cup Quarterfinals)",
+        "51801fc3ac8a46a2": "Relying on Mbappe's single-point breakthrough, his performance or absence has a significant impact (dynamic assessment before the game is required)",
+        "eb3b108164c920c0": "A historical unbeaten record against African teams (sample size small, credibility low)"
+      }
+    },
+    "es": {
+      "causes": {
+        "14b0ae07a4211e03": "Ajustes tácticos daneses y caída en la condición física: los daneses cambiaron su formación en la segunda mitad para reforzar el ataque, dejando huecos en la defensa y una caída abrupta en la capacidad de intercepción en el mediocampo después de los 60 minutos.",
+        "2b13f75ff46d7e3c": "La delantera francesa rompió el bloqueo individual: Mbappé, con su gran explosividad y habilidad en el tiro, marcó dos goles y rompió el empate predecido.",
+        "2bbfc3dee738de78": "La varianza de goles en la final fue mayor que en las fases de grupo (traspasable → se ajustó la varianza esperada de goles en la fase final)",
+        "2f2c86b71039151b": "Los jugadores tunecinos (especialmente el mediocampista Laidouni) mostraron una excelente ejecución táctica y agresividad defensiva, logrando cortar la circulación del mediocampo francés",
+        "34f0d9ef0894d4f4": "El delantero tunecino Hassen marcó un gol muy espectacular con una larga carrera individual, rompiendo la tasa de conversión esperada (xG) del sistema",
+        "3a2dd1984507ee87": "Mbappe desplegó un hat-trick en la final (de 1.2 goles por partido a 3 goles en un solo partido, el sistema subestimó la varianza)",
+        "3b9d1ad143da969f": "El gol de empate de Griezmann en el último tramo del partido fue anulado por VAR por una falta de offside, lo que determinó directamente el marcador final",
+        "42311be5ea1c9aa3": "Francia realizó un gran cambio en el once inicial (Bogba, Griezmann y otros jugadores clave), lo que llevó a una disminución significativa en la creatividad y la voluntad de finalización en el frente de ataque.",
+        "59fb4a159f3a8c78": "El ataque peruano careció gravemente de capacidad de finalización, con 15 disparos a puerta y solo uno a puerta, los delanteros como Guerrero no aprovecharon las oportunidades de anotar",
+        "5af8a6bdb3fd56b0": "Ambos equipos redujeron el ritmo del juego de mutuo acuerdo, sin invertir suficiente fuerza en las tres zonas ofensivas, lo que resultó en una baja expectativa de goles (xG).",
+        "7875d5027720a9a9": "El desempeño sobrehumano de Messi en el partido decisivo y el gol desde el punto penal rompieron las expectativas del sistema de la expectativa de goles habituales.",
+        "8ddc76651d799302": "Profundidad de plantilla y ventaja táctica de Francia: Deschamps cambió a Hubert y Kompany para atacar los flancos daneses, y la ejecución táctica de Francia en la segunda mitad fue mejor de lo esperado.",
+        "8def881fde44cf5d": "La selección danesa, para asegurar su clasificación, jugó tácticamente de manera conservadora, renunciando a la posesión del balón para pasar a una defensa profunda.",
+        "9e1a77feb39749da": "Mbappe marcó un gol clave que demostró su capacidad individual de estrella, rompiendo el modelo de equilibrio de ataque y defensa esperado por el sistema entre ambos equipos",
+        "bc7b5783079167e5": "La capacidad de punto de explosión personal de Mbappé y su gran corazón bajo presión (marcando dos goles en 97 segundos) superaron el modelo de probabilidad de explosión de un solo jugador del sistema.",
+        "c8ce4eeb32dece51": "Francia realizó un cambio masivo en el once inicial (Varane, Griezmann y otros jugadores clave no comenzaron o fueron suplentes), lo que llevó a una falta de complicidad y capacidad de finalización en el ataque",
+        "da83bb4047828e9f": "En la fase de prórroga, el colapso en la resistencia física de ambos equipos llevó a errores críticos en la defensa, como el mano a mano de Montiel.",
+        "ea7c4251e6c91ef6": "Francia adoptó una táctica defensiva conservadora en los primeros 70 minutos, lo que resultó en una posición pasiva, pero luego introdujo a Mouani y Toulalan como refuerzos, desencadenando dos picos extremos en el juego.",
+        "f0967d95494eba6c": "El portero argentino Martinez mostró una actuación sobresaliente en la tanda de penaltis (una vez)",
+        "feb61dc86bf04ae3": "Francia adoptó una estrategia pragmática, se replegó en el mediocampo después de tomar la ventaja y dependió de las interrupciones de Kant en el mediocampo para desorganizar el ataque peruano"
+      },
+      "notes": {
+        "1bf2722dd951b64d": "Su estado mejoró significativamente en la fase de grandes competiciones (campeón en 2018, subcampeón en 2022, cuartos de final en la Eurocopa 2024)",
+        "51801fc3ac8a46a2": "Dependiendo de la ruptura de Mbappé en un punto, su estado o ausencia afecta significativamente (requiere juicio dinámico previo a la competición)",
+        "eb3b108164c920c0": "Sin derrotas contra equipos africanos históricos (muestra pequeña, baja credibilidad)"
+      }
+    },
+    "fr": {
+      "causes": {
+        "14b0ae07a4211e03": "L'ajustement tactique danois et la chute de la condition physique : les Danois ont renforcé leur attaque en deuxième mi-temps, ce qui a laissé des brèches dans la défense, et la capacité de marquage au milieu de terrain a chuté de manière vertigineuse après 60 minutes",
+        "2b13f75ff46d7e3c": "L'avant du France a brisé le blocage individuel : Mbappé, grâce à son extraordinaire énergie explosive et à son art du tir, a marqué deux buts et a rompu le blocage d'équilibre attendu",
+        "2bbfc3dee738de78": "La variance de score en finale est plus élevée que lors des matches de groupe (transposable → la variance des attentes de buts en phase finale est révisée à la hausse)",
+        "2f2c86b71039151b": "Les joueurs tunisiens (notamment le milieu de terrain Laidouni) montrent une forte exécution tactique et une agressivité défensive, réussissant à couper l'axe de transmission du milieu français",
+        "34f0d9ef0894d4f4": "L'attaquant tunisien Hassen marque un but remarquable avec une course longue, dépassant les attentes de conversion du système de prévision des buts (xG)",
+        "3a2dd1984507ee87": "Mbappe brille en finale avec un hat-trick (1.2 buts par match → 3 buts en un seul match, le système sous-estime la variance)",
+        "3b9d1ad143da969f": "Le but égalisateur de Griezmann à la fin du match est annulé pour hors-jeu par VAR, déterminant directement le score final",
+        "42311be5ea1c9aa3": "Le France a effectué un grand remplacement (Bastian Schweinsteiger, Antoine Griezmann et autres joueurs clés en remplacement), ce qui a entraîné une forte chute de la créativité et de la volonté de finition en attaque",
+        "59fb4a159f3a8c78": "L'attaque péruvienne manque gravement de capacité de finition, avec 15 tirs au but en tout, mais seulement 1 cadré, les avants comme Grayro n'ont pas réussi à saisir les occasions de marquer",
+        "5af8a6bdb3fd56b0": "Les deux équipes ont réduit conjointement le rythme du match par consensus, n'ayant pas investi suffisamment de forces dans les trois zones offensives, ce qui a conduit à un nombre d'objectifs attendus (xG) extrêmement bas",
+        "7875d5027720a9a9": "Le superbe exploit de Messi et le but de pénalty ont dépassé les attentes conventionnelles du système pour les buts normaux.",
+        "8ddc76651d799302": "Profondeur de l'équipe de France et avantage stratégique : Didier Deschamps a changé Thorgan Hazard et Kylian Mbappé pour continuer à presser les flancs danois, et l'exécution tactique de la France à la fin du match a dépassé les attentes",
+        "8def881fde44cf5d": "L'équipe danoise, pour s'assurer une qualification égale, a joué une tactique extrêmement conservatrice, abandonnant volontairement le contrôle de balle offensif pour une défense en profondeur",
+        "9e1a77feb39749da": "Mbappe inscrit un but crucial, démontrant ses capacités individuelles, brisant le modèle de balance entre les attentes défensives et offensives des deux équipes",
+        "bc7b5783079167e5": "La capacité de pointe maximale de Mbappé et son grand cœur sous pression (deux buts en 97 secondes) dépassent le modèle de probabilité de puissance explosive d'un seul joueur du système.",
+        "c8ce4eeb32dece51": "L'équipe de France effectue des changements massifs (Varane, Griezmann et autres joueurs clés ne commencent pas ou sont remplaçants), ce qui entraîne une absence de cohésion et de capacité de finition en attaque",
+        "da83bb4047828e9f": "La chute vertigineuse de l'endurance des deux équipes au cours de la prolongation a conduit à des erreurs critiques en défense (comme la faute de main de Montiel).",
+        "ea7c4251e6c91ef6": "Les 70 premières minutes de l'équipe de France ont été marquées par une stratégie défensive, mais après avoir sorti Mouani et Toulalan, etc., ils ont lancé une contre-attaque furieuse, ce qui a conduit à deux sommets extrêmes dans le match.",
+        "f0967d95494eba6c": "Le gardien argentin Martinez offre une performance exceptionnelle en tirs au but (une fois pour toutes)",
+        "feb61dc86bf04ae3": "La France adopte une tactique réaliste, recule en défense après l'avance et dépend des interceptions de Kant au milieu pour détruire l'organisation offensive du Pérou"
+      },
+      "notes": {
+        "1bf2722dd951b64d": "Son état s'est nettement amélioré lors des phases de grandes compétitions (champion en 2018, vice-champion en 2022, quart de finaliste de l'Euro 2024)",
+        "51801fc3ac8a46a2": "Dépendant d'une percée en pointe de Mbappé, son état ou son absence a un impact significatif (nécessitant une évaluation dynamique avant chaque match)",
+        "eb3b108164c920c0": "Inégalé face aux équipes africaines (échantillon petit, fiabilité faible)"
+      }
+    },
+    "pt": {
+      "causes": {
+        "14b0ae07a4211e03": "A ajuste tático da Dinamarca e a queda de energia: a Dinamarca ajustou sua formação para aumentar o ataque na segunda metade, expôs a defesa e, após os 60 minutos, a capacidade de interceptação no meio-campo caiu abruptamente",
+        "2b13f75ff46d7e3c": "A linha ofensiva da França quebrou o impasse com habilidades individuais: Mbappé, com sua força explosiva e técnica de arremesso, marcou dois gols, quebrando o equilíbrio esperado do sistema",
+        "2bbfc3dee738de78": "A variância da pontuação no final da partida foi maior que nas fases de grupo (transferível → ajuste da variância da expectativa de gols na fase final)",
+        "2f2c86b71039151b": "Jogadores tunisianos (especialmente o meio-campista Laidouni) mostraram uma execução tática e agressividade defensiva extremas, cortando com sucesso a transmissão do meio-campo francês",
+        "34f0d9ef0894d4f4": "O atacante tunisiano Hazzari marcou um gol incrivelmente bem executado em uma longa corrida, quebrou a taxa de conversão esperada (xG) do sistema",
+        "3a2dd1984507ee87": "Mbappe desabrochou no final com hat-trick (1.2 gols por partida → 3 gols, sistema subestimou a variância)",
+        "3b9d1ad143da969f": "O gol de empate de Griezmann no final da partida foi anulado por VAR por impedimento, diretamente determinando a pontuação final",
+        "42311be5ea1c9aa3": "A troca em massa da equipe da França (Bogba, Griezmann e outros jogadores-chave substituídos), resultou em uma grande queda na criatividade e na vontade de finalizar na frente",
+        "59fb4a159f3a8c78": "A equipe peruana foi gravemente deficiente em conclusão no ataque, com 15 chutes na trave e apenas um no alvo, os atacantes como Guerrero não aproveitaram as oportunidades de gols",
+        "5af8a6bdb3fd56b0": "Ambas as equipes reduziram o ritmo do jogo em consenso, não investindo suficientemente na área de ataque, resultando em uma baixa expectativa de gols (xG)",
+        "7875d5027720a9a9": "A atuação excepcional de Messi no jogo decisivo e o gol na penalidade batido ultrapassaram as expectativas de gols normais do sistema.",
+        "8ddc76651d799302": "Profundidade de elenco e vantagem tática da França: Deschamps substituiu Kouloubaly e Koman para atacar os lados da defesa dinamarquesa, e a execução tática da França no final da partida foi melhor do que o esperado",
+        "8def881fde44cf5d": "A equipe dinamarquesa, garantindo a classificação com um empate, adotou uma tática extremamente defensiva, optando por abandonar a posse de bola ofensiva e se defender em profundidade",
+        "9e1a77feb39749da": "Mbappe marcou um gol crucial, mostrando sua capacidade individual de estrela, quebrou o modelo de equilíbrio de expectativa de ataque-defesa do sistema com base nas equipes",
+        "bc7b5783079167e5": "A capacidade de ponto de chama pessoal de Mbappé e sua grande estabilidade mental (marcando dois gols em 97 segundos) ultrapassaram o modelo de probabilidade de explosão de um único jogador do sistema.",
+        "c8ce4eeb32dece51": "A França fez uma grande substituição (Varane, Griezmann e outros jogadores-chave não entraram ou foram substituídos), resultando em falta de默契 e capacidade de conclusão na frente de ataque",
+        "da83bb4047828e9f": "A fase de prorrogação resultou em uma queda abrupta na força física dos dois times, resultando em erros defensivos fatais consecutivos (como a falta de Montiel que resultou em pênalti).",
+        "ea7c4251e6c91ef6": "A equipe francesa usou uma tática defensiva conservadora nos primeiros 70 minutos, resultando em uma posição passiva, mas em seguida, introduziu Moane e Toulalan para uma contra-ataque frenético, resultando em dois picos extremos no jogo.",
+        "f0967d95494eba6c": "O goleiro argentino Martinez teve uma atuação divina na batalha de pênaltis (um único momento)",
+        "feb61dc86bf04ae3": "A França adotou uma tática pragmática, recuou após a liderança e dependeu das interceptações de Kant no meio-campo para destruir a organização ofensiva do Peru"
+      },
+      "notes": {
+        "1bf2722dd951b64d": "Sua forma melhorou significativamente na fase de grandes competições (campeão em 2018, vice-campeão em 2022, semifinalista da Eurocopa 2024)",
+        "51801fc3ac8a46a2": "Dependendo de uma única ponta de Mbappé, sua forma ou ausência tem impacto significativo (necessário julgamento dinâmico antes da partida)",
+        "eb3b108164c920c0": "Sem derrotas contra times africanos (amostra pequena, baixa credibilidade)"
+      }
+    }
+  },
+  "updated": "2026-06-20"
+}

@@ -1,0 +1,65 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "22bc2801f3f60a60": "خطأ فادح في الدفاع الخلفي يقدم الهدايا: دفاع بولندا في منطقة الجزاء ارتكب خطأ في التسديد، مما أدى إلى تسجيل هدف في مرماه الخاص، مما أدى إلى خسارة فادحة للفريق وخلل توقعات مسار المباراة",
+        "2875dafdd1d0192a": "فقدان السيطرة في وسط الملعب: وسط السنغال (خاصة غيي) قام بضغط جسدي وتغطية سريعة على كريخوفياك وزلينسكي من بولندا، مما أدى إلى تعطيل التبادل بين الهجوم والدفاع للفريق البولندي",
+        "5131f10038475db4": "حارس مرمى بولندا ش琴سني أظهرت براعة كبيرة وأوقف ركلتي الترجيح التي أنشأها ليفاندوفسكي، مما قتل مباشرة التوقعات بالهدف التي تنبأ بها النظام.",
+        "5f0d5f767d7b3b8b": "استراتيجية تحتاج إلى التكيف مع الضعف في المركز واللاعب الرئيسي يختفي: تعتمد بولندا بشكل كبير على هجوم ليفاندوفسكي، لكنها لم تستطع تحقيق أي شيء أمام دفاع قوي يقوده كوليبالي، وتم قطع استراتيجية الطيران الجانبي الكامل من قبل الضغط العالي للسنغاليين",
+        "bf85e7e75972e579": "فشل في دفاع الركلات الحرة وتسجيل هدف في الهجوم: دفاع بولندا في ركلة الحرة ارتكب خطأ في التغطية، مما سمح لنيمان بتحقيق هدف يزيد من الفارق، مما كشف عن عدم التكيف مع الهجمات السريعة للفرق الأفريقية",
+        "d33a3afdc5554024": "أتبع مدرب المكسيك ماتينو استراتيجية دفاعية متشددة، وافتق في الهجوم على العمق والقدرة على التسجيل، ولم يخلق تهديدات كافية ومهمة.",
+        "db782ee2a3d13e1d": "انخفضت منافسة وسط الميدان، وركزت بولندا بشكل كبير على هجوم ليفاندوفسكي، مما أدى إلى تقسيم النظام الهجومي بشكل ناجح من قبل المكسيك."
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "22bc2801f3f60a60": "致命失误送礼：Poland's central defender Thiونek's clearance mistake in the penalty area led to a self-goalkick, causing the team to fall behind unexpectedly and disrupting the expected game momentum",
+        "2875dafdd1d0192a": "Midfield chaos: Senegal's midfield (especially Gueye) completely dominated Poland's Krychowiak and Zielinski in physical confrontation and running coverage, causing Poland's attack and defense transitions to be completely paralyzed",
+        "5131f10038475db4": "Poland's goalkeeper Szczesny played heroically, saving a penalty created by Lewandowski, which directly killed the expected goal predicted by the system.",
+        "5f0d5f767d7b3b8b": "Tactics suppressed and core player invisible: Poland overrelied on Lewandowski's solo explosions, but against the tight defense led by Kalou, they were ineffective, and the overall tactic of both wings flying together was completely cut off by Senegal's high-pressure marking",
+        "bf85e7e75972e579": "Set-piece defense lapses and counter-attack goals: Poland's defense severely missed a man during the free-kick defense, allowing Niang to score a surprise goal and expand the score, exposing the team's lack of adaptability against African teams' fast counterattacks",
+        "d33a3afdc5554024": "Mexico coach Martino adopted an extremely conservative tactical approach, lacking depth and finishing ability on the offensive end, and failed to create enough substantial threats.",
+        "db782ee2a3d13e1d": "Both teams' midfielders were engaged in an inefficient struggle, with Poland overloading the offensive responsibility on Lewandowski, resulting in the overall offensive system being successfully cut off and restricted by Mexico."
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "22bc2801f3f60a60": "致命失误送礼：波兰中卫西奥内克在禁区内解围失误撞射自家球门，导致球队意外落后，打乱了系统预期的比赛走势",
+        "2875dafdd1d0192a": "中场失控：塞内加尔中场（特别是格耶）在身体对抗和跑动覆盖上完全压制了波兰的克里霍维亚克和泽林斯基，导致波兰攻防转换彻底瘫痪",
+        "5131f10038475db4": "El portero polaco Szczesny se destacó con una actuación heroica, atajando el penal que creó Lewandowski, lo que directamente mató la expectativa de gol predicha por el sistema.",
+        "5f0d5f767d7b3b8b": "战术被克制与核心隐身：波兰过度依赖莱万多夫斯基的单点爆破，但面对库利巴利领衔的严密防线毫无作为，且整体两翼齐飞战术被塞内加尔的高位逼抢彻底切断",
+        "bf85e7e75972e579": "定位球防守漏人与反击失球：波兰防线在防守任意球时严重漏人，被尼昂偷袭得手扩大比分，暴露了对非洲球队快速反击的不适应",
+        "d33a3afdc5554024": "El entrenador mexicano Martino adoptó una táctica extremadamente conservadora, careciendo de profundidad y capacidad de finalización en el ataque, y no creó suficiente amenaza sustancial.",
+        "db782ee2a3d13e1d": "El mediocampo de ambos equipos cayó en una lucha ineficiente, Polonia concentró demasiado el peso ofensivo en Lewandowski, y el sistema ofensivo en general fue cortado y limitado por México."
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "22bc2801f3f60a60": "致命失误送礼：波兰中卫西奥内克在禁区内解围失误撞射自家球门，导致球队意外落后，打乱了系统预期的比赛走势",
+        "2875dafdd1d0192a": "中场失控：塞内加尔中场（特别是格耶）在身体对抗和跑动覆盖上完全压制了波兰的克里霍维亚克和泽林斯基，导致波兰攻防转换彻底瘫痪",
+        "5131f10038475db4": "Le gardien polonais Szczęsny a joué magnifiquement, ayant paré le penalty créé par Lewandowski, éliminant directement les prévisions de buts du système.",
+        "5f0d5f767d7b3b8b": "战术被克制与核心隐身：波兰过度依赖莱万多夫斯基的单点爆破，但面对库利巴利领衔的严密防线毫无作为，且整体两翼齐飞战术被塞内加尔的高位逼抢彻底切断",
+        "bf85e7e75972e579": "定位球防守漏人与反击失球：波兰防线在防守任意球时严重漏人，被尼昂偷袭得手扩大比分，暴露了对非洲球队快速反击的不适应",
+        "d33a3afdc5554024": "L'entraîneur mexicain Martino a adopté une tactique extrêmement conservatrice, manquant de profondeur et de capacité de finition en attaque, n'ayant pas créé suffisamment de menaces réelles.",
+        "db782ee2a3d13e1d": "Les milieux de terrain des deux équipes se sont englués dans une lutte inefficace, la Pologne concentrant trop d'attentes offensives sur Lewandowski, ce qui a permis à la défense mexicaine de couper et de limiter l'ensemble du système d'attaque polonais."
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "22bc2801f3f60a60": "致命失误后防送礼：波兰中卫西奥内克在禁区内解围失误撞射自家球门，导致球队意外落后，打乱了系统预期的比赛走势",
+        "2875dafdd1d0192a": "中场失控：塞内加尔中场（特别是格耶）在身体对抗和跑动覆盖上完全压制了波兰的克里霍维亚克和泽林斯基，导致波兰攻防转换彻底瘫痪",
+        "5131f10038475db4": "O goleiro polonês Szczęsny se destacou heroicamente, defendendo o pênalti criado por Lewandowski, matando diretamente a expectativa de gol prevista pelo sistema.",
+        "5f0d5f767d7b3b8b": "战术被克制与核心隐身：波兰过度依赖莱万多夫斯基的单点爆破，但面对库利巴利领衔的严密防线毫无作为，且整体两翼齐飞战术被塞内加尔的高位逼抢彻底切断",
+        "bf85e7e75972e579": "定位球防守漏人与反击失球：波兰防线在防守任意球时严重漏人，被尼昂偷袭得手扩大比分，暴露了对非洲球队快速反击的不适应",
+        "d33a3afdc5554024": "O treinador mexicano Martino adotou uma tática extremamente conservadora, faltando profundidade e capacidade de conclusão no ataque, não conseguindo criar ameaças suficientemente significativas.",
+        "db782ee2a3d13e1d": "O meio-campo dos dois times entrou em uma luta ineficaz, a Polônia concentrou excessivamente a responsabilidade ofensiva em Lewandowski, e a estrutura ofensiva geral foi cortada e limitada com sucesso pelo México."
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

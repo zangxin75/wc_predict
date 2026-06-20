@@ -1,0 +1,85 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "017a0f52f42a76f8": "الهجوم على الدفاع أدى إلى فقدان الهجوم: عندما أجبر المكسيك على الهجوم بسبب التخلف،留出巨大的空当， وتعرض للعقاب من قبل الهجمات السريعة للسويد (ركلتي الترجيح من غراكيس والهدف الذاتي من ألواريس).",
+        "30b33ef176cc535e": "الضغط التكتيكي المركزي: استخدمت السويد الضغط العالي والتحدي الجسدي القوي، مما أدى إلى قطع التواصل بين وسط الميدان والهجوم (مثل إلنرديس) مما أدى إلى فشل نظام التمرير على الأرض للمكسيك بشكل كامل.",
+        "38af4ccb56e24482": "فشل دفاع定位ية: جاءت هدف السويد الأول من رأسية لويستيج، وأسقط أغوستينسون ركلته العالية، مما كشف عن ثغرات خطيرة لدى المكسيك في دفاعه ضد اللاعبين الكبار السويديين وكذلك في مراقبة ركلات الترجيح.",
+        "5131f10038475db4": "حارس مرمى بولندا ش琴سني أظهرت براعة كبيرة وأوقف ركلتي الترجيح التي أنشأها ليفاندوفسكي، مما قتل مباشرة التوقعات بالهدف التي تنبأ بها النظام.",
+        "7b5463c936632e29": "عدم التطابق بين الوضع والتوتر النفسي: يمكن للمكسيك التأهل بالتعادل، لكن اللاعبين يحملون عبء نفسي كبير للتحفظ على التعادل مما أدى إلى تعقيد الحركات; يجب على السويد تحقيق الفوز بثلاث نقاط لضمان التقدم، مما يظهر رغبة أقوى في الفوز وتنفيذ استراتيجية أكثر دقة.",
+        "8525c1835064504c": "استخدمت المكسيك تكتيك الدفاع السريع والهجوم السريع، مستخدمة السرعة في الجانبين (لويساينو) لتسريع الدفاع الأعلى لألمانيا، وأحرز لويساينو هدفًا في الدقيقة 35 خلال الهجوم",
+        "89c6200227fe142d": "أظهر حارس المرمى المكسيكي أوخيا أداءً استثنائيًا، حيث سجل تسع تصديات رائعة (خاصة في التصدي لراكيتس)، مما ألحق الهزيمة بالأمل الألماني في التسجيل",
+        "8ab195f31c3379aa": "كان هناك عبء نفسي وعدم الانتباه للبطل الحالي، حيث أصبحت التكتيكات متعجلة، وتم ضغط اللياقة البدنية والبيانات الجري في البيانات من قبل المكسيك",
+        "d33a3afdc5554024": "أتبع مدرب المكسيك ماتينو استراتيجية دفاعية متشددة، وافتق في الهجوم على العمق والقدرة على التسجيل، ولم يخلق تهديدات كافية ومهمة.",
+        "db782ee2a3d13e1d": "انخفضت منافسة وسط الميدان، وركزت بولندا بشكل كبير على هجوم ليفاندوفسكي، مما أدى إلى تقسيم النظام الهجومي بشكل ناجح من قبل المكسيك.",
+        "eead7a3c5817c7c8": "أصبحت التكتيك الألمانية قديمة ومفقودة نقاط التحفيز، واستمر ليف لاستخدام التشكيلة بدون هجوم، مما أدى إلى توجيه الهجوم بشكل غير فعال وعدم إنتاج تهديدات حقيقية"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "017a0f52f42a76f8": "Defensive pressing led to loss of counter-attacking momentum: When Mexico was trailing and had to push up for offense, a huge gap was exposed in the backline, leading to consecutive penalties (Gr奎s' penalty and Alvarez's own goal) from Sweden's fast counterattacks.",
+        "30b33ef176cc535e": "Tactical suppression with targeted focus: Sweden used high pressing and strong physical confrontation, successfully cutting off the connection between Mexico's midfielders and forwards (such as Hernandez), leading to the complete failure of Mexico's ground passing and control system.",
+        "38af4ccb56e24482": "Set-piece defense collapsed: Sweden's first goal came from Lustig's header pass, with Augustinsson's overhead shot finding the back of the net, exposing serious flaws in Mexico's defense against Sweden's tall players and set-piece marking.",
+        "5131f10038475db4": "Poland's goalkeeper Szczesny played heroically, saving a penalty created by Lewandowski, which directly killed the expected goal predicted by the system.",
+        "7b5463c936632e29": "Mismatch between qualification situation and psychological pressure: Mexico could qualify with a draw, but the players were burdened with a huge 'hold the draw' psychological pressure, leading to stiff actions; Sweden had to secure all three points to ensure advancement, showing stronger desire to win and tactical execution.",
+        "8525c1835064504c": "Mexico employed an extreme fast defense and counter-attack strategy, using the speed of the flanks (Losano) to directly penetrate Germany's high-position defense, and Losano scored in the counter-attack in the 35th minute.",
+        "89c6200227fe142d": "Mexico's goalkeeper, Guillermo Ochoa, was in top form, making 9 excellent saves (especially saving Kroos's free kick), completely shattering Germany's hopes of scoring.",
+        "8ab195f31c3379aa": "The defending champion has obvious psychological burdens and a sense of overconfidence. When trailing, the tactics become impulsive, and physical and running data are suppressed by Mexico.",
+        "d33a3afdc5554024": "Mexico coach Martino adopted an extremely conservative tactical approach, lacking depth and finishing ability on the offensive end, and failed to create enough substantial threats.",
+        "db782ee2a3d13e1d": "Both teams' midfielders were engaged in an inefficient struggle, with Poland overloading the offensive responsibility on Lewandowski, resulting in the overall offensive system being successfully cut off and restricted by Mexico.",
+        "eead7a3c5817c7c8": "Germany's tactics are seriously outdated and lack breakthrough points, with Löw stubbornly using a non-striker formation, leading to ineffective lateral passing in the attack and failing to create substantial threats."
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "017a0f52f42a76f8": "La presión en la defensa provocó una hemorragia en las contras: México, al verse obligado a presionar alto en el ataque debido a la derrota, dejó enormes huecos en la defensa, siendo castigado repetidamente por las contras rápidas de Suecia (penalti de Gr奎s y gol en propia puerta de Álvarez).",
+        "30b33ef176cc535e": "Presión táctica específica: Suecia utilizó la presión alta y el fuerte contraste físico, logrando cortar la conexión entre el mediocampo y los delanteros mexicanos (como Hernández), lo que llevó a que el sistema de control terrestre mexicano fallara completamente.",
+        "38af4ccb56e24482": "La defensa de los corner cayó en picado: el primer gol de Suecia llegó por un centro de Lustig con cabeza, seguido de un disparo de Augusdsson que se introdujo en la portería, revelando graves lagunas en la defensa mexicana contra jugadores altos suecos y en la defensa de los corner.",
+        "5131f10038475db4": "El portero polaco Szczesny se destacó con una actuación heroica, atajando el penal que creó Lewandowski, lo que directamente mató la expectativa de gol predicha por el sistema.",
+        "7b5463c936632e29": "La situación de clasificación y la presión psicológica no coinciden: México podía clasificarse con un empate, pero los jugadores cargaban con una gran carga psicológica de 'mantener el empate', lo que causó movimientos rígidos; Suecia necesitaba tres puntos para asegurar su clasificación, mostrando una mayor voluntad de ganar y una mejor ejecución táctica.",
+        "8525c1835064504c": "México adoptó una táctica de defensa rápida y contragolpe extremadamente rápida, utilizando la velocidad de los extremos (Luis Romo) para atravesar directamente la defensa alta de Alemania, y Romo marcó el gol en el contraataque en el minuto 35",
+        "89c6200227fe142d": "El portero mexicano Guillermo Ochoa mostró una actuación fenomenal, contribuyendo con 9 atajadas heroicas (especialmente desviando el penal de Kroos), destruyendo completamente las esperanzas de anotar de Alemania",
+        "8ab195f31c3379aa": "El campeón defensor tiene una carga psicológica clara y una actitud de descuido, se desespera tácticamente cuando está en desventaja, y su energía y datos de carrera son suprimidos por México",
+        "d33a3afdc5554024": "El entrenador mexicano Martino adoptó una táctica extremadamente conservadora, careciendo de profundidad y capacidad de finalización en el ataque, y no creó suficiente amenaza sustancial.",
+        "db782ee2a3d13e1d": "El mediocampo de ambos equipos cayó en una lucha ineficiente, Polonia concentró demasiado el peso ofensivo en Lewandowski, y el sistema ofensivo en general fue cortado y limitado por México.",
+        "eead7a3c5817c7c8": "La táctica alemana es obsoleta y falta de puntos de ruptura, y Löw se aferra a un sistema sin delantero, lo que lleva a que el ataque se quede en una transmisión lateral ineficaz, sin crear amenazas reales"
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "017a0f52f42a76f8": "La montée de la défense a entraîné une perte de sang dans les contres : le Mexique, en retard, a été forcé de monter en attaque, laissant des espaces énormes à l'arrière, ce qui a permis à la Suède de subir des contres rapides (penalty de Gr奎s et but contre son camp d'Alvarez) en série.",
+        "30b33ef176cc535e": "Suppression tactique ciblée : la Suède a utilisé des pressions hautes et des confrontations physiques fortes, réussissant à couper les liaisons entre le milieu de terrain mexicain et les attaquants (comme Hernandez), rendant le système de passe et de contrôle mexicain au sol complètement inefficace.",
+        "38af4ccb56e24482": "Défaillance de la défense des coups de pied arrêtés : le premier but de la Suède est venu d'une passe de tête de Lustig, une frappe aérienne de Augustinsson qui a marqué, révélant des failles graves de la défense mexicaine contre les joueurs de grande taille suédois en défense aérienne et en coups de pied arrêtés.",
+        "5131f10038475db4": "Le gardien polonais Szczęsny a joué magnifiquement, ayant paré le penalty créé par Lewandowski, éliminant directement les prévisions de buts du système.",
+        "7b5463c936632e29": "Mauvaise concordance entre la situation de qualification et la pression psychologique : le Mexique pouvait se qualifier avec un match nul, mais les joueurs portaient un énorme fardeau psychologique pour 'garder le match nul', ce qui rendait leurs mouvements rigides ; la Suède devait absolument remporter les trois points pour être qualifiée, montrant ainsi une plus grande envie de gagner et une meilleure exécution tactique.",
+        "8525c1835064504c": "Le Mexique a utilisé une défense rapide et une contre-attaque maximale, profitant de la vitesse des côtés (Losano) pour percer la haute défense allemande, Losano a marqué un but en contre-attaque à la 35e minute.",
+        "89c6200227fe142d": "Le gardien mexicain, Guillermo Ochoa, a montré une performance extraordinaire, apportant 9 sauvegardes miracles (en particulier en neutralisant la frappe de Kroos), écrasant ainsi les espoirs de but de l'Allemagne.",
+        "8ab195f31c3379aa": "Le champion en titre souffre d'une charge psychologique évidente et d'une attitude de légèreté, se montrant tactiquement pressé et physiquement supprimé par le Mexique.",
+        "d33a3afdc5554024": "L'entraîneur mexicain Martino a adopté une tactique extrêmement conservatrice, manquant de profondeur et de capacité de finition en attaque, n'ayant pas créé suffisamment de menaces réelles.",
+        "db782ee2a3d13e1d": "Les milieux de terrain des deux équipes se sont englués dans une lutte inefficace, la Pologne concentrant trop d'attentes offensives sur Lewandowski, ce qui a permis à la défense mexicaine de couper et de limiter l'ensemble du système d'attaque polonais.",
+        "eead7a3c5817c7c8": "La tactique allemande est gravement obsolète et manque de points de rupture, avec Löw qui reste obstiné à utiliser une formation sans attaquant, ce qui a conduit à une transmission latérale inefficace et à l'absence de menace réelle."
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "017a0f52f42a76f8": "Pressão na linha de defesa resultou em perda de contra-ataques: quando o México estava em desvantagem e forçado a atacar, deixou enormes espaços na retaguarda, punido repetidamente pelos contra-ataques rápidos suecos (pênalti de Gra奎s e gol de autogolo de Álvares).",
+        "30b33ef176cc535e": "Supressão tática específica: a Suécia usou pressão alta e forte confronto físico, cortando com sucesso a ligação entre o meio-campo e os atacantes mexicanos (como Elmander), resultando na completa falha do sistema de passe e controle de terra do México.",
+        "38af4ccb56e24482": "Desmoronamento na defesa de falta: o primeiro gol da Suécia veio de um cabeçada de Lustig, Augustinsson fez um remate de arco-íris para marcar, revelando uma grande falha da defesa mexicana na cobertura aérea e na defesa de falta contra jogadores altos suecos.",
+        "5131f10038475db4": "O goleiro polonês Szczęsny se destacou heroicamente, defendendo o pênalti criado por Lewandowski, matando diretamente a expectativa de gol prevista pelo sistema.",
+        "7b5463c936632e29": "A mismatch entre a situação de classificação e a pressão psicológica: o México só precisava de um empate para avançar, mas os jogadores carregavam uma grande carga psicológica de 'manter o empate', resultando em movimentos rígidos; a Suécia precisava de três pontos para garantir a classificação, mostrando uma maior vontade de vencer e execução tática.",
+        "8525c1835064504c": "A México usou uma tática de contra-ataque defensivo extremamente rápida, aproveitando a velocidade dos lados (Losano) para diretamente penetrar a alta linha defensiva alemã, Losano marcou um golo no contra-ataque no 35º minuto",
+        "89c6200227fe142d": "O goleiro mexicano Ochoa teve uma performance fenomenal, contribuindo com 9 defesas heroicas (especialmente na defesa da falta de Kroos), completamente desmoronando as esperanças de golo da Alemanha",
+        "8ab195f31c3379aa": "O campeão em título carrega uma clara carga psicológica e atitude de descuido, tornando a tática apressada quando está em desvantagem, e sua energia e dados de corrida são suprimidos pela México",
+        "d33a3afdc5554024": "O treinador mexicano Martino adotou uma tática extremamente conservadora, faltando profundidade e capacidade de conclusão no ataque, não conseguindo criar ameaças suficientemente significativas.",
+        "db782ee2a3d13e1d": "O meio-campo dos dois times entrou em uma luta ineficaz, a Polônia concentrou excessivamente a responsabilidade ofensiva em Lewandowski, e a estrutura ofensiva geral foi cortada e limitada com sucesso pelo México.",
+        "eead7a3c5817c7c8": "A tática alemã está obsoleta e falta de pontos de breakthrough, Lövfbach insistiu em usar a formação sem atacante, resultando em transmissão horizontal ineficaz da ofensiva, sem criar uma ameaça real"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

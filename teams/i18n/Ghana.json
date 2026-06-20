@@ -1,0 +1,50 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "076f2ed66138f432": "هداف غانا محمد كودوس يظهر بشكل استثنائي، يسجل هدفين ويقدم تمريرة حاسمة يقود بها اللقاء، وقد تمكن من كسر الجمود بقدرته على التسديد من مسافة بعيدة",
+        "28f96e78d55bdbaf": "قوة دفاع كوريا الجنوبية ضعيفة بشكل كبير، حيث تمكنت غانا من تسجيل هدفين من خلال هجمات ركنية (سالي سو وكودوس) بتمريرات رأسية",
+        "83f60632b0161f97": "مدرب كوريا الجنوبية بنتو كان تقليدياً في الشوط الأول وأعتمد على الترياق، لكنه قرر تبديل لاعبين في الشوط الثاني (تحريك سونغ هيونغ مين للأمام، وإدخال لي كانغ إن كاحلاً) لبدء هجوم بالتمريرات العالية، مما أدى إلى تغيير كبير في اللقاء",
+        "92b23f4f2fcd5d5f": "في كامل المباراة، وصلت نسبة السيطرة على الكرة لدى كوريا الجنوبية إلى 61% و35 تمريرة، لكنها تخلت عن السيطرة المتوقعة في وسط الملعب والدفاع، مما جعل اللقاء مشابهاً لسلسلة من الهجمات والهجمات العكسية"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "076f2ed66138f432": "Ghana forward Mohammed Kudus (Mohammed Kudus) performs exceptionally, scoring 2 goals and making 1 assist to dominate the game, his personal long-range shooting ability breaking the deadlock",
+        "28f96e78d55bdbaf": "South Korea's air defense capability is severely lacking, being scored on twice by Ghana through corner kick tactics (Saliou, Kudus) with headers",
+        "83f60632b0161f97": "South Korea's head coach Bentot was conservative and trailing in the first half, making a decisive change of two players (Son Heung-min moved forward, Lee Kang-in substituted) in the first half to open up a wild cross战术, leading to the game becoming a back-and-forth affair",
+        "92b23f4f2fcd5d5f": "South Korea's 61% possession rate and 35 crosses throughout the game abandoned the expected system of midfield control and defense balance, turning the match into a mutual poking game"
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "076f2ed66138f432": "El delantero de Ghana Mohammed Kudus sobresale, anotando 2 goles y asistiendo 1, dominando el partido con su habilidad en los remates de larga distancia",
+        "28f96e78d55bdbaf": "La defensa aérea de Corea del Sur es gravemente deficiente, siendo anotado dos goles por Ghana mediante la táctica de corner (Saliou, Kudus) con cabezazos",
+        "83f60632b0161f97": "El entrenador de Corea del Sur, Bento, es conservador en la primera mitad y se encuentra en desventaja, pero cambia dos jugadores de manera decisiva en el descanso (moviendo a Son Heung-min hacia adelante, sustituyendo a Lee Kang-in) para comenzar una táctica frenética de centrocesiones, haciendo que el partido sea completamente caótico",
+        "92b23f4f2fcd5d5f": "Corea del Sur tiene un alto porcentaje de posesión del balón de 61% y 35 centrocesiones en todo el partido, abandonando el sistema esperado de control y equilibrio en el medio campo y defensa, convirtiendo el partido en una serie de intercepciones mutuas"
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "076f2ed66138f432": "Le attaquant ghanéen Mohammed Kudus (Mohammed Kudus) joue au-delà de ses capacités, marquant 2 buts et délivrant une passe décisive tout au long du match, son tir lointain brisant l'égalité",
+        "28f96e78d55bdbaf": "La capacité de défense aérienne de l'équipe coréenne est gravement insuffisante, elle est marquée deux fois par des tirs au corner de la Ghana (Saliou, Kudus) marqués au bout de la tête",
+        "83f60632b0161f97": "L'entraîneur coréen Bentô (Bento) joue de manière conservatrice en première mi-temps et est en retard, changeant deux joueurs d'affilée à la pause (Sun Xingmin avançant sa position, Li Gangren remplaçant) pour ouvrir une stratégie de passes frénétiques, rendant le match complètement erratique",
+        "92b23f4f2fcd5d5f": "Avec une proportion de possession de balle de 61% tout au long du match et 35 passes frappées, la Corée abandonne le contrôle de milieu de terrain et l'équilibre défensif attendus par le système, transformant le match en une série de frappes à tout-va"
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "076f2ed66138f432": "O atacante do Gana, Mohammed Kudus (Mohammed Kudus), se destacou, com 2 tentativas a gol e 1 assistência, dominando a partida, sua habilidade de remate de longa distância quebrou o empate",
+        "28f96e78d55bdbaf": "A capacidade de defesa aérea da seleção coreana é gravemente insuficiente, foi marcada duas vezes pelo Gana através da tática de escanteio (Saliou, Kudus) com cabeçadas",
+        "83f60632b0161f97": "O treinador da seleção coreana, Bento, foi conservador na primeira metade da partida e ficou para trás, trocou dois jogadores decisivamente na pausa (Song Min-kyu foi avançado, Lee Kang-in entrou como substituto) e iniciou a tática frenética de passes laterais, transformando a partida em um jogo de ida e volta",
+        "92b23f4f2fcd5d5f": "A seleção coreana manteve 61% de posse de bola e 35 passes laterais na partida inteira, abandonando o controle de meio-campo e a defesa equilibrada esperados pelo sistema, transformando a partida em um jogo de intercalação de passes"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

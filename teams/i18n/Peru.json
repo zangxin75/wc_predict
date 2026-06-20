@@ -1,0 +1,60 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "35235aaa416cd044": "كان مهاجم بيرو غريلو في حالة سيئة بعد تعافيه من الإصابة، ولم يكن لاعب كوياف قادرًا على ركل ركلة الجزاء، مما أدى إلى أن أضاع بيرو أكثر من 20 ركلًا مستهدفة دون تحويلها إلى أهداف",
+        "496a96051c0ddc20": "كان لاعب وسط دنمارك إريكسن قويًا في تنفيذ التكتيكات، حيث أظهر دقة في التمريرات والتحويلات، مما أحدث شرخًا في دفاع بيرو وأوجد ركلة جزاء هدفي",
+        "59fb4a159f3a8c78": "في الجانب الهجومي، كانت بيرو تعاني من نقص في القدرة على التهديف، حيث سجلوا 15 ركلة فقط ولم يصبوا سوى مرة واحدة، ولم يتمكن لاعبون مثل Guerrero من استغلال فرص التسجيل",
+        "9e1a77feb39749da": "سجل Mbappe هدفًا حاسمًا أظهر قدرته الشخصية، مما دمر نموذج التوازن بين الهجوم والدفاع للنظام القائم على توقعات الفريقين",
+        "c1c9661ae204a008": "كان نظام دفاع دنمارك مشدداً للغاية، حيث تمكن المدافعون المركزيون كريستنسن وكيار من مواجهة الهجمات الجانبية والضغط العالي من بيرو",
+        "feb61dc86bf04ae3": "فرنسا اتبعت استراتيجية عملية، حيث سحبت تشكيلها بعد التقدم في النتيجة واعتمدت على توقيف Kant في وسط الملعب لتدمير تنظيم الهجوم البيروفي"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "35235aaa416cd044": "Peru's striker Guerrero is in low spirits after recovering from injury, and Quiva missed a crucial penalty kick, leading to Peru's 20-plus shots on goal failing to convert into goals.",
+        "496a96051c0ddc20": "Denmark's midfield core Eriksen has strong tactical execution, his precise through balls and adjustments effectively tear apart Peru's defense, creating a winning penalty kick.",
+        "59fb4a159f3a8c78": "Peru's offensive end severely lacked finishing ability, with only 1 shot on target out of 15 shots throughout the game, forwards like Guerrero failed to capitalize on scoring opportunities",
+        "9e1a77feb39749da": "Mbappe's key goal showcased his individual star quality, breaking the system's balanced model based on the overall offensive and defensive expectations of the two teams",
+        "c1c9661ae204a008": "Denmark's defense system is extremely tight, with central defender Christensen and Kjaer leading the defense successfully withstanding Peru's wing attack and high-pressure pressing.",
+        "feb61dc86bf04ae3": "France adopted a pragmatic tactical approach, pulled back the formation after taking the lead and relied on Kanté's midfield interception to disrupt Peru's offensive organization"
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "35235aaa416cd044": "El delantero peruano Guerrero, recién recuperado, estaba en baja forma, y Quilla falló un penal clave, lo que llevó a que Perú, aunque disparó más de 20 veces, no lograra marcar.",
+        "496a96051c0ddc20": "El mediocampista central danés Eriksen mostró una fuerte ejecución táctica, sus pases precisos y la distribución efectiva rompieron la defensa peruana y crearon un penal ganador.",
+        "59fb4a159f3a8c78": "El ataque peruano careció gravemente de capacidad de finalización, con 15 disparos a puerta y solo uno a puerta, los delanteros como Guerrero no aprovecharon las oportunidades de anotar",
+        "9e1a77feb39749da": "Mbappe marcó un gol clave que demostró su capacidad individual de estrella, rompiendo el modelo de equilibrio de ataque y defensa esperado por el sistema entre ambos equipos",
+        "c1c9661ae204a008": "El sistema defensivo danés era extremadamente sólido, y la defensa liderada por los centrales Christensen y Kjaer resistió eficazmente los ataques laterales y la presión alta de Perú.",
+        "feb61dc86bf04ae3": "Francia adoptó una estrategia pragmática, se replegó en el mediocampo después de tomar la ventaja y dependió de las interrupciones de Kant en el mediocampo para desorganizar el ataque peruano"
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "35235aaa416cd044": "L'attaquant péruvien Guerrero, revenu de blessure, est en mauvaise forme, et Quilla a raté un penalty crucial, ce qui a conduit à 20 tirs de la part du Pérou sans transformation en but",
+        "496a96051c0ddc20": "Le milieu danois Eriksen a une forte exécution tactique, ses passes directes précises et ses ajustements ont efficacement déchiré la défense péruvienne, créant un penalty gagnant",
+        "59fb4a159f3a8c78": "L'attaque péruvienne manque gravement de capacité de finition, avec 15 tirs au but en tout, mais seulement 1 cadré, les avants comme Grayro n'ont pas réussi à saisir les occasions de marquer",
+        "9e1a77feb39749da": "Mbappe inscrit un but crucial, démontrant ses capacités individuelles, brisant le modèle de balance entre les attentes défensives et offensives des deux équipes",
+        "c1c9661ae204a008": "Le système de défense danois est extrêmement étanche, la défense centrale menée par Kristensen et Kjaer a réussi à résister aux attaques latérales et à la pression élevée du Pérou",
+        "feb61dc86bf04ae3": "La France adopte une tactique réaliste, recule en défense après l'avance et dépend des interceptions de Kant au milieu pour détruire l'organisation offensive du Pérou"
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "35235aaa416cd044": "O atacante peruano Guerrero, recentemente recuperado, está em baixa forma, e Quaresma desperdiçou um pênalti crucial, resultando em mais de 20 chutes sem converter em gols",
+        "496a96051c0ddc20": "O meio-campista dinamarquês Eriksen tem uma forte execução tática, suas passes precisos e ajustes são eficazes para rasgar a defesa peruana e criar pênaltis vencedores",
+        "59fb4a159f3a8c78": "A equipe peruana foi gravemente deficiente em conclusão no ataque, com 15 chutes na trave e apenas um no alvo, os atacantes como Guerrero não aproveitaram as oportunidades de gols",
+        "9e1a77feb39749da": "Mbappe marcou um gol crucial, mostrando sua capacidade individual de estrela, quebrou o modelo de equilíbrio de expectativa de ataque-defesa do sistema com base nas equipes",
+        "c1c9661ae204a008": "A defesa da Dinamarca é extremamente sólida, com a dupla de zagueiros Christensen e Kjaer liderando a linha de defesa que resistiu aos ataques laterais e à pressão alta do Peru",
+        "feb61dc86bf04ae3": "A França adotou uma tática pragmática, recuou após a liderança e dependeu das interceptações de Kant no meio-campo para destruir a organização ofensiva do Peru"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

@@ -1,0 +1,50 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "0838943b96103e77": "أصبحت استراتيجية البرتغال محافظة بعد التقدم، مع انخفاض في التحكم في وسط الملعب، مما أدى إلى الضغط المستمر وتسجيل الهدف الخساري",
+        "4519e0f33400a76d": "كانت استراتيجية الهجوم للجمهورية الدموية الكونغولية قوية في التنفيذ، حيث استخدمت بابكانب أو سك وغيرهم من لاعبي الهجوم السرعة للهجوم مباشرة على خط الدفاع للبرتغال",
+        "dab9fbcfac709669": "تم تقليل قوة الصراع الجسدي للفرق الأفريقية والصلابة في الدفاع داخل منطقة الجزاء، مما أدى إلى تقييم عالي لعدد الأهداف المتوقعة (xG)",
+        "fe5975c8823ff5a4": "لعب البرتغال ضد الدفاع المتشابك ضعيف، ولم يتمكن من اختراق خط الدفاع الخمسة للجمهورية الدموية الكونغولية من خلال العمق أو النقاط الساخنة في الهجمات الجانبية"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "0838943b96103e77": "Portugal's tactics become conservative after taking the lead, with a decline in midfield control, and eventually leading to a goal being conceded under sustained high pressure",
+        "4519e0f33400a76d": "The Democratic Republic of Congo's counter-attack tactics are well-executed, using the speed of forwards like Bakenbu or Sek to directly strike behind Portugal's defense",
+        "dab9fbcfac709669": "The system underestimated the physical advantages and defensive resilience of African teams in the penalty area, leading to an overestimation of expected goals (xG)",
+        "fe5975c8823ff5a4": "Portugal struggles to break through dense defense, lacking depth and breakthroughs in the low five-back line of the Democratic Republic of Congo, and lacks explosive points on the flanks"
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "0838943b96103e77": "Portugal's tactics become conservative after taking the lead, with a decrease in midfield control, leading to a loss of the ball under sustained pressure",
+        "4519e0f33400a76d": "The Democratic Republic of Congo's counter-attack tactics are well-executed, using the speed of forwards like Bakenbu or Sek to directly strike behind Portugal's defense",
+        "dab9fbcfac709669": "The system underestimated the physical advantage and defensive resilience of African teams in the penalty area, leading to an overestimation of expected goals (xG)",
+        "fe5975c8823ff5a4": "Portugal struggles to break down a dense defense, lacking depth in penetration and wing attacks against the Democratic Republic of Congo's low five-back line"
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "0838943b96103e77": "Le Portugal, en tête, joue de manière conservatrice, voit sa maîtrise du milieu de terrain diminuer, et finit par concéder un but sous la pression continue",
+        "4519e0f33400a76d": "La République démocratique du Congo excelle dans les contre-attaques, utilisant la vitesse de joueurs de l'avant ligne comme Bakambu ou Sek pour frapper directement la défense arrière du Portugal",
+        "dab9fbcfac709669": "Le système a sous-estimé l'avantage physique des équipes africaines et leur résilience défensive en zone de penalty, ce qui a conduit à une surestimation du nombre d'objectifs prévus (xG)",
+        "fe5975c8823ff5a4": "Le Portugal a du mal à briser la défense compacte, manquant de profondeur pour pénétrer et de points d'exploitation latéraux face à la défense en bas de cinq arrières de la République démocratique du Congo"
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "0838943b96103e77": "A Portugal, após a liderança, mantém uma tática conservadora, com a perda de controle no meio-campo, sofrendo pressão constante que eventualmente resultou em gols perdidos",
+        "4519e0f33400a76d": "A tática de contra-ataque da DR Congo é bem executada, utilizando a velocidade de jogadores de linha como Bakenbu ou Sek para atacar diretamente a traseira da defesa da Portugal",
+        "dab9fbcfac709669": "O sistema subestimou a vantagem de combate físico das equipes africanas e a resiliência defensiva dentro da área, resultando em uma sobreestimação do número esperado de gols (xG)",
+        "fe5975c8823ff5a4": "A defesa densa da Portugal é fraca, diante da linha de cinco zagueiros baixa da DR Congo falta profundidade de penetração e pontos de surpresa nas laterais"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

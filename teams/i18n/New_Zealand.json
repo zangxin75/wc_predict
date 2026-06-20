@@ -1,0 +1,45 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "14d41d0bd60ede2b": "في المرحلة التي انتقل فيها الفريق الإيراني من الهجوم إلى الدفاع، أصبحت تشكيلته ضعيفة، ولم يكن لديه حاجز دفاعي فعال في الوسط، مما سمح للفريق النيوزلندي بالاستفادة من الهجمات الدفاعية الفعالة والاستفادة من الفرص",
+        "7ca2afab260651a3": "أدى أداء حارس مرمى فريق نيوزيلندا بشكل مذهل وارتفاع معدل التحويل للهجمات للفريق النيوزلندي إلى تحقيق التعادل مع الفريق القوي في ظل الظروف الصعبة والتوقعات المتدنية للنقاط المتوقعة (xG)",
+        "8b1065c1c41d223b": "كانت استراتيجية الهجوم الجوي والتحدي الجسدي للفريق النيوزلندي ناجحة، مما أدى إلى عدم قدرته على التعامل مع الكرات العالية، مما أدى إلى تسجيل أهداف من ركلات الجزاء والهجمات من الجانب"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "14d41d0bd60ede2b": "In the transition from attack to defense, the Iran team's formation was loose, and the midfield lacked an effective intercepting barrier, allowing New Zealand to repeatedly exploit gaps through concise and efficient defensive counterattacks.",
+        "7ca2afab260651a3": "New Zealand's goalkeeper exceeded expectations and the forward's high conversion rate, forcing a draw against a strong opponent despite being in a passive situation and having a lower expected goal count (xG).",
+        "8b1065c1c41d223b": "New Zealand's high-altitude bombing and physical confrontation tactics were effective, and Iran's defense lacked adequate air defense capabilities when dealing with crosses, leading to consecutive losses from set pieces and wing plays."
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "14d41d0bd60ede2b": "En la fase de cambio de ataque a defensa, la formación del equipo iraní estaba desorganizada y en el mediocampo carecía de una barrera de interceptación efectiva, lo que permitió que el equipo neozelandés aprovechara múltiples espacios a través de contragolpes sencillos y eficientes.",
+        "7ca2afab260651a3": "El portero de Nueva Zelanda se destacó por su desempeño por encima de las expectativas y el alto porcentaje de conversión de los delanteros, logrando empatar con un equipo fuerte incluso cuando estaba en desventaja en el marcador y con una expectativa de goles (xG) baja.",
+        "8b1065c1c41d223b": "La táctica de bombardeo aéreo y la对抗 de Nueva Zelanda funcionaron, y la defensa iraní, al no tener capacidad suficiente para defender los centros aéreos, sufrió pérdidas consecutivas en los tiros libres y las salidas de banda."
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "14d41d0bd60ede2b": "Lors de la transition de l'attaque à la défense, la formation de l'équipe iranienne était floue, et le milieu de terrain manquait d'un écran d'interception efficace, permettant à l'équipe néo-zélandaise de trouver plusieurs espaces par des contre-attaques défensives simples et efficaces.",
+        "7ca2afab260651a3": "Le gardien de but néo-zélandais a joué au-delà de ses attentes et les attaquants ont une très haute conversion, permettant à l'équipe de tenir en échec un adversaire fort malgré la situation défavorable et le nombre de buts attendus (xG) en retard.",
+        "8b1065c1c41d223b": "La tactique de bombardement aérien et de combat corporel de la Nouvelle-Zélande a réussi, et la défense iranienne a montré une insuffisance dans la défense aérienne lors de la réception des ballons de corner, ce qui a entraîné des pertes continues de balles de placement et de corners latéraux."
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "14d41d0bd60ede2b": "Na transição de ataque para defesa, a formação do Irã ficou desorganizada, e o meio-campo faltou uma barreira de interceptação eficaz, permitindo que a equipe da Nova Zelândia aproveitasse várias brechas em defesas simples e eficazes",
+        "7ca2afab260651a3": "O goleiro da Nova Zelândia se destacou acima da expectativa e a taxa de conversão dos atacantes foi extremamente alta, forçando um empate com uma equipe forte mesmo estando em desvantagem no marcador e na previsão de gols (xG)",
+        "8b1065c1c41d223b": "A tática de bombardeio aéreo e confrontação física da Nova Zelândia funcionou, e a defesa do Irã foi insuficiente ao lidar com passes de cruzamento, resultando em perdas consecutivas em bolas paradas e elevações laterais"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

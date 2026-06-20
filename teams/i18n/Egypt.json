@@ -1,0 +1,80 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "03c37b5da20a3597": "خسر قائد الفريق المصري محمد埃尔ني التحكم في وسط الملعب ولم يتمكن من تقييد الهجمات الجانبية الفعالة للفريق الروسي",
+        "06c659e2636b332d": "في الدقيقة 47، ارتكب اللاعب المصري الكبير فاتشي خطأ دفاعي أدى إلى هدف غير مقصود كان كارثيًا، مما أدى إلى انهيار خط الدفاع النفسي مباشرة",
+        "173f44dc7e147896": "بعد خروج الفريقين من المجموعة المسبقًا، أصبحت المباراة مجرد معركة للشرف، ولم يكن يمكن للنموذج النظامي قياس هذه التقلبات النفسية القصوى والدفاع الهزيل في بيئة بدون ضغط",
+        "17de9e1437ee3711": "انخفضت سيطرة وسط بلجيكا، ولم يتمكن من إنتاج فرص هجومية حاسمة أمام الدفاع المصري المتشابك، حيث سجل الهدف الوحيد بناءً على قدراته الشخصية",
+        "1e0d1a9a0a57c887": "استفاد الفريق الروسي من طاقته البدنية والروح المعنوية كراعٍ للمنزل، من خلال دور اللاعب الروسي الشاب ألكسندر جوبا كنقطة دعم لتكتيك الضغط التكتيكي",
+        "25b1286c4de3dcb0": "بعد إصابة قائد الفريق المصري محمد萨拉ح بجروح خطيرة في نهاية الموسم في دوري الأبطال، لعب بجهد كبير مع إصابته، تراجعت حالته البدنية وقدرته على التسجيل بشكل كبير، ولم يكن قادرًا على اللعب بدوره التكتيكي الأساسي",
+        "4a6251c7c8a4f823": "بعد إصابة قائد الفريق المصري محمد萨拉ح واستعادة نشاطه، كان أداؤه متوسطًا ولم يكن لديه قوة انفجار في الركض، ولم يكن قادرًا على اللعب بأسلوب التكتيك الترابط",
+        "73b3c4c1403784ac": "استغلت المملكة السعودية نقطة ضعف الدفاع المصري في التغطية البطيئة، وأحرزت هدف الفوز في الدقيقة الأخيرة من الوقت الإضافي من خلال هجوم جانبي أدى إليه المدرب الدوساري",
+        "86038a5e6624f51c": "كانت النتائج المتوقعة 1-1 متطابقة مع النتائج الفعلية، حيث تمكنت منطق التنبؤ من تحديد نقطة التوازن بين نقص قدرته على التسجيل في الهجوم البلجيكي وتكتيك الدفاع عن الهجوم المصري",
+        "ec45c9f450dfece3": "اتبعت مصر تكتيك الدفاع عن الهجوم، حيث كان دفاعها منظماً وحارس المرمى يظهر أداءً جيداً، مما قييد الهجوم البلجيكي واستخدم الهجوم للتعادل"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "03c37b5da20a3597": "Egypt's captain Elhenny lost control in the midfield, failing to limit Russia's efficient wing play and cross tactics.",
+        "06c659e2636b332d": "Egypt's veteran Fatshi committed a defensive mistake in the 47th minute, scoring a disastrous own goal, which directly led to the collapse of the psychological defense line.",
+        "173f44dc7e147896": "Both teams had already been eliminated from the group stage, making the match a mere honor match, and the system model is difficult to quantify the extreme psychological fluctuations and defensive looseness in this pressure-free environment.",
+        "17de9e1437ee3711": "Belgium's midfield control has decreased, and facing Egypt's dense low-position defense, it was unable to create clear scoring opportunities, relying solely on individual ability to score one goal.",
+        "1e0d1a9a0a57c887": "Russia utilized the home advantage and physical strength as the host, using the pivot role of the tall striker Zhuba to exert tactical pressure.",
+        "25b1286c4de3dcb0": "After suffering a serious injury in the Champions League at the end of the season, Egypt's core player Salah played through injury, with his physical condition and finishing ability significantly declining, and failed to play a core tactical role.",
+        "4a6251c7c8a4f823": "After returning from injury, Egypt's core player Salah is in a mediocre state and lacks explosive power, failing to play a tactical牵制作用.",
+        "73b3c4c1403784ac": "Saudi Arabia exploited Egypt's weakness of slow back defense, scoring the decisive goal through a cross on the wing in the stoppage time of the second half by Dosari.",
+        "86038a5e6624f51c": "The system's prediction of 1-1 was completely consistent with the actual result, with the prediction logic accurately hitting the balance point of Belgium's lack of finishing ability in attack and Egypt's defensive counter-attack tactics.",
+        "ec45c9f450dfece3": "Egypt adopted a stable defense and counter-attack strategy, with a tightly organized defense and an excellent goalkeeper, successfully limiting Belgium's offensive power and using counter-attacks to equalize the score."
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "03c37b5da20a3597": "El capitán egipcio El-Nenny perdió el control en el mediocampo, no logrando limitar la eficiente jugada de centro desde la banda de Rusia.",
+        "06c659e2636b332d": "El veterano egipcio Fathy cometió un error defensivo en el minuto 47, marcando un autogol desastroso, lo que llevó directamente al colapso de la defensa psicológica.",
+        "173f44dc7e147896": "Ambos equipos ya habían sido eliminados del grupo con anticipación, y el partido se convirtió en una pura batalla por la honra, lo que hace que el modelo sistemático sea difícil de cuantificar las extremas fluctuaciones psicológicas y la relajación defensiva en este entorno sin presión.",
+        "17de9e1437ee3711": "La capacidad de control del mediocampo de Bélgica ha disminuido, frente a la defensa baja densa de Egipto no ha podido crear oportunidades de gol claras, y solo ha logrado un gol con capacidad individual.",
+        "1e0d1a9a0a57c887": "Rusia aprovechó la moral de local y la ventaja física, utilizando el pivote del delantero Juba para ejercer una presión táctica.",
+        "25b1286c4de3dcb0": "El mediocampista egipcio Salah, tras una lesión grave en la final de la Champions League al final de la temporada, jugó forzado con lesiones, viéndose una caída significativa en su condición física y capacidad de finalización, no logrando ejercer el papel de núcleo táctico.",
+        "4a6251c7c8a4f823": "El mediocampista egipcio Salah, luego de su regreso tras lesión, se encuentra en un estado promedio y carece de explosividad en las jugadas de ruptura, no logrando ejercer el papel de desequilibrio táctico.",
+        "73b3c4c1403784ac": "Arabia Saudita aprovechó la debilidad de la defensa egipcia en la lentitud de la contracción, en el período de tiempo adicional de la segunda mitad, logrando el gol decisivo a través de un centro desde la banda por parte de Dosari.",
+        "86038a5e6624f51c": "La predicción del 1-1 coincide completamente con el resultado real, la lógica de la predicción ha acertado en el equilibrio entre la falta de capacidad de finalización del ataque de Bélgica y la táctica de contraataque defensivo de Egipto.",
+        "ec45c9f450dfece3": "El equipo de Egipto ha utilizado una táctica de defensa y contraataque, la organización de la defensa es estricta y el portero ha jugado excelentemente, limitando la fuerza ofensiva de Bélgica y utilizando el contraataque para empatar el marcador."
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "03c37b5da20a3597": "Le capitaine égyptien El-Nenny a perdu le contrôle du milieu de terrain, n'ayant pas pu limiter la tactique efficace de transmission latérale de la Russie.",
+        "06c659e2636b332d": "Le vétéran égyptien Fathy a commis une erreur de défense à la 47e minute, marquant un but contre son camp désastreux, ce qui a directement conduit à une défaillance de la ligne de défense psychologique.",
+        "173f44dc7e147896": "Les deux équipes ont été éliminées du groupe à l'avance, le match est devenu une simple bataille d'honneur, le modèle systémique est difficile à quantifier les extrêmes fluctuations psychologiques et la relâchement de la défense dans un environnement sans pression.",
+        "17de9e1437ee3711": "La capacité de contrôle du milieu de terrain belge a diminué, face à la défense basse dense de l'Égypte, elle n'a pas pu créer d'opportunités de buts claires, et a marqué un seul but grâce à des capacités individuelles",
+        "1e0d1a9a0a57c887": "La Russie a profité de l'avantage du terrain et de la force physique en tant qu'hôte, utilisant le point d'appui du grand attaquant Joubar pour exercer une pression tactique.",
+        "25b1286c4de3dcb0": "Après une grave blessure en fin de saison en Ligue des Champions, le cœur de l'Égypte Salah a joué malgré la douleur, son état physique et sa capacité de finition ont considérablement chuté, n'ayant pas pu jouer le rôle de cœur tactique.",
+        "4a6251c7c8a4f823": "L'attaquant central égyptien Salah, après sa guérison, est revenu en forme médiocre et manque de puissance explosive, n'ayant pas pu jouer un rôle de contrepoids tactique.",
+        "73b3c4c1403784ac": "L'Arabie saoudite a exploité la faiblesse de la défense égyptienne en retour lent, marquant un but décisif à la fin de la mi-temps par une transmission latérale, réalisée par Dosari.",
+        "86038a5e6624f51c": "La prédiction systématique de 1-1 est complètement conforme au résultat réel, la logique de prédiction a correctement atteint le point d'équilibre entre la capacité de finition offensive de la Belgique et la tactique de contre-attaque défensive de l'Égypte",
+        "ec45c9f450dfece3": "L'Égypte a utilisé une tactique de défense passive et de contre-attaque, la défense est bien organisée et le gardien joue très bien, limitant ainsi l'attaque belge et utilisant la contre-attaque pour égaliser"
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "03c37b5da20a3597": "O capitão egípcio El-Nenny perdeu o controle no meio-campo, não conseguindo limitar a eficiente tática de cruzamento de lado da Rússia",
+        "06c659e2636b332d": "O veterano egípcio Fathi cometeu um erro defensivo no 47º minuto, marcando um autogol desastroso, o que levou diretamente à queda da linha psicológica",
+        "173f44dc7e147896": "Ambos os times já haviam sido eliminados do grupo, e o jogo se transformou em uma simples batalha de honra, dificultando para o modelo sistemático quantificar as extremas flutuações psicológicas e a desatenção defensiva em um ambiente sem pressão",
+        "17de9e1437ee3711": "A capacidade de controle do meio-campo da Bélgica caiu, frente à defesa densa e baixa do Egito, não conseguiu criar oportunidades claras de gols e marcou apenas um gol com habilidade individual.",
+        "1e0d1a9a0a57c887": "A Rússia aproveitou a força do time anfitrião e a vantagem física, utilizando o pontapé de cabeça do atacante Zhuba para exercer pressão tática",
+        "25b1286c4de3dcb0": "O centroavante egípcio Salah, após uma lesão grave no final da temporada na Liga dos Campeões, forçou-se a jogar ferido, com a condição física e a capacidade de finalização significativamente reduzidas, não conseguindo desempenhar o papel de centro de comando tático",
+        "4a6251c7c8a4f823": "O centroavante egípcio Salah, após a recuperação de lesão, está em desempenho平庸 e falta de explosão, não conseguindo desempenhar o papel de controle tático",
+        "73b3c4c1403784ac": "A Arábia Saudita, aproveitando a fraqueza da defesa egípcia em retroceder lentamente, marcou um gol de morte no tempo de sobra da segunda metade, com um cruzamento de lado pelo lateral Dawsari",
+        "86038a5e6624f51c": "A previsão do sistema de 1-1 coincidiu completamente com o resultado real, a lógica de previsão acertou o equilíbrio entre a falta de capacidade de finalização da ofensiva da Bélgica e a tática de contra-ataque defensivo do Egito.",
+        "ec45c9f450dfece3": "A equipe do Egito adotou uma tática de contra-ataque defensivo, a organização da linha defensiva foi rigorosa e o goleiro se destacou, limitando a força ofensiva da Bélgica e utilizando o contra-ataque para empatar a pontuação."
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

@@ -1,0 +1,65 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "018a56bcb37b1e96": "دفاع صربيا يتحرك للأمام بشكل مفرط ويعود ببطء، مما سمح لكاميرون باستغلال الهجوم السريع (خاصة أوبو بابكار وسبو-موتين) لتحقيق هدفين متتاليين في دقيقتين",
+        "0f3c4208726393c4": "حارس مرمى الكاميرون إيباسي مبوكى أظهر أداءً رائعًا، حيث ساهم في مرات عديدة بتمشيطات حاسمة للحفاظ على نظافة المرمى",
+        "26e10f25e9f62f1b": "استخدم مدرب صربيا ستويكوفيتش تكتيكات تركزت على الهجوم وتغافل عن الدفاع، مما أدى إلى تدهور التشكيلة بعد التقدم، ولم يتمكن من تحويل السيطرة والفوائد البدنية إلى تفوق دفاعي مستقر",
+        "50c6b2ea1044e37e": "فريق البرازيل قد أحرز المركز الأول في المجموعة مسبقًا، ومدرب الفريق تيت قام بتبديل واسع، وأرسل تشكيلة بديلة، مما أدى إلى نقص التآلف والقدرة على التهديف في الهجوم الأمامي",
+        "8b7a4ce2cceab00a": "لاعب اليمين البديل للبرازيل أنطوني خسر العديد من الفرص للتسجيل، كما أن VAR تدخل وألغى هدفًا للبرازيل",
+        "a5c9cda68f70f354": "غياب حارس مرمى كاميرون أونانا أدى إلى فقدان الدفاع للإحساس بالراحة والتنظيم في الخلف، ولكن حارس المرمى البديل إيباسي-مبي أظهر أداءً يفوق التوقعات، وظهر الفريق كله بقدرة كبيرة على الصمود في مواجهة الصعوبات",
+        "d1b77f3163550641": "لتحقيق الكاميرون فرصة الخروج من المجموعة، بقي لديهم أمل نظري، حيث كان هناك إصرار جماعي قوي في الدفاع، وأحرز هدفًا في اللحظة الأخيرة من اللقاء من خلال هجوم عنيف من قبل أوبو بيكال بتمريرة رأسية"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "018a56bcb37b1e96": "Serbia's defense pressed too high and was slow to retreat, allowing Cameroon to exploit a quick counter-attack (especially by Aboubakar and Shup-Botin) to score two goals in two minutes and break through",
+        "0f3c4208726393c4": "Cameroon goalkeeper Epie Mbockli performed outstandingly, making several key saves throughout the game to keep the goal unbreached",
+        "26e10f25e9f62f1b": "Serbia coach Stojkovic's tactics emphasized offense over defense, leading to a loose formation after taking the lead and failing to convert possession and physical advantages into a solid score advantage",
+        "50c6b2ea1044e37e": "Brazil's team has already secured the first place in the group, coach Tite made a large-scale rotation, sending out a pure substitute lineup, which led to a lack of默契 and absolute finishing ability in the front-line offense",
+        "8b7a4ce2cceab00a": "Brazil's substitute winger Anthony missed several good chances to score, and VAR intervened to disallow a goal for Brazil",
+        "a5c9cda68f70f354": "Cameroon goalkeeper Onana's absence led to a lack of flexibility in the defense and poor organization in the backfield, but substitute goalkeeper Epa Mbi performed beyond expectations and the team showed great resilience in adversity",
+        "d1b77f3163550641": "Cameroon retained a theoretical hope of qualifying, with the team showing a strong will to fight, defending resolutely and securing a crucial header goal by Aboubakar in the dying minutes of the match"
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "018a56bcb37b1e96": "Serbia's defense pressed too much and was slow in counterattacking, allowing Cameroon to exploit a fast counter (especially by Aboubakar and Shup-Bomding) to score two goals in two minutes and break through",
+        "0f3c4208726393c4": "Cameroon goalkeeper Epse Mbocki performed outstandingly, making several key saves throughout the game to keep the goal unbreached",
+        "26e10f25e9f62f1b": "Serbia coach Stojkovic's tactics emphasized offense over defense, leading to a loose formation after taking the lead and failing to convert possession and physical advantages into a solid score advantage",
+        "50c6b2ea1044e37e": "Brazil's team has already secured the first place in the group, coach Tite made a large-scale rotation, putting on a pure substitute lineup, which led to a lack of默契 and absolute finishing ability in the front-line offense",
+        "8b7a4ce2cceab00a": "Brazil's substitute winger Anthony missed several good chances to score, and VAR intervened to disallow a goal for Brazil",
+        "a5c9cda68f70f354": "The absence of Cameroon goalkeeper Onana led to a lack of flexibility in the defense and poor organization in the backfield, but substitute goalkeeper Epa Mbi performed beyond expectations and the team showed great resilience in adversity",
+        "d1b77f3163550641": "Cameroon retained a theoretical hope of qualifying, the team's will to fight was extremely strong, they defended as a unit, and in the final moments of the game, Aboubakar scored a header through counterattack"
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "018a56bcb37b1e96": "La défense serbe monte trop haut et est lente à revenir, ce qui permet au Cameroun de profiter de contre-attaques rapides (notamment d'Aboubakar et de Choupo-Moting) pour marquer deux buts en deux minutes et percer la défense",
+        "0f3c4208726393c4": "Le gardien de but camerounais Epse Mbock a joué magnifiquement, effectuant plusieurs arrêts de grande classe tout au long du match pour préserver la porte inviolée",
+        "26e10f25e9f62f1b": "L'entraîneur serbe Stojkovic a mis l'accent sur l'attaque plutôt que sur la défense, ce qui a conduit à une défense désorganisée après l'avance, et il n'a pas réussi à transformer la supériorité en possession du ballon et en avantage physique en une avance en buts solide",
+        "50c6b2ea1044e37e": "L'équipe brésilienne a déjà sécurisé la première place du groupe, l'entraîneur Tite effectue des changements massifs, aligne une équipe de remplaçants, ce qui entraîne une absence de cohésion offensive et d'une capacité de finition absolue",
+        "8b7a4ce2cceab00a": "L'arrière latéral de relève brésilien Anthony rate plusieurs occasions de but, et la VAR annule un but du Brésil",
+        "a5c9cda68f70f354": "L'absence du gardien camerounais Onana a causé une manque d'élasticité dans la défense et des problèmes d'organisation en arrière, mais le gardien remplaçant Epa N'Sakly a dépassé les attentes et l'équipe a montré une résilience exceptionnelle face aux adversités",
+        "d1b77f3163550641": "Le Cameroun conserve une chance théorique de qualification, l'équipe est extrêmement déterminée, défend en bloc et, dans les derniers instants du match, marque un but d'angle par Aboubakar pour une victoire inattendue"
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "018a56bcb37b1e96": "The Serbian defense pushed too high and was slow in returning, allowing Cameroon to exploit a quick counter-attack (especially by Aboubakar and Shup-Botin) to score two goals in two minutes and break through",
+        "0f3c4208726393c4": "O goleiro Camaronesa Epa N'Golo Mboukqui se destacou, realizando várias defesas cruciais para manter a porta intransponível",
+        "26e10f25e9f62f1b": "Serbian coach Stojkovic's tactics emphasized offense over defense, leading to a loose formation after taking the lead and failing to convert possession and physical advantages into a solid score advantage",
+        "50c6b2ea1044e37e": "A seleção brasileira já garantiu a liderança do grupo, o técnico Tite realizou uma grande rotatividade, colocando uma equipe composta apenas por reservas, o que resultou na falta de entrosamento e capacidade de conclusão no ataque",
+        "8b7a4ce2cceab00a": "O lateral esquerdo reserva brasileiro Anthony perdeu várias chances de marcar, e o VAR anularia um gol da seleção brasileira",
+        "a5c9cda68f70f354": "The absence of Cameroon goalkeeper Onana led to a lack of flexibility in the defense and poor organization in the backfield, but substitute goalkeeper Epa Mbi performed beyond expectations and the team showed great resilience in adversity",
+        "d1b77f3163550641": "O Camarões manteve a esperança teórica de classificação, com a equipe mostrando uma forte determinação, defendendo coletivamente e, no último momento do jogo, marcando um gol de cabeça na contra-ataque por Aboubakar"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

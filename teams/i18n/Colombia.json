@@ -1,0 +1,60 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "2ba29cc130c72bbe": "استطاع المنتخب الإنجليزي التغلب على سحر الركلات الترجيحية التاريخية والضعف النفسي، حيث أوقف حارس المرمى بيكفورد ركلتي جزاء من باكا في الدور التالي",
+        "2c4be114796d3ad5": "واجهت كولومبيا صعوبة في تنظيم الهجوم بسبب غياب لاعبها الأساسي جيرو (لم يشارك في المباراة بسبب الإصابة)، ولكنها استطاعت التعادل في نهاية الوقت العادي بفضل تنفيذ تكتيكي من قبل فالاكو وآخرين، مما أطال المباراة إلى الدور الإضافي",
+        "7d98abf5f01f5647": "قرر مدرب اليابان سينغو نيشيرو تغيير التشكيلة إلى أربعة مدافعين واستخدم تكتيك الدفاع الفعال والهجوم السريع، حيث أحرز تاكاهارا هدفًا رأسياً مما أظهر تنفيذًا تكتيكياً قوياً",
+        "cf74a6bb836b0ecb": "توقع النظام 1-1 كنتيجة الوقت العادي، ولكن لم يأخذ في الاعتبار آلية التأهل للدور التالي (الإضافي والضربات الراقصة) في التوقعات النهائية، مما أدى إلى خطأ في تحديد نتيجة المباراة النهائية",
+        "d8515ed895b7b519": "في الدقيقة 5:53 من بداية المباراة، سجل كارلوس سانشيز ركلة جزاء بعد تعرضه للعقوبة بسبب اليد داخل منطقة الجزاء، مما أجبر كولومبيا على اللعب بعشرة لاعبين وتراجعت مبكرًا، مما دمر التوقعات القائمة على التوازن",
+        "f7e4a2062565baf7": "الركلة الجزاء والتفوق في الأهداف أجبر كولومبيا على التخلي عن لاعبها الأولي جيرو وغيرت من النظام التكتيكي، مما أدى إلى عدم سلاسة في الهجوم والدفاع"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "2ba29cc130c72bbe": "England overcame its historic penalty shootout curse and psychological pressure disadvantage, with goalkeeper Pickford making a crucial save against Baka's penalty shootout shot.",
+        "2c4be114796d3ad5": "Without their core player James Rodriguez (who did not start due to injury), Colombia's offensive organization was disrupted, but they relied on Falcao and others' tactical execution to draw a late equalizer in regulation time, dragging the game into extra time.",
+        "7d98abf5f01f5647": "Japan's coach, Nishino朗, decisively changed the formation to a four-back and adopted an efficient defensive counter-attacking tactic, with Yuto Nagatomo's header and follow-up shot scoring, demonstrating strong tactical execution.",
+        "cf74a6bb836b0ecb": "The system predicted a 1-1 score in regulation time, but did not incorporate the knockout stage advancement mechanism (extra time and penalty shootout) into the final prediction logic, leading to an incorrect judgment of the final match result.",
+        "d8515ed895b7b519": "At 5 minutes and 53 seconds into the game, Carlos Sanchez was sent off for a handball in the penalty area, earning a red card and a penalty kick, forcing Colombia to play with one less player and fall behind early, completely shattering the system's expectation based on parity.",
+        "f7e4a2062565baf7": "Playing with one less player and falling behind forced Colombia to bench their starting player, James Rodriguez, and change their tactical system, leading to a lack of fluidity on both offensive and defensive ends."
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "2ba29cc130c72bbe": "Inglaterra superó el sortilegio histórico de los penales y la desventaja psicológica, con el portero Pickford salvando un penal clave de la disparo de Bacca en la tanda de penales.",
+        "2c4be114796d3ad5": "Colombia, sin su líder James Rodríguez (que no debutó por lesión), se vio obstaculizada en la organización ofensiva, pero dependiendo de la ejecución táctica de personas como Falcao, logró empatar en el último minuto del tiempo reglamentario y llevar el partido a la prórroga.",
+        "7d98abf5f01f5647": "El entrenador japonés Shinji Takahashi decidió cambiar al sistema de cuatro defensores y adoptar una táctica de contragolpe eficiente, lo que mostró una fuerte ejecución táctica por parte de Yuto Nagatomo con un gol de cabezazo.",
+        "cf74a6bb836b0ecb": "El sistema predijo un marcador de 1-1 para el tiempo reglamentario, pero no incluyó el mecanismo de clasificación para la fase eliminatoria (tiempo extra y penales) en la lógica de predicción final, lo que resultó en un error en la determinación del resultado final del partido.",
+        "d8515ed895b7b519": "A los 5 minutos y 53 segundos del primer tiempo, Carlos Sánchez cometió una mano dentro del área penal, fue expulsado y regaló un penal, lo que obligó a Colombia a jugar con un hombre menos y a caer en desventaja tempranamente, rompiendo completamente la expectativa de un juego basado en el equilibrio del sistema.",
+        "f7e4a2062565baf7": "Jugar con un hombre menos y estar en desventaja en el marcador obligó a Colombia a abandonar a su titular James Rodríguez y cambiar su sistema táctico, lo que resultó en un funcionamiento ineficiente en ambos extremos del campo."
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "2ba29cc130c72bbe": "L'Angleterre a surmonté le sortilège historique des tirs au but et la faiblesse psychologique, le gardien Pickford a sauvé un tir au but crucial de Baca lors de la séance de tirs au but.",
+        "2c4be114796d3ad5": "En l'absence de son joueur central J罗 (absent pour blessure), la Colombie a eu des difficultés dans l'organisation offensive, mais grâce à la détermination tactique de joueurs comme Falcao, elle a égalisé à la fin du temps réglementaire et a prolongé le match en prolongation.",
+        "7d98abf5f01f5647": "Le sélectionneur japonais Nishino a果断地改为四后卫阵型并采用高效的防守反击战术，大迫勇也的头球补射破门展示了极强的战术执行力。",
+        "cf74a6bb836b0ecb": "Le système prévoyait un score de 1-1 pour le temps réglementaire, mais n'a pas intégré le mécanisme de qualification des tours éliminatoires (surnumber et tirs au but) dans la logique de prévision finale, ce qui a conduit à une erreur dans le jugement du résultat final du match.",
+        "d8515ed895b7b519": "À la 5:53 de la première mi-temps, Carlos Sánchez a été expulsé pour une main dans la surface de réparation et a offert un penalty, obligeant la Colombie à jouer à onze et à être en retard dès le début, ce qui a complètement brisé les attentes basées sur l'équilibre du système.",
+        "f7e4a2062565baf7": "Jouer à onze et être en retard a forcé la Colombie à abandonner son attaquant J罗 et à changer de système tactique, ce qui a causé des problèmes dans les deux phases du jeu."
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "2ba29cc130c72bbe": "A Inglaterra superou o feitiço histórico dos pênaltis e a desvantagem psicológica de resistência, com o goleiro Pickford salvando um pênalti crucial de Bacca na batalha de pênaltis",
+        "2c4be114796d3ad5": "Com o ausente do líder J罗 (que não entrou em campo devido a uma lesão), a Colômbia encontrou dificuldades na organização ofensiva, mas contou com a execução tática de pessoas como Falcao para empatar no fim do tempo normal, empurrando o jogo para a prorrogação",
+        "7d98abf5f01f5647": "O treinador japonês Shinjiro Nishikawa decidiu mudar para uma formação de quatro zagueiros e adotar uma tática de contra-ataque eficiente, com Yuto Nagatomo mostrando uma forte execução tática com um gol de cabeça",
+        "cf74a6bb836b0ecb": "O sistema previu um placar de 1-1 no tempo normal, mas não incluiu o mecanismo de classificação para a próxima fase (prorrogação e pênaltis) na lógica de previsão final, resultando em uma avaliação errada do resultado final do jogo",
+        "d8515ed895b7b519": "No início do jogo, aos 5 minutos e 53 segundos, Carlos Sánchez cometeu pênalti por mão na área penal, foi expulso e o ponto foi anotado, forçando a Colômbia a jogar com um homem a menos e a estar em desvantagem cedo, completamente desmanchando a expectativa de equilíbrio baseada no sistema",
+        "f7e4a2062565baf7": "Jogar com um homem a menos e estar em desvantagem na pontuação forçou a Colômbia a abandonar o primeiro J罗 e mudar o sistema tático original, resultando em uma má eficiência tanto no ataque quanto na defesa"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

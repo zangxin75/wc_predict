@@ -1,0 +1,100 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "018acf543f8f3c92": "ظهرت رغبة في التفوق في عقل لاعبي إنجلترا، حيث كانت مسافات الحركة ومشاركتهم في اللعبة أقل بكثير من منافسيهم، مما أدى إلى عدم وجود خطة بديلة فعالة لكسر الدفاع المكثف",
+        "1fd10be16080a28c": "كرواتيا كفريق خاض ثلاث مباريات إضافية متتالية، أظهر قوة كبيرة في التكتيك والقدرة على تحمل الضغط، لم يظهر في المباريات الإضافية انهيار في مستوى الطاقة كما توقع النظام، بل تحكم في نسق المباراة بشكل عكسي",
+        "2416bc4d25179b11": "لعب اللاعبين الإيرانيين في حالات التأخر سيئة في تحمل الضغط، مع ظهور دفاعي متعدد من نوع \"النظر\" والفقدان في الموقع، مما أدى إلى خسارة 4 أهداف نظيفة في المباراة الواحدة",
+        "2ba29cc130c72bbe": "استطاع المنتخب الإنجليزي التغلب على سحر الركلات الترجيحية التاريخية والضعف النفسي، حيث أوقف حارس المرمى بيكفورد ركلتي جزاء من باكا في الدور التالي",
+        "2c4be114796d3ad5": "واجهت كولومبيا صعوبة في تنظيم الهجوم بسبب غياب لاعبها الأساسي جيرو (لم يشارك في المباراة بسبب الإصابة)، ولكنها استطاعت التعادل في نهاية الوقت العادي بفضل تنفيذ تكتيكي من قبل فالاكو وآخرين، مما أطال المباراة إلى الدور الإضافي",
+        "85f21924e3f462a0": "قاعدة الوقت الإضافي الطويل زادت من الفارق بين القوى، حيث سجل إنجلترا أهدافًا في فترات الوقت الإضافي في كل نصف المباراة",
+        "884356404aab5f22": "أدى لاعب وسط المنتخب الأمريكي مكني وأدمز إلى أداء ممتاز في الجانبين الهجومي والدفاعي، حيث سيطرا تمامًا على إيقاع الوسط، كما سيطروا على الميزة في المواجهات",
+        "91cce54b21761b8c": "استخدمت المنتخب الأمريكي استراتيجية ضغط مرتفع دائم في جميع أنحاء الملعب ودفاعًا مكثفًا في منتصف الملعب، مما أدى إلى قطع التواصل بين الوسطاء (بيلينغهام وديكلان ريس) والخط الأمامي",
+        "9abd0316b50ab948": "أوقف حارس المنتخب الكرواتي سوباسيتش ركلتي الجزاء لهندرسون في ركلات الجزاء، واستخدم النفوذ النفسي لتحويل مسار ركلات الجزاء لصالح فريقه",
+        "ae70daae9c584a0f": "قام مدرب المنتخب الإنجليزي سوسكيت بتجنب هجومي هاري كاين في نهاية الشوط الإضافي (118 دقيقة)، مما أدى إلى فقدان الفريق نقطة التكتيكية النفسية الأكثر أهمية قبل ركلات الجزاء",
+        "c8647c04ccfbee9d": "تم حظر هجومي إنجلترا في الهجوم الأولي (فودن، ساكا) من قبل دفاع المنتخب الأمريكي، مما أدى إلى فقدان فسحة الابتداء والعمق في الهجوم، مما جعل من الصعب إنتاج تهديدات حقيقية",
+        "cd0bb78f526e064e": "هجمات الشباب في خط الهجوم لإنجلترا (ساكا، بيلينغهام، ستيرلينغ) من خلال التداخل في الحركة شكلت ضربة استراتيجية لتقليل دفاع إيران في المناطق المنخفضة",
+        "cf74a6bb836b0ecb": "توقع النظام 1-1 كنتيجة الوقت العادي، ولكن لم يأخذ في الاعتبار آلية التأهل للدور التالي (الإضافي والضربات الراقصة) في التوقعات النهائية، مما أدى إلى خطأ في تحديد نتيجة المباراة النهائية",
+        "d706ccc4afd42c15": "حارس مرمى إيران بيلانوندد مصاب في بداية المباراة وأدى الفارق في مستوى حارس البديل حسيني إلى انهيار النفس الدفاعية والنظام الدفاعي"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "018acf543f8f3c92": "English players showed a complacent attitude on the field, with significantly less running distance and lower level of engagement compared to their opponents, lacking an effective B plan to break through dense defenses.",
+        "1fd10be16080a28c": "Croatia, as a team that has continuously experienced three extra-time matches, has shown strong tactical resilience and pressure resistance, and did not experience the expected physical cliff in extra-time, instead, they controlled the rhythm of the match.",
+        "2416bc4d25179b11": "Iranian players showed extremely poor pressure resistance when trailing, with multiple instances of lack of focus and positioning in defense, resulting in a net loss of 4 goals in a single match.",
+        "2ba29cc130c72bbe": "England overcame its historic penalty shootout curse and psychological pressure disadvantage, with goalkeeper Pickford making a crucial save against Baka's penalty shootout shot.",
+        "2c4be114796d3ad5": "Without their core player James Rodriguez (who did not start due to injury), Colombia's offensive organization was disrupted, but they relied on Falcao and others' tactical execution to draw a late equalizer in regulation time, dragging the game into extra time.",
+        "85f21924e3f462a0": "The new rule of extended stoppage time amplified the gap between the strong and the weak, with England scoring goals in both halves during the stoppage time.",
+        "884356404aab5f22": "The US team's core midfielder McKennie and Adams performed exceptionally well on both offense and defense, not only completely controlling the rhythm of the midfield but also dominating the confrontation.",
+        "91cce54b21761b8c": "The US team adopted a highly disruptive full-field high pressing and mid-field dense defense, successfully cutting off the connection between England's two central midfielders (Bellingham and Declan Rice) and the front line.",
+        "9abd0316b50ab948": "Croatia goalkeeper Dominik Šušić saved Henderson's penalty in the penalty shootout, and through psychological combat disturbed Rashナル et al., directly changing the direction of the penalty shootout result",
+        "ae70daae9c584a0f": "England's coach Gareth Southgate substituted out core striker Harry Kane in the dying minutes of extra time (118 minutes), leading to the team losing the most important tactical support and psychological reliance in the penalty shootout",
+        "c8647c04ccfbee9d": "England's starting wing forwards (Foden, Saka) were tightly restricted by the US team's wing defenders, leading to the team's attack lacking width and depth, and being unable to create substantial threats.",
+        "cd0bb78f526e064e": "The youthful storm in England's front line (Saka, Bellingham, Sterling) disrupted Iran's low defense with tactical dimensional reduction through their interweaving runs.",
+        "cf74a6bb836b0ecb": "The system predicted a 1-1 score in regulation time, but did not incorporate the knockout stage advancement mechanism (extra time and penalty shootout) into the final prediction logic, leading to an incorrect judgment of the final match result.",
+        "d706ccc4afd42c15": "Iran's goalkeeper, Beiranvand, was injured and substituted at the start of the game, and the substitute goalkeeper, Hosseini, had a significant skill gap, leading to the collapse of the defense's psychology and defensive system."
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "018acf543f8f3c92": "Los jugadores de Inglaterra mostraron una actitud de desdén en el campo, la distancia de carrera y el grado de dedicación al partido eran significativamente inferiores a los oponentes, y carecían de un plan B efectivo para romper la defensa densa",
+        "1fd10be16080a28c": "Croacia, como equipo que ha experimentado tres partidos de prórroga consecutivos, ha demostrado una gran resistencia táctica y capacidad para soportar la presión, en las prórrogas no ha aparecido el colapso físico esperado en el sistema, sino que ha controlado el ritmo del partido.",
+        "2416bc4d25179b11": "Los jugadores iraníes tienen una capacidad de resistencia baja cuando están en desventaja, en la defensa aparecieron múltiples veces la defensa con los ojos cerrados y la pérdida de posición, lo que llevó a una pérdida neta de 4 goles en un solo partido",
+        "2ba29cc130c72bbe": "Inglaterra superó el sortilegio histórico de los penales y la desventaja psicológica, con el portero Pickford salvando un penal clave de la disparo de Bacca en la tanda de penales.",
+        "2c4be114796d3ad5": "Colombia, sin su líder James Rodríguez (que no debutó por lesión), se vio obstaculizada en la organización ofensiva, pero dependiendo de la ejecución táctica de personas como Falcao, logró empatar en el último minuto del tiempo reglamentario y llevar el partido a la prórroga.",
+        "85f21924e3f462a0": "La nueva regla de tiempo adicional prolongado amplificó la brecha de fuerza y debilidad, Inglaterra marcó goles en la fase de tiempo adicional de ambos períodos",
+        "884356404aab5f22": "El núcleo mediocampista de Estados Unidos McKennie y Adams se destacaron en ambos extremos del ataque y la defensa, no solo controlaron completamente el ritmo del mediocampo, sino que también ocuparon una ventaja absoluta en la lucha",
+        "91cce54b21761b8c": "El equipo de Estados Unidos utilizó una presión alta y defensiva en el centro del campo, logrando cortar la conexión entre los dos mediocampistas centrales (Bellinger y Declan Rice) y la delantera",
+        "9abd0316b50ab948": "El portero croata Subašić detuvo el penal de Henderson en la tanda de penaltis, y mediante la batalla psicológica interfirió con jugadores como Rashナル, cambiando directamente la dirección de la victoria en la tanda de penaltis.",
+        "ae70daae9c584a0f": "El entrenador inglés Gareth Southgate reemplazó al delantero clave Harry Kane en el último cuarto de hora del tiempo extra (118 minutos), lo que resultó en la pérdida del punto de apoyo táctico y psicológico más importante del equipo en la tanda de penaltis.",
+        "c8647c04ccfbee9d": "Los extremos iniciales de Inglaterra (Foden, Saka) fueron estrictamente limitados por los laterales estadounidenses, lo que llevó a que el ataque del equipo careciera de anchura y profundidad, y fuera difícil crear una amenaza real",
+        "cd0bb78f526e064e": "La tormenta juvenil del frente de campo inglés (Saka, Bellinger, Sterling) con su intercalación y movimiento creó un ataque táctico de reducción de dimensiones en la defensa baja de Irán",
+        "cf74a6bb836b0ecb": "El sistema predijo un marcador de 1-1 para el tiempo reglamentario, pero no incluyó el mecanismo de clasificación para la fase eliminatoria (tiempo extra y penales) en la lógica de predicción final, lo que resultó en un error en la determinación del resultado final del partido.",
+        "d706ccc4afd42c15": "El portero iraní Beラン万德 en el inicio del partido se lesionó y salió, la brecha de habilidad del portero suplente Hosseini llevó a la defensa psicológica y al colapso del sistema defensivo"
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "018acf543f8f3c92": "Les joueurs anglais montrent une mentalité de léger favori sur le terrain, avec une distance de course et un degré d'implication dans le match nettement inférieurs à ceux de leurs adversaires, manquant d'un plan B efficace pour briser une défense dense",
+        "1fd10be16080a28c": "La Croatie, en tant que équipe qui a successivement connu trois matches de prolongation, a montré une grande résilience tactique et une capacité à résister au stress, n'ayant pas montré la chute d'endurance attendue dans les prolongations, mais au contraire contrôlant le rythme du match.",
+        "2416bc4d25179b11": "Les joueurs iraniens montrent une très faible capacité à résister au stress lorsqu'ils sont en retard, avec plusieurs erreurs de défense et de placement, ce qui a entraîné une perte nette de 4 buts en un seul match",
+        "2ba29cc130c72bbe": "L'Angleterre a surmonté le sortilège historique des tirs au but et la faiblesse psychologique, le gardien Pickford a sauvé un tir au but crucial de Baca lors de la séance de tirs au but.",
+        "2c4be114796d3ad5": "En l'absence de son joueur central J罗 (absent pour blessure), la Colombie a eu des difficultés dans l'organisation offensive, mais grâce à la détermination tactique de joueurs comme Falcao, elle a égalisé à la fin du temps réglementaire et a prolongé le match en prolongation.",
+        "85f21924e3f462a0": "La nouvelle règle de prolongation prolongée a amplifié l'écart entre les forces, l'Angleterre a marqué des buts à la fin de la mi-temps des deux demi-temps",
+        "884356404aab5f22": "Le cœur de milieu de l'équipe américaine McKenny et Adams ont eu une performance excellente à la fois en attaque et en défense, non seulement en contrôlant parfaitement le rythme du milieu de terrain, mais aussi en occupant une position d'avantage absolu dans les confrontations",
+        "91cce54b21761b8c": "L'équipe américaine a utilisé une pression haute et destructrice sur tout le terrain et une défense dense au milieu, réussissant à couper les liaisons entre les deux milieux de terrain de l'Angleterre (Bellingham et Declan Rice) et l'avant",
+        "9abd0316b50ab948": "Le gardien croate Dominik Šušić a arrêté le penalty de Henderson en séance de tirs au but, et a réussi à perturber psychologiquement Rushnal et d'autres, changeant directement le sens de la victoire et de la défaite en séance de tirs au but.",
+        "ae70daae9c584a0f": "Le sélectionneur anglais Gareth Southgate a remplacé le attaquant clé Harry Kane à la fin de la prolongation (118e minute), ce qui a conduit à la perte du point de soutien tactique et psychologique le plus important pour l'équipe avant la séance de tirs au but.",
+        "c8647c04ccfbee9d": "Les deux avants latéraux de départ de l'Angleterre (Foden, Saka) ont été strictement limités par les arrières latéraux américains, ce qui a conduit à une absence de largeur et de profondeur dans l'attaque de l'équipe, rendant difficile la création de menaces réelles",
+        "cd0bb78f526e064e": "La tempête de jeunesse anglaise en attaque (Saka, Bellingham, Sterling) a créé un coup de force tactique en réduisant la défense basse de l'Iran",
+        "cf74a6bb836b0ecb": "Le système prévoyait un score de 1-1 pour le temps réglementaire, mais n'a pas intégré le mécanisme de qualification des tours éliminatoires (surnumber et tirs au but) dans la logique de prévision finale, ce qui a conduit à une erreur dans le jugement du résultat final du match.",
+        "d706ccc4afd42c15": "Le gardien iranien Béランwàn dé est sorti blessé dès le début du match, et la différence de niveau entre le gardien remplaçant Hosseini et lui a entraîné une défaillance psychologique et défensive du système de défense"
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "018acf543f8f3c92": "Os jogadores da Inglaterra mostraram uma mentalidade de desleixo no campo, a distância de corrida e o grau de envolvimento no jogo eram significativamente inferiores aos adversários, faltando um plano B eficaz para romper a defesa densa",
+        "1fd10be16080a28c": "A Croácia, como time que consecutivamente enfrentou três prorrogações, demonstrou uma forte resiliência tática e capacidade de resistência ao estresse, não apresentando a queda de desempenho física prevista no sistema, mas sim controlando o ritmo do jogo na prorrogação.",
+        "2416bc4d25179b11": "Os jogadores iranianos têm uma capacidade de resistência muito baixa quando estão em desvantagem, na defesa ocorreram várias vezes defesas visuais e perdas de posição, resultando em uma deficiência de 4 gols no jogo",
+        "2ba29cc130c72bbe": "A Inglaterra superou o feitiço histórico dos pênaltis e a desvantagem psicológica de resistência, com o goleiro Pickford salvando um pênalti crucial de Bacca na batalha de pênaltis",
+        "2c4be114796d3ad5": "Com o ausente do líder J罗 (que não entrou em campo devido a uma lesão), a Colômbia encontrou dificuldades na organização ofensiva, mas contou com a execução tática de pessoas como Falcao para empatar no fim do tempo normal, empurrando o jogo para a prorrogação",
+        "85f21924e3f462a0": "A nova regra de tempo extra prolongado ampliou a diferença entre forças, a Inglaterra marcou gols nos tempos extras tanto no primeiro quanto no segundo tempo",
+        "884356404aab5f22": "O centro-campo americano McKennie e Adams se destacaram tanto no ataque quanto na defesa, controlando completamente o ritmo do meio-campo e ocupando uma vantagem absoluta no confronto",
+        "91cce54b21761b8c": "A equipe dos EUA adotou uma pressão alta e destrutiva em toda a campo e uma defesa densa no meio-campo, cortando com sucesso a conexão entre os dois meias de campo central da Inglaterra (Bellinger e Declan Rice) e a linha ofensiva",
+        "9abd0316b50ab948": "O goleiro croata Subasic defendeu a pênalti de Henderson na disputa de pênaltis, e interferiu na psicológica de Rashナル等人, mudando diretamente o rumo da decisão da disputa de pênaltis",
+        "ae70daae9c584a0f": "O treinador inglês Gareth Southgate substituiu o atacante titular Harry Kane no final da prorrogação (118 minutos), resultando na perda do ponto estratégico mais importante e apoio psicológico da equipe antes da disputa de pênaltis",
+        "c8647c04ccfbee9d": "Os laterais de início da Inglaterra (Foden, Saka) foram rigorosamente limitados pelos laterais americanos, resultando em falta de largura e profundidade na ofensiva da equipe, dificultando a criação de ameaças reais",
+        "cd0bb78f526e064e": "A tempestade jovem da frente da Inglaterra (Saka, Bellinger, Sterling) com suas combinações de movimentos criou um ataque tático de desdimensão na defesa baixa do Irã",
+        "cf74a6bb836b0ecb": "O sistema previu um placar de 1-1 no tempo normal, mas não incluiu o mecanismo de classificação para a próxima fase (prorrogação e pênaltis) na lógica de previsão final, resultando em uma avaliação errada do resultado final do jogo",
+        "d706ccc4afd42c15": "O goleiro iraniano Beiranvand se lesionou no início e foi substituído, a diferença de qualidade entre o substituto Hosseini e a defesa levou ao colapso psicológico e da estrutura defensiva"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

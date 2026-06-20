@@ -1,0 +1,75 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "00bb71a5a904bad1": "تقدير النظام لمهارة اليابانيين في التمرير السريع وال反击 كان منخفضًا، حيث نجح كازويا كيمورا وريوكي سيمورا في اختراق الدفاع الهولندي العالي",
+        "33309af48739a857": "قوة ميسي الشخصية التاريخية قامت بكسر التوازن: سجل 2 أهداف وأسس لهدف آخر، خاصة في الوقت الإضافي حيث ساعد في هز الشباك، مما تجاوز نموذج xG التقليدي للإهداف المتوقعة",
+        "3ecf7c2d99d0c2f2": "نجح التكتيك البديل القاسي للهولندا: أستبدل المدرب فان جال لاعب الوسط العالي فيخوست، ورفض اللعب بالأرضية واستخدم الهجمات بالكرة الثابتة والتمريرات الطويلة، وسجل 2 أهداف (بما في ذلك التعادل في الثواني الأخيرة) مما كسر التوقعات التقليدية للهجمات",
+        "47f371b4f80d7e59": "فريق هولندا يعاني من ضعف في قدرته على الدفاع عن الوسط الخلفي، مما يترك فراغات كبيرة في خط الدفاع عند التقدم، مما أدى إلى اختراق عدة مرات من قبل فريق اليابان بتمريرات مباشرة، مما أدى إلى تسجيل 2 أهداف في المباراة الواحدة",
+        "4cc17d365782409f": "سجل جاكبور هدفًا مبكرًا في الشوط الأول لكسر العزلة، ولكن الإكوادور تعادلت بسرعة بفضل هدف إستيفانيان، ولم يتمكن أي منهما من استغلال فرص التسجيل",
+        "6d33dc669cfbaf13": "النظام التنبؤي توقع نتيجة 1-1 تمامًا مع النتيجة الفعلية، لم يحدث خطأ في التنبؤ، والنظام كان دقيقًا جدًا في تقييم هذا المباراة المساوية بدرجة عالية وعدد الأهداف القليل",
+        "d7ae5d6c248de9e0": "أظهر فريق اليابان قوة كبيرة في التكتيك والقدرة على تحمل الضغط، حيث تمكن من تعديل النتيجة مرتين من خلال الركض النشط والضغط العالي، مما أدى إلى تعديل النتيجة مرتين",
+        "db9f4222d5802fd0": "120 دقيقة من الإرهاق الشديد أدت إلى انفصال الدفاع: في نهاية الشوط الإضافي، انخفضت طاقة الفرق بشكل حاد، ولم يعد الأرجنتين في وسط الميدان، مما أدى إلى هجوم الهولندا المكثف الذي دمر التوقعات التقليدية 1-1",
+        "fa656b1c87502f35": "استخدم الإكوادور تكتيك الضغط العالي في جميع أنحاء المباراة، مما أدى إلى تقييد منحى الهجوم للهولنديين في منتصف الميدان والخلف، مما أدى إلى عدم تمكن الهولنديين من تنفيذ الهجمات كما هو متوقع"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "00bb71a5a904bad1": "The system underestimated Japan's quick passing and cutting ability in the middle and forward line and their counterattack efficiency, with Shuniku Sato and Shuto Nishikawa successfully breaking through the Netherlands' high-position defense on the flanks",
+        "33309af48739a857": "Messi's historically great individual ability broke the balance: scoring two goals and providing one assist throughout the game, especially the winning assist in extra time, which exceeded the system's probability model based on expected goals (xG).",
+        "3ecf7c2d99d0c2f2": "The Netherlands' extreme tactical Plan B worked: coach Van Gaal brought on the tall striker Wijnaldum, abandoned ground play, and adopted extreme set pieces and long balls, scoring two goals (including a last-minute equalizer) to break the conventional offensive expectations.",
+        "47f371b4f80d7e59": "The Dutch team's defensive midfielder lacks single-marking ability, and the defense leaves a huge gap when pressing up, which was repeatedly exploited by Japan's targeted through balls, resulting in 2 goals conceded in a single match.",
+        "4cc17d365782409f": "Gakpo scored early in the opening minutes to break the deadlock, but Ecuador quickly equalized with a goal from Estupiñan, and neither side was able to seize the absolute scoring opportunities thereafter.",
+        "6d33dc669cfbaf13": "The system's prediction of a 1-1 draw was completely consistent with the actual score, the prediction was not wrong, and the system made an extremely accurate judgment of this evenly matched match with very few goals.",
+        "d7ae5d6c248de9e0": "The Japanese team demonstrated strong tactical resilience and pressure resistance, twice equalizing the score through active running and high-intensity pressing despite being behind.",
+        "db9f4222d5802fd0": "The 120-minute high-intensity match led to a breakdown in the defense: both teams experienced a cliff-like drop in physical endurance in the second half of extra time, Argentina's midfield lost its advantage, and the Netherlands' all-out bombing shattered the system's predicted 1-1 balance.",
+        "fa656b1c87502f35": "Ecuador employed a high-intensity high-pressing tactic throughout the match, successfully limiting the Dutch team's ball distribution from the midfield and backline and controlling the rhythm of the game, resulting in the Dutch failing to launch the expected offensive."
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "00bb71a5a904bad1": "El sistema subestimó la capacidad de transición rápida y eficiente del mediocampo y delantera de Japón, Koba Kenichi y Sanezawa Kento lograron romper la defensa alta de Holanda en las bandas",
+        "33309af48739a857": "La habilidad personal histórica de Messi rompió el equilibrio: dos goles y una asistencia en todo el partido, especialmente el asistencia decisiva en la prórroga que superó las probabilidades del modelo de expectativas de goles (xG) basado en el sistema.",
+        "3ecf7c2d99d0c2f2": "El plan táctico extremo B del equipo de Holanda funcionó: el entrenador Van Gaal introdujo al delantero alto韦霍斯特, renunciando al juego terrestre y optando por cornerazos y largos pases, marcando dos goles (incluido el empate en el último segundo) que rompieron las expectativas del juego ofensivo convencional.",
+        "47f371b4f80d7e59": "La mediana defensiva de la selección holandesa es insuficiente y cuando la defensa se adelanta deja grandes huecos, lo que permitió que el equipo japonés perforara la defensa en varias ocasiones con pases directos, resultando en la pérdida de 2 goles en un solo partido",
+        "4cc17d365782409f": "Gakpo scored early in the opening minutes to break the deadlock, but Ecuador quickly equalized with a goal from Estupiñan, and neither team could capitalize on clear scoring opportunities thereafter.",
+        "6d33dc669cfbaf13": "The system's prediction of a 1-1 draw was completely consistent with the actual score, the prediction was not wrong, and the system's judgment of this evenly matched game with very few goals was extremely accurate.",
+        "d7ae5d6c248de9e0": "El equipo japonés mostró una gran resistencia táctica y capacidad de resistencia bajo presión, logrando empatar dos veces en situaciones de desventaja a través de movimientos activos y una presión alta",
+        "db9f4222d5802fd0": "Las 120 minutos de alta demanda llevaron a la descoordinación en la defensa: en la segunda mitad de la prórroga, ambos equipos experimentaron un colapso en la resistencia física, Argentina perdió el control en el medio campo, y el bombardeo desesperado de Holanda rompió el equilibrio de 1-1 predicho por el sistema.",
+        "fa656b1c87502f35": "Ecuador employed a high-intensity high-pressing tactic throughout the game, successfully limiting the Dutch team's ball distribution from the midfield and back and controlling the rhythm of the game, resulting in the Dutch failing to launch the expected offensive."
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "00bb71a5a904bad1": "Le système a sous-estimé la capacité de transmission rapide et l'efficacité de counter-attack du milieu et de l'avant du Japon, et Kento Hori et Shoya Miura ont réussi à percer la défense haute du Japon",
+        "33309af48739a857": "La capacité individuelle historique de Messi a rompu l'équilibre : deux buts et une passe décisive en tout, en particulier l'assistance décisive en prolongation, qui dépasse les probabilités du modèle de prévision d'objectif(xG) basé sur les attentes conventionnelles.",
+        "3ecf7c2d99d0c2f2": "L'équipe néerlandaise a réussi avec son plan B extrême en stratégie : l'entraîneur Van Gaal a sorti le grand homme de terrain Wesley Hoedt, a abandonné le jeu au sol pour utiliser des coups de corner et des longs ballons, marquant deux buts (y compris l'égalisation en dernière minute), brisant les attentes conventionnelles du jeu de mouvement.",
+        "47f371b4f80d7e59": "L'équipe néerlandaise a une capacité de défense individuelle insuffisante au milieu de terrain et laisse des espaces considérables après avoir monté la défense, ce qui a été exploité plusieurs fois par des passes directes ciblées de l'équipe japonaise, entraînant la perte de 2 buts lors d'une seule rencontre.",
+        "4cc17d365782409f": "Gakpo scored early in the opening minutes to break the deadlock, but Ecuador quickly equalized with a goal from Estupiñan, and neither side could capitalize on clear scoring opportunities thereafter.",
+        "6d33dc669cfbaf13": "The system's prediction of a 1-1 draw was completely consistent with the actual score, the prediction was not wrong, and the system's judgment of this evenly matched game with very few goals was extremely accurate.",
+        "d7ae5d6c248de9e0": "L'équipe japonaise a montré une grande résilience tactique et une capacité à résister au stress, parvenant à égaliser deux fois en situation de retard grâce à des mouvements actifs et une pression intense.",
+        "db9f4222d5802fd0": "120 minutes de haute consommation ont conduit à une déconnexion défensive : les deux équipes ont montré une chute vertigineuse de leur endurance en fin de prolongation, l'Argentine a perdu le contrôle du milieu de terrain, et l'attaque dérisoire des Néerlandais a brisé le score prévu de 1-1 par le système.",
+        "fa656b1c87502f35": "Ecuador employed a high-intensity high-pressing tactic throughout the game, successfully limiting the Dutch team's ball distribution from the midfield and back and controlling the rhythm of the game, resulting in the Dutch failing to launch the expected offensive."
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "00bb71a5a904bad1": "O sistema subestimou a capacidade de transição rápida e a eficiência de counter-ataque do Japão, Kento Handa e Shuto Nishiwaki conseguiram romper a defesa alta da Holanda",
+        "33309af48739a857": "A habilidade individual histórica de Messi quebrou o equilíbrio: dois gols e uma assistência no jogo inteiro, especialmente a assistência para o gol no tempo extra, que ultrapassou o modelo de probabilidade de gols esperados (xG) baseado no sistema.",
+        "3ecf7c2d99d0c2f2": "A equipe holandesa implementou com sucesso o plano B extremamente tático: o treinador Van Gaal introduziu o atacante alto韦霍斯特, abandonando o jogo no chão para usar bolas de canto e passes longos, marcando dois gols (inclusive um empate no último segundo) que quebraram as expectativas de jogo convencional.",
+        "47f371b4f80d7e59": "A defesa da Holanda é fraca no meio-campo e deixa enormes espaços quando avança, o que permitiu que a seleção japonesa rompesse várias vezes com passes diretos, resultando em duas derrotas sofridas no jogo.",
+        "4cc17d365782409f": "Gakpo scored early in the opening minutes to break the deadlock, but Ecuador quickly equalized with Estupiñan's goal, and neither side was able to seize the absolute scoring opportunities thereafter.",
+        "6d33dc669cfbaf13": "The system's prediction of a 1-1 draw was completely consistent with the actual score, the prediction was not wrong, and the system's judgment of this evenly matched game with very few goals was extremely accurate.",
+        "d7ae5d6c248de9e0": "A seleção japonesa mostrou uma forte resiliência tática e capacidade de resistência, empatando duas vezes, através de movimentos ofensivos ativos e pressão alta, mesmo estando em desvantagem.",
+        "db9f4222d5802fd0": "A alta demanda de 120 minutos resultou em uma falha na linha defensiva: ambos os times ficaram sem energia no segundo tempo extra, a meio-campo argentino perdeu o controle, e a pressão massiva dos holandeses quebraram o equilíbrio de 1-1 previsto pelo sistema.",
+        "fa656b1c87502f35": "Ecuador used a high-intensity high-pressing tactic throughout the game, successfully limiting the Dutch team's ball distribution from the midfield and back and controlling the rhythm of the game, resulting in the Dutch failing to launch the expected offensive."
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

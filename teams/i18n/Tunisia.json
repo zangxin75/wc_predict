@@ -1,0 +1,105 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "114492bfbce72ca1": "يعاني تونس من نقص حاد في قدرته على التسجيل في الهجوم، حيث كان الهجوم كثيفًا ومزعجًا طوال المباراة، لكنه فشل في وجود رشح عالي المستوى في منطقة الجزاء، مما أدى إلى انخفاض معدل التحويل بشكل كبير.",
+        "115e0a8a4b58276f": "كان مهاجم تونس الأولي دولبري في حالة سيئة، ولم يكن له دور كحلقة الوصل، مما أدى إلى انخفاض في كمية السيطرة على الهجوم لدنمارك، وعدم كفاية في قدرته على التسجيل",
+        "2f2c86b71039151b": "لاعبو تونس (خاصة في وسط الملعب Le Duni) أظهروا تنفيذًا استراتيجيًا قويًا وعدوانية دفاعية، مما أدى إلى قطع تدفق وسط فرنسا",
+        "34f0d9ef0894d4f4": "لاعب تونس Hazri سجل هدفًا رائعًا من رحلة طويلة، مما破了 توقعات النظام التقليدية لتحويل توقعات هدفي (xG)",
+        "3b9d1ad143da969f": "هدفي غريزمان في نهاية المباراة تم إلغاؤه بسبب قرار VAR بوجود خطأ في التهديد بالتهديد بالتهديد، مما قرر النتيجة النهائية",
+        "3bfcb86f1bfeb4f4": "حارس مرمى تونس دايمان أظهر براعة، حيث استقبل ورفض الأهداف البعيدة من إريكسن والقذف القريب من لينديستروم",
+        "5b30b74784cbba09": "Tunisian striker Hazri scores and assists, his personal ability breaks the deadlock and determines the outcome of the match",
+        "6785722b7baa0131": "أظهر لاعب وسط تونس أبيدين-سخري في وسط الملعب هجومًا جنونيًا وتماسكًا جسديًا، مما أثر على رقمنة هجمات دنمارك",
+        "738625a03f0c2778": "The match is in an open attacking rhythm rather than a conservative defense, Panama's defense is seriously aging and lacks coordination, resulting in losing 2 goals in a single match",
+        "95ff95b89d020311": "على الرغم من أن تونس كانت تمتلك ميزة نصف المدرج كفريق من شمال أفريقيا، إلا أنها لم تكن متكيفة مع الهجوم القوي والقوي لأستراليا، مما أدى إلى فقدان السيطرة في وسط الملعب.",
+        "a8ce6d127077c66f": "Tunisia, as an African team facing North American teams, has a tactical advantage in physical confrontation and counterattack speed",
+        "b7ffd4401a3f97e6": "استخدمت أستراليا تكتيكات بسيطة وفعالة، وابتعدت عن السيطرة على الكرة وأركزت على الدفاع والهجوم المعاكس، مستخدمة قوة الهواء الساحقة للمدافع سوتا في نقل الكرة الطويلة إلى الميدان الأمامي، مما مكثف حصانة تونس في الهجوم الجماعي.",
+        "c8ce4eeb32dece51": "فرنسا قامت بتبديل واسع (لم يشارك في المباراة الرئيسية لاعبون مثل Varane وGriezmann) مما أدى إلى نقص التآلف والقدرة على التهديف في خط الهجوم",
+        "fa8cd43c0cb59e31": "أدى حارس مرمى أستراليا ماثيو رايان إلى أداء مستقر، حيث كان دفاعه الجماعي يتمتع بتنفيذ تكتيكي عالي، مما أدى إلى حجز اللقاء بدون أهداف.",
+        "fb485711a85a270b": "مدرب تونس كادري أتبع نظام دفاعي منخفض ومركّز 5-4-1، حيث كانت وسطه مكثفة ومقطعة لخطوات هجومي دنمارك (إريكسن، هويبير) نحو خط الهجوم"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "114492bfbce72ca1": "Tunisia severely lacks finishing ability on the offensive end, bombarding the opponent's goal with fervor throughout the match but lacking a top-level striker in the box, with an extremely low conversion rate.",
+        "115e0a8a4b58276f": "Denmark's starting striker Doleri is in a low mood, lacking a pivotal role, leading to Denmark's offensive end being ineffective in ball control and severely lacking in finishing ability.",
+        "2f2c86b71039151b": "Tunisian players (especially midfielder Laidouni) showed strong tactical execution and defensive aggression, successfully cutting off the French midfield's supply line",
+        "34f0d9ef0894d4f4": "Tunisian striker Hazzari scored a very impressive long-range goal, breaking the system's conventional expected goal (xG) conversion rate",
+        "3b9d1ad143da969f": "Greizmann's equalizing goal at the end of the match was canceled due to VAR's offside ruling, directly determining the final score",
+        "3bfcb86f1bfeb4f4": "Tunisia's goalkeeper Daman played heroically, blocking shots and parrying away Eriksen's long-range shot and Lindstrom's close-range shot.",
+        "5b30b74784cbba09": "Tunisian forward Hazri scores and assists, his individual ability breaks the deadlock and determines the outcome of the match.",
+        "6785722b7baa0131": "Tunisia's central midfielder Abidine Schari's aggressive sweeping and physical confrontation in the midfield effectively restricted Denmark's offensive transition rhythm.",
+        "738625a03f0c2778": "The match is in an open attacking rhythm rather than a conservative defensive stance; Panama's defense is seriously aged and lacks coordination, resulting in 2 goals conceded in a single match.",
+        "95ff95b89d020311": "Although Tunisia has half the home advantage as a North African team, it appears un适应 against Australia's fierce high-intensity physical confrontation, with the midfield losing control.",
+        "a8ce6d127077c66f": "As an African team, Tunisia has a tactical advantage in physical confrontation and counter-attack speed when facing North American teams.",
+        "b7ffd4401a3f97e6": "Australia employs a minimalist and efficient tactical approach, giving up possession to focus on defensive counterattacks, utilizing center-back Suta's aerial superiority for direct long passes to the forwards, perfectly countering Tunisia's positional warfare.",
+        "c8ce4eeb32dece51": "France's team made extensive rotations (with players like Varane and Griezmann not starting or coming on as substitutes), leading to a lack of coordination and finishing ability in the front line",
+        "fa8cd43c0cb59e31": "Australia goalkeeper Matthew Ryan played steadily, with the backline's overall tactical execution being extremely high, successfully keeping a clean sheet against the opponent.",
+        "fb485711a85a270b": "Tunisia's head coach Kader adopted a highly targeted 5-4-1 low defense system, with a dense midfield positioning that cut off the penetration routes of Denmark's two core players (Eriksen, Hojbjerg) towards the front line."
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "114492bfbce72ca1": "Tunisia severely lacks finishing ability on the offensive end, bombarding the field throughout the match but lacking a top-level striker in the penalty area, with an extremely low conversion rate.",
+        "115e0a8a4b58276f": "El delantero titular danés D奥尔贝里 se encontraba en una baja forma, careciendo de la función de pivote, lo que llevó a que el ataque danés se hundiera en posesiones ineficaces y una falta grave de capacidad de finalización.",
+        "2f2c86b71039151b": "Los jugadores tunecinos (especialmente el mediocampista Laidouni) mostraron una excelente ejecución táctica y agresividad defensiva, logrando cortar la circulación del mediocampo francés",
+        "34f0d9ef0894d4f4": "El delantero tunecino Hassen marcó un gol muy espectacular con una larga carrera individual, rompiendo la tasa de conversión esperada (xG) del sistema",
+        "3b9d1ad143da969f": "El gol de empate de Griezmann en el último tramo del partido fue anulado por VAR por una falta de offside, lo que determinó directamente el marcador final",
+        "3bfcb86f1bfeb4f4": "El portero tunecino Damén se destacó por su valentía, desviando disparos lejanos de Eriksen y tiros a corta distancia de Lindström.",
+        "5b30b74784cbba09": "Tunisian forward Hazri scores and assists, his individual ability breaks the deadlock and determines the victory or defeat of the match",
+        "6785722b7baa0131": "El mediocampista tunecino Abidine Schari, con su desorden en el mediocampo y su combate físico, limitó efectivamente el ritmo de transición ofensiva de la selección danesa.",
+        "738625a03f0c2778": "The match is in an open attacking rhythm rather than a conservative defense, Panama's defense is seriously aged and lacks默契, resulting in losing 2 goals in a single match",
+        "95ff95b89d020311": "Although Tunisia has half the home advantage as a North African team, it appears un适应 to Australia's fierce high-intensity physical confrontation, losing control of the midfield.",
+        "a8ce6d127077c66f": "Tunisia, as an African team facing North American and Central American teams, has a tactical advantage in physical confrontation and counterattack speed",
+        "b7ffd4401a3f97e6": "Australia employs a minimalist and efficient tactical approach,放弃控球专注防守反击，focusing on defending and counterattacking, utilizing center-back Suta's aerial dominance for direct long passes to the forwards, perfectly countering Tunisia's positional warfare.",
+        "c8ce4eeb32dece51": "Francia realizó un cambio masivo en el once inicial (Varane, Griezmann y otros jugadores clave no comenzaron o fueron suplentes), lo que llevó a una falta de complicidad y capacidad de finalización en el ataque",
+        "fa8cd43c0cb59e31": "Australia's goalkeeper Matthew Ryan played steadily, the backline's overall tactical execution was extremely high, successfully keeping a clean sheet against the opponent.",
+        "fb485711a85a270b": "El entrenador tunecino Cadrí adoptó un sistema de defensa baja y específico 5-4-1, con una formación densa en el mediocampo que cortó las líneas de penetración de los dos pilares daneses (Eriksen y Hojbjerg)."
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "114492bfbce72ca1": "L'attaque de la Tunisie manque gravement de finition, tout au long du match, elle bombarde sans relâche mais manque de tireurs de premier plan dans la surface de réparation, avec une faible conversion.",
+        "115e0a8a4b58276f": "L'attaquant danois多尔贝里 est en mauvaise forme, manquant de soutien, ce qui a conduit à une attaque danoise inefficace en termes de contrôle du ballon et de capacité de finition en attaque",
+        "2f2c86b71039151b": "Les joueurs tunisiens (notamment le milieu de terrain Laidouni) montrent une forte exécution tactique et une agressivité défensive, réussissant à couper l'axe de transmission du milieu français",
+        "34f0d9ef0894d4f4": "L'attaquant tunisien Hassen marque un but remarquable avec une course longue, dépassant les attentes de conversion du système de prévision des buts (xG)",
+        "3b9d1ad143da969f": "Le but égalisateur de Griezmann à la fin du match est annulé pour hors-jeu par VAR, déterminant directement le score final",
+        "3bfcb86f1bfeb4f4": "Le gardien tunisien Dahmen a joué magnifiquement, interceptant et repoussant les tirs lointains d'Eriksen et les frappes de Lindstrom à courte distance",
+        "5b30b74784cbba09": "Tunisian striker Hazri scores and assists, his personal ability breaks the deadlock and determines the outcome of the match",
+        "6785722b7baa0131": "Le milieu tunisien Abidine Schirri, avec ses dérangements furieux et ses confrontations physiques au milieu de terrain, a limité efficacement le rythme de transition offensive de l'équipe danoise",
+        "738625a03f0c2778": "The match is in an open attacking rhythm rather than a conservative defense, Panama's defense is seriously aged and lacks默契, resulting in losing 2 goals in a single match",
+        "95ff95b89d020311": "Bien que la Tunisie, en tant que équipe nord-africaine, ait un avantage de半个主场, elle ne parvient pas à s'adapter face à l'agressivité physique intense de l'Australie, et le milieu de terrain est hors contrôle.",
+        "a8ce6d127077c66f": "Tunisia, as an African team facing North American teams, has a tactical advantage in physical confrontation and counter-attack speed",
+        "b7ffd4401a3f97e6": "L'Australie utilise une tactique minimaliste et efficace, abandonnant le contrôle du ballon pour se concentrer sur la défense et les contres, exploitant le contrôle aérien du défenseur central Suta pour des passes longues directes vers l'avant, parvenant à neutraliser la stratégie d'occupation du terrain de la Tunisie.",
+        "c8ce4eeb32dece51": "L'équipe de France effectue des changements massifs (Varane, Griezmann et autres joueurs clés ne commencent pas ou sont remplaçants), ce qui entraîne une absence de cohésion et de capacité de finition en attaque",
+        "fa8cd43c0cb59e31": "Le gardien australien Matthew Ryan joue de manière stable, la défense en général exécute les tactiques avec une grande efficacité, réussissant à garder le score nul.",
+        "fb485711a85a270b": "L'entraîneur tunisien Kaddouri a adopté un système de défense basé sur un 5-4-1 très ciblé, avec une position dense au milieu de terrain qui coupe les lignes d'attaque des deux piliers danois (Eriksen, Hojbjerg)"
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "114492bfbce72ca1": "A Tunísia falta gravemente de capacidade de finalização no ataque, atacando freneticamente ao longo do jogo, mas faltando um artilheiro de topo na área de penalidade, com uma taxa de conversão extremamente baixa.",
+        "115e0a8a4b58276f": "O atacante titular da Dinamarca, Doleris, está em baixa forma, falta-lhe o papel de pivô, o que leva a equipe dinamarquesa a ter dificuldades na posse de bola ofensiva e a falta de capacidade de conclusão na frente",
+        "2f2c86b71039151b": "Jogadores tunisianos (especialmente o meio-campista Laidouni) mostraram uma execução tática e agressividade defensiva extremas, cortando com sucesso a transmissão do meio-campo francês",
+        "34f0d9ef0894d4f4": "O atacante tunisiano Hazzari marcou um gol incrivelmente bem executado em uma longa corrida, quebrou a taxa de conversão esperada (xG) do sistema",
+        "3b9d1ad143da969f": "O gol de empate de Griezmann no final da partida foi anulado por VAR por impedimento, diretamente determinando a pontuação final",
+        "3bfcb86f1bfeb4f4": "O goleiro da Tunísia, Dhaouadi, se destacou, interceptando chutes de longa distância de Eriksen e de perto de Lindstrom",
+        "5b30b74784cbba09": "Tunisian forward Hazri scores and assists, his personal ability breaks the deadlock and determines the outcome of the match",
+        "6785722b7baa0131": "O volante tunisiano Abidine Schirri, com suas arrastadas e confrontações físicas no meio-campo, limitou eficazmente a transição ofensiva da equipe dinamarquesa",
+        "738625a03f0c2778": "The match is in an open attacking rhythm rather than a conservative defense, Panama's defense is seriously aging and lacks cohesion, resulting in losing 2 goals in a single match",
+        "95ff95b89d020311": "Embora a Tunísia, como time da África do Norte, tenha uma vantagem sem半个 casa, não se adaptou ao confronto com a intensa luta física da Austrália, perdendo o controle no meio-campo.",
+        "a8ce6d127077c66f": "Tunisia, as an African team facing North American teams, has a tactical advantage in physical confrontation and counter-attack speed",
+        "b7ffd4401a3f97e6": "A Austrália emprega uma tática minimalista e eficiente, abandonando a posse de bola para se concentrar na defesa e no contra-ataque, utilizando a superioridade aérea do zagueiro Soutar para passes diretos para a frente, perfeitamente neutralizando a formação ofensiva da Tunísia.",
+        "c8ce4eeb32dece51": "A França fez uma grande substituição (Varane, Griezmann e outros jogadores-chave não entraram ou foram substituídos), resultando em falta de默契 e capacidade de conclusão na frente de ataque",
+        "fa8cd43c0cb59e31": "O goleiro australiano Matthew Ryan se manteve estável, a linha defensiva executou a tática coletiva com alta eficiência, conseguindo um jogo sem gols.",
+        "fb485711a85a270b": "O treinador da Tunísia, Kader, adotou um sistema de defesa baixa e específico de 5-4-1, com uma formação densa no meio-campo para cortar as linhas de passe dos dois pilares dinamarqueses (Eriksen e Hojbjerg) até a frente"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

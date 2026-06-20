@@ -1,0 +1,130 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "115e0a8a4b58276f": "كان مهاجم تونس الأولي دولبري في حالة سيئة، ولم يكن له دور كحلقة الوصل، مما أدى إلى انخفاض في كمية السيطرة على الهجوم لدنمارك، وعدم كفاية في قدرته على التسجيل",
+        "14b0ae07a4211e03": "تعديل تكتيكات دنمارك وتدهور الطاقة البدنية: أدت تغييرات تكتيكية دنمارك في الشوط الثاني لتعزيز الهجوم إلى كشف ثغرات في الدفاع، وانهيار قدرات التدخل في وسط الملعب بعد مرور 60 دقيقة",
+        "1ab26509bb778543": "أعد مدرب أستراليا أرنولد تكتيكًا دفاعيًا عميقًا بنظام 5-4-1، مما أدى إلى تقطيع الهجوم الدنماركي من خلال التدخل الكثيف في وسط الملعب.",
+        "2984987a1246c4cd": "أظهر حارس المنتخب الدنماركي الصغير شميتلر قوة تحمله في الشوط الإضافي، حيث توقف ركلته الحاسمة لمودريتش، مما أظهر قدرته على تحمل الضغط في اللعبة الواحدة والانتهاء من اللعبة على خط المرمى",
+        "2b13f75ff46d7e3c": "خط الهجوم الفرنسي أظهر قدرات فردية مذهلة: مبايب بفضل قوته الشخصية ومهاراته في التسديد حقق هدفين، مما كسر التوازن المتوقع",
+        "35235aaa416cd044": "كان مهاجم بيرو غريلو في حالة سيئة بعد تعافيه من الإصابة، ولم يكن لاعب كوياف قادرًا على ركل ركلة الجزاء، مما أدى إلى أن أضاع بيرو أكثر من 20 ركلًا مستهدفة دون تحويلها إلى أهداف",
+        "389bac9d480c2cd2": "كانت النظام توقع نتيجة 1-1 في الوقت الأصلي، ولكن لم يأخذ النظام في الاعتبار احتمالية دخول المباراة إلى الشوط الإضافي في حساب النتيجة النهائية",
+        "3bfcb86f1bfeb4f4": "حارس مرمى تونس دايمان أظهر براعة، حيث استقبل ورفض الأهداف البعيدة من إريكسن والقذف القريب من لينديستروم",
+        "42311be5ea1c9aa3": "قام فريق فرنسا بتبديل واسع (بوجبا، غريزمان، إلخ) مما أدى إلى انخفاض في قدرة الهجوم والرغبة في التسجيل",
+        "496a96051c0ddc20": "كان لاعب وسط دنمارك إريكسن قويًا في تنفيذ التكتيكات، حيث أظهر دقة في التمريرات والتحويلات، مما أحدث شرخًا في دفاع بيرو وأوجد ركلة جزاء هدفي",
+        "5526eed3b218cebb": "أظهر مهاجم أستراليا ماثيو ليجي قدرة عالية في تنفيذ التكتيك في الهجمات المعاكسة وقدرته على التسجيل الفردي، حيث سجل الهدف الذي أحرز الفوز.",
+        "5af8a6bdb3fd56b0": "اتفق الطرفان على خفض وتيرة المباراة، ولم يكن هناك كافيًا من القوى في منطقة الهجوم الثلاثة، مما أدى إلى انخفاض كبير في عدد الأهداف المتوقعة (xG)",
+        "6785722b7baa0131": "أظهر لاعب وسط تونس أبيدين-سخري في وسط الملعب هجومًا جنونيًا وتماسكًا جسديًا، مما أثر على رقمنة هجمات دنمارك",
+        "714ed67e5a0bf10d": "أظهر المنتخب الكرواتي قوة الصمود في المرحلة النهائية من التصفيات، حيث تمكن من التقدم إلى الدور التالي من خلال الشوط الإضافي وركلات الجزاء، واستهلاكه كبير ولكن جودة نفسه النفسية عالية",
+        "8ddc76651d799302": "عمق تشكيلة فريق فرنسا والفوائد الاستراتيجية: قام مدرب فرنسا ديشان بتبديل ثنائي (رام، كومان) لمهاجمة خط دفاع دنمارك الجانبي، وأظهرت فرنسا تنفيذ تكتيكاتها في نهاية المباراة بشكل أفضل من المتوقع",
+        "8def881fde44cf5d": "كان فريق دنمارك يهدف إلى الحصول على التعادل لضمان التأهل، مما أدى إلى تبني تكتيك دفاعي عميق وترك الهجوم",
+        "934f46dd4ce6a467": "يعاني الهجوم الأسترالي من نقص شديد في القوة، حيث فشل المهاجم الرئيسي برايس فيت وغيره من اللاعبين في تحقيق أهداف رائعة، مما أدى إلى ضعف قدرته على التسجيل.",
+        "b8b3c5770d8e19b9": "كان مدرب الدنمارك يولمان متهورًا في التكتيك، حيث أدى تغيير التشكيلة في الشوط الثاني إلى ضغط مفرط على الهجوم مما أدى إلى عدم توازن بين الهجوم والدفاع.",
+        "c1c9661ae204a008": "كان نظام دفاع دنمارك مشدداً للغاية، حيث تمكن المدافعون المركزيون كريستنسن وكيار من مواجهة الهجمات الجانبية والضغط العالي من بيرو",
+        "fb485711a85a270b": "مدرب تونس كادري أتبع نظام دفاعي منخفض ومركّز 5-4-1، حيث كانت وسطه مكثفة ومقطعة لخطوات هجومي دنمارك (إريكسن، هويبير) نحو خط الهجوم"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "115e0a8a4b58276f": "Denmark's starting striker Doleri is in a low mood, lacking a pivotal role, leading to Denmark's offensive end being ineffective in ball control and severely lacking in finishing ability.",
+        "14b0ae07a4211e03": "Denmark's tactical adjustment and physical decline: Denmark's adjustment to strengthen进攻 in the second half exposed gaps in the defense, and the midfield interception ability dropped dramatically after 60 minutes.",
+        "1ab26509bb778543": "Australia coach Arnold deployed a 5-4-1 deep defensive system with targeted deployment, with dense mid-field interception effectively cutting off Denmark's flank penetration.",
+        "2984987a1246c4cd": "Denmark's goalkeeper Kasper Schmeichel made a crucial save against Modrić's penalty in extra time, showing his strong single-game pressure resistance and goal-line ending ability",
+        "2b13f75ff46d7e3c": "France's frontline individual ability breaks the deadlock: Mbappe, with his strong individual burst and shooting skills, scores two goals, breaking the stalemate expected by the system.",
+        "35235aaa416cd044": "Peru's striker Guerrero is in low spirits after recovering from injury, and Quiva missed a crucial penalty kick, leading to Peru's 20-plus shots on goal failing to convert into goals.",
+        "389bac9d480c2cd2": "The system predicted a 1-1 score in regulation time, but did not include the high probability of entering extra time in the final result calculation for the World Cup knockout stage",
+        "3bfcb86f1bfeb4f4": "Tunisia's goalkeeper Daman played heroically, blocking shots and parrying away Eriksen's long-range shot and Lindstrom's close-range shot.",
+        "42311be5ea1c9aa3": "France's extensive rotation (Pogba, Griezmann, etc., core substitutes) led to a significant drop in front-line creativity and finishing intent.",
+        "496a96051c0ddc20": "Denmark's midfield core Eriksen has strong tactical execution, his precise through balls and adjustments effectively tear apart Peru's defense, creating a winning penalty kick.",
+        "5526eed3b218cebb": "Australia forward Matthew Leke demonstrated high tactical execution and individual goal-scoring ability in counterattacks, scoring the winning goal.",
+        "5af8a6bdb3fd56b0": "Both teams lowered the pace of the game in默契, neither investing sufficient forces in the attacking third, resulting in an extremely low expected goal number (xG).",
+        "6785722b7baa0131": "Tunisia's central midfielder Abidine Schari's aggressive sweeping and physical confrontation in the midfield effectively restricted Denmark's offensive transition rhythm.",
+        "714ed67e5a0bf10d": "Croatia showed great resilience in the knockout stage, advancing through extra time and penalty shootouts consecutively, with huge consumption but excellent mental quality",
+        "8ddc76651d799302": "France's team depth and tactical advantage: Deschamps' substitution of Kehl and Koman continued to attack Denmark's flank defense, and France's tactical execution in the latter part of the game was better than expected.",
+        "8def881fde44cf5d": "Denmark's team aims to draw and secure qualification, adopting an extremely conservative tactical approach, actively giving up offensive ball control and shifting to deep defense.",
+        "934f46dd4ce6a467": "Denmark's offensive end is severely lacking in power, with main striker Blesvig and other players missing multiple excellent scoring opportunities, showing low finishing ability.",
+        "b8b3c5770d8e19b9": "Denmark coach Ullmann's tactical aggression led to an overly aggressive formation in the second half, causing a loss of balance between offense and defense when it was crucial to win the match to advance.",
+        "c1c9661ae204a008": "Denmark's defense system is extremely tight, with central defender Christensen and Kjaer leading the defense successfully withstanding Peru's wing attack and high-pressure pressing.",
+        "fb485711a85a270b": "Tunisia's head coach Kader adopted a highly targeted 5-4-1 low defense system, with a dense midfield positioning that cut off the penetration routes of Denmark's two core players (Eriksen, Hojbjerg) towards the front line."
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "115e0a8a4b58276f": "El delantero titular danés D奥尔贝里 se encontraba en una baja forma, careciendo de la función de pivote, lo que llevó a que el ataque danés se hundiera en posesiones ineficaces y una falta grave de capacidad de finalización.",
+        "14b0ae07a4211e03": "Ajustes tácticos daneses y caída en la condición física: los daneses cambiaron su formación en la segunda mitad para reforzar el ataque, dejando huecos en la defensa y una caída abrupta en la capacidad de intercepción en el mediocampo después de los 60 minutos.",
+        "1ab26509bb778543": "Australia's coach Arnold deployed a 5-4-1 deep defensive system with targeted deployment, the dense interception in the midfield effectively cutting off Denmark's flanks penetration.",
+        "2984987a1246c4cd": "El portero danés Kasper Schmeichel detuvo el penal clave de Modrić en el tiempo extra, mostrando una fuerte capacidad de resistencia a la presión y de cerrar la portería en el partido individual.",
+        "2b13f75ff46d7e3c": "La delantera francesa rompió el bloqueo individual: Mbappé, con su gran explosividad y habilidad en el tiro, marcó dos goles y rompió el empate predecido.",
+        "35235aaa416cd044": "El delantero peruano Guerrero, recién recuperado, estaba en baja forma, y Quilla falló un penal clave, lo que llevó a que Perú, aunque disparó más de 20 veces, no lograra marcar.",
+        "389bac9d480c2cd2": "El sistema predijo un 1-1 como el resultado del tiempo reglamentario, pero no incluyó la alta probabilidad de que el partido de eliminación entrara en tiempo extra en el cálculo del resultado final.",
+        "3bfcb86f1bfeb4f4": "El portero tunecino Damén se destacó por su valentía, desviando disparos lejanos de Eriksen y tiros a corta distancia de Lindström.",
+        "42311be5ea1c9aa3": "Francia realizó un gran cambio en el once inicial (Bogba, Griezmann y otros jugadores clave), lo que llevó a una disminución significativa en la creatividad y la voluntad de finalización en el frente de ataque.",
+        "496a96051c0ddc20": "El mediocampista central danés Eriksen mostró una fuerte ejecución táctica, sus pases precisos y la distribución efectiva rompieron la defensa peruana y crearon un penal ganador.",
+        "5526eed3b218cebb": "Australia's forward Matthew Leke demonstrated high tactical execution and individual goal-scoring ability in counterattacks, scoring the winning goal.",
+        "5af8a6bdb3fd56b0": "Ambos equipos redujeron el ritmo del juego de mutuo acuerdo, sin invertir suficiente fuerza en las tres zonas ofensivas, lo que resultó en una baja expectativa de goles (xG).",
+        "6785722b7baa0131": "El mediocampista tunecino Abidine Schari, con su desorden en el mediocampo y su combate físico, limitó efectivamente el ritmo de transición ofensiva de la selección danesa.",
+        "714ed67e5a0bf10d": "Croacia mostró una gran resistencia en la fase de eliminación, avanzando continuamente a través de tiempo extra y tanda de penaltis, consumiendo enormemente pero manteniendo una excelente calidad psicológica.",
+        "8ddc76651d799302": "Profundidad de plantilla y ventaja táctica de Francia: Deschamps cambió a Hubert y Kompany para atacar los flancos daneses, y la ejecución táctica de Francia en la segunda mitad fue mejor de lo esperado.",
+        "8def881fde44cf5d": "La selección danesa, para asegurar su clasificación, jugó tácticamente de manera conservadora, renunciando a la posesión del balón para pasar a una defensa profunda.",
+        "934f46dd4ce6a467": "Denmark's offensive end is severely lacking in power, with main striker Blesvig and other players missing multiple excellent scoring opportunities, showing low finishing ability.",
+        "b8b3c5770d8e19b9": "Denmark coach Ullmann's tactics were overly aggressive, leading to an unbalanced attack and defense in the second half due to an overly forward-oriented formation when it was crucial to win the match to advance.",
+        "c1c9661ae204a008": "El sistema defensivo danés era extremadamente sólido, y la defensa liderada por los centrales Christensen y Kjaer resistió eficazmente los ataques laterales y la presión alta de Perú.",
+        "fb485711a85a270b": "El entrenador tunecino Cadrí adoptó un sistema de defensa baja y específico 5-4-1, con una formación densa en el mediocampo que cortó las líneas de penetración de los dos pilares daneses (Eriksen y Hojbjerg)."
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "115e0a8a4b58276f": "L'attaquant danois多尔贝里 est en mauvaise forme, manquant de soutien, ce qui a conduit à une attaque danoise inefficace en termes de contrôle du ballon et de capacité de finition en attaque",
+        "14b0ae07a4211e03": "L'ajustement tactique danois et la chute de la condition physique : les Danois ont renforcé leur attaque en deuxième mi-temps, ce qui a laissé des brèches dans la défense, et la capacité de marquage au milieu de terrain a chuté de manière vertigineuse après 60 minutes",
+        "1ab26509bb778543": "L'entraîneur de l'Australie, Arnold, déploie une stratégie de défense profonde 5-4-1, les interpositions au milieu de terrain sont efficaces pour couper la pénétration latérale de la Danemark.",
+        "2984987a1246c4cd": "Le gardien danois Kasper Schmeichel a arrêté le penalty clé de Modrić en prolongation, montrant une capacité exceptionnelle à résister à la pression individuelle et à terminer le match en ligne.",
+        "2b13f75ff46d7e3c": "L'avant du France a brisé le blocage individuel : Mbappé, grâce à son extraordinaire énergie explosive et à son art du tir, a marqué deux buts et a rompu le blocage d'équilibre attendu",
+        "35235aaa416cd044": "L'attaquant péruvien Guerrero, revenu de blessure, est en mauvaise forme, et Quilla a raté un penalty crucial, ce qui a conduit à 20 tirs de la part du Pérou sans transformation en but",
+        "389bac9d480c2cd2": "Le système a prédit un score de 1-1 pour le temps réglementaire, mais n'a pas inclus la probabilité élevée de prolongation dans le calcul du résultat final.",
+        "3bfcb86f1bfeb4f4": "Le gardien tunisien Dahmen a joué magnifiquement, interceptant et repoussant les tirs lointains d'Eriksen et les frappes de Lindstrom à courte distance",
+        "42311be5ea1c9aa3": "Le France a effectué un grand remplacement (Bastian Schweinsteiger, Antoine Griezmann et autres joueurs clés en remplacement), ce qui a entraîné une forte chute de la créativité et de la volonté de finition en attaque",
+        "496a96051c0ddc20": "Le milieu danois Eriksen a une forte exécution tactique, ses passes directes précises et ses ajustements ont efficacement déchiré la défense péruvienne, créant un penalty gagnant",
+        "5526eed3b218cebb": "L'attaquant australien Matthew Leckie montre une grande exécution tactique et une capacité individuelle à marquer, inscrivant le but décisif dans le contre-attaque.",
+        "5af8a6bdb3fd56b0": "Les deux équipes ont réduit conjointement le rythme du match par consensus, n'ayant pas investi suffisamment de forces dans les trois zones offensives, ce qui a conduit à un nombre d'objectifs attendus (xG) extrêmement bas",
+        "6785722b7baa0131": "Le milieu tunisien Abidine Schirri, avec ses dérangements furieux et ses confrontations physiques au milieu de terrain, a limité efficacement le rythme de transition offensive de l'équipe danoise",
+        "714ed67e5a0bf10d": "La Croatie a montré une grande résilience au stade des éliminatoires, en passant successivement par les prolongations et les séances de tirs au but pour avancer, consommant énormément mais avec une excellente résistance psychologique.",
+        "8ddc76651d799302": "Profondeur de l'équipe de France et avantage stratégique : Didier Deschamps a changé Thorgan Hazard et Kylian Mbappé pour continuer à presser les flancs danois, et l'exécution tactique de la France à la fin du match a dépassé les attentes",
+        "8def881fde44cf5d": "L'équipe danoise, pour s'assurer une qualification égale, a joué une tactique extrêmement conservatrice, abandonnant volontairement le contrôle de balle offensif pour une défense en profondeur",
+        "934f46dd4ce6a467": "L'attaque de la Danemark est gravement affaiblie, le principal attaquant Brædstrup et d'autres joueurs ratent plusieurs occasions de buts parfaites, avec une faible capacité de finition.",
+        "b8b3c5770d8e19b9": "L'entraîneur de la Danemark, Ullerslev, adopte une tactique trop avancée, en raison de la nécessité de gagner pour se qualifier, la formation est trop avancée dans la deuxième mi-temps, entraînant un déséquilibre entre l'attaque et la défense.",
+        "c1c9661ae204a008": "Le système de défense danois est extrêmement étanche, la défense centrale menée par Kristensen et Kjaer a réussi à résister aux attaques latérales et à la pression élevée du Pérou",
+        "fb485711a85a270b": "L'entraîneur tunisien Kaddouri a adopté un système de défense basé sur un 5-4-1 très ciblé, avec une position dense au milieu de terrain qui coupe les lignes d'attaque des deux piliers danois (Eriksen, Hojbjerg)"
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "115e0a8a4b58276f": "O atacante titular da Dinamarca, Doleris, está em baixa forma, falta-lhe o papel de pivô, o que leva a equipe dinamarquesa a ter dificuldades na posse de bola ofensiva e a falta de capacidade de conclusão na frente",
+        "14b0ae07a4211e03": "A ajuste tático da Dinamarca e a queda de energia: a Dinamarca ajustou sua formação para aumentar o ataque na segunda metade, expôs a defesa e, após os 60 minutos, a capacidade de interceptação no meio-campo caiu abruptamente",
+        "1ab26509bb778543": "O treinador australiano Arnold descreveu uma formação 5-4-1 de defesa profunda, com interceptações densas no meio-campo, eficazmente cortando a penetração da Tunísia.",
+        "2984987a1246c4cd": "O goleiro dinamarquês Kasper Schmeichel defendeu a pênalti crucial de Modrić na prorrogação, demonstrando uma forte capacidade de resistência ao estresse e de conclusão na linha de fundo",
+        "2b13f75ff46d7e3c": "A linha ofensiva da França quebrou o impasse com habilidades individuais: Mbappé, com sua força explosiva e técnica de arremesso, marcou dois gols, quebrando o equilíbrio esperado do sistema",
+        "35235aaa416cd044": "O atacante peruano Guerrero, recentemente recuperado, está em baixa forma, e Quaresma desperdiçou um pênalti crucial, resultando em mais de 20 chutes sem converter em gols",
+        "389bac9d480c2cd2": "A previsão do sistema de 1-1 foi o resultado da prorrogação, mas não considerou a alta probabilidade de entrada na prorrogação na fase de eliminatórias da Copa do Mundo",
+        "3bfcb86f1bfeb4f4": "O goleiro da Tunísia, Dhaouadi, se destacou, interceptando chutes de longa distância de Eriksen e de perto de Lindstrom",
+        "42311be5ea1c9aa3": "A troca em massa da equipe da França (Bogba, Griezmann e outros jogadores-chave substituídos), resultou em uma grande queda na criatividade e na vontade de finalizar na frente",
+        "496a96051c0ddc20": "O meio-campista dinamarquês Eriksen tem uma forte execução tática, suas passes precisos e ajustes são eficazes para rasgar a defesa peruana e criar pênaltis vencedores",
+        "5526eed3b218cebb": "O atacante australiano Matthew Leckie demonstrou uma alta execução tática e capacidade de marcar sozinho em contra-ataques, marcando o gol vencedor.",
+        "5af8a6bdb3fd56b0": "Ambas as equipes reduziram o ritmo do jogo em consenso, não investindo suficientemente na área de ataque, resultando em uma baixa expectativa de gols (xG)",
+        "6785722b7baa0131": "O volante tunisiano Abidine Schirri, com suas arrastadas e confrontações físicas no meio-campo, limitou eficazmente a transição ofensiva da equipe dinamarquesa",
+        "714ed67e5a0bf10d": "A Croácia mostrou uma forte resiliência na fase de eliminatórias, avançando consecutivamente através da prorrogação e da disputa de pênaltis, consumindo muita energia mas com excelente qualidade psicológica",
+        "8ddc76651d799302": "Profundidade de elenco e vantagem tática da França: Deschamps substituiu Kouloubaly e Koman para atacar os lados da defesa dinamarquesa, e a execução tática da França no final da partida foi melhor do que o esperado",
+        "8def881fde44cf5d": "A equipe dinamarquesa, garantindo a classificação com um empate, adotou uma tática extremamente defensiva, optando por abandonar a posse de bola ofensiva e se defender em profundidade",
+        "934f46dd4ce6a467": "A equipe da Dinamarca é gravemente fraca no ataque, com o principal atacante, Christian Eriksen, e outros jogadores desperdiçando várias chances de gol, com uma baixa capacidade de finalização.",
+        "b8b3c5770d8e19b9": "O treinador dinamarquês Ullerslev foi muito arriscado taticamente, na necessidade de vencer para avançar, a formação foi excessivamente ofensiva na segunda metade, resultando em um desequilíbrio entre ataque e defesa.",
+        "c1c9661ae204a008": "A defesa da Dinamarca é extremamente sólida, com a dupla de zagueiros Christensen e Kjaer liderando a linha de defesa que resistiu aos ataques laterais e à pressão alta do Peru",
+        "fb485711a85a270b": "O treinador da Tunísia, Kader, adotou um sistema de defesa baixa e específico de 5-4-1, com uma formação densa no meio-campo para cortar as linhas de passe dos dois pilares dinamarqueses (Eriksen e Hojbjerg) até a frente"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

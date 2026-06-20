@@ -1,0 +1,50 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "10b39a4e7cdc7069": "حارس مرمى فوجر فوزار في حالة رائعة، حيث سجل 9 مرات في الدفاع عن الهجمات، مما منع إسبانيا من تسجيل هدفين متوقعين",
+        "139af94cb9e007a2": "غياب مدافع إسبانيا الأساسي رابورتي بسبب إصابة في العضلة، مما أدى إلى تقييد قدرة مدافع الوسط البديل لينورمان على التمرير، مما جعله غير قادر على تقديم تمريرات عميقة لكسر الجمود",
+        "4eb57bf72c72ce1c": "فوجر دفاعًا بتنظيم 5-4-1، من خلال حماية منطقة الجزاء من خلال هجوميي الوسط، تمكن من قطع خط التسلل التقليدي للإسبان",
+        "8a9b53495886674c": "هجومي إسبانيا موراتا فقد تمامًا في مواجهة الدفاع الجسدي القوي للغاية، لم يسجل أي لمسة فعالة داخل منطقة الجزاء، ولم يكن لديه خطة بديلة لمهاجمة الدفاع المزدحم"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "10b39a4e7cdc7069": "Cape Verde goalkeeper Vozar is in superhuman form, making 9 saves and nullifying Spain's expected goal opportunities of up to 2.8 absolute scoring chances",
+        "139af94cb9e007a2": "Spain's main central defender Laporte is absent due to a muscle injury, leading to limited passing ability for substitute central defender Lenoir, who is unable to provide effective long-range passes to break the deadlock against the opponent's low defense",
+        "4eb57bf72c72ce1c": "Cape Verde uses a 5-4-1 deep defensive formation, protecting the penalty box front with two central midfielders, successfully cutting off Spain's traditional rib penetration route",
+        "8a9b53495886674c": "Spain's striker Morata is completely lost under the extreme physical confrontation from the opponent, making 0 effective touches in the penalty box throughout the game, lacking a B plan to break through dense defense"
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "10b39a4e7cdc7069": "El portero de Cabo Verde, Vozar, está en estado de dios, realizando 9 atajadas y desviando oportunidades de gol de España con un potencial de 2.8 puntos.",
+        "139af94cb9e007a2": "El mediocampista central titular de España, Laporte, se ausenta por lesión muscular, lo que limita la capacidad de salida del mediocampista central suplente, Lenoir-Mang, y no puede proporcionar pases en profundidad efectivos frente a la defensa baja del rival, lo que impide romper el empate.",
+        "4eb57bf72c72ce1c": "Cabo Verde utiliza una formación de defensa profunda 5-4-1, protegiendo la frontalidad del área de penal con dos mediocampistas centrales, logrando cortar la tradicional penetración de costado de España.",
+        "8a9b53495886674c": "El delantero español Morata se pierde completamente bajo el fuerte combate físico del rival, no registrando ningún toque efectivo en el área de penal durante todo el partido y careciendo de un plan B para romper la defensa compacta."
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "10b39a4e7cdc7069": "Le gardien du but du Cap-Vert, Vouzalar, est en forme incroyable, avec 9 arrêts, il a neutralisé des occasions de buts espagnoles prévues à 2,8 buts, des occasions absolument décisives",
+        "139af94cb9e007a2": "Le défenseur central titulaire de l'Espagne, Laporte, est absent en raison d'une blessure musculaire, ce qui limite les capacités de passe du défenseur de relève Lenoirman, qui ne peut fournir des passes en profondeur efficaces pour briser le jeu face à une défense basse de l'adversaire",
+        "4eb57bf72c72ce1c": "Le Cap-Vert utilise une défense en 5-4-1 en profondeur, protégée par deux milieux de terrain défensifs à la limite de la surface de réparation, ce qui a réussi à couper la route traditionnelle de pénétration latérale de l'Espagne",
+        "8a9b53495886674c": "Le attaquant espagnol Morata est complètement perdu sous la forte confrontation physique de l'adversaire, il n'a eu aucune touche efficace dans la surface de réparation pendant tout le match, et manque de plan B pour briser une défense dense"
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "10b39a4e7cdc7069": "O goleiro Vozar do Cabo Verde está em excelente forma, interceptando e defendendo 9 tentativas de gol, evitando oportunidades de gol altamente esperadas pela Espanha com 2,8 pontos",
+        "139af94cb9e007a2": "O zagueiro titular da Espanha, Laporte, está ausente devido a uma lesão muscular, o que limita a capacidade de passe do substituto Lenoir, que não pode fornecer passes de profundidade eficazes contra a defesa baixa do adversário, dificultando a quebra do empate",
+        "4eb57bf72c72ce1c": "Cabo Verde emprega a formação defensiva 5-4-1, protegendo a área de defesa por meio de dois volantes, e com sucesso corta a tradição de penetração lateral da Espanha",
+        "8a9b53495886674c": "O atacante Morata da Espanha está completamente perdido sob a forte pressão física do adversário, não tocou a bola de forma eficaz dentro da área de defesa em todo o jogo, e falta um plano B para quebrar a defesa densa"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

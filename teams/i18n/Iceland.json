@@ -1,0 +1,60 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "1b154821a2388355": "استخدمت منتخب إيسلندا دفاعًا عميقًا منخفضًا (تكتيك الحافلة) مع الانسحاب الجماعي، مما شكل دفاعًا مكثفًا في منطقة الجزاء، مما أدى إلى حجب مساحة التمرير والتسجيل للأرجنتين",
+        "1f82cee6a990f8c0": "يفتقر الأرجنتين إلى وسائل فعالة لكسر الدفاع المكثف، يعتمد الهجوم بشكل كبير على ميسي في التراجع التنظيمي والهجمات الفردية، ويعتمد على نقص التغيرات التكتيكية في منطقة الجزاء والهجمات الجوية القوية",
+        "247b94dc5af1272f": "Iceland's core player Sigurdsson is in a low state and missed a crucial penalty in the second half, completely destroying the hope of drawing",
+        "6764f011560c77e8": "Iceland's physical decline led to the defense being unable to cope with the personal speed and impact of Nigeria's striker Musa",
+        "e9203893e1fa836e": "Nigeria's midfield tactical adjustment, increased pressing in the front line in the second half led to a quick goal",
+        "edbf83083306cd83": "أدى حارس مرمى إيسلندا هارالدسون إلى أداء مذهل، حيث ساهم في إسقاط العديد من الأهداف القاتلة، وتمكن أيضًا من إسقاط ركلة الجزاء لليونيز في الشوط الثاني، مما غير نتيجة المباراة"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "1b154821a2388355": "Iceland adopted an extreme deep low defense (bus strategy) and full-retreat defense, forming a dense defensive formation in the penalty area, successfully blocking Argentina's passing and breaking space.",
+        "1f82cee6a990f8c0": "Argentina lacks effective means to break through dense defenses, over-relying on Messi's withdrawal organization and individual dribbling, lacking tactical changes in the penalty area and strong high-altitude bombing ability.",
+        "247b94dc5af1272f": "Iceland's core player Sigurdsson was in low form and missed a crucial penalty in the second half, completely destroying the hope of drawing level",
+        "6764f011560c77e8": "Iceland's physical decline led to their defense being unable to cope with the personal speed and impact of Nigeria's striker Musa",
+        "e9203893e1fa836e": "Nigeria's midfield made tactical adjustments, increasing high-pressure upfront in the second half, leading to a quick goal",
+        "edbf83083306cd83": "Iceland goalkeeper Halldorsson performed heroically, not only making multiple saves to thwart certain goals but also stopping Messi's penalty in the second half, directly changing the outcome of the match."
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "1b154821a2388355": "Islandia adoptó una defensa baja y profunda (táctica del autobús) y una retención total, formando una defensa densa en el área penal, logrando bloquear el espacio de pase y ruptura de Argentina.",
+        "1f82cee6a990f8c0": "Argentina careció de métodos efectivos para romper la defensa densa, dependiendo demasiado de Messi para la organización de retroceso y el juego individual, careciendo de cambios tácticos en el área penal y de capacidad de bombardeo aéreo fuerte.",
+        "247b94dc5af1272f": "Iceland's core player Sigurðsson is in a low state and misses a crucial penalty in the second half, completely destroying the hope of drawing",
+        "6764f011560c77e8": "Iceland's physical decline leads to the defense being unable to cope with the individual speed and impact of Nigeria's striker Musa",
+        "e9203893e1fa836e": "Nigeria adjusts the midfield tactics, increasing the tight press in the second half, leading to a quick goal",
+        "edbf83083306cd83": "El portero islandés Halldórsson se destacó con varias salvadas heroicas, no solo evitando goles inevitables, sino también deteniendo el penal de Messi en la segunda mitad, lo que cambió directamente el resultado del partido."
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "1b154821a2388355": "L'équipe d'Islande a adopté une défense basse et profonde (stratégie du bus) et une retraite collective, formant une défense compacte dans la surface de réparation, bloquant ainsi l'espace de passe et de percée de l'Argentine.",
+        "1f82cee6a990f8c0": "L'Argentine manque de moyens efficaces pour briser une défense compacte, dépendant trop de la retrait de Messi pour organiser et de l'attaque individuelle, manquant de changements tactiques dans la surface de réparation et de la capacité de bombardement aérien puissant.",
+        "247b94dc5af1272f": "Iceland's core player Sigurdsson is in a low form and missed a crucial penalty in the second half, completely destroying the hope of drawing",
+        "6764f011560c77e8": "Iceland's physical decline led to the defense being unable to cope with the personal speed and impact of Nigeria's striker Musa",
+        "e9203893e1fa836e": "The Nigerian midfield made tactical adjustments, increasing high-pressure in the front in the second half, leading to a quick goal",
+        "edbf83083306cd83": "Le gardien islandais Haldorsson a joué magnifiquement, non seulement effectuant plusieurs arrêts de sauvegardes cruciaux, mais aussi arrêtant le penalty de Messi en deuxième mi-temps, changeant directement le résultat du match."
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "1b154821a2388355": "A equipe islandesa adotou uma defesa baixa e profunda (tática do \"bús\") e uma retranca total, formando uma defesa densa na área penal, bloqueando o espaço de transição e de ataque da Argentina.",
+        "1f82cee6a990f8c0": "A Argentina falta de meios eficazes para romper a defesa densa, dependendo excessivamente da organização de Messi e de ataques individuais, sem variação tática na área penal e falta de capacidade de bombardeio aéreo forte.",
+        "247b94dc5af1272f": "Iceland's core player Sigurdsson is in a low form and missed a crucial penalty in the second half, completely destroying the hope of drawing",
+        "6764f011560c77e8": "Iceland's physical decline led to the defense being unable to cope with the individual speed and impact of Nigeria's striker Musa",
+        "e9203893e1fa836e": "The Nigerian midfield made tactical adjustments, increasing high-pressure in the front line in the second half, leading to a quick goal",
+        "edbf83083306cd83": "O goleiro islandês Haldorsson se destacou com várias defesas cruciais, além de defender a penalidade de Messi no segundo tempo, mudando diretamente o resultado do jogo."
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

@@ -1,0 +1,45 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "5b30b74784cbba09": "Tunisian striker Hazri scores and assists, his personal ability breaks the deadlock and determines the outcome of the match",
+        "738625a03f0c2778": "The match is in an open attacking rhythm rather than a conservative defense, Panama's defense is seriously aging and lacks coordination, resulting in losing 2 goals in a single match",
+        "a8ce6d127077c66f": "Tunisia, as an African team facing North American teams, has a tactical advantage in physical confrontation and counterattack speed"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "5b30b74784cbba09": "Tunisian forward Hazri scores and assists, his individual ability breaks the deadlock and determines the outcome of the match.",
+        "738625a03f0c2778": "The match is in an open attacking rhythm rather than a conservative defensive stance; Panama's defense is seriously aged and lacks coordination, resulting in 2 goals conceded in a single match.",
+        "a8ce6d127077c66f": "As an African team, Tunisia has a tactical advantage in physical confrontation and counter-attack speed when facing North American teams."
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "5b30b74784cbba09": "Tunisian forward Hazri scores and assists, his individual ability breaks the deadlock and determines the victory or defeat of the match",
+        "738625a03f0c2778": "The match is in an open attacking rhythm rather than a conservative defense, Panama's defense is seriously aged and lacks默契, resulting in losing 2 goals in a single match",
+        "a8ce6d127077c66f": "Tunisia, as an African team facing North American and Central American teams, has a tactical advantage in physical confrontation and counterattack speed"
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "5b30b74784cbba09": "Tunisian striker Hazri scores and assists, his personal ability breaks the deadlock and determines the outcome of the match",
+        "738625a03f0c2778": "The match is in an open attacking rhythm rather than a conservative defense, Panama's defense is seriously aged and lacks默契, resulting in losing 2 goals in a single match",
+        "a8ce6d127077c66f": "Tunisia, as an African team facing North American teams, has a tactical advantage in physical confrontation and counter-attack speed"
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "5b30b74784cbba09": "Tunisian forward Hazri scores and assists, his personal ability breaks the deadlock and determines the outcome of the match",
+        "738625a03f0c2778": "The match is in an open attacking rhythm rather than a conservative defense, Panama's defense is seriously aging and lacks cohesion, resulting in losing 2 goals in a single match",
+        "a8ce6d127077c66f": "Tunisia, as an African team facing North American teams, has a tactical advantage in physical confrontation and counter-attack speed"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

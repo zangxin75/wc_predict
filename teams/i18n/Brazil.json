@@ -1,0 +1,125 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "02229efa5c8e7533": "استخدم دفاع سويسرا شيلر فرصة الركلة الركنية في بداية اللقاء لتحقيق هدف رأسية، مما أربك مسار اللعب المتوقع",
+        "07a4c6accda5174a": "أدى حارس مرمى سويسرا سومر ببراعة في مواجهة البرازيل (مثل كوتينيو وجوزيس) في منع العديد من الفرص للتسجيل",
+        "0f3c4208726393c4": "حارس مرمى الكاميرون إيباسي مبوكى أظهر أداءً رائعًا، حيث ساهم في مرات عديدة بتمشيطات حاسمة للحفاظ على نظافة المرمى",
+        "196445b45aadc2f0": "إيقاع اللعب واللعبة النفسية: في مرحلة المجموعات في كأس العالم، اتبعت الفرق سياسة التحكم في النقاط بشكل واقعي، دون اللجوء إلى محاولات هجومية متطرفة في الوقت العادي",
+        "4c2314717326f9fe": "لاعب وسط كرواتيا لوكا مودريتش وبروزوفيتش أظهرا سيطرة تامة على الكرة واللعب بسرعة، مما ساعد في تقليل التهديد الهجومي المتوقع للبرازيل",
+        "4c656827b3887d28": "استخدمت بلجيكا تكتيك الدفاع عن الهجوم بشكل مخصوص، من خلال تشكيل الثلاثي البالغ من العمر (كونباني، فيلوتونين، ألدفريلد)، نجحت في تقييد الهجوم الدفاعي البرازيلي واستنزافه",
+        "50c6b2ea1044e37e": "فريق البرازيل قد أحرز المركز الأول في المجموعة مسبقًا، ومدرب الفريق تيت قام بتبديل واسع، وأرسل تشكيلة بديلة، مما أدى إلى نقص التآلف والقدرة على التهديف في الهجوم الأمامي",
+        "56276e6c12d202d8": "في الوقت الإضافي والمراحل التالية من ركلات الجزاء، كانت التكتيكات البرازيلية محافظة، مما أدى إلى ضغط نفسي كبير على اللاعبين الرئيسيين، مما أدى إلى أداء سيء في مراحل ركلات الجزاء",
+        "6b21064e7cea1c33": "التوازن التكتيكي المتبادل: كانت قدرات خط الهجوم البرازيلي الفردية تتعادل مع خط وسط الدفاع الكثيف بقيادة ألمرابات ومكابح الدفاع في المواقع المنخفضة",
+        "882d71884fd13120": "لعب ديبلاوين دور اللاعب الـ9 الافتراضي/حر في وسط الملعب، باستخدام التسديدات الطويلة والرصاصية، تمكن من اختراق الدفاع البرازيلي المرتفع مباشرة وأحرز الهدف الثاني الذي أقرر الفوز",
+        "8b7a4ce2cceab00a": "لاعب اليمين البديل للبرازيل أنطوني خسر العديد من الفرص للتسجيل، كما أن VAR تدخل وألغى هدفًا للبرازيل",
+        "a42ce3bfbe3c1c0f": "أربك هدف التعويض في الدقيقة 13 فريق البرازيل، مما أدى إلى تعرض الفريق البرازيلي للعصبية المبكرة وتخليه عن الصبر التكتيكي",
+        "a7189a7945b982db": "في الوقت الإضافي، قام مدرب البرازيل تيت بإخراج نيمار وباكيتا، مما أدى إلى فقدان السيطرة في وسط الملعب وعدم الحصول على حماية فعالة في الدفاع",
+        "b1b03401b1f65b45": "لاعب الهجوم الكرواتي بيتكوفيش سجل هدفًا حاسمًا في نهاية اللقاء، مما أظهر قوة الفريق في التعامل مع الأزمات والصلابة",
+        "d1b77f3163550641": "لتحقيق الكاميرون فرصة الخروج من المجموعة، بقي لديهم أمل نظري، حيث كان هناك إصرار جماعي قوي في الدفاع، وأحرز هدفًا في اللحظة الأخيرة من اللقاء من خلال هجوم عنيف من قبل أوبو بيكال بتمريرة رأسية",
+        "d4dc54307fc3c42f": "كانت طرق البرازيل لكسر الدفاع الكثيف متعددة، ولكن نيمار، الذي كان نجم الفريق، كان تحت مراقبة دفاعية من قبل خط دفاع سويسرا",
+        "dc1f861c4f96945a": "أظهر حارس مرمى بلجيكا كورتوا أداءً رائعاً، حيث سجل 9 مرات في الدفاع (خاصة في الدقائق الأخيرة عندما أخرج رصاصة نيمار في ركل الحسم)، مما غير نتيجة المباراة بشكل مباشر",
+        "f81fed03a6e184d5": "هناك خطأ في منطق النظام التنبؤي: تم تصنيف التعادل 1-1 كـ'خطأ في التنبؤ'، ولكن كان التنبؤ بالنتيجة دقيقًا",
+        "f9a86e466db5b760": "استخدمت سويسرا تكتيكات دفاعية متعمدة ومهاجمة بال反击، وتعقيد وسط الملعب (خاصة زاكا وبيرهامي) نجحت في قطع الاتصال بين خط الهجوم البرازيلي"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "02229efa5c8e7533": "Switzerland's center-back Schär scored with a header from a corner kick early in the game, disrupting the predicted regular match flow",
+        "07a4c6accda5174a": "Switzerland's goalkeeper Sommer was outstanding, making 9 saves (especially a miraculous save of Neymar's last-minute equalizing shot), his superhuman performance directly changing the outcome of the game",
+        "0f3c4208726393c4": "Cameroon goalkeeper Epie Mbockli performed outstandingly, making several key saves throughout the game to keep the goal unbreached",
+        "196445b45aadc2f0": "Match rhythm and psychological warfare: Both teams adopted relatively pragmatic score-controlling strategies in the World Cup group stage, avoiding all-out fighting in regular time",
+        "4c2314717326f9fe": "Croatia's midfielder Modrić and Brozović's excellent ball control and rhythm management successfully offset Brazil's anticipated offensive pressure",
+        "4c656827b3887d28": "Belgium employed highly targeted defensive counter-attack tactics, limiting and wearing down Brazil's positional attack through the mature three-center-back system composed of Kompany, Vermaelen, and Alderweireld",
+        "50c6b2ea1044e37e": "Brazil's team has already secured the first place in the group, coach Tite made a large-scale rotation, sending out a pure substitute lineup, which led to a lack of默契 and absolute finishing ability in the front-line offense",
+        "56276e6c12d202d8": "Brazil's conservative tactics in extra time and the penalty shootout phase, combined with the psychological pressure on key players, led to an underperforming shootout",
+        "6b21064e7cea1c33": "Tactical mutual containment: Brazil's frontline individual ability and Morocco's Amrabat-led meat grinder midfield and low-position defense perfectly offset each other",
+        "882d71884fd13120": "De Bruyne played as a pseudo-number nine/attacking midfielder, using precise long balls and long-range shots to penetrate Brazil's high-position defense and directly score the second goal that sealed the victory",
+        "8b7a4ce2cceab00a": "Brazil's substitute winger Anthony missed several good chances to score, and VAR intervened to disallow a goal for Brazil",
+        "a42ce3bfbe3c1c0f": "Fernandinho's own goal in the 13th minute disrupted Brazil's pre-game plans, leading to the team's early frustration and abandonment of tactical patience",
+        "a7189a7945b982db": "Brazil coach Tite substituted Neymar and Paquetá in the extra time, leading to a loss of control in the midfield and a lack of effective protection on the defensive end",
+        "b1b03401b1f65b45": "Croatia striker Petković's crucial equalizing goal late in the match showcased the team's strong resilience and morale",
+        "d1b77f3163550641": "Cameroon retained a theoretical hope of qualifying, with the team showing a strong will to fight, defending resolutely and securing a crucial header goal by Aboubakar in the dying minutes of the match",
+        "d4dc54307fc3c42f": "Brazil's methods of breaking through dense defenses are relatively single-minded, and key player Neymar is heavily marked and restricted by Switzerland's backline",
+        "dc1f861c4f96945a": "Belgium's goalkeeper Courtois was outstanding, making 9 saves (especially a miraculous save of Neymar's last-minute equalizing shot), his superhuman performance directly changing the outcome of the game",
+        "f81fed03a6e184d5": "The system's prediction logic contains a misconception: the system deemed a 1-1 draw as 'prediction error', but in fact, the system's prediction of the score was completely accurate",
+        "f9a86e466db5b760": "Switzerland's targeted defensive counter-attack tactics and midfield smothering (especially from Zakuani and Behrami) successfully cut off Brazil's attacking line"
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "02229efa5c8e7533": "Switzerland's center-back Schär scored a header from a corner kick early in the game, disrupting the normal game flow predicted by the system",
+        "07a4c6accda5174a": "Switzerland's goalkeeper Sommer was outstanding, making numerous key saves to prevent Brazil (such as Coutinho, Jesus, etc.) from scoring",
+        "0f3c4208726393c4": "Cameroon goalkeeper Epse Mbocki performed outstandingly, making several key saves throughout the game to keep the goal unbreached",
+        "196445b45aadc2f0": "Game rhythm and psychological game: both teams adopted a relatively pragmatic scoring strategy in the World Cup group stage and did not engage in extreme fighting in regular time",
+        "4c2314717326f9fe": "Croatia's midfielder Modrić and Brozović's excellent ball control and rhythm control successfully offset Brazil's expected offensive pressure",
+        "4c656827b3887d28": "Bélgica ha utilizado una táctica de contraataque defensivo muy específica, limitando y agotando la ofensiva ofensiva de Brasil mediante el sistema maduro de tres centrales formado por Vincent Kompany, Jan Vertonghen y Jan Vertonghen.",
+        "50c6b2ea1044e37e": "Brazil's team has already secured the first place in the group, coach Tite made a large-scale rotation, putting on a pure substitute lineup, which led to a lack of默契 and absolute finishing ability in the front-line offense",
+        "56276e6c12d202d8": "Brazil's tactics were conservative in extra time and during the penalty shootout, the psychological pressure on the core players was too great, leading to an abnormal performance in the penalty shootout",
+        "6b21064e7cea1c33": "Tactical mutual containment: Brazil's frontline individual ability and Morocco's Amrabat-led meat grinder midfield and low defense formed a perfect offset",
+        "882d71884fd13120": "Kevin De Bruyne actúa como falso nueve/libre mediocampista, utilizando pases largos y disparos lejanos para romper completamente la defensa alta de Brasil y marcar el segundo gol que selló la victoria.",
+        "8b7a4ce2cceab00a": "Brazil's substitute winger Anthony missed several good chances to score, and VAR intervened to disallow a goal for Brazil",
+        "a42ce3bfbe3c1c0f": "Fernandinho ha desequilibrado el despliegue previo de Brasil con su autogol en el minuto 13, lo que ha llevado a que Brasil se sumerja prematuramente en una actitud ansiosa y abandone la paciencia táctica.",
+        "a7189a7945b982db": "Brazil coach Tite replaced Neymar and Paqueta in the extra time, leading to a loss of control in the midfield and a lack of effective protection on the defensive end",
+        "b1b03401b1f65b45": "Croatia's striker Petković scored a crucial equalizing goal in the dying minutes of the game, demonstrating the team's strong resilience and morale",
+        "d1b77f3163550641": "Cameroon retained a theoretical hope of qualifying, the team's will to fight was extremely strong, they defended as a unit, and in the final moments of the game, Aboubakar scored a header through counterattack",
+        "d4dc54307fc3c42f": "Brazil's methods of breaking through dense defenses are relatively single, and core player Neymar is heavily marked and restricted by Switzerland's backline",
+        "dc1f861c4f96945a": "El portero belga Thibaut Courtois ha mostrado una actuación heroica, con 9 atajos (especialmente el极限 en el último minuto que impidió el empate de Neymar), un rendimiento sobrehumano que cambió directamente el resultado del partido.",
+        "f81fed03a6e184d5": "The system's prediction logic contains a misconception: the system deemed a 1-1 draw as 'prediction error', but in fact, the system's prediction of the score was completely accurate",
+        "f9a86e466db5b760": "Switzerland's targeted defensive counter-attack tactics and midfield harassment (especially Zakuani and Behrami) successfully cut off the connection of Brazil's front-line attacking group"
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "02229efa5c8e7533": "Le défenseur central suisse Schär utilise une corner pour marquer un but de tête peu après le début du match, perturbant le déroulement prévu du match",
+        "07a4c6accda5174a": "Le gardien suisse Sommer se montre héroïque, parvenant à repousser plusieurs occasions de buts certaines du Brésil (comme Coutinho, Jesus, etc.)",
+        "0f3c4208726393c4": "Le gardien de but camerounais Epse Mbock a joué magnifiquement, effectuant plusieurs arrêts de grande classe tout au long du match pour préserver la porte inviolée",
+        "196445b45aadc2f0": "Le rythme du match et le jeu psychologique : les deux équipes adoptent une stratégie de contrôle des points réaliste lors de la phase de groupes de la Coupe du Monde, sans se battre jusqu'au bout dans le temps réglementaire",
+        "4c2314717326f9fe": "Le milieu croate Modrić et Brozović contrôlent parfaitement le ballon et le rythme, ce qui réussit à neutraliser la pression offensive attendue du Brésil",
+        "4c656827b3887d28": "La Belgique a utilisé une tactique de contre-attaque défensive très ciblée, en limitant et en usant de l'attaque de position brésilienne grâce à un système de trois défenseurs centraux mûrs composé de Kompany, Vertonghen et Alderweireld",
+        "50c6b2ea1044e37e": "L'équipe brésilienne a déjà sécurisé la première place du groupe, l'entraîneur Tite effectue des changements massifs, aligne une équipe de remplaçants, ce qui entraîne une absence de cohésion offensive et d'une capacité de finition absolue",
+        "56276e6c12d202d8": "La stratégie défensive conservatrice du Brésil et la phase de tirs au but en prolongation, avec une pression psychologique excessive sur les joueurs clés, entraînent une performance désastreuse lors des tirs au but",
+        "6b21064e7cea1c33": "La mutualisation stratégique : la capacité individuelle de l'avant du Brésil et la défense basse et destructrice du milieu de terrain marocain menée par Amrabat forment une parfaite neutralisation",
+        "882d71884fd13120": "De Bruyne joue le rôle de faux neuf/intermilieu libre, utilisant des passes longues et des tirs lointains pour percer la défense haute du Brésil et inscrire directement le deuxième but décisif",
+        "8b7a4ce2cceab00a": "L'arrière latéral de relève brésilien Anthony rate plusieurs occasions de but, et la VAR annule un but du Brésil",
+        "a42ce3bfbe3c1c0f": "Fernandinho a perturbé les plans de la Belgique avec son but contre son camp à la 13e minute, entraînant une précipitation prématurée de l'équipe brésilienne et un abandon de la patience tactique",
+        "a7189a7945b982db": "L'entraîneur brésilien Tite change Neymar et Paquetá en prolongation, ce qui entraîne une perte de contrôle au milieu de terrain et un manque de protection efficace en défense",
+        "b1b03401b1f65b45": "Le attaquant croate Petković marque un but d'égalisation crucial à la fin du match, démontrant une résilience et une capacité à rebondir incroyables",
+        "d1b77f3163550641": "Le Cameroun conserve une chance théorique de qualification, l'équipe est extrêmement déterminée, défend en bloc et, dans les derniers instants du match, marque un but d'angle par Aboubakar pour une victoire inattendue",
+        "d4dc54307fc3c42f": "Les moyens du Brésil pour briser la défense dense sont relativement simples, et le joueur clé Neymar est fortement marqué et limité par la défense suisse",
+        "dc1f861c4f96945a": "Le gardien belge Courtois a joué un rôle héroïque, avec 9 arrêts (notamment un arrêt de la tentative de coup franc égalisateur de Neymar à la fin du match), une performance extraordinaire qui a directement changé le résultat du match",
+        "f81fed03a6e184d5": "L'erreur logique du système de prévision : le système juge un match nul de 1-1 comme une 'erreur de prévision', mais en réalité, les prévisions de score sont complètement précises",
+        "f9a86e466db5b760": "La stratégie défensive en contre-attaque et la destruction de milieu de terrain de l'équipe suisse (en particulier Zakuani et Behrami) parviennent à couper les liaisons de l'attaque brésilienne"
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "02229efa5c8e7533": "O zagueiro suíço Schär marcou um gol de cabeça logo no início do jogo, desorganizando a previsão de jogo do sistema",
+        "07a4c6accda5174a": "O goleiro suíço Sommer se destacou, defendendo várias chances de gol certeiro da seleção brasileira (como Coutinho, Jesus, etc.)",
+        "0f3c4208726393c4": "O goleiro Camaronesa Epa N'Golo Mboukqui se destacou, realizando várias defesas cruciais para manter a porta intransponível",
+        "196445b45aadc2f0": "O ritmo do jogo e a batalha psicológica: os dois times adotaram uma estratégia de controle de pontos realista na fase de grupos da Copa do Mundo, sem se envolver em uma luta extrema no tempo normal",
+        "4c2314717326f9fe": "O meio-campista croata Modrić e Brozović mostraram um controle perfeito da posse de bola e do ritmo, neutralizando a pressão ofensiva esperada do Brasil",
+        "4c656827b3887d28": "A Bélgica adotou uma tática de contra-ataque defensivo extremamente específica, limitando e consumindo a ofensiva de posse do Brasil através do sistema maduro de três zagueiros formado por Kompany, Vermaelen e Alderweireld.",
+        "50c6b2ea1044e37e": "A seleção brasileira já garantiu a liderança do grupo, o técnico Tite realizou uma grande rotatividade, colocando uma equipe composta apenas por reservas, o que resultou na falta de entrosamento e capacidade de conclusão no ataque",
+        "56276e6c12d202d8": "A seleção brasileira foi conservadora na prorrogação e na disputa de pênaltis, com a pressão psicológica dos jogadores principais resultando em uma atuação abaixo do esperado",
+        "6b21064e7cea1c33": "A mutuala contenção tática: a capacidade individual da linha ofensiva brasileira e a pressão baixa da meio-campo e da defesa do Marrocos liderados por Amrabat formam uma perfeita neutralização",
+        "882d71884fd13120": "De Bruyne jogou como um falso nove/meio-campista livre, usando passes longos e chutes longos para perfurar a alta linha defensiva da Bélgica e marcar o segundo gol que selou a vitória.",
+        "8b7a4ce2cceab00a": "O lateral esquerdo reserva brasileiro Anthony perdeu várias chances de marcar, e o VAR anularia um gol da seleção brasileira",
+        "a42ce3bfbe3c1c0f": "Fernandinho marcou um autogol no 13º minuto, desorganizando o planejamento pré-jogo da Bélgica, levando a equipe a entrar em pânico cedo e a abandonar a paciência tática.",
+        "a7189a7945b982db": "O técnico brasileiro Tite substituiu Neymar e Paquetá no intervalo de prorrogação, resultando em uma perda de controle no meio-campo e na falta de proteção eficaz na defesa",
+        "b1b03401b1f65b45": "O atacante croata Petković marcou um gol crucial para o empate no final do jogo, mostrando uma forte resiliência e moral da equipe",
+        "d1b77f3163550641": "O Camarões manteve a esperança teórica de classificação, com a equipe mostrando uma forte determinação, defendendo coletivamente e, no último momento do jogo, marcando um gol de cabeça na contra-ataque por Aboubakar",
+        "d4dc54307fc3c42f": "A seleção brasileira tem uma maneira relativamente única de quebrar a defesa densa, e o centroavante Neymar é intensamente marcado e limitado pela linha de defesa suíça",
+        "dc1f861c4f96945a": "O goleiro Courtois da Bélgica se destacou, realizando 9 defesas (especialmente a defesa limite do chute de longa distância de Neymar no final do jogo), uma performance de deus no campo que mudou diretamente o resultado do jogo.",
+        "f81fed03a6e184d5": "A lógica da previsão do sistema contém erros: o sistema considera um empate de 1-1 como 'erro de previsão', mas na verdade a previsão do placar é completamente precisa",
+        "f9a86e466db5b760": "A defesa ofensiva específica da Suíça e a pressão no meio-campo (especialmente Zakuani e Behrami) cortaram a conexão da linha ofensiva brasileira"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

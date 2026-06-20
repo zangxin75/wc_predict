@@ -1,0 +1,100 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "02229efa5c8e7533": "استخدم دفاع سويسرا شيلر فرصة الركلة الركنية في بداية اللقاء لتحقيق هدف رأسية، مما أربك مسار اللعب المتوقع",
+        "07a4c6accda5174a": "أدى حارس مرمى سويسرا سومر ببراعة في مواجهة البرازيل (مثل كوتينيو وجوزيس) في منع العديد من الفرص للتسجيل",
+        "127de66cd69e370d": "أداء اللاعبين الأساسيين: تم إبعاد لاعب سويسرا الأساسي ساكيري تحت الدفاع السويدي الدقيق، مما أدى إلى انقطاع الهجوم السويسري بشكل كامل، ولم يتمكن من إطلاق النار بناءً على التوقعات النظامية",
+        "16885e8444dafe33": "تشكلت تشكيلة المنتخب السويسري من اللاعبين الكبار والشباب، مما أدى إلى انخفاض في قدرته على تغطية الوسط، ولم يتمكن من السيطرة على وسط قطر الذي كان يتمتع باللاعبين المحترفين",
+        "494a932d029ff994": "كانت خطوة الهجوم للمنتخب السويسري تعاني من نقص في القدرة على التسجيل (عدم وجود قوة في خط الهجوم)، كما أن وسيلة الهجوم كانت محدودة في الهجمات على الدفاع المتشابك، ولم يتمكن من تسجيل الهدف الثاني الذي تنبأ به النظام",
+        "4a4a3f5282877f23": "انحراف نموذج المباراة: تم تقدير قدرة سويسرا على تحمل الضغط في الدور التالي من قبل النظام، حيث اتبعت الطرفان استراتيجيات دفاعية متشددة في المباراة الفاصلة، مما أدى إلى انخفاض جودة المباراة بشكل كبير عن التوقعات",
+        "638ffc4f133d08b6": "في الشوط الثاني، حيث كان فريق صربيا في خلفية 2-3 و急需 هدف، لم يظهر الفريق الت纪律ة التكتيكية التي تتوقعها من فريق قوي، حيث أصبح لاعبو خط الهجوم مثل ميتروفيتش عاطفيين بشكل كبير (حتى ظهرت نوايا للعصيان) وتراجعت كفاءة الهجوم بشكل كبير",
+        "6c5abbfc2269298d": "اعتمدت قطر على تكتيك الدفاع الديناميكي 5-4-1، واستخدمت قدرات أفيف الشخصية في الهجمات للتحول إلى نقاط هجومية أو تهديدات، مما ساعدها في تحقيق نتيجة إيجابية",
+        "720407e5df1912a3": "التكتيكات المضادة: نجحت الهجمات الجوية السويدية والتحديات الجسدية في تقييد دفاع سويسرا الهش، مما أدى إلى تكرار الأخطاء في الدفاع السويسري في إزالة الكرات (ما أدى إلى هدفي فوسبري عبر الرقصة)",
+        "c0b90ebf4d368bed": "أستاذ فريق صربيا ستويكوفييتش أتبع استراتيجية الدفاع العالي والضغط الشديد، وحدثت فجوات في خط الدفاع (خاصة في وسط الدفاع ميلينكوفيتش)، مما أدى إلى عدم التوازن في الهجوم والدفاع للفريق",
+        "d42b8d967e2f05a5": "جمعت قطر تجربة غنية في المنافسات الكبرى كبلد مضيف في كأس العالم 2022، كما أنها كانت تتمتع بمزايا التكيف بالمناخ والجغرافيا في شمال أمريكا الوسطى (الولايات المتحدة وكندا والمكسيك)",
+        "d4dc54307fc3c42f": "كانت طرق البرازيل لكسر الدفاع الكثيف متعددة، ولكن نيمار، الذي كان نجم الفريق، كان تحت مراقبة دفاعية من قبل خط دفاع سويسرا",
+        "f5a1b1934b705740": "فريق سويسرا المهاجم الأساسي ساكيري وفريق الهجوم إنبول وفرويلر وغيرهم تحولوا بسرعة إلى الهجوم، وحققوا تقدم 2-0 في الدقائق ال30 الأولى، مما اخترق نموذج بيانات الدفاع المتوقع",
+        "f9a86e466db5b760": "استخدمت سويسرا تكتيكات دفاعية متعمدة ومهاجمة بال反击، وتعقيد وسط الملعب (خاصة زاكا وبيرهامي) نجحت في قطع الاتصال بين خط الهجوم البرازيلي"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "02229efa5c8e7533": "Switzerland's center-back Schär scored with a header from a corner kick early in the game, disrupting the predicted regular match flow",
+        "07a4c6accda5174a": "Switzerland's goalkeeper Sommer was outstanding, making 9 saves (especially a miraculous save of Neymar's last-minute equalizing shot), his superhuman performance directly changing the outcome of the game",
+        "127de66cd69e370d": "Core player performance: Switzerland's core player Shaqiri was completely isolated under Sweden's tight targeted defense, leading to Switzerland's complete disconnection on the offensive end and failing to unleash the expected offensive power",
+        "16885e8444dafe33": "The Swiss team is aging and in a period of新老交替, the midfield coverage ability has decreased, and they failed to form effective control against Qatar's naturalized players in the midfield.",
+        "494a932d029ff994": "The Swiss team lacks finishing ability on the offensive end (the front line is weak), has a single method of breaking through dense defenses in positional warfare, and failed to score the second goal predicted by the system.",
+        "4a4a3f5282877f23": "Match model bias: The system overestimated Switzerland's ability to withstand pressure and offensive finishing efficiency in the knockout stage, and both teams adopted extremely conservative strategies in the do-or-die match, with the actual match quality far below expectations",
+        "638ffc4f133d08b6": "In the second half, trailing 2-3 and urgently needing a goal, Serbia failed to show the tactical discipline expected of a strong team, with forwards like Mitrovic becoming increasingly emotional (even showing signs of conflict), resulting in low offensive efficiency.",
+        "6c5abbfc2269298d": "Qatar adopted a pragmatic 5-4-1 defensive counter-attack strategy, utilizing the individual ability of Afif to counter-attack for scoring opportunities or threats, and successfully snatched a point.",
+        "720407e5df1912a3": "Tactical dominance: Sweden's high-altitude bombing and physical confrontation tactics successfully suppressed Switzerland's fragile defense, leading to frequent mistakes in heading and clearance by Switzerland's defense (directly resulting in Forsberg's deflected goal)",
+        "c0b90ebf4d368bed": "Serbia coach Stojkovic employs an extreme sieve-like high-position defense and pressing tactics, with the defense (especially center-back Milinkovic) frequently losing position, leading to a serious imbalance between offense and defense for the team.",
+        "d42b8d967e2f05a5": "As the host of the 2022 World Cup, Qatar has accumulated rich experience in major competitions and has the advantage of climate and geographical adaptability in Central and North America (USA, Canada, Mexico).",
+        "d4dc54307fc3c42f": "Brazil's methods of breaking through dense defenses are relatively single-minded, and key player Neymar is heavily marked and restricted by Switzerland's backline",
+        "f5a1b1934b705740": "Switzerland's attacking core, Shaqiri, and forwards like Embolo and Freuler have an extremely high conversion rate in counterattacks, leading 2-0 in the first 30 minutes and directly piercing the system's expected defensive data model.",
+        "f9a86e466db5b760": "Switzerland's targeted defensive counter-attack tactics and midfield smothering (especially from Zakuani and Behrami) successfully cut off Brazil's attacking line"
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "02229efa5c8e7533": "Switzerland's center-back Schär scored a header from a corner kick early in the game, disrupting the normal game flow predicted by the system",
+        "07a4c6accda5174a": "Switzerland's goalkeeper Sommer was outstanding, making numerous key saves to prevent Brazil (such as Coutinho, Jesus, etc.) from scoring",
+        "127de66cd69e370d": "Actuación de jugadores clave: El jugador clave suizo Shaqiri fue completamente aislado bajo la defensa exhaustiva de Suecia, lo que llevó a que el ataque suizo se desintegrara completamente y no pudiera desplegar el poder de ataque esperado por el sistema",
+        "16885e8444dafe33": "El equipo suizo está envejeciendo y en una fase de transición entre viejos y nuevos, la capacidad de cobertura en el mediocampo ha disminuido, y frente a los jugadores de mediocampo naturalizados de Catar, no pudo formar un control efectivo",
+        "494a932d029ff994": "El ataque del equipo suizo carece de capacidad de finalización (la delantera es débil), tiene métodos únicos para romper la defensa densa en el juego de campo, y no logró marcar el segundo gol predicho por el sistema",
+        "4a4a3f5282877f23": "Desviación del modelo de partido: El sistema sobreestimó la capacidad de resistencia y la eficiencia de finalización de ataque de Suiza en las eliminatorias, y ambos equipos adoptaron estrategias extremadamente conservadoras en la batalla por la supervivencia, lo que llevó a que la calidad real del partido fuera mucho menor de lo esperado",
+        "638ffc4f133d08b6": "En la segunda mitad, cuando Serbia estaba perdiendo 2-3 y necesitaba urgentemente un gol, no mostró la disciplina táctica que debería tener un equipo fuerte, y los jugadores del ataque como Mitrovic mostraron emociones agitadas (incluso con signos de conflicto) y una baja eficiencia en el ataque",
+        "6c5abbfc2269298d": "Catar adoptó la táctica defensiva ofensiva realista de 5-4-1, aprovechando la capacidad individual de Afif para contraatacar y crear puntos o amenazas, logrando robar un punto",
+        "720407e5df1912a3": "Táctica de control: La bombardera aérea y la táctica de contragolpe de Suecia lograron suprimir eficazmente la débil defensa suiza, lo que llevó a que la defensa suiza cometiera continuamente errores de despeje y descompensación (lo que directamente llevó al gol reflexo de Fosbury)",
+        "c0b90ebf4d368bed": "El entrenador serbio Stojkovic utiliza una defensa alta y extremadamente pasiva con tácticas de presión, lo que lleva a que la defensa (especialmente el mediocampista central Milinkovic) pierda frecuencia, causando un desequilibrio grave en el ataque y la defensa del equipo",
+        "d42b8d967e2f05a5": "Catar, como anfitrión de la Copa del Mundo 2022, ha acumulado una rica experiencia en grandes eventos y tiene ventajas en la adaptación climática y geográfica de América Central y del Norte (Estados Unidos, Canadá, México)",
+        "d4dc54307fc3c42f": "Brazil's methods of breaking through dense defenses are relatively single, and core player Neymar is heavily marked and restricted by Switzerland's backline",
+        "f5a1b1934b705740": "El mediocampista suizo Shaqiri y los delanteros Embolo y Froi勒等 tienen una alta tasa de conversión en contragolpes, logrando una ventaja de 2-0 en los primeros 30 minutos, directamente atravesando el modelo de datos de defensa esperado por el sistema",
+        "f9a86e466db5b760": "Switzerland's targeted defensive counter-attack tactics and midfield harassment (especially Zakuani and Behrami) successfully cut off the connection of Brazil's front-line attacking group"
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "02229efa5c8e7533": "Le défenseur central suisse Schär utilise une corner pour marquer un but de tête peu après le début du match, perturbant le déroulement prévu du match",
+        "07a4c6accda5174a": "Le gardien suisse Sommer se montre héroïque, parvenant à repousser plusieurs occasions de buts certaines du Brésil (comme Coutinho, Jesus, etc.)",
+        "127de66cd69e370d": "Performance des joueurs clés : le joueur clé suisse Shaqiri a été complètement isolé sous la défense ciblée de la Suède, ce qui a conduit à une complète déconnexion de l'attaque suisse et à une absence de la puissance d'attaque attendue par le système",
+        "16885e8444dafe33": "L'équipe de Suisse est vieillissante et en pleine transition entre générations, la capacité de couverture au milieu de terrain a diminué, et face à la stratégie de harcèlement au milieu de terrain des joueurs naturalisés du Qatar, elle n'a pas pu former un contrôle efficace.",
+        "494a932d029ff994": "L'attaque de l'équipe de Suisse manque de capacité de finition (la ligne d'attaque est faible), les moyens de briser la défense dense sont uniques, et elle n'a pas réussi à marquer le deuxième but prévu par le système.",
+        "4a4a3f5282877f23": "Déviation du modèle de match : le système a surestimé la capacité de résistance et l'efficacité de finition offensive de la Suisse en phase de élimination, et les deux équipes ont adopté une stratégie extrêmement conservatrice dans le match crucial, la qualité réelle du match étant bien inférieure aux attentes",
+        "638ffc4f133d08b6": "Lors de la deuxième mi-temps, où la Serbie était en retard 2-3 et avait besoin d'un but urgent, l'équipe n'a pas montré la discipline tactique qu'une équipe forte devrait avoir, et les joueurs d'attaque tels que Mitrovic étaient en colère (même des signes de conflits ont émergé), ce qui a entraîné une faible efficacité offensive.",
+        "6c5abbfc2269298d": "Le Qatar a adopté une stratégie défensive offensive réaliste en 5-4-1, utilisant les capacités individuelles d'Affi pour contre-attaquer, créer des occasions ou des menaces, et a réussi à obtenir un point.",
+        "720407e5df1912a3": "Tactique de contrepoids : les bombardements aériens et les tactiques de combat corporel de la Suède ont réussi à contenir la défense vulnérable de la Suisse, entraînant des erreurs fréquentes de déviation et de dégagement de la défense suisse (directement causant le but dévié de Fosbury)",
+        "c0b90ebf4d368bed": "L'entraîneur serbe Stojkovic a adopté une défense haute et pressante de type \"poisson à la mouche\", ce qui a conduit à des pertes fréquentes dans la défense (en particulier le défenseur central Milinkovic), ce qui a causé un déséquilibre grave entre l'attaque et la défense de l'équipe.",
+        "d42b8d967e2f05a5": "Le Qatar, en tant qu'hôte de la Coupe du Monde 2022, a accumulé une riche expérience de grandes compétitions et dispose d'avantages d'adaptation climatique et géographique pour l'Amérique centrale et latine (États-Unis, Canada, Mexique).",
+        "d4dc54307fc3c42f": "Les moyens du Brésil pour briser la défense dense sont relativement simples, et le joueur clé Neymar est fortement marqué et limité par la défense suisse",
+        "f5a1b1934b705740": "L'attaquant central de la Suisse, Shaqiri, ainsi que les avants Embolo et Froi勒等人，ont une très haute conversion en contre-attaque, et ils ont pris une avance de 2-0 en seulement 30 minutes, ce qui a directement percé le modèle de données de défense attendu par le système.",
+        "f9a86e466db5b760": "La stratégie défensive en contre-attaque et la destruction de milieu de terrain de l'équipe suisse (en particulier Zakuani et Behrami) parviennent à couper les liaisons de l'attaque brésilienne"
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "02229efa5c8e7533": "O zagueiro suíço Schär marcou um gol de cabeça logo no início do jogo, desorganizando a previsão de jogo do sistema",
+        "07a4c6accda5174a": "O goleiro suíço Sommer se destacou, defendendo várias chances de gol certeiro da seleção brasileira (como Coutinho, Jesus, etc.)",
+        "127de66cd69e370d": "Desempenho de jogadores-chave: O jogador-chave da Suíça, Shaqiri, foi completamente isolado sob a defesa rigorosa e específica da Suécia, resultando em uma completa desconexão no ataque da Suíça, que não conseguiu desenvolver a força de ataque esperada pelo sistema",
+        "16885e8444dafe33": "A equipe da Suíça está envelhecendo e está em uma fase de transição entre gerações, a capacidade de cobertura do meio-campo diminuiu, e não foi possível formar um controle eficaz contra a pressão do meio-campo dos jogadores naturalizados do Catar",
+        "494a932d029ff994": "A equipe da Suíça falta de capacidade de finalização no ataque (a linha de ataque é fraca), métodos de romper a defesa densa no jogo de posse de bola são singulares, e não foi possível marcar o segundo gol previsto pelo sistema",
+        "4a4a3f5282877f23": "Desvio no modelo de jogo: O sistema sobreestimou a capacidade de resistência e a eficiência de conclusão de ataque da Suíça nas eliminatórias, e ambos os times adotaram estratégias extremamente conservadoras na decisão de vida ou morte, resultando em uma qualidade de jogo bem abaixo das expectativas",
+        "638ffc4f133d08b6": "Na segunda metade, quando a Sérvia estava perdendo por 2-3 e precisava urgentemente de um gol, a equipe não demonstrou a disciplina tática que uma equipe forte deve ter, com jogadores da linha ofensiva como Mitrovic se mostrando nervosos (até mesmo com sinais de conflito), resultando em uma baixa eficiência no ataque",
+        "6c5abbfc2269298d": "O Catar adotou a tática defensiva ofensiva 5-4-1 prática, utilizando a capacidade individual de Afif para contra-atacar, criar pontos ou ameaças, e obter um ponto com sucesso",
+        "720407e5df1912a3": "Tática de contenção: A bomba aérea e a tática de confronto física da Suécia suprimiram com sucesso a vulnerável defesa da Suíça, resultando em frequentes erros de desvio e de defesa da Suíça (diretamente criando o gol reflexo de Fosbury)",
+        "c0b90ebf4d368bed": "O treinador sérvio Stojkovic adotou uma defesa alta e extremamente ofensiva, com frequentes falhas na linha defensiva (especialmente no zagueiro Milinkovic), resultando em um desequilíbrio grave entre ataque e defesa da equipe",
+        "d42b8d967e2f05a5": "O Catar, como anfitrião da Copa do Mundo de 2022, acumulou uma vasta experiência em grandes competições e possui vantagens adaptativas climáticas e geográficas da América Central e do Norte (EUA, Canadá, México)",
+        "d4dc54307fc3c42f": "A seleção brasileira tem uma maneira relativamente única de quebrar a defesa densa, e o centroavante Neymar é intensamente marcado e limitado pela linha de defesa suíça",
+        "f5a1b1934b705740": "A equipe suíça tem uma alta taxa de conversão de contra-ataques liderados pelo centroavante Shaqiri e outros atacantes como Embolo e Froi勒，atingindo uma vantagem de 2-0 nas primeiras 30 minutos, diretamente rompendo o modelo de dados de defesa esperado pelo sistema",
+        "f9a86e466db5b760": "A defesa ofensiva específica da Suíça e a pressão no meio-campo (especialmente Zakuani e Behrami) cortaram a conexão da linha ofensiva brasileira"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

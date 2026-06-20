@@ -1,0 +1,50 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "2021772d9db65b92": "تعرض لاعب وسط الإكوادور كايزيدو للضغط الشديد من قبل لاعب وسط كوت ديفواري فافانا، مما أدى إلى قطع خطوط التقدم والتسليم من الدفاع إلى الهجوم",
+        "92547bd4c983dc11": "تعتمد الإكوادور بشكل كبير على نقطة الدعم في خط الهجوم لفالنسيا، وعدم وجود نقطة ثانية للهجوم في التدخل، مما أدى إلى هجمات متواضعة في اللعب النشط",
+        "d045d49ef8742fcf": "شكل المدافع الكوت ديفواري أغبوردو وشنتون خط دفاعي في المباراة العالية في كأس العالم، وأظهروا تقنية دفاعية منخفضة المستوى عالية، مما أدى إلى حجز هدف نظيف للإكوادور",
+        "ea1852553b2a7de1": "في حالته الخلفية، في الشوط الثاني، تعرض الإكوادور لضغط كبير، وتشتت التشكيلة، مما أدى إلى تهديدات قاتلة من خلال الهجمات السريعة من قبل كوت ديفوار، والتي تحولت إلى هدف واحد فقط"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "2021772d9db65b92": "Ecuador's core midfielder, César, was tightly marked and restricted by Ivory Coast's central midfielder Fofana through physical combat and tactical fouls, cutting off his transition from defense to offense and his passing network.",
+        "92547bd4c983dc11": "Ecuador was overly reliant on the Valencia forward as a pivot, lacking the finishing ability of a second attacking point, resulting in a lot of noise but few results in their offensive play.",
+        "d045d49ef8742fcf": "Ivory Coast central defender Agbossou and the defense line formed with Henton showed top-level low-position defensive discipline in the high-intensity World Cup confrontation, successfully keeping Ecuador scoreless.",
+        "ea1852553b2a7de1": "When Ecuador was trailing in the score in the second half, they pressed heavily, causing disarray in their formation, and Ivory Coast created a致命 threat through fast breaks and converted it into the only goal."
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "2021772d9db65b92": "Ecuador's core midfielder, César, was tightly marked and restricted by Ivory Coast's central midfielder, Fofana, through physical combat and tactical fouls, cutting off his transition from defense to attack and his passing network.",
+        "92547bd4c983dc11": "Ecuador was overly dependent on the Valencia forward as a pivot, lacking the finishing ability of a second attacking point, resulting in a lot of noise but few results in open play offensive.",
+        "d045d49ef8742fcf": "Ivory Coast center-back Agbossou and the defense line formed with Henton showed top-level low-position defensive discipline in the intense World Cup confrontations, successfully keeping Ecuador scoreless.",
+        "ea1852553b2a7de1": "When Ecuador was trailing in the score in the second half, they pressed heavily, causing disconnection in the formation, and Ivory Coast created a deadly threat through fast counterattacks, which was converted into the only goal."
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "2021772d9db65b92": "Ecuador's core midfielder, César, was tightly marked and restricted by Ivory Coast central midfielder Fofana through physical combat and tactical fouls, cutting off his transition from defense to attack and his passing network.",
+        "92547bd4c983dc11": "Ecuador relied too heavily on the Valencia forward as a pivot, lacking the finishing ability of a second attacking point, resulting in a lot of noise but few results in open play offensive.",
+        "d045d49ef8742fcf": "Ivory Coast center-back Agbodji and the defense line formed with Henton showed top-level low-position defensive discipline in the high-intensity World Cup confrontations, successfully keeping Ecuador scoreless.",
+        "ea1852553b2a7de1": "When Ecuador was trailing in the score in the second half, they pressed heavily, causing disconnection in the formation, and Ivory Coast created a致命 threat through fast counterattacks, which was converted into the only goal."
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "2021772d9db65b92": "Ecuador's core midfielder, César, was restricted by Ivory Coast central midfielder Fofana's close combat and tactical fouls, leading to the disruption of his transition from defense to attack and his passing network.",
+        "92547bd4c983dc11": "Ecuador relied too heavily on the Valencia forward as the pivot, lacking the finishing ability of a second attacking point, resulting in a lot of noise but few results in open play offensive.",
+        "d045d49ef8742fcf": "Ivory Coast center-back Agbossou and the defense line formed with Henton showed top-level low-position defensive discipline in the high-intensity World Cup confrontation, successfully keeping Ecuador scoreless.",
+        "ea1852553b2a7de1": "When Ecuador was behind in the score in the second half, they pressed heavily, causing the formation to fall apart, and Ivory Coast created a deadly threat through fast breaks and scored the only goal."
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

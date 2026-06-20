@@ -1,0 +1,80 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "2021772d9db65b92": "تعرض لاعب وسط الإكوادور كايزيدو للضغط الشديد من قبل لاعب وسط كوت ديفواري فافانا، مما أدى إلى قطع خطوط التقدم والتسليم من الدفاع إلى الهجوم",
+        "4cc17d365782409f": "سجل جاكبور هدفًا مبكرًا في الشوط الأول لكسر العزلة، ولكن الإكوادور تعادلت بسرعة بفضل هدف إستيفانيان، ولم يتمكن أي منهما من استغلال فرص التسجيل",
+        "6d33dc669cfbaf13": "النظام التنبؤي توقع نتيجة 1-1 تمامًا مع النتيجة الفعلية، لم يحدث خطأ في التنبؤ، والنظام كان دقيقًا جدًا في تقييم هذا المباراة المساوية بدرجة عالية وعدد الأهداف القليل",
+        "8af503d9ab1058e0": "في حالته الخلفية، تعرض الإكوادور لثغرات في مراقبة الكرات العالية والركلات الحرة، مما أدى إلى هدف كوليبالي من ركلته الحرة",
+        "92547bd4c983dc11": "تعتمد الإكوادور بشكل كبير على نقطة الدعم في خط الهجوم لفالنسيا، وعدم وجود نقطة ثانية للهجوم في التدخل، مما أدى إلى هجمات متواضعة في اللعب النشط",
+        "a58274e5ad39bb90": "كان لاعب اليمين السنغالي إسماعيل سار في حالة فائقة، حيث ساهم في ركل الترجيح وأحرزها بنفسه، مما كسر حالة التعادل التي تنبأ بها النظام",
+        "a9004503f3a3e001": "غاب المدافع الرئيسي للإكوادور مينديز بسبب الإصابة، مما أدى إلى تراجع قوة التغطية في وسط الملعب وضياع محور التبادل الهجومي الدفاعي",
+        "d045d49ef8742fcf": "شكل المدافع الكوت ديفواري أغبوردو وشنتون خط دفاعي في المباراة العالية في كأس العالم، وأظهروا تقنية دفاعية منخفضة المستوى عالية، مما أدى إلى حجز هدف نظيف للإكوادور",
+        "ea1852553b2a7de1": "في حالته الخلفية، في الشوط الثاني، تعرض الإكوادور لضغط كبير، وتشتت التشكيلة، مما أدى إلى تهديدات قاتلة من خلال الهجمات السريعة من قبل كوت ديفوار، والتي تحولت إلى هدف واحد فقط",
+        "fa656b1c87502f35": "استخدم الإكوادور تكتيك الضغط العالي في جميع أنحاء المباراة، مما أدى إلى تقييد منحى الهجوم للهولنديين في منتصف الميدان والخلف، مما أدى إلى عدم تمكن الهولنديين من تنفيذ الهجمات كما هو متوقع"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "2021772d9db65b92": "Ecuador's core midfielder, César, was tightly marked and restricted by Ivory Coast's central midfielder Fofana through physical combat and tactical fouls, cutting off his transition from defense to offense and his passing network.",
+        "4cc17d365782409f": "Gakpo scored early in the opening minutes to break the deadlock, but Ecuador quickly equalized with a goal from Estupiñan, and neither side was able to seize the absolute scoring opportunities thereafter.",
+        "6d33dc669cfbaf13": "The system's prediction of a 1-1 draw was completely consistent with the actual score, the prediction was not wrong, and the system made an extremely accurate judgment of this evenly matched match with very few goals.",
+        "8af503d9ab1058e0": "When Ecuador was trailing in the score, they pressed heavily, exposing vulnerabilities in marking set pieces and high balls, and were scored on by Koulibaly from a corner kick.",
+        "92547bd4c983dc11": "Ecuador was overly reliant on the Valencia forward as a pivot, lacking the finishing ability of a second attacking point, resulting in a lot of noise but few results in their offensive play.",
+        "a58274e5ad39bb90": "Senegal winger Ismaila Sarr was in top form, creating a penalty and scoring from the spot, breaking the system's expected draw deadlock.",
+        "a9004503f3a3e001": "Ecuador's main central midfielder, Mendes, was absent due to injury, leading to a decrease in the strength of midfield interception and the loss of the pivot for offensive and defensive transitions.",
+        "d045d49ef8742fcf": "Ivory Coast central defender Agbossou and the defense line formed with Henton showed top-level low-position defensive discipline in the high-intensity World Cup confrontation, successfully keeping Ecuador scoreless.",
+        "ea1852553b2a7de1": "When Ecuador was trailing in the score in the second half, they pressed heavily, causing disarray in their formation, and Ivory Coast created a致命 threat through fast breaks and converted it into the only goal.",
+        "fa656b1c87502f35": "Ecuador employed a high-intensity high-pressing tactic throughout the match, successfully limiting the Dutch team's ball distribution from the midfield and backline and controlling the rhythm of the game, resulting in the Dutch failing to launch the expected offensive."
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "2021772d9db65b92": "Ecuador's core midfielder, César, was tightly marked and restricted by Ivory Coast's central midfielder, Fofana, through physical combat and tactical fouls, cutting off his transition from defense to attack and his passing network.",
+        "4cc17d365782409f": "Gakpo scored early in the opening minutes to break the deadlock, but Ecuador quickly equalized with a goal from Estupiñan, and neither team could capitalize on clear scoring opportunities thereafter.",
+        "6d33dc669cfbaf13": "The system's prediction of a 1-1 draw was completely consistent with the actual score, the prediction was not wrong, and the system's judgment of this evenly matched game with very few goals was extremely accurate.",
+        "8af503d9ab1058e0": "When Ecuador was trailing in the score, they pressed heavily, exposing vulnerabilities in marking set pieces and high balls, which led to a corner goal by Koulibaly.",
+        "92547bd4c983dc11": "Ecuador was overly dependent on the Valencia forward as a pivot, lacking the finishing ability of a second attacking point, resulting in a lot of noise but few results in open play offensive.",
+        "a58274e5ad39bb90": "Senegal winger Ismaila Sarr was in top form, creating a penalty and scoring from the spot, breaking the system's expected draw deadlock.",
+        "a9004503f3a3e001": "Ecuador's main central midfielder, Mendes, was absent due to injury, leading to a decrease in the strength of midfield interception and the loss of the pivot for attack and defense transitions.",
+        "d045d49ef8742fcf": "Ivory Coast center-back Agbossou and the defense line formed with Henton showed top-level low-position defensive discipline in the intense World Cup confrontations, successfully keeping Ecuador scoreless.",
+        "ea1852553b2a7de1": "When Ecuador was trailing in the score in the second half, they pressed heavily, causing disconnection in the formation, and Ivory Coast created a deadly threat through fast counterattacks, which was converted into the only goal.",
+        "fa656b1c87502f35": "Ecuador employed a high-intensity high-pressing tactic throughout the game, successfully limiting the Dutch team's ball distribution from the midfield and back and controlling the rhythm of the game, resulting in the Dutch failing to launch the expected offensive."
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "2021772d9db65b92": "Ecuador's core midfielder, César, was tightly marked and restricted by Ivory Coast central midfielder Fofana through physical combat and tactical fouls, cutting off his transition from defense to attack and his passing network.",
+        "4cc17d365782409f": "Gakpo scored early in the opening minutes to break the deadlock, but Ecuador quickly equalized with a goal from Estupiñan, and neither side could capitalize on clear scoring opportunities thereafter.",
+        "6d33dc669cfbaf13": "The system's prediction of a 1-1 draw was completely consistent with the actual score, the prediction was not wrong, and the system's judgment of this evenly matched game with very few goals was extremely accurate.",
+        "8af503d9ab1058e0": "When Ecuador was trailing in the score, they pressed heavily, exposing vulnerabilities in marking set pieces and high balls, which led to a corner goal by Koulibaly.",
+        "92547bd4c983dc11": "Ecuador relied too heavily on the Valencia forward as a pivot, lacking the finishing ability of a second attacking point, resulting in a lot of noise but few results in open play offensive.",
+        "a58274e5ad39bb90": "Senegal winger Ismaila Sarr was in top form, creating a penalty and scoring from the spot, breaking the system's expected draw deadlock.",
+        "a9004503f3a3e001": "Ecuador's main central midfielder, Mendes, was absent due to injury, leading to a decrease in the strength of midfield interception and the loss of the pivot for attacking and defending transitions.",
+        "d045d49ef8742fcf": "Ivory Coast center-back Agbodji and the defense line formed with Henton showed top-level low-position defensive discipline in the high-intensity World Cup confrontations, successfully keeping Ecuador scoreless.",
+        "ea1852553b2a7de1": "When Ecuador was trailing in the score in the second half, they pressed heavily, causing disconnection in the formation, and Ivory Coast created a致命 threat through fast counterattacks, which was converted into the only goal.",
+        "fa656b1c87502f35": "Ecuador employed a high-intensity high-pressing tactic throughout the game, successfully limiting the Dutch team's ball distribution from the midfield and back and controlling the rhythm of the game, resulting in the Dutch failing to launch the expected offensive."
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "2021772d9db65b92": "Ecuador's core midfielder, César, was restricted by Ivory Coast central midfielder Fofana's close combat and tactical fouls, leading to the disruption of his transition from defense to attack and his passing network.",
+        "4cc17d365782409f": "Gakpo scored early in the opening minutes to break the deadlock, but Ecuador quickly equalized with Estupiñan's goal, and neither side was able to seize the absolute scoring opportunities thereafter.",
+        "6d33dc669cfbaf13": "The system's prediction of a 1-1 draw was completely consistent with the actual score, the prediction was not wrong, and the system's judgment of this evenly matched game with very few goals was extremely accurate.",
+        "8af503d9ab1058e0": "When Ecuador was behind in the score, they pressed heavily, exposing vulnerabilities in marking set pieces and high balls, and were scored on by Koulibaly from a corner kick.",
+        "92547bd4c983dc11": "Ecuador relied too heavily on the Valencia forward as the pivot, lacking the finishing ability of a second attacking point, resulting in a lot of noise but few results in open play offensive.",
+        "a58274e5ad39bb90": "Senegal winger Ismaila Sarr was in top form, creating a penalty and scoring from the spot, breaking the system's expected draw deadlock.",
+        "a9004503f3a3e001": "Ecuador's main central midfielder, Mendes, was absent due to injury, leading to a decrease in the strength of the midfield interception and the loss of the pivot for offensive and defensive transitions.",
+        "d045d49ef8742fcf": "Ivory Coast center-back Agbossou and the defense line formed with Henton showed top-level low-position defensive discipline in the high-intensity World Cup confrontation, successfully keeping Ecuador scoreless.",
+        "ea1852553b2a7de1": "When Ecuador was behind in the score in the second half, they pressed heavily, causing the formation to fall apart, and Ivory Coast created a deadly threat through fast breaks and scored the only goal.",
+        "fa656b1c87502f35": "Ecuador used a high-intensity high-pressing tactic throughout the game, successfully limiting the Dutch team's ball distribution from the midfield and back and controlling the rhythm of the game, resulting in the Dutch failing to launch the expected offensive."
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}

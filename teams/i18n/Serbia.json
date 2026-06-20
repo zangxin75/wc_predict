@@ -1,0 +1,80 @@
+{
+  "locales": {
+    "ar": {
+      "causes": {
+        "018a56bcb37b1e96": "دفاع صربيا يتحرك للأمام بشكل مفرط ويعود ببطء، مما سمح لكاميرون باستغلال الهجوم السريع (خاصة أوبو بابكار وسبو-موتين) لتحقيق هدفين متتاليين في دقيقتين",
+        "26e10f25e9f62f1b": "استخدم مدرب صربيا ستويكوفيتش تكتيكات تركزت على الهجوم وتغافل عن الدفاع، مما أدى إلى تدهور التشكيلة بعد التقدم، ولم يتمكن من تحويل السيطرة والفوائد البدنية إلى تفوق دفاعي مستقر",
+        "56fa78c3ea65b4fb": "كان ميتروفيتش يلعب دورًا بارزًا كنقطة دعم في خط الهجوم، حيث كسر توازن دفاع كوستاريكا بالتمسك بالرأس والتحكم في اللعب",
+        "638ffc4f133d08b6": "في الشوط الثاني، حيث كان فريق صربيا في خلفية 2-3 و急需 هدف، لم يظهر الفريق الت纪律ة التكتيكية التي تتوقعها من فريق قوي، حيث أصبح لاعبو خط الهجوم مثل ميتروفيتش عاطفيين بشكل كبير (حتى ظهرت نوايا للعصيان) وتراجعت كفاءة الهجوم بشكل كبير",
+        "6c6863552f44abbb": "أحرز كولاروف هدفًا رائعًا من ركلة جزاء، مما كسر الجمود في المباراة المساوية، مما غير مسار المباراة مباشرة",
+        "a5c9cda68f70f354": "غياب حارس مرمى كاميرون أونانا أدى إلى فقدان الدفاع للإحساس بالراحة والتنظيم في الخلف، ولكن حارس المرمى البديل إيباسي-مبي أظهر أداءً يفوق التوقعات، وظهر الفريق كله بقدرة كبيرة على الصمود في مواجهة الصعوبات",
+        "ab9378b2fe4e0f9a": "يبدو أن لاعبي كوستاريكا الرئيسيين (مثل نافاس ورويز) يتقدمون في العمر، ويكونون في عيب أمام اللاعبين الأوروبيين في المواجهات الجسدية العالية الكثافة",
+        "c0b90ebf4d368bed": "أستاذ فريق صربيا ستويكوفييتش أتبع استراتيجية الدفاع العالي والضغط الشديد، وحدثت فجوات في خط الدفاع (خاصة في وسط الدفاع ميلينكوفيتش)، مما أدى إلى عدم التوازن في الهجوم والدفاع للفريق",
+        "c33570bdd43073fc": "استطاع فريق صربيا من تشكيل ضغط تكتيكي كبير من خلال ماتيتش وميلينكوفيتش في وسط الملعب، مما قطع خطوات الهجوم الكوستاريكي",
+        "f5a1b1934b705740": "فريق سويسرا المهاجم الأساسي ساكيري وفريق الهجوم إنبول وفرويلر وغيرهم تحولوا بسرعة إلى الهجوم، وحققوا تقدم 2-0 في الدقائق ال30 الأولى، مما اخترق نموذج بيانات الدفاع المتوقع"
+      },
+      "notes": {}
+    },
+    "en": {
+      "causes": {
+        "018a56bcb37b1e96": "Serbia's defense pressed too high and was slow to retreat, allowing Cameroon to exploit a quick counter-attack (especially by Aboubakar and Shup-Botin) to score two goals in two minutes and break through",
+        "26e10f25e9f62f1b": "Serbia coach Stojkovic's tactics emphasized offense over defense, leading to a loose formation after taking the lead and failing to convert possession and physical advantages into a solid score advantage",
+        "56fa78c3ea65b4fb": "Mitrovic played a significant role as a pivot in the front, breaking Costa Rica's defensive balance with his headers and holding power",
+        "638ffc4f133d08b6": "In the second half, trailing 2-3 and urgently needing a goal, Serbia failed to show the tactical discipline expected of a strong team, with forwards like Mitrovic becoming increasingly emotional (even showing signs of conflict), resulting in low offensive efficiency.",
+        "6c6863552f44abbb": "Kolarov's high-quality direct free kick goal broke the deadlock, directly changing the direction of the game in an evenly matched match",
+        "a5c9cda68f70f354": "Cameroon goalkeeper Onana's absence led to a lack of flexibility in the defense and poor organization in the backfield, but substitute goalkeeper Epa Mbi performed beyond expectations and the team showed great resilience in adversity",
+        "ab9378b2fe4e0f9a": "Costa Rica's core players (such as Navas, Ruiz) are aging overall, and are at a disadvantage in terms of high-intensity physical confrontation against European teams",
+        "c0b90ebf4d368bed": "Serbia coach Stojkovic employs an extreme sieve-like high-position defense and pressing tactics, with the defense (especially center-back Milinkovic) frequently losing position, leading to a serious imbalance between offense and defense for the team.",
+        "c33570bdd43073fc": "Serbia formed an absolute tactical dominance in the midfield through Matić and Milinković, cutting off Costa Rica's starting point for counterattacks",
+        "f5a1b1934b705740": "Switzerland's attacking core, Shaqiri, and forwards like Embolo and Freuler have an extremely high conversion rate in counterattacks, leading 2-0 in the first 30 minutes and directly piercing the system's expected defensive data model."
+      },
+      "notes": {}
+    },
+    "es": {
+      "causes": {
+        "018a56bcb37b1e96": "Serbia's defense pressed too much and was slow in counterattacking, allowing Cameroon to exploit a fast counter (especially by Aboubakar and Shup-Bomding) to score two goals in two minutes and break through",
+        "26e10f25e9f62f1b": "Serbia coach Stojkovic's tactics emphasized offense over defense, leading to a loose formation after taking the lead and failing to convert possession and physical advantages into a solid score advantage",
+        "56fa78c3ea65b4fb": "Mitrovic ejerció un papel de apoyo claro en el frente de ataque, sus cabezazos y capacidad de distracción rompieron el equilibrio de la defensa de Costa Rica.",
+        "638ffc4f133d08b6": "En la segunda mitad, cuando Serbia estaba perdiendo 2-3 y necesitaba urgentemente un gol, no mostró la disciplina táctica que debería tener un equipo fuerte, y los jugadores del ataque como Mitrovic mostraron emociones agitadas (incluso con signos de conflicto) y una baja eficiencia en el ataque",
+        "6c6863552f44abbb": "Kolarov marcó un gol de falta directa de alta calidad, rompiendo el empate y cambiando directamente la dirección del partido en un juego igualado.",
+        "a5c9cda68f70f354": "The absence of Cameroon goalkeeper Onana led to a lack of flexibility in the defense and poor organization in the backfield, but substitute goalkeeper Epa Mbi performed beyond expectations and the team showed great resilience in adversity",
+        "ab9378b2fe4e0f9a": "Los jugadores clave de Costa Rica (como Navas, Ruiz) están envejeciendo en general y están en desventaja frente a la intensa对抗 de los equipos europeos.",
+        "c0b90ebf4d368bed": "El entrenador serbio Stojkovic utiliza una defensa alta y extremadamente pasiva con tácticas de presión, lo que lleva a que la defensa (especialmente el mediocampista central Milinkovic) pierda frecuencia, causando un desequilibrio grave en el ataque y la defensa del equipo",
+        "c33570bdd43073fc": "Serbia formó una presión táctica absoluta en el medio campo a través de Matić y Milinković, cortando el punto de partida de la contraataque de Costa Rica.",
+        "f5a1b1934b705740": "El mediocampista suizo Shaqiri y los delanteros Embolo y Froi勒等 tienen una alta tasa de conversión en contragolpes, logrando una ventaja de 2-0 en los primeros 30 minutos, directamente atravesando el modelo de datos de defensa esperado por el sistema"
+      },
+      "notes": {}
+    },
+    "fr": {
+      "causes": {
+        "018a56bcb37b1e96": "La défense serbe monte trop haut et est lente à revenir, ce qui permet au Cameroun de profiter de contre-attaques rapides (notamment d'Aboubakar et de Choupo-Moting) pour marquer deux buts en deux minutes et percer la défense",
+        "26e10f25e9f62f1b": "L'entraîneur serbe Stojkovic a mis l'accent sur l'attaque plutôt que sur la défense, ce qui a conduit à une défense désorganisée après l'avance, et il n'a pas réussi à transformer la supériorité en possession du ballon et en avantage physique en une avance en buts solide",
+        "56fa78c3ea65b4fb": "Mitrô维奇 joue un rôle de pivot en attaque, ses tirs de tête et sa capacité à attirer l'attention ont brisé l'équilibre de la défense de Costa Rica.",
+        "638ffc4f133d08b6": "Lors de la deuxième mi-temps, où la Serbie était en retard 2-3 et avait besoin d'un but urgent, l'équipe n'a pas montré la discipline tactique qu'une équipe forte devrait avoir, et les joueurs d'attaque tels que Mitrovic étaient en colère (même des signes de conflits ont émergé), ce qui a entraîné une faible efficacité offensive.",
+        "6c6863552f44abbb": "Kolarov a marqué un but de corner de haute qualité, brisant l'égalité et changeant directement le cours du match dans un match équilibré.",
+        "a5c9cda68f70f354": "L'absence du gardien camerounais Onana a causé une manque d'élasticité dans la défense et des problèmes d'organisation en arrière, mais le gardien remplaçant Epa N'Sakly a dépassé les attentes et l'équipe a montré une résilience exceptionnelle face aux adversités",
+        "ab9378b2fe4e0f9a": "Les joueurs clés de Costa Rica (comme Navas, Ruiz) sont globalement vieillissants et sont en désavantage face aux corps à corps de haute intensité des équipes européennes.",
+        "c0b90ebf4d368bed": "L'entraîneur serbe Stojkovic a adopté une défense haute et pressante de type \"poisson à la mouche\", ce qui a conduit à des pertes fréquentes dans la défense (en particulier le défenseur central Milinkovic), ce qui a causé un déséquilibre grave entre l'attaque et la défense de l'équipe.",
+        "c33570bdd43073fc": "La Serbie a formé une pression tactique absolue au milieu de terrain grâce à Matić et Milinković, coupant ainsi les points de départ des contre-attaques de Costa Rica.",
+        "f5a1b1934b705740": "L'attaquant central de la Suisse, Shaqiri, ainsi que les avants Embolo et Froi勒等人，ont une très haute conversion en contre-attaque, et ils ont pris une avance de 2-0 en seulement 30 minutes, ce qui a directement percé le modèle de données de défense attendu par le système."
+      },
+      "notes": {}
+    },
+    "pt": {
+      "causes": {
+        "018a56bcb37b1e96": "The Serbian defense pushed too high and was slow in returning, allowing Cameroon to exploit a quick counter-attack (especially by Aboubakar and Shup-Botin) to score two goals in two minutes and break through",
+        "26e10f25e9f62f1b": "Serbian coach Stojkovic's tactics emphasized offense over defense, leading to a loose formation after taking the lead and failing to convert possession and physical advantages into a solid score advantage",
+        "56fa78c3ea65b4fb": "Mitrovic foi um ponto de apoio claro no ataque, suas cabeçadas e força de distração quebraram o equilíbrio da defesa costarriquenha",
+        "638ffc4f133d08b6": "Na segunda metade, quando a Sérvia estava perdendo por 2-3 e precisava urgentemente de um gol, a equipe não demonstrou a disciplina tática que uma equipe forte deve ter, com jogadores da linha ofensiva como Mitrovic se mostrando nervosos (até mesmo com sinais de conflito), resultando em uma baixa eficiência no ataque",
+        "6c6863552f44abbb": "Kolarov marcou um pênalti de alta qualidade, quebrou o empate e, em um jogo equilibrado, mudou diretamente o rumo do jogo",
+        "a5c9cda68f70f354": "The absence of Cameroon goalkeeper Onana led to a lack of flexibility in the defense and poor organization in the backfield, but substitute goalkeeper Epa Mbi performed beyond expectations and the team showed great resilience in adversity",
+        "ab9378b2fe4e0f9a": "Os jogadores centrais da Costa Rica (como Navas, Ruiz) estão em geral envelhecidos e estão em desvantagem diante do confronto físico intenso das equipes europeias",
+        "c0b90ebf4d368bed": "O treinador sérvio Stojkovic adotou uma defesa alta e extremamente ofensiva, com frequentes falhas na linha defensiva (especialmente no zagueiro Milinkovic), resultando em um desequilíbrio grave entre ataque e defesa da equipe",
+        "c33570bdd43073fc": "A Sérvia, através de Matić e Milinković no meio-campo, formou uma pressão táctica absoluta, cortando o ponto de partida das contra-ataques costarriquenhos",
+        "f5a1b1934b705740": "A equipe suíça tem uma alta taxa de conversão de contra-ataques liderados pelo centroavante Shaqiri e outros atacantes como Embolo e Froi勒，atingindo uma vantagem de 2-0 nas primeiras 30 minutos, diretamente rompendo o modelo de dados de defesa esperado pelo sistema"
+      },
+      "notes": {}
+    }
+  },
+  "updated": "2026-06-20"
+}
