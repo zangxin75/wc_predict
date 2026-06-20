@@ -876,9 +876,12 @@ body::before{
 .upgrade-scrim[hidden]{display:none}
 .upgrade-modal{
   position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:61;
-  width:min(420px,94vw);background:var(--bg-elev);
+  width:min(420px,94vw);
+  max-height:calc(100vh - 32px);
+  background:var(--bg-elev);
   border:1px solid var(--line-hi);border-radius:var(--r-container);
   box-shadow:0 20px 60px rgba(0,0,0,.7);overflow:hidden;
+  display:flex;flex-direction:column;
   animation:modalIn .25s var(--ease) both;
 }
 .upgrade-modal[hidden]{display:none}
@@ -886,6 +889,7 @@ body::before{
 .upgrade-head{
   display:flex;justify-content:space-between;align-items:center;
   padding:18px 22px;border-bottom:1px solid var(--line);
+  flex-shrink:0;  /* 头不动 */
 }
 .upgrade-title{
   font-family:var(--ff-display);font-weight:600;font-size:20px;letter-spacing:.03em;
@@ -896,7 +900,18 @@ body::before{
   padding:4px 8px;line-height:1;border-radius:var(--r-tag);
 }
 .upgrade-close:hover{color:var(--text);background:var(--bg-card)}
-.upgrade-body{padding:22px}
+.upgrade-body{
+  padding:22px;
+  overflow-y:auto;overflow-x:hidden;
+  flex:1 1 auto;
+  min-height:0;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(201,169,97,.4) transparent;
+}
+.upgrade-body::-webkit-scrollbar{width:6px}
+.upgrade-body::-webkit-scrollbar-thumb{background:rgba(201,169,97,.4);border-radius:3px}
+.upgrade-body::-webkit-scrollbar-track{background:transparent}
 .upgrade-desc{
   font-size:13px;color:var(--text-dim);margin-bottom:18px;line-height:1.5;
 }
