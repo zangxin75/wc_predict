@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="static/favicon.svg">
 <title>WORLD CUP 2026 · Prediction Center</title>
-<link rel="stylesheet" href="static/style.css">
+<link rel="stylesheet" href="static/style.css?v=4">
 </head>
 <body>
 
@@ -162,33 +162,49 @@
 <div class="drawer-scrim" id="drawerScrim"></div>
 
 <!-- 升级 Pro 弹窗 -->
-<aside class="upgrade-modal" id="upgradeModal" aria-hidden="true" role="dialog" aria-modal="true">
+<aside class="upgrade-modal" id="upgradeModal" hidden aria-hidden="true" role="dialog" aria-modal="true">
   <div class="upgrade-head">
-    <span class="upgrade-title" id="upgradeTitle" data-i18n="sub.upgrade_title">Support the Project</span>
+    <span class="upgrade-title" id="upgradeTitle">Support the Project</span>
     <button class="upgrade-close" id="upgradeClose" aria-label="Close">✕</button>
   </div>
   <div class="upgrade-body">
-    <p class="upgrade-desc" data-i18n="sub.upgrade_desc">Unlock AI Reflection, Web Search Intel & H2H, Value Bets panel</p>
+    <p class="upgrade-desc">Unlock AI Reflection, Web Search Intel & H2H, Value Bets panel</p>
     <div class="upgrade-input-row">
-      <input type="email" class="upgrade-input" id="upgradeEmail" placeholder="you@example.com" data-i18n-attr="placeholder" autocomplete="email" spellcheck="false">
+      <input type="email" class="upgrade-input" id="upgradeEmail" placeholder="you@example.com" autocomplete="email" spellcheck="false">
     </div>
     <div class="upgrade-plans">
-      <button class="upgrade-plan" id="planMonthly" type="button">
-        <span class="plan-name" data-i18n="sub.monthly">$5 / month</span>
-        <span class="plan-action" data-i18n="sub.pay_monthly">Subscribe $5/mo</span>
-      </button>
       <button class="upgrade-plan" id="planTournament" type="button">
-        <span class="plan-name" data-i18n="sub.tournament">$12 full tournament</span>
-        <span class="plan-action" data-i18n="sub.pay_tournament">Buy Tournament Pass $12</span>
+        <span class="plan-name" id="planTournamentName">—</span>
+        <span class="plan-action" id="planTournamentAction">—</span>
+      </button>
+    </div>
+    <div class="upgrade-pricing-hint" id="pricingHint">—</div>
+    <div class="upgrade-match-list-wrap">
+      <button type="button" class="upgrade-match-toggle" id="matchListToggle" aria-expanded="false">
+        <span id="matchListToggleLabel">查看包含的 68 场比赛 ›</span>
+      </button>
+      <div class="upgrade-match-list" id="matchList" hidden></div>
+    </div>
+    <div class="upgrade-pricing-lock" id="pricingLock" hidden>
+      <span class="upgrade-lock-time" id="pricingLockTime">—</span>
+      <button type="button" class="upgrade-lock-refresh" id="pricingLockRefresh" hidden>刷新价格</button>
+    </div>
+    <div class="upgrade-invite-row">
+      <div class="upgrade-divider"><span data-i18n="sub.divider_or">或</span></div>
+      <input type="text" class="upgrade-input upgrade-input-invite" id="inviteCode"
+             placeholder="INVITE-XXXX-XXXX" autocomplete="off" spellcheck="false">
+      <button class="upgrade-plan upgrade-plan-invite" id="redeemInviteBtn" type="button">
+        <span class="plan-name" data-i18n="sub.invite_label">有邀请码？</span>
+        <span class="plan-action" data-i18n="sub.invite_action">使用邀请码解锁</span>
       </button>
     </div>
     <div class="upgrade-error" id="upgradeError" hidden></div>
     <div class="upgrade-status" id="upgradeStatus" hidden></div>
   </div>
 </aside>
-<div class="upgrade-scrim" id="upgradeScrim"></div>
+<div class="upgrade-scrim" id="upgradeScrim" hidden></div>
 
-<script src="static/i18n.js"></script>
-<script src="static/app.js"></script>
+<script src="static/i18n.js?v=21"></script>
+<script src="static/app.js?v=33"></script>
 </body>
 </html>

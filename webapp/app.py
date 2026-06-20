@@ -111,23 +111,23 @@ def get_champions(top: int = Query(15, ge=1, le=48)):
             "ranking": champs[:top]}
 
 
-_market_cache = None
-_market_lock = threading.Lock()
-
-
 @app.get("/api/market")
 def get_market():
     """数据来源面板:每场预测的数据源(市场反演λ模式A/B vs Elo)+ 反演λ对比。
 
-    静态(随 ou_wc.csv/odds_wc.csv 变),首次请求计算后内存缓存。
+    优先返回 cache 预热结果(后台 updater 每 15 分钟重建一次 + 冷启动时同步预热);
+    仅在 cache 为空时兜底同步计算一次(用 cache.get_elo() 复用现成 Elo,不再 rebuild),
+    并回写 cache 以避免并发请求各自重算。
     """
-    global _market_cache
-    if _market_cache is None:
-        with _market_lock:
-            if _market_cache is None:
-                from webapp import predictor
-                _market_cache = predictor.market_coverage()
-    return _market_cache
+    m = cache.get_market()
+    if m is not None:
+        return m
+    # 兜底路径:cache 未预热(罕见,例如 cache.json 损坏)
+    elo = cache.get_elo() or None
+    from webapp import predictor
+    m = predictor.market_coverage(elo=elo)
+    cache.atomic_replace(market=m)
+    return m
 
 
 _value_bets_cache = None
@@ -270,8 +270,14 @@ def get_match(date: str = Query(...), home: str = Query(...), away: str = Query(
     with_reflection/with_intel/with_h2h 为 Pro 功能,需订阅。
     locale: UI 语言(en/zh-CN/es/pt/ar/fr)。
     """
-    # Pro 功能 gating
-    if (with_reflection or with_intel or with_h2h) and not payments.is_paid(x_user_email):
+    # Pro 功能 gating(已结束比赛免费)
+    base = None
+    for m in cache.get_schedule():
+        if m["date"] == date and m["home"] == home and m["away"] == away:
+            base = m
+            break
+    is_finished = base is not None and base.get("status") == "finished"
+    if (with_reflection or with_intel or with_h2h) and not payments.is_paid(x_user_email) and not is_finished:
         out = {"reflection": {"has_any": False, "summary_parts": []}}
         if with_reflection:
             out["reflection"]["error"] = "Pro feature. Subscribe to unlock AI Reflection."
@@ -281,11 +287,6 @@ def get_match(date: str = Query(...), home: str = Query(...), away: str = Query(
             out["h2h"] = {"error": "Pro feature. Subscribe to unlock H2H history."}
         return out
 
-    base = None
-    for m in cache.get_schedule():
-        if m["date"] == date and m["home"] == home and m["away"] == away:
-            base = m
-            break
     if base is None:
         raise HTTPException(status_code=404, detail=f"未找到: {date} {home} vs {away}")
     out = dict(base)
@@ -378,18 +379,74 @@ def get_backtest():
 @app.post("/api/create-checkout-session")
 def create_checkout(email: str = Query(...), price_id: str = Query(...),
                      origin: str = Query(default="http://localhost:8000"),
-                     locale: str = Query(default="auto", description="语言代码,如 zh-CN/es/pt/ar/fr/en")):
+                     locale: str = Query(default="auto", description="语言代码,如 zh-CN/es/pt/ar/fr/en"),
+                     remaining_count: int = Query(default=0, ge=0, description="按场次计费:当前剩余场次")):
     """创建 Stripe Checkout Session,返回支付 URL。
 
     locale 映射到 Stripe 支持的 Checkout 语言,使支付页面与前端语言一致。
+    remaining_count > 0 时,price_tournament 走 price_data 内嵌动态定价(按场次)。
     """
     if not payments.STRIPE_SECRET_KEY:
         raise HTTPException(503, "Stripe not configured")
     try:
-        url = payments.create_checkout_session(email, price_id, origin, locale=locale)
+        url = payments.create_checkout_session(
+            email, price_id, origin, locale=locale,
+            remaining_count=remaining_count if remaining_count > 0 else None,
+        )
         return {"url": url}
     except Exception as e:
         raise HTTPException(400, str(e))
+
+
+@app.get("/api/pricing")
+def get_pricing(locale: str = Query(default="en", description="UI 语言,如 zh-CN/en/es")):
+    """按场次计费实时报价:总场次 / 剩余场次 / 单价 / 当前价 / 全程原价 / 节省。
+
+    剩余场次定义:cache.schedule 中 status != 'finished' 的全部比赛(含今天进行中 + 未开赛)。
+    中文区返回 CNY (¥2/场),其他返回 USD ($0.28/场,按 0.14 汇率折算)。
+    同时返回 priced_at + pricing_locked_until + upcoming_sample,前端用于防纠纷对账。
+    """
+    import datetime as _dt
+    sched = cache.get_schedule()
+    total = len(sched)
+    remaining_matches = [m for m in sched if m.get("status") != "finished"]
+    remaining = len(remaining_matches)
+    unit, currency = payments.unit_price_for_locale(locale)
+    symbol = payments.currency_symbol(currency)
+    full_price = round(total * unit, 2)
+    current_price = round(remaining * unit, 2)
+    savings_pct = round((1 - remaining / total) * 100, 1) if total else 0.0
+    priced_at = _dt.datetime.now(_dt.timezone.utc)
+    locked_until = priced_at + _dt.timedelta(minutes=10)
+    # 列出接下来 20 场(按日期排序),让用户能看到付费包含哪些比赛
+    upcoming_sorted = sorted(remaining_matches, key=lambda m: (m.get("date", ""), m.get("kickoff_bj", "")))
+    upcoming_sample = [
+        {
+            "date": m.get("date"),
+            "home": m.get("home"),
+            "away": m.get("away"),
+            "home_zh": m.get("home_zh"),
+            "away_zh": m.get("away_zh"),
+            "stage": m.get("stage"),
+            "kickoff_bj": m.get("kickoff_bj"),
+        }
+        for m in upcoming_sorted[:20]
+    ]
+    return {
+        "unit_price": unit,
+        "currency": currency,
+        "currency_symbol": symbol,
+        "total_matches": total,
+        "remaining_matches": remaining,
+        "full_price": full_price,
+        "current_price": current_price,
+        "savings_pct": savings_pct,
+        "saved_amount": round(full_price - current_price, 2),
+        "priced_at": priced_at.isoformat(),
+        "pricing_locked_until": locked_until.isoformat(),
+        "count_basis": "matches with status != 'finished' (includes today in-progress and future)",
+        "upcoming_sample": upcoming_sample,
+    }
 
 
 @app.post("/api/stripe-webhook")
@@ -413,6 +470,21 @@ def refresh(force_monte_carlo: bool = Query(False, description="是否顺带刷�
     """手动触发立即更新(唤醒后台线程,不等 15 分钟)。"""
     status = updater.trigger_now(force_monte_carlo=force_monte_carlo)
     return {"triggered": True, "status": status}
+
+
+@app.post("/api/redeem-invite")
+def redeem_invite(email: str = Query(..., description="用户邮箱"),
+                   code: str = Query(..., description="邀请码,格式 INVITE-XXXX-XXXX")):
+    """一次性邀请码解锁 Pro 权限。
+
+    成功:{ok:true, is_paid:true, email, plan:"invite"} → 前端刷新 Pro 状态。
+    失败:400 + {ok:false, error: invalid_email|not_found|already_used}。
+    """
+    res = payments.redeem_invite_code(email, code)
+    if not res.get("ok"):
+        raise HTTPException(status_code=400, detail=res.get("error", "redeem_failed"))
+    return {"ok": True, "is_paid": True,
+            "email": res["email"], "plan": res.get("plan", "invite")}
 
 
 # 静态文件(CSS/JS)。index.html 由根路由单独处理。

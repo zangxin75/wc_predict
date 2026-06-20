@@ -34,6 +34,7 @@ let reflectOn = false;      // 抽屉内反思模式状态
 let userEmail = '';         // localStorage wc_email
 let isPaid = false;         // 缓存订阅状态
 let subChecked = false;     // 是否已检查过
+let _currentPricing = null; // /api/pricing 返回的动态报价(打开 modal 时拉)
 
 // ── 工具 ──────────────────────────────────────────
 const $ = (id) => document.getElementById(id);
@@ -121,12 +122,33 @@ function initSubscription() {
 function bindUpgradeModal() {
   $('upgradeClose')?.addEventListener('click', closeUpgrade);
   $('upgradeScrim')?.addEventListener('click', closeUpgrade);
-  $('planMonthly')?.addEventListener('click', () => handleCheckout('monthly'));
   $('planTournament')?.addEventListener('click', () => handleCheckout('tournament'));
+  $('redeemInviteBtn')?.addEventListener('click', handleRedeemInvite);
+  // 场次明细 折叠/展开
+  $('matchListToggle')?.addEventListener('click', () => {
+    const list = $('matchList');
+    const tog = $('matchListToggle');
+    if (!list || !tog) return;
+    const willShow = list.hidden;
+    list.hidden = !willShow;
+    tog.setAttribute('aria-expanded', String(willShow));
+  });
+  // 价格过期后手动刷新
+  $('pricingLockRefresh')?.addEventListener('click', () => loadPricing());
   const emailInput = $('upgradeEmail');
   if (emailInput) {
     if (userEmail) emailInput.value = userEmail;
     emailInput.addEventListener('input', () => { const e = $('upgradeError'); if (e) e.hidden = true; });
+  }
+  const inviteInput = $('inviteCode');
+  if (inviteInput) {
+    inviteInput.addEventListener('input', () => {
+      inviteInput.value = inviteInput.value.toUpperCase();
+      const e = $('upgradeError'); if (e) e.hidden = true;
+    });
+    inviteInput.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Enter') { ev.preventDefault(); handleRedeemInvite(); }
+    });
   }
 }
 
@@ -142,43 +164,143 @@ async function openUpgrade() {
   if (s) s.hidden = true;
   const e = $('upgradeError');
   if (e) e.hidden = true;
-  // 直接读取页面已加载的语言数据,不依赖 I18N.t()
-  const locale = (window.I18N && I18N.current) || 'en';
-  // 优先用 I18N 已缓存的内存 dict,没有则 fallback fetch
-  if (window.I18N && I18N.dict && I18N.dict[locale]) {
-    applyUpgradeDict(I18N.dict[locale]);
-  } else if (window.I18N && I18N.dict && I18N.dict.en) {
-    applyUpgradeDict(I18N.dict.en);
-  } else {
-    await fallbackFetchUpgrade(locale);
-  }
+  // 清空邀请码输入(防上次残留)
+  const inv = $('inviteCode');
+  if (inv) inv.value = '';
+  const rBtn = $('redeemInviteBtn');
+  if (rBtn) rBtn.disabled = false;
+  const locale = (typeof I18N !== 'undefined' && I18N.current) || 'en';
+  applyUpgrade(locale);
   const emailInput = $('upgradeEmail');
   if (emailInput) { if (userEmail) emailInput.value = userEmail; requestAnimationFrame(() => emailInput.focus()); }
+  // 拉最新定价注入按钮 + 提示(异步,失败也无所谓,fallback 到 i18n 占位文案)
+  loadPricing();
 }
 
-function applyUpgradeDict(d) {
-  const titleEl = $('upgradeTitle');
-  if (titleEl) titleEl.textContent = d['sub.upgrade_title'] || titleEl.textContent;
-  const descEl = document.querySelector('.upgrade-desc');
-  if (descEl) descEl.textContent = d['sub.upgrade_desc'] || descEl.textContent;
-  const planNameEls = document.querySelectorAll('.plan-name');
-  const planActionEls = document.querySelectorAll('.plan-action');
-  if (planNameEls[0]) planNameEls[0].textContent = d['sub.monthly'] || planNameEls[0].textContent;
-  if (planNameEls[1]) planNameEls[1].textContent = d['sub.tournament'] || planNameEls[1].textContent;
-  if (planActionEls[0]) planActionEls[0].textContent = d['sub.pay_monthly'] || planActionEls[0].textContent;
-  if (planActionEls[1]) planActionEls[1].textContent = d['sub.pay_tournament'] || planActionEls[1].textContent;
-}
+let _pricingLockTimer = null;  // 倒计时 setInterval id
 
-async function fallbackFetchUpgrade(locale) {
-  for (const l of [locale, 'en']) {
-    try {
-      const r = await fetch('static/i18n/' + l + '.json');
-      if (!r.ok) continue;
-      const d = await r.json();
-      applyUpgradeDict(d);
-      return;
-    } catch {}
+async function loadPricing() {
+  const locale = (typeof I18N !== 'undefined' && I18N.current) || 'en';
+  try {
+    const r = await fetch(`api/pricing?locale=${encodeURIComponent(locale)}`);
+    if (!r.ok) throw new Error(`pricing fetch HTTP ${r.status}`);
+    _currentPricing = await r.json();
+    injectPricingUI(_currentPricing);
+  } catch (e) {
+    console.warn('[pricing] load failed:', e);
+    _currentPricing = null;
+    injectPricingUI(null);  // 渲染错误态,按钮置灰
   }
+}
+
+function injectPricingUI(p) {
+  const planName = $('planTournamentName');
+  const planAction = $('planTournamentAction');
+  const hint = $('pricingHint');
+  const matchToggle = $('matchListToggle');
+  const matchToggleLabel = $('matchListToggleLabel');
+  const matchList = $('matchList');
+  const lockEl = $('pricingLock');
+  const lockTime = $('pricingLockTime');
+  const lockRefresh = $('pricingLockRefresh');
+  if (!p) {
+    if (planName) planName.textContent = '—';
+    if (planAction) planAction.textContent = '—';
+    if (hint) hint.textContent = '';
+    if (matchToggleLabel) matchToggleLabel.textContent = '—';
+    if (matchList) { matchList.hidden = true; matchList.innerHTML = ''; }
+    if (lockEl) lockEl.hidden = true;
+    if (_pricingLockTimer) { clearInterval(_pricingLockTimer); _pricingLockTimer = null; }
+    const btn = $('planTournament');
+    if (btn) btn.disabled = true;
+    return;
+  }
+  const remaining = p.remaining_matches;
+  const current = p.current_price.toFixed(2);
+  const full = p.full_price.toFixed(2);
+  const unit = p.unit_price.toFixed(2);
+  const sym = p.currency_symbol;
+  const savings = p.savings_pct;
+  if (planName) planName.textContent = t('sub.remaining_label_fmt', { remaining, unit, symbol: sym });
+  if (planAction) planAction.textContent = t('sub.pay_remaining_fmt', { current, symbol: sym });
+  if (hint) hint.textContent = t('sub.pricing_hint_fmt', { full, savings, symbol: sym });
+  // 场次列表(最多展示 10 场,折叠/展开)
+  if (matchToggleLabel) {
+    matchToggleLabel.textContent = t('sub.matches_included', { n: remaining });
+  }
+  if (matchList && p.upcoming_sample) {
+    const show = p.upcoming_sample.slice(0, 10);
+    matchList.innerHTML = show.map(m => {
+      const teams = localeStartsZh() ? `${m.home_zh} vs ${m.away_zh}` : `${m.home} vs ${m.away}`;
+      return `<div class="row"><span class="date">${m.kickoff_bj || m.date}</span><span>${escapeHtml(teams)}</span></div>`;
+    }).join('') + (remaining > show.length
+      ? `<div class="more">${escapeHtml(t('sub.matches_more', { n: remaining - show.length }))}</div>`
+      : '');
+  }
+  // 价格锁定倒计时
+  if (lockEl && p.pricing_locked_until) {
+    lockEl.hidden = false;
+    if (_pricingLockTimer) clearInterval(_pricingLockTimer);
+    _pricingLockTimer = setInterval(() => updateLockUI(p), 1000);
+    updateLockUI(p);
+  }
+  const btn = $('planTournament');
+  if (btn) btn.disabled = false;
+}
+
+function updateLockUI(p) {
+  const lockEl = $('pricingLock');
+  const lockTime = $('pricingLockTime');
+  const lockRefresh = $('pricingLockRefresh');
+  const btn = $('planTournament');
+  if (!lockEl || !p.pricing_locked_until) return;
+  const expiry = new Date(p.pricing_locked_until).getTime();
+  const ms = expiry - Date.now();
+  if (ms <= 0) {
+    lockEl.classList.add('expired');
+    if (lockTime) lockTime.textContent = t('sub.locked_expired');
+    if (lockRefresh) { lockRefresh.hidden = false; lockRefresh.textContent = t('sub.locked_refresh'); }
+    if (btn) btn.disabled = true;
+    if (_pricingLockTimer) { clearInterval(_pricingLockTimer); _pricingLockTimer = null; }
+  } else {
+    lockEl.classList.remove('expired');
+    if (lockRefresh) lockRefresh.hidden = true;
+    if (btn) btn.disabled = false;
+    const min = Math.floor(ms / 60000);
+    const sec = Math.floor((ms % 60000) / 1000);
+    if (lockTime) lockTime.textContent = t('sub.locked_remaining', { time: `${min}:${String(sec).padStart(2, '0')}` });
+  }
+}
+
+function localeStartsZh() {
+  return (typeof I18N !== 'undefined' && I18N.current || 'en').toLowerCase().startsWith('zh');
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function refreshPricingUI() {
+  if (_currentPricing) injectPricingUI(_currentPricing);
+}
+
+// 升级弹窗 title/desc 多语言文案(按钮价格由 /api/pricing 动态注入,这里不再写死)
+const UPGRADE_I18N = {
+  'zh-CN': { title:'支持本项目', desc:'解锁全部 Pro 功能：AI 反思调优、联网赛前情报、历史交手、价值下注、赔率预测、市场盘口价' },
+  'es':    { title:'Apoyar el proyecto', desc:'Desbloquear todo Pro: Reflexión AI, Intel Web, H2H, Value Bets, Cuotas, Líneas de Mercado' },
+  'pt':    { title:'Apoiar o projeto', desc:'Desbloquear tudo Pro: Reflexão AI, Intel Web, H2H, Value Bets, Odds, Linhas de Mercado' },
+  'fr':    { title:'Soutenir le projet', desc:'Débloquer tout Pro: Réflexion AI, Intel Web, H2H, Value Bets, Cotes, Lignes de Marché' },
+  'ar':    { title:'ادعم المشروع', desc:'فتح كل Pro: تفكير AI، معلومات ويب، H2H، رهانات القيمة، الاحتمالات، أسعار السوق' },
+  'en':    { title:'Support the Project', desc:'Unlock all Pro features: AI Reflection, Web Intel, H2H History, Value Bets, Odds Prediction, Market Lines' },
+};
+
+function applyUpgrade(locale) {
+  const d = UPGRADE_I18N[locale] || UPGRADE_I18N.en;
+  const titleEl = $('upgradeTitle');
+  if (titleEl) titleEl.textContent = d.title;
+  const descEl = document.querySelector('.upgrade-desc');
+  if (descEl) descEl.textContent = d.desc;
+  // planTournament 按钮价格由 injectPricingUI 根据 /api/pricing 动态填充,这里不动
 }
 
 async function fetchI18nAndShow(locale) {
@@ -190,12 +312,7 @@ async function fetchI18nAndShow(locale) {
     if (titleEl) titleEl.textContent = dict['sub.upgrade_title'] || 'Support the Project';
     const descEl = document.querySelector('.upgrade-desc');
     if (descEl) descEl.textContent = dict['sub.upgrade_desc'] || '';
-    const planNameEls = document.querySelectorAll('.plan-name');
-    const planActionEls = document.querySelectorAll('.plan-action');
-    if (planNameEls[0]) planNameEls[0].textContent = dict['sub.monthly'] || '';
-    if (planNameEls[1]) planNameEls[1].textContent = dict['sub.tournament'] || '';
-    if (planActionEls[0]) planActionEls[0].textContent = dict['sub.pay_monthly'] || '';
-    if (planActionEls[1]) planActionEls[1].textContent = dict['sub.pay_tournament'] || '';
+    // planTournament 按钮价格由 injectPricingUI 根据 /api/pricing 动态填充,这里不动
     return true;
   } catch { return false; }
 }
@@ -205,6 +322,8 @@ function closeUpgrade() {
   const scrim = $('upgradeScrim');
   if (modal) { modal.hidden = true; modal.setAttribute('aria-hidden', 'true'); }
   if (scrim) scrim.hidden = true;
+  // 关弹窗时停掉倒计时,下次打开重新拉(避免在后台空转)
+  if (_pricingLockTimer) { clearInterval(_pricingLockTimer); _pricingLockTimer = null; }
 }
 
 async function handleCheckout(plan) {
@@ -216,14 +335,16 @@ async function handleCheckout(plan) {
   }
   try { localStorage.setItem('wc_email', email); } catch {}
   userEmail = email;
-  const priceIdMap = { monthly: 'price_monthly', tournament: 'price_tournament' };
+  const priceIdMap = { tournament: 'price_tournament' };
   const base = window.location.origin + window.location.pathname.replace(/\/$/, '');
   const origin = base;
-  const locale = (window.I18N && I18N.current) || 'auto';
-  const btn = plan === 'monthly' ? $('planMonthly') : $('planTournament');
+  const locale = (typeof I18N !== 'undefined' && I18N.current) || 'auto';
+  const remaining = _currentPricing?.remaining_matches || 0;
+  const btn = $('planTournament');
   if (btn) btn.disabled = true;
   try {
-    const r = await fetch(`api/create-checkout-session?email=${encodeURIComponent(email)}&price_id=${priceIdMap[plan]}&origin=${encodeURIComponent(origin)}&locale=${encodeURIComponent(locale)}`, { method: 'POST' });
+    const url = `api/create-checkout-session?email=${encodeURIComponent(email)}&price_id=${priceIdMap[plan] || 'price_tournament'}&origin=${encodeURIComponent(origin)}&locale=${encodeURIComponent(locale)}&remaining_count=${remaining}`;
+    const r = await fetch(url, { method: 'POST' });
     if (!r.ok) throw new Error(await r.text());
     const data = await r.json();
     if (data.url) { window.location.href = data.url; }
@@ -231,6 +352,60 @@ async function handleCheckout(plan) {
   } catch (err) {
     const e = $('upgradeError');
     if (e) { e.hidden = false; e.textContent = t('sub.checkout_error') + ' ' + err.message; }
+    if (btn) btn.disabled = false;
+  }
+}
+
+async function handleRedeemInvite() {
+  const email = $('upgradeEmail')?.value.trim() || userEmail;
+  const code = $('inviteCode')?.value.trim() || '';
+  const errEl = $('upgradeError');
+  if (!email || !email.includes('@')) {
+    if (errEl) { errEl.hidden = false; errEl.textContent = t('sub.invite_need_email'); }
+    return;
+  }
+  if (!code) {
+    if (errEl) { errEl.hidden = false; errEl.textContent = t('sub.invite_invalid_format'); }
+    return;
+  }
+  const btn = $('redeemInviteBtn');
+  if (btn) btn.disabled = true;
+  try {
+    const r = await fetch(`api/redeem-invite?email=${encodeURIComponent(email)}&code=${encodeURIComponent(code)}`, { method: 'POST' });
+    let data;
+    try { data = await r.json(); } catch { data = {}; }
+    if (!r.ok || !data.ok) {
+      const errKey = ({
+        invalid_email: 'sub.invite_invalid_email',
+        not_found: 'sub.invite_not_found',
+        already_used: 'sub.invite_already_used',
+      })[data.detail] || 'sub.invite_error';
+      throw new Error(t(errKey));
+    }
+    // 成功:持久化邮箱 + 切付费状态 + 刷新 Pro gate
+    userEmail = data.email || email;
+    try { localStorage.setItem('wc_email', userEmail); } catch {}
+    isPaid = true;
+    const s = $('upgradeStatus');
+    if (s) { s.hidden = false; s.textContent = t('sub.unlocked'); s.className = 'upgrade-status ok'; }
+    if (btn) btn.textContent = t('sub.invite_success');
+    setTimeout(() => {
+      closeUpgrade();
+      // 恢复按钮文案以便下次打开
+      if (btn) { btn.disabled = false; btn.textContent = ''; }
+      const planAction = btn?.querySelector('.plan-action');
+      const planName = btn?.querySelector('.plan-name');
+      if (planName) planName.textContent = t('sub.invite_label');
+      if (planAction) planAction.textContent = t('sub.invite_action');
+      // 刷掉付费墙:数据来源 / 价值下注 / 抽屉
+      document.querySelectorAll('.pro-gate-drawer').forEach(d => d.remove());
+      renderProGate();
+      renderMarket();
+      renderValue();
+      renderStatus();
+    }, 1200);
+  } catch (err) {
+    if (errEl) { errEl.hidden = false; errEl.textContent = err.message; }
     if (btn) btn.disabled = false;
   }
 }
@@ -354,7 +529,7 @@ function teamBlock(en, zh, elo, side) {
 
 // 48 方块概率条(官方 48 单元 DNA - 48 个参赛国)+ 三态百分比标签
 // prefix='drawer' 用抽屉尺寸/精度,decimals 控制百分比小数位
-function probCells(probs, prefix, decimals, asOdds) {
+function probCells(probs, prefix, decimals, asOdds, masked) {
   const [ph, pd] = probs;
   const TOTAL = 48;
   const nHome = Math.round(ph * TOTAL);
@@ -369,6 +544,7 @@ function probCells(probs, prefix, decimals, asOdds) {
   const barCls = prefix ? `${prefix}-probbar` : 'probbar';
   const lblCls = prefix ? `${prefix}-problabels` : 'problabels';
   const fmt = (v) => {
+    if (masked) return '*';
     if (asOdds) {
       const odds = v > 0 ? (1 / v).toFixed(2) : '-';
       return prefix === 'drawer' ? odds : `${t('result.odds_prefix', { odds })}`;
@@ -422,6 +598,13 @@ function renderCenter(m) {
     return `<div class="center-cell"><span class="no-elo">${t('card.elo_missing')}</span></div>`;
   }
   const ts = m.top_score ? `${t('schedule.predicted')} ${m.top_score[0]}-${m.top_score[1]}` : '';
+  // 未开赛:未付费 → 数字变 *,不显示预测比分
+  const masked = !isPaid && m.status !== 'finished';
+  if (masked) {
+    return `<div class="center-cell">`
+      + probCells(m.probs, '', 0, true, true)
+      + `<div class="topscore">${srcBadge(m)}</div></div>`;
+  }
   return `<div class="center-cell">`
     + probCells(m.probs, '', 0, true)
     + `<div class="topscore">${ts}${srcBadge(m)}</div></div>`;
@@ -532,18 +715,34 @@ function renderBacktest() {
 function renderMarket() {
   const d = cache.market;
   if (!d) return;
-  const s = d.summary;
-  const pct = n => s.total ? (n / s.total * 100).toFixed(0) : 0;
+  // 未付费用户只展示已结束赛事
+  const finishedKeys = new Set();
+  if (!isPaid) {
+    (cache.schedule || []).filter(s => s.status === 'finished').forEach(s =>
+      finishedKeys.add(`${s.date}|${s.home}|${s.away}`));
+  }
+  const showAll = isPaid;
+  const matches = showAll ? d.matches : d.matches.filter(m =>
+    finishedKeys.has(`${m.date}|${m.home}|${m.away}`));
+  if (!matches.length) {
+    $('mktSummary').innerHTML = `<span class="dim">${t('empty.no_finished')}</span>`;
+    $('mktList').innerHTML = '';
+    return;
+  }
+  const cnt = {B:0, A:0, Elo:0};
+  matches.forEach(m => cnt[m.mode]++);
+  const pct = n => matches.length ? (n / matches.length * 100).toFixed(0) : 0;
   $('mktSummary').innerHTML =
-    `${t('market.total_summary', { total: s.total })} · ` +
-    `<b class="mkt-tag mkt-a">A</b> ${t('market.mode_a_count', { n: s.mode_a, pct: pct(s.mode_a) })} · ` +
-    `<b class="mkt-tag mkt-e">Elo</b> ${t('market.elo_count', { n: s.elo, pct: pct(s.elo) })} · ` +
-    (s.mode_b ? `<b class="mkt-tag mkt-b">B</b> ${t('market.mode_b_count', { n: s.mode_b })} · ` : '');
-  $('vbNote') && ($('vbNote').textContent = '');  // noop safety
+    `${t('market.total_summary', { total: matches.length })} · ` +
+    `<b class="mkt-tag mkt-a">A</b> ${t('market.mode_a_count', { n: cnt.A, pct: pct(cnt.A) })} · ` +
+    `<b class="mkt-tag mkt-e">Elo</b> ${t('market.elo_count', { n: cnt.Elo, pct: pct(cnt.Elo) })} · ` +
+    (cnt.B ? `<b class="mkt-tag mkt-b">B</b> ${t('market.mode_b_count', { n: cnt.B })} · ` : '')
+    + (!showAll ? `<span class="dim"> (${t('market.free_tier_note')})</span>` : '');
+  $('vbNote') && ($('vbNote').textContent = '');
   const tagHtml = m => `<b class="mkt-tag mkt-${m.toLowerCase()}">${m}</b>`;
   const tri = p => p ? `${t('result.h_short')}${pct2(p[0])} ${t('result.d_short')}${pct2(p[1])} ${t('result.a_short')}${pct2(p[2])}` : '—';
   const pct2 = x => (x * 100).toFixed(0) + '%';
-  const rows = d.matches.map(m => {
+  const rows = matches.map(m => {
     if (m.mode === 'Elo') {
       return `<div class="mkt-row elo">
         <span class="mkt-tag-wrap">${tagHtml(m.mode)}</span>
@@ -626,6 +825,8 @@ function closeDrawer() {
   $('drawer').setAttribute('aria-hidden', 'true');
 }
 function renderDrawer(m) {
+  const isFinished = m.status === 'finished';
+  const drawerMasked = !isPaid && !isFinished;
   const stageZh = STAGE_ZH()[m.stage] || m.stage;
   let html = `<div class="drawer-section"><h4>${esc(stageZh)} · ${esc(m.city || '')}</h4>`;
   html += `<div class="drawer-teams">`
@@ -641,32 +842,32 @@ function renderDrawer(m) {
   }
   if (m.probs) {
     html += `<div class="drawer-section"><h4>${t('drawer.probs')}</h4>`
-      + probCells(m.probs, 'drawer', 1)
+      + probCells(m.probs, 'drawer', 1, false, drawerMasked)
       + `</div>`;
   }
   if (m.lam_h != null) {
     html += `<div class="drawer-section"><h4>${t('drawer.model_params')}</h4>`
-      + `<div class="stat-row"><span class="k">${t('drawer.lam_home')}</span><span class="v">${m.lam_h}</span></div>`
-      + `<div class="stat-row"><span class="k">${t('drawer.lam_away')}</span><span class="v">${m.lam_a}</span></div>`
-      + `<div class="stat-row"><span class="k">${t('drawer.host_adv')}</span><span class="v">${m.host_adv ? '+' + m.host_adv : t('drawer.neutral')}</span></div></div>`;
+      + `<div class="stat-row"><span class="k">${t('drawer.lam_home')}</span><span class="v">${drawerMasked ? '*' : m.lam_h}</span></div>`
+      + `<div class="stat-row"><span class="k">${t('drawer.lam_away')}</span><span class="v">${drawerMasked ? '*' : m.lam_a}</span></div>`
+      + `<div class="stat-row"><span class="k">${t('drawer.host_adv')}</span><span class="v">${drawerMasked ? '*' : (m.host_adv ? '+' + m.host_adv : t('drawer.neutral'))}</span></div></div>`;
   }
-  if (m.mode) {
+  if (m.mode && !drawerMasked) {
     const MODE_DESC = { B:'mode.b_desc', A:'mode.a_desc', Elo:'mode.elo_desc' };
     const MODE_LABEL = { B:t('src.tag_b'), A:t('src.tag_a'), Elo:t('src.tag_e') };
     html += `<div class="drawer-section"><h4>${t('drawer.data_source')}</h4>`
       + `<div class="stat-row"><span class="k">${t('drawer.prediction_basis')}</span><span class="v src-mode">`
       + `<b class="mkt-tag mkt-${m.mode.toLowerCase()}">${MODE_LABEL[m.mode]}</b> ${t(MODE_DESC[m.mode])}</span></div>`;
     if (m.odds_1x2) {
-      html += `<div class="stat-row"><span class="k">${t('drawer.odds_1x2')}</span><span class="v mono">${m.odds_1x2.join(' / ')}</span></div>`;
+      html += `<div class="stat-row"><span class="k">${t('drawer.odds_1x2')}</span><span class="v mono">${drawerMasked ? '* / * / *' : m.odds_1x2.join(' / ')}</span></div>`;
     }
     if (m.ou) {
-      html += `<div class="stat-row"><span class="k">${t('drawer.odds_ou')}</span><span class="v mono">${t('drawer.ou_format', { over: m.ou[0], under: m.ou[1] })}</span></div>`;
+      html += `<div class="stat-row"><span class="k">${t('drawer.odds_ou')}</span><span class="v mono">${drawerMasked ? '* / *' : t('drawer.ou_format', { over: m.ou[0], under: m.ou[1] })}</span></div>`;
     }
     if (m.lam_inverted && m.lam_elo) {
-      html += `<div class="stat-row"><span class="k">${t('drawer.lam_market')}</span><span class="v mono">${t('drawer.lam_market_row', { h: m.lam_inverted[0], a: m.lam_inverted[1] })}</span></div>`
-        + `<div class="stat-row"><span class="k">${t('drawer.lam_elo')}</span><span class="v mono dim">${t('drawer.lam_elo_row_dim', { h: m.lam_elo[0], a: m.lam_elo[1] })}</span></div>`;
+      html += `<div class="stat-row"><span class="k">${t('drawer.lam_market')}</span><span class="v mono">${drawerMasked ? '*' : t('drawer.lam_market_row', { h: m.lam_inverted[0], a: m.lam_inverted[1] })}</span></div>`
+        + `<div class="stat-row"><span class="k">${t('drawer.lam_elo')}</span><span class="v mono dim">${drawerMasked ? '*' : t('drawer.lam_elo_row_dim', { h: m.lam_elo[0], a: m.lam_elo[1] })}</span></div>`;
     } else if (m.lam_elo) {
-      html += `<div class="stat-row"><span class="k">${t('drawer.lam_elo')}</span><span class="v mono">${t('drawer.lam_elo_row', { h: m.lam_elo[0], a: m.lam_elo[1] })}</span></div>`;
+      html += `<div class="stat-row"><span class="k">${t('drawer.lam_elo')}</span><span class="v mono">${drawerMasked ? '*' : t('drawer.lam_elo_row', { h: m.lam_elo[0], a: m.lam_elo[1] })}</span></div>`;
     }
     html += `</div>`;
   }
@@ -675,15 +876,15 @@ function renderDrawer(m) {
     html += `<div class="drawer-section"><h4>${t('drawer.top5')}</h4><div class="top5-list">`;
     for (const [h, a, p] of m.top5) {
       html += `<div class="top5-row"><span class="sc">${h}-${a}</span>`
-        + `<div class="bar5"><div class="fill5" style="width:${p / maxp * 100}%"></div></div>`
-        + `<span class="p5">${(p * 100).toFixed(2)}%</span></div>`;
+        + `<div class="bar5"><div class="fill5" style="width:${drawerMasked ? 0 : p / maxp * 100}%"></div></div>`
+        + `<span class="p5">${drawerMasked ? '*' : (p * 100).toFixed(2) + '%'}</span></div>`;
     }
     html += `</div></div>`;
   }
   // AI 反思(实验):默认关,Pro 功能
   let reflectStoreKey = null;
   let reflectStored = false;
-  if (m.reflection && m.reflection.has_any && isPaid) {
+  if (m.reflection && m.reflection.has_any && (isPaid || isFinished)) {
     const r = m.reflection;
     reflectStoreKey = `wc_reflect_${m.date}_${m.home}_${m.away}`;
     try { reflectStored = localStorage.getItem(reflectStoreKey) === '1'; } catch {}
@@ -704,8 +905,8 @@ function renderDrawer(m) {
     if (r.away_archive) html += renderTeamArchive(r.away_archive, 'away', r.away_translated);
     html += `</div></div>`;
   }
-  // 赛前情报 + 历史交手(Pro 功能)
-  if (isPaid) {
+  // 赛前情报 + 历史交手(已结束免费,未开赛 Pro)
+  if (isPaid || isFinished) {
     html += `<div class="drawer-section intel-section">`
       + `<div class="intel-head">`
       + `<h4>${t('drawer.intel_title')} <span class="badge-ws">${t('drawer.intel_badge')}</span></h4>`
@@ -721,7 +922,7 @@ function renderDrawer(m) {
       + `<span class="pro-gate-icon-sm">⭐</span>`
       + `<span>${t('sub.pro_feature')}</span>`
       + `<button class="pro-gate-btn-sm" type="button">${t('sub.upgrade')}</button>`
-      + `</div></div>`;
+      + `</div><div class="pro-gate-features" style="margin-top:6px">${t('sub.pro_features')}</div></div>`;
   }
   $('drawerBody').innerHTML = html;
   // 抽屉 Pro gate 按钮
@@ -1064,11 +1265,26 @@ function bindLangSwitcher() {
     if (cache.backtest) renderBacktest();
     if (cache.market) renderMarket();
     if (cache.value) renderValue();
-    // 刷新 Pro gate 文案
-    if ($('panel-value')?.querySelector('.pro-gate-icon')) {
-      const panel = $('panel-value');
-      panel.innerHTML = `<div class="vb-placeholder-pro"><div class="pro-gate-icon">⭐</div><h3>${esc(t('sub.pro_feature'))}</h3><p>${esc(t('sub.upgrade_prompt'))}</p><p class="pro-gate-features">${esc(t('sub.pro_features'))}</p><button class="pro-gate-btn" type="button">${esc(t('sub.upgrade'))}</button></div>`;
-      panel.querySelector('.pro-gate-btn')?.addEventListener('click', openUpgrade);
+    // 刷新 Pro gate / 无付费 banner 文案
+    document.querySelectorAll('.pro-gate-drawer').forEach(drawer => {
+      const inner = drawer.querySelector('.pro-gate-drawer-inner');
+      if (inner) {
+        const spans = inner.querySelectorAll('span');
+        if (spans[1]) spans[1].textContent = t('sub.pro_feature') + ' · ' + t('sub.upgrade_prompt');
+        const btn = inner.querySelector('.pro-gate-btn-sm');
+        if (btn) btn.textContent = t('sub.upgrade');
+      }
+      const features = drawer.querySelector('.pro-gate-features');
+      if (features) features.innerHTML = t('sub.pro_features');
+    });
+    // 无付费价值页:重绘已结束赛事列表 + 刷新标题/副标题
+    if ($('panel-value')?.querySelector('.bt-row')) {
+      const pv = $('panel-value');
+      const title = pv.querySelector('.panel-title');
+      if (title) title.textContent = t('value.title');
+      const sub = pv.querySelector('.vb-stat');
+      if (sub) sub.textContent = t('value.unpaid_subtitle');
+      renderValueUnpaid();
     }
   });
   paintMenu();
@@ -1094,28 +1310,88 @@ function bindEvents() {
           getJSON('api/backtest').then(d => { cache.backtest = d; renderBacktest(); }).catch(()=>{});
         } else { renderBacktest(); }
       } else if (tab.dataset.tab === 'market') {
-        if (!cache.market) {
-          getJSON('api/market').then(d => { cache.market = d; renderMarket(); }).catch(()=>{});
-        } else { renderMarket(); }
+        loadMarketTab();
       } else if (tab.dataset.tab === 'value') {
         loadValueTab();
       }
     });
   });
 
+  function loadMarketTab() {
+    if (!isPaid) {
+      // Prepend upgrade banner once
+      if (!$('panel-market')?.querySelector('.pro-gate-drawer')) {
+        const banner = document.createElement('div');
+        banner.className = 'pro-gate-drawer';
+        banner.style.marginBottom = '16px';
+        banner.innerHTML = `<div class="pro-gate-drawer-inner">`
+          + `<span class="pro-gate-icon-sm">⭐</span>`
+          + `<span>${esc(t('sub.pro_feature'))} · ${esc(t('sub.upgrade_prompt'))}</span>`
+          + `<button class="pro-gate-btn-sm" type="button">${esc(t('sub.upgrade'))}</button>`
+          + `</div><div class="pro-gate-features" style="margin-top:6px">${t('sub.pro_features')}</div>`;
+        $('panel-market').insertAdjacentElement('afterbegin', banner);
+        banner.querySelector('.pro-gate-btn-sm')?.addEventListener('click', openUpgrade);
+      }
+    }
+    if (!cache.market) {
+      const wrap = $('mktList');
+      if (wrap) wrap.innerHTML = `<div class="placeholder">${esc(t('empty.loading_market'))}</div>`;
+      getJSON('api/market').then(d => { cache.market = d; renderMarket(); }).catch(()=>{});
+    } else { renderMarket(); }
+  }
+
   function loadValueTab() {
-    if (!isPaid && subChecked) {
-      showValueGate();
+    if (!isPaid) {
+      showValueUnpaid();
       return;
     }
     if (!cache.value) {
       getJSON('api/value-bets?min_edge=0.03' + emailSuffix()).then(d => { cache.value = d; renderValue(); }).catch(()=>{});
     } else { renderValue(); }
   }
-  function showValueGate() {
+  function showValueUnpaid() {
     const panel = $('panel-value');
-    panel.innerHTML = `<div class="vb-placeholder-pro"><div class="pro-gate-icon">⭐</div><h3>${esc(t('sub.pro_feature'))}</h3><p>${esc(t('sub.upgrade_prompt'))}</p><p class="pro-gate-features">${esc(t('sub.pro_features'))}</p><button class="pro-gate-btn" type="button">${esc(t('sub.upgrade'))}</button></div>`;
-    panel.querySelector('.pro-gate-btn')?.addEventListener('click', openUpgrade);
+    panel.innerHTML = ''
+      + `<div class="pro-gate-drawer" style="margin-bottom:16px">`
+      + `<div class="pro-gate-drawer-inner">`
+      + `<span class="pro-gate-icon-sm">⭐</span>`
+      + `<span>${esc(t('sub.pro_feature'))} · ${esc(t('sub.upgrade_prompt'))}</span>`
+      + `<button class="pro-gate-btn-sm" type="button">${esc(t('sub.upgrade'))}</button>`
+      + `</div><div class="pro-gate-features" style="margin-top:6px">${t('sub.pro_features')}</div></div>`
+      + `<h2 class="panel-title">${esc(t('value.title'))}</h2>`
+      + `<p class="vb-stat" style="margin:0 0 12px">${t('value.unpaid_subtitle')}</p>`
+      + `<div id="vbList" class="bt-wrap"><div class="placeholder">${esc(t('empty.loading'))}</div></div>`;
+    panel.querySelector('.pro-gate-btn-sm')?.addEventListener('click', openUpgrade);
+    renderValueUnpaid();
+  }
+  function renderValueUnpaid() {
+    const wrap = $('vbList');
+    if (!wrap) return;
+    const finished = (cache.schedule || []).filter(m => m.status === 'finished' && m.probs);
+    if (!finished.length) {
+      wrap.innerHTML = `<div class="placeholder">${esc(t('empty.no_finished'))}</div>`;
+      return;
+    }
+    const zh = RESULT_ZH();
+    const rows = finished.map(m => {
+      const [h, a] = m.score || [0, 0];
+      const result = h > a ? 'H' : (h < a ? 'A' : 'D');
+      const predResult = m.probs ? (m.probs[0] > m.probs[1] && m.probs[0] > m.probs[2] ? 'H'
+        : m.probs[2] > m.probs[1] && m.probs[2] > m.probs[0] ? 'A' : 'D') : '-';
+      const hit = result === predResult;
+      const ps = m.top_score;
+      const psHtml = ps ? `<span class="bt-pscore">${ps[0]}-${ps[1]}</span>` : `<span class="bt-pscore">-</span>`;
+      const hitCls = hit ? 'ok' : 'no';
+      const mark = hit ? t('card.win_hit') : t('card.loss_prefix', { result: zh[result] || result });
+      return `<div class="bt-row ${hitCls}">
+        <span class="bt-date">${esc(m.date.slice(5))}</span>
+        <span class="bt-team">${flag(m.home)} ${esc(teamName(m, 'home'))}</span>
+        <span class="bt-scoreline">${t('backtest.pred')}${psHtml}<span class="bt-real">${t('backtest.actual')}${h}-${a}</span></span>
+        <span class="bt-team right">${esc(teamName(m, 'away'))} ${flag(m.away)}</span>
+        <span class="bt-mark ${hitCls}">${mark}</span>
+      </div>`;
+    }).join('');
+    wrap.innerHTML = rows;
   }
 
   // 阶段筛选
