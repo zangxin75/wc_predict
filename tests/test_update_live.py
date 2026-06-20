@@ -33,7 +33,7 @@ def test_diff_new_and_dup(tmp_path):
     liv = _write(tmp_path / "l.csv",
                  ("2020-01-01", "A", "B", 2, 1),    # 已存在
                  ("2026-06-14", "C", "D", 3, 0))    # 新
-    new, dup = update_live.diff_live(res, liv)
+    new, _na_upd, _conflicts, dup = update_live.diff_live(res, liv)
     assert dup == 1 and len(new) == 1
     assert new[0][1] == "C"                              # 新场 home=C
 
@@ -55,9 +55,9 @@ def test_idempotent(tmp_path):
     res = tmp_path / "r.csv"
     res.write_text(HEADER, encoding="utf-8")
     liv = _write(tmp_path / "l.csv", ("2026-06-14", "C", "D", 3, 0))
-    new, _ = update_live.diff_live(str(res), liv)
+    new, *_ = update_live.diff_live(str(res), liv)
     update_live.append_new(new, str(res))
-    new2, _ = update_live.diff_live(str(res), liv)
+    new2, *_ = update_live.diff_live(str(res), liv)
     assert new2 == []                                    # 二次无新
 
 
@@ -68,7 +68,7 @@ def test_live_internal_dedup(tmp_path):
     liv = _write(tmp_path / "l.csv",
                  ("2026-06-14", "C", "D", 3, 0),
                  ("2026-06-14", "C", "D", 3, 0))          # live 内重复
-    new, _ = update_live.diff_live(str(res), liv)
+    new, *_ = update_live.diff_live(str(res), liv)
     assert len(new) == 1                                 # 内部去重
 
 
@@ -81,7 +81,7 @@ def test_append_empty(tmp_path):
 # ── UL-06:live 文件不存在 → 空,不抛 ─────────────────────────
 def test_no_live_file(tmp_path):
     res = _write(tmp_path / "r.csv", ("2020-01-01", "A", "B", 1, 0))
-    new, dup = update_live.diff_live(res, str(tmp_path / "nope.csv"))
+    new, _na_upd, _conflicts, dup = update_live.diff_live(res, str(tmp_path / "nope.csv"))
     assert new == [] and dup == 0
 
 
@@ -90,5 +90,5 @@ def test_no_results_all_new(tmp_path):
     liv = _write(tmp_path / "l.csv",
                  ("2026-06-14", "A", "B", 1, 0),
                  ("2026-06-15", "C", "D", 2, 2))
-    new, dup = update_live.diff_live(str(tmp_path / "no_res.csv"), liv)
+    new, _na_upd, _conflicts, dup = update_live.diff_live(str(tmp_path / "no_res.csv"), liv)
     assert len(new) == 2 and dup == 0

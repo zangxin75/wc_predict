@@ -16,10 +16,12 @@ if HERE not in sys.path:
 import ensemble
 
 
-# ── ENS-01:一致场(argmax 同)→ w_stat=base(默认0.3)─────────
+# ── ENS-01:一致场(argmax 同)→ w_stat=base ───────────────────
 def test_combine_weights_agree():
-    """两模型都预测 index 0 赢(一致)→ 借力 xgb,w_stat=base。"""
-    ws, wx = ensemble.combine_weights([0.5, 0.3, 0.2], [0.4, 0.4, 0.2])
+    """两模型都预测 index 0 赢(一致)→ 借力 xgb,w_stat=base。
+    显式传 w_base=0.3 隔离默认值变化(函数当前默认 0.2)。"""
+    ws, wx = ensemble.combine_weights([0.5, 0.3, 0.2], [0.4, 0.4, 0.2],
+                                      {"w_base": 0.3})
     assert abs(ws - 0.3) < 1e-9
     assert abs(wx - 0.7) < 1e-9
 
@@ -58,10 +60,11 @@ def test_combine_weights_clamps():
 
 # ── ENS-06:加权集成结果正确性(一致场)────────────────────────
 def test_combine_weights_weighted_average():
-    """一致场 w_base=0.3 → 集成[0]=0.3*0.6+0.7*0.4=0.46。"""
+    """一致场 w_base=0.3 → 集成[0]=0.3*0.6+0.7*0.4=0.46。
+    显式传 w_base=0.3 隔离默认值变化。"""
     sp = [0.6, 0.2, 0.2]
     xp = [0.4, 0.4, 0.2]
-    ws, wx = ensemble.combine_weights(sp, xp)
+    ws, wx = ensemble.combine_weights(sp, xp, {"w_base": 0.3})
     mixed = [ws * a + wx * b for a, b in zip(sp, xp)]
     assert abs(mixed[0] - 0.46) < 1e-9
     assert abs(mixed[1] - 0.34) < 1e-9

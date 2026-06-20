@@ -158,7 +158,7 @@ def write_csvs(live, sched):
     with open(SCHED_OUT, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(SCHED_HEADER)
-        for r in live + sched:
+        for r in sched:
             hs = r["hs"] if (r.get("completed") and r["hs"] is not None) else ""
             as_ = r["as_"] if (r.get("completed") and r["as_"] is not None) else ""
             w.writerow([r["date"], r["home"], r["away"],
