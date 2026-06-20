@@ -189,6 +189,14 @@ def update_once(force_monte_carlo=False):
                              for c in champs[:3])
             print(f"[updater] ✓ 复冠榜刷新:Top3 = {top3}")
 
+        # 5) 预热"数据来源"面板缓存(用刚算的 elo,避免用户切标签时同步重算)
+        try:
+            m = predictor.market_coverage(elo=elo)
+            cache.atomic_replace(market=m, market_built_at=_now_iso())
+            print(f"[updater] ✓ 数据来源面板预热:{len(m.get('matches', []))} 场")
+        except Exception as e:
+            print(f"[updater] 数据来源面板预热失败(忽略,/api/market 兜底): {e}")
+
     except Exception as e:
         import traceback
         traceback.print_exc()

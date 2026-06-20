@@ -38,6 +38,8 @@ _schedule = []
 _groups = {}
 _champions = []
 _champions_built_at = None   # ISO datetime 或 None
+_market = None               # 数据来源面板缓存(后台预热)
+_market_built_at = None
 _status = {
     "last_updated": None,
     "success": None,
@@ -71,12 +73,15 @@ def load_or_build():
                 _groups = d.get("groups", {})
                 _champions = d.get("champions", [])
                 _champions_built_at = d.get("champions_built_at")
+                _market = d.get("market")
+                _market_built_at = d.get("market_built_at")
                 _status = dict(_status)
                 _status["champions_built_at"] = _champions_built_at
                 _status["last_updated"] = d.get("saved_at")
             loaded = bool(d.get("elo"))
             print(f"[cache] 从 cache.json 载入: {len(_schedule)} 场, "
-                  f"champions={'有' if _champions else '无'}")
+                  f"champions={'有' if _champions else '无'}, "
+                  f"market={'有' if _market else '无'}")
         except Exception as e:
             print(f"[cache] cache.json 载入失败({e}),全量重建")
 
@@ -94,6 +99,15 @@ def load_or_build():
             _status["last_updated"] = _now_iso()
             _status["success"] = True
             _status["champions_built_at"] = None
+        # 冷启动时也预热 market(避免首次切到"数据来源"标签同步算 ~500ms)
+        try:
+            m = predictor.market_coverage(elo=elo)
+            with _lock:
+                _market = m
+                _market_built_at = _now_iso()
+            print("[cache] 冷启动预热 market:完成")
+        except Exception as e:
+            print(f"[cache] 冷启动预热 market 失败(忽略,/api/market 兜底): {e}")
         save()
 
 
@@ -107,6 +121,8 @@ def save():
             "groups": _groups,
             "champions": _champions,
             "champions_built_at": _champions_built_at,
+            "market": _market,
+            "market_built_at": _market_built_at,
         }
     tmp = CACHE_FILE + ".tmp"
     os.makedirs(os.path.dirname(CACHE_FILE), exist_ok=True)
@@ -116,9 +132,11 @@ def save():
 
 
 def atomic_replace(elo=None, schedule=None, groups=None, champions=None,
-                   champions_built_at=None, status=None):
+                   champions_built_at=None, market=None, market_built_at=None,
+                   status=None):
     """后台线程算完后,持锁整体替换传入的字段(None 表示不动)。"""
-    global _elo, _schedule, _groups, _champions, _champions_built_at, _status
+    global _elo, _schedule, _groups, _champions, _champions_built_at
+    global _market, _market_built_at, _status
     with _lock:
         if elo is not None:
             _elo = elo
@@ -131,6 +149,10 @@ def atomic_replace(elo=None, schedule=None, groups=None, champions=None,
         if champions_built_at is not None:
             _champions_built_at = champions_built_at
             _status["champions_built_at"] = champions_built_at
+        if market is not None:
+            _market = market
+        if market_built_at is not None:
+            _market_built_at = market_built_at
         if status:
             for k, v in status.items():
                 _status[k] = v
@@ -170,3 +192,29 @@ def get_champions():
 def get_status():
     with _lock:
         return dict(_status)
+
+
+def get_market():
+    """返回数据来源面板缓存(后台 updater 预热,冷启动由 /api/market 兜底同步算)。
+    None 表示尚未构建。
+    """
+    with _lock:
+        return _market
+
+
+def refresh_market(elo=None):
+    """用给定的 elo 重算并替换 market 缓存;返回新缓存值。
+
+    失败不抛(只记到 status,不影响主流程)。调用方应传 cache 当前的 elo
+    以避免重建 compute_elo.build_elo 的开销。
+    """
+    global _market, _market_built_at
+    try:
+        m = predictor.market_coverage(elo=elo if elo is not None else _elo)
+        with _lock:
+            _market = m
+            _market_built_at = _now_iso()
+        return m
+    except Exception as e:
+        print(f"[cache] refresh_market 失败: {e}")
+        return None

@@ -451,11 +451,14 @@ def run_monte_carlo(n=10000, seed=None):
              "count": c, "prob": round(p, 4)} for t, c, p in ranking]
 
 
-def market_coverage(year=2026):
+def market_coverage(year=2026, elo=None):
     """数据来源面板:遍历该届赛程每场,判定单场预测的数据源 + 反演λ vs Eloλ 对比。
 
     与 tournament_sim._lambdas 的异源优先判定对齐:ou_map(含OU→模式B)→ odds_map
     (仅1X2→模式A)→ Elo。让用户可审计夺冠模拟里每场到底用了什么数据。
+
+    elo: 可选预构建 Elo dict。传入则直接复用(由调用方负责,通常 cache.get_elo());
+    传 None 则 fallback 走 build_elo(RESULTS) 重建——首次冷启动兜底用,代价 ~100-300ms。
 
     返回 {
       matches: [{home, home_zh, away, away_zh, date, mode, odds_1x2, ou, ou_line,
@@ -473,7 +476,8 @@ def market_coverage(year=2026):
         odds_map = compute_odds.load_odds()
     except Exception:
         pass
-    elo, _, _ = compute_elo.build_elo(RESULTS)
+    if elo is None:
+        elo, _, _ = compute_elo.build_elo(RESULTS)
     matches = []
     counts = {"B": 0, "A": 0, "Elo": 0}
     for row in read_schedule():
