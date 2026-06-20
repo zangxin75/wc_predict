@@ -991,19 +991,28 @@ body::before{
 .upgrade-plan-invite:hover{border-color:var(--gold-line);background:rgba(201,169,97,.04)}
 .upgrade-plan-invite .plan-name{font-size:13px;font-weight:600;color:var(--text-dim)}
 .upgrade-plan-invite .plan-action{color:var(--text-dim);font-weight:600}
-.upgrade-share-row{margin-top:10px}
-.upgrade-plan-share{
-  border-style:dashed;border-color:rgba(201,169,97,.35);
-  background:transparent;
+.invite-hint{
+  margin:-4px 0 10px;
+  font-size:12px;font-family:var(--ff-mono);
+  color:var(--gold-hi);text-align:center;
+  letter-spacing:.5px;
+  animation:invite-hint-fade .25s ease-out;
 }
-.upgrade-plan-share:hover{border-color:var(--gold-line);background:rgba(201,169,97,.04)}
-.upgrade-plan-share .plan-name{font-size:13px;font-weight:600;color:var(--text-dim)}
-.upgrade-plan-share .plan-action{color:var(--text-dim);font-weight:600}
 .upgrade-share-panel{
   margin-top:10px;padding:12px;
   border:1px solid rgba(201,169,97,.2);border-radius:var(--r-tag);
   background:rgba(255,255,255,.02);
   display:flex;flex-direction:column;gap:12px;
+  animation:share-panel-slide .18s ease-out;
+}
+.upgrade-share-panel[hidden]{display:none}
+@keyframes share-panel-slide{
+  from{opacity:0;transform:translateY(-4px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes invite-hint-fade{
+  from{opacity:0;transform:translateY(-2px)}
+  to{opacity:1;transform:translateY(0)}
 }
 .share-platform-row{display:flex;align-items:center;gap:10px}
 .share-label{

@@ -655,10 +655,13 @@ def share_verify(request: Request,
     return {
         "ok": True,
         "platform": meta["platform"],
+        "handle": meta.get("handle"),
         "code": res["code"],
         "expires_at": res["expires_at"],
         "reused": res["reused"],
         "status": res["status"],
+        "next_available_at": res.get("next_available_at"),
+        "verify_mode": meta.get("verify_mode", "format_only"),
     }
 
 
@@ -680,6 +683,25 @@ def share_redeem(request: Request, email: str = Query(...),
         "plan": res.get("plan", "share"),
         "pro_expires_at": res.get("pro_expires_at"),
     }
+
+
+@app.get("/api/share/templates")
+def share_templates(locale: str | None = Query(None, description="模板文案语言(en/zh-CN/es/pt/fr/ar)")):
+    """动态生成本地化分享模板(Phase 1.1 — 解决比赛结束后推文过时问题)。
+
+    每次调用从 cache + teams.json 拉当前数据,内容不会过期。
+    locale 决定队名翻译 + 模板文案语言。
+    返回 3 个候选模板(a=top3 upcoming、b=静态特性、c=下一场含赔率),前端轮换展示。
+    """
+    from webapp import share_templates as _st
+    import compute_odds as _co
+    sched = cache.get_schedule()
+    # odds_map 用 load_odds 原样 {(year, home, away): tuple},share_templates 内部 flatten
+    try:
+        odds_map = _co.load_odds()
+    except Exception:
+        odds_map = {}
+    return _st.build_share_templates(sched, locale=locale, odds_map=odds_map)
 
 
 # 静态文件(CSS/JS)。index.html 由根路由单独处理。

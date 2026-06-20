@@ -197,13 +197,7 @@
         <span class="plan-name" data-i18n="sub.invite_label">有邀请码？</span>
         <span class="plan-action" data-i18n="sub.invite_action">使用邀请码解锁</span>
       </button>
-    </div>
-    <div class="upgrade-share-row">
-      <div class="upgrade-divider"><span>🎁</span></div>
-      <button class="upgrade-plan upgrade-plan-share" id="shareToggleBtn" type="button" aria-expanded="false">
-        <span class="plan-name" data-i18n="share.section_title">Have a share code?</span>
-        <span class="plan-action" data-i18n="share.section_action">Share on X →</span>
-      </button>
+      <div class="invite-hint" id="inviteHint" hidden></div>
       <div class="upgrade-share-panel" id="sharePanel" hidden>
         <div class="share-platform-row">
           <span class="share-label" data-i18n="share.platform_label">Platform</span>
@@ -228,14 +222,6 @@
             <span class="plan-name" data-i18n="share.verify_btn">Get my invite code</span>
           </button>
         </div>
-        <div class="share-result" id="shareResult" hidden>
-          <div class="share-result-label" id="shareResultLabel"></div>
-          <div class="share-code-display" id="shareCodeDisplay"></div>
-          <button class="upgrade-plan upgrade-plan-use" id="shareUseCodeBtn" type="button" hidden>
-            <span class="plan-name" data-i18n="share.code_label">Your 24h invite code</span>
-            <span class="plan-action" data-i18n="share.code_hint">Use this code</span>
-          </button>
-        </div>
       </div>
     </div>
     <div class="upgrade-error" id="upgradeError" hidden></div>
@@ -244,7 +230,7 @@
 </aside>
 <div class="upgrade-scrim" id="upgradeScrim" hidden></div>
 
-<script src="static/i18n.js?v=21"></script>
-<script src="static/app.js?v=34"></script>
+<script src="static/i18n.js?v=22"></script>
+<script src="static/app.js?v=36"></script>
 </body>
 </html>

@@ -141,7 +141,7 @@ function bindUpgradeModal() {
   $('upgradeClose')?.addEventListener('click', closeUpgrade);
   $('upgradeScrim')?.addEventListener('click', closeUpgrade);
   $('planTournament')?.addEventListener('click', () => handleCheckout('tournament'));
-  $('redeemInviteBtn')?.addEventListener('click', handleRedeemInvite);
+  $('redeemInviteBtn')?.addEventListener('click', handleRedeemInviteOrToggleShare);
   // 场次明细 折叠/展开
   $('matchListToggle')?.addEventListener('click', () => {
     const list = $('matchList');
@@ -163,6 +163,12 @@ function bindUpgradeModal() {
     inviteInput.addEventListener('input', () => {
       inviteInput.value = inviteInput.value.toUpperCase();
       const e = $('upgradeError'); if (e) e.hidden = true;
+      updateRedeemBtnLabel();
+      // 用户开始手输码 → 自动折叠 share panel + 隐藏 hint
+      if (inviteInput.value.trim()) {
+        setSharePanelOpen(false);
+        const h = $('inviteHint'); if (h) h.hidden = true;
+      }
     });
     inviteInput.addEventListener('keydown', (ev) => {
       if (ev.key === 'Enter') { ev.preventDefault(); handleRedeemInvite(); }
@@ -173,24 +179,22 @@ function bindUpgradeModal() {
 }
 
 
-function bindSharePanel() {
-  const tog = $('shareToggleBtn');
+// 折叠/展开 share panel(由 redeemInviteBtn 空态点击触发)
+function setSharePanelOpen(open) {
   const panel = $('sharePanel');
-  if (!tog || !panel) return;
-  tog.addEventListener('click', () => {
-    const willShow = panel.hidden;
-    panel.hidden = !willShow;
-    tog.setAttribute('aria-expanded', String(willShow));
-    if (willShow) {
-      // 首次打开:从 localStorage 读上次 idx,推进到下一个模板
-      const tpl = $('shareTemplate');
-      if (tpl) {
-        const idx = advanceShareTemplateIdx();
-        fillShareTemplate(idx);
-      }
+  if (!panel) return;
+  panel.hidden = !open;
+  if (open) {
+    // 首次打开:推进模板
+    if (!$('shareTemplate')?.value) {
+      const idx = advanceShareTemplateIdx();
+      fillShareTemplate(idx);
     }
-  });
-  // 手动切换到下一个模板
+  }
+}
+
+function bindSharePanel() {
+  // share panel 由主按钮控制展开,内部按钮保持不变
   $('shareNextBtn')?.addEventListener('click', () => {
     const idx = advanceShareTemplateIdx();
     fillShareTemplate(idx);
@@ -215,7 +219,29 @@ function bindSharePanel() {
   $('shareUrlInput')?.addEventListener('keydown', (ev) => {
     if (ev.key === 'Enter') { ev.preventDefault(); handleShareVerify(); }
   });
-  $('shareUseCodeBtn')?.addEventListener('click', handleShareUseCode);
+}
+
+// 智能按钮:空态 → 展开 share panel;有码 → redeem
+function handleRedeemInviteOrToggleShare() {
+  const code = $('inviteCode')?.value.trim() || '';
+  if (!code) {
+    const panel = $('sharePanel');
+    setSharePanelOpen(panel ? panel.hidden : true);
+    return;
+  }
+  handleRedeemInvite();
+}
+
+// 根据 inviteCode 内容切换按钮文案(空→"获取邀请码";有码→"使用邀请码解锁")
+function updateRedeemBtnLabel() {
+  const btn = $('redeemInviteBtn');
+  if (!btn) return;
+  const actionSpan = btn.querySelector('.plan-action');
+  if (!actionSpan) return;
+  const empty = !($('inviteCode')?.value.trim() || '');
+  const key = empty ? 'sub.get_invite_code' : 'sub.invite_action';
+  const fallback = empty ? 'Get invite code' : 'Redeem invite code';
+  actionSpan.textContent = (typeof t === 'function') ? t(key) : fallback;
 }
 
 
@@ -225,6 +251,10 @@ let _shareLatestCode = '';
 const SHARE_TEMPLATE_KEY = 'wc_share_tpl_idx';
 const SHARE_TEMPLATE_COUNT = 3;
 
+// 模板从后端 /api/share/templates 动态拉,解决推文比赛过时问题
+let _shareTemplatesCache = null; // { locale, fetchedAt, templates: [a,b,c] }
+let _shareTemplatesFetching = null; // promise,避免并发 fetch
+
 function advanceShareTemplateIdx() {
   let cur = 0;
   try { cur = parseInt(localStorage.getItem(SHARE_TEMPLATE_KEY) || '0', 10) || 0; } catch {}
@@ -233,15 +263,58 @@ function advanceShareTemplateIdx() {
   return next;
 }
 
-function fillShareTemplate(idx) {
+async function fetchShareTemplates(locale) {
+  // 并发去重
+  if (_shareTemplatesFetching) return _shareTemplatesFetching;
+  _shareTemplatesFetching = (async () => {
+    try {
+      const r = await fetch(`api/share/templates?locale=${encodeURIComponent(locale)}`,
+                            { cache: 'no-cache' });
+      if (!r.ok) throw new Error(`share templates HTTP ${r.status}`);
+      const data = await r.json();
+      const list = (data.templates || []).map(x => x.text).filter(Boolean);
+      if (list.length < 3) {
+        // API 返回 <3 时回退到静态模板,补足
+        const fb = ['share.template_a', 'share.template_b', 'share.template_c']
+          .map(k => (typeof t === 'function') ? t(k) : '');
+        while (list.length < 3) list.push(fb[list.length] || '');
+      }
+      _shareTemplatesCache = {
+        locale,
+        fetchedAt: Date.now(),
+        templates: list.slice(0, 3),
+      };
+    } catch (e) {
+      console.warn('[share] templates fetch failed, fallback to i18n', e);
+      const fb = ['share.template_a', 'share.template_b', 'share.template_c']
+        .map(k => (typeof t === 'function') ? t(k) : '');
+      _shareTemplatesCache = {
+        locale,
+        fetchedAt: Date.now(),
+        templates: fb,
+      };
+    } finally {
+      _shareTemplatesFetching = null;
+    }
+    return _shareTemplatesCache;
+  })();
+  return _shareTemplatesFetching;
+}
+
+async function fillShareTemplate(idx) {
   const tpl = $('shareTemplate');
-  if (!tpl || typeof t !== 'function') return;
-  const key = `share.template_${'abc'[idx]}`;
-  tpl.value = t(key) || '';
+  if (!tpl) return;
+  const locale = (window.I18N && I18N.current) ? I18N.current : 'en';
+  // locale 切换或首次 → 拉取
+  if (!_shareTemplatesCache || _shareTemplatesCache.locale !== locale) {
+    await fetchShareTemplates(locale);
+  }
+  const list = (_shareTemplatesCache && _shareTemplatesCache.templates) || [];
+  tpl.value = list[idx] || '';
   // 更新计数显示 "1/3"
   const cnt = $('shareTplCounter');
   if (cnt) {
-    const fmt = t('share.template_counter') || '{idx}/{total}';
+    const fmt = (typeof t === 'function' && t('share.template_counter')) || '{idx}/{total}';
     cnt.textContent = fmt.replace('{idx}', String(idx + 1)).replace('{total}', String(SHARE_TEMPLATE_COUNT));
   }
 }
@@ -250,10 +323,6 @@ function fillShareTemplate(idx) {
 async function handleShareVerify() {
   const urlInput = $('shareUrlInput');
   const errEl = $('upgradeError');
-  const resultEl = $('shareResult');
-  const codeEl = $('shareCodeDisplay');
-  const labelEl = $('shareResultLabel');
-  const useBtn = $('shareUseCodeBtn');
   const btn = $('shareVerifyBtn');
   if (!urlInput || !btn) return;
   if (errEl) errEl.hidden = true;
@@ -299,18 +368,29 @@ async function handleShareVerify() {
       return;
     }
     _shareLatestCode = data.code;
-    if (codeEl) codeEl.textContent = data.code;
-    if (useBtn) useBtn.hidden = false;
-    if (resultEl) resultEl.hidden = false;
-    if (labelEl) {
-      const key = data.reused ? 'share.success_reused' : 'share.success_new';
-      let msg = (typeof t === 'function') ? t(key) : '';
-      if (data.reused && data.expires_at) {
-        const until = new Date(data.expires_at);
-        msg = msg.replace('{time}', until.toLocaleString());
+    // 自动填入输入框 + 折叠 share panel + 显示提示 + 切换按钮文案
+    const inv = $('inviteCode');
+    if (inv) inv.value = data.code;
+    setSharePanelOpen(false);
+    const hint = $('inviteHint');
+    if (hint) {
+      let key = 'sub.code_hint_24h';
+      let params = null;
+      if (data.reused) {
+        const handle = (data.handle || '').replace(/^@/, '');
+        const nextAt = data.next_available_at || data.expires_at || 0;
+        const time = nextAt ? new Date(nextAt * 1000).toLocaleString() : '';
+        if (data.status === 'active') {
+          key = 'share.reused_unused';
+        } else if (data.status === 'redeemed') {
+          key = 'share.reused_used';
+        }
+        params = { handle, time };
       }
-      labelEl.textContent = msg;
+      hint.textContent = (typeof t === 'function') ? t(key, params) : '';
+      hint.hidden = false;
     }
+    updateRedeemBtnLabel();
   } catch (e) {
     if (errEl) {
       errEl.textContent = (typeof t === 'function') ? t('share.error_network') : 'Network error';
@@ -319,19 +399,6 @@ async function handleShareVerify() {
   } finally {
     btn.disabled = false;
   }
-}
-
-
-async function handleShareUseCode() {
-  const inv = $('inviteCode');
-  const errEl = $('upgradeError');
-  if (!_shareLatestCode) return;
-  if (inv) {
-    inv.value = _shareLatestCode;
-    inv.focus();
-  }
-  // 直接 redeem
-  await handleRedeemInvite();
 }
 
 async function openUpgrade() {
@@ -346,11 +413,15 @@ async function openUpgrade() {
   if (s) s.hidden = true;
   const e = $('upgradeError');
   if (e) e.hidden = true;
-  // 清空邀请码输入(防上次残留)
+  // 清空邀请码输入 + 折叠 share panel + 隐藏 hint(防上次残留)
   const inv = $('inviteCode');
   if (inv) inv.value = '';
+  const hint = $('inviteHint');
+  if (hint) hint.hidden = true;
+  setSharePanelOpen(false);
   const rBtn = $('redeemInviteBtn');
   if (rBtn) rBtn.disabled = false;
+  updateRedeemBtnLabel();
   const locale = (typeof I18N !== 'undefined' && I18N.current) || 'en';
   applyUpgrade(locale);
   const emailInput = $('upgradeEmail');
