@@ -81,10 +81,19 @@ def load_groups(path=SCHEDULE):
     return groups
 
 
+# _lambdas memo:同一次 monte_carlo 内 (a,b,year) 的 elo/ou_map 不变,缓存消除
+# 100万次重复反演(主热点)。monte_carlo 入口清空防跨调用脏。
+_lambda_cache = {}
+
+
 def _lambdas(elo, a, b, ou_map=None, year=2026):
     """两队 → (λ_a, λ_b),中立场(home_adv=0)。
     异源优先:若 ou_map 命中且能从市场报价反演 (λh,λa),用反演值(含总进球 OU 约束,
     比纯 Elo 更贴市场);否则 Elo→λ。Elo 缺失回退 1500。"""
+    key = (a, b, year)
+    cached = _lambda_cache.get(key)
+    if cached is not None:
+        return cached
     if ou_map:
         import compute_odds
         v = compute_odds.lookup_ou(ou_map, a, b, year)
@@ -93,9 +102,12 @@ def _lambdas(elo, a, b, ou_map=None, year=2026):
             lam = compute_odds.lambda_from_market(oh, od, oa, ou=v.get("ou"),
                                                   ou_line=v.get("ou_line", 2.5))
             if lam is not None:
+                _lambda_cache[key] = lam
                 return lam
-    return wc_predict.elo_to_lambdas(elo.get(a, 1500.0), elo.get(b, 1500.0),
-                                     home_adv=0.0)
+    result = wc_predict.elo_to_lambdas(elo.get(a, 1500.0), elo.get(b, 1500.0),
+                                       home_adv=0.0)
+    _lambda_cache[key] = result
+    return result
 
 
 def simulate_group(teams, elo, rng, ou_map=None):
@@ -182,6 +194,7 @@ def one_tournament(elo, groups, rng, ou_map=None):
 def monte_carlo(n_sims, seed=None, ou_map=None):
     """跑 n_sims 次整届推演,返回 [(队名, 夺冠次数, 概率)] 降序。
     ou_map 非空时,有 OU+1X2 报价的场用市场反演 λ(异源优先),其余 Elo λ。"""
+    _lambda_cache.clear()
     elo, _, _ = compute_elo.build_elo(RESULTS)
     if ou_map is None:   # 调用方未传则自载合并双源(失败兜底空→全 Elo,向后兼容)
         try:

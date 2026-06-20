@@ -38,6 +38,7 @@ const I18N = (() => {
     'fr':'fr','fr-FR':'fr','fr-BE':'fr','fr-CA':'fr','fr-CH':'fr'
   };
 
+  const I18N_VER = 3;                   // 翻译缓存版本;i18n JSON 变动时+1
   let current = 'en';
   let dict = {};
   let teams = {};                       // 48 队多语言译名(由 teams.json 加载)
@@ -51,7 +52,7 @@ const I18N = (() => {
   async function loadDict(locale) {
     if (dict[locale]) return dict[locale];
     try {
-      const r = await fetch(`static/i18n/${locale}.json`, { cache: 'force-cache' });
+      const r = await fetch(`static/i18n/${locale}.json?v=${I18N_VER}`, { cache: 'no-cache' });
       if (!r.ok) throw new Error(`load ${locale} → ${r.status}`);
       dict[locale] = await r.json();
       return dict[locale];
@@ -66,7 +67,7 @@ const I18N = (() => {
   async function loadTeams() {
     if (teamsLoaded) return teams;
     try {
-      const r = await fetch('static/i18n/teams.json', { cache: 'force-cache' });
+      const r = await fetch(`static/i18n/teams.json?v=${I18N_VER}`, { cache: 'no-cache' });
       if (r.ok) {
         const d = await r.json();
         teams = d;
