@@ -144,8 +144,9 @@ function openUpgrade() {
   if (e) e.hidden = true;
   // 确保弹窗文案跟随当前语言
   if (window.I18N) {
+    const curLang = I18N.current || '?';
     const titleEl = $('upgradeTitle');
-    if (titleEl) titleEl.textContent = I18N.t('sub.upgrade_title');
+    if (titleEl) titleEl.textContent = '[' + curLang + '] ' + I18N.t('sub.upgrade_title');
     const descEl = document.querySelector('.upgrade-desc');
     if (descEl) descEl.textContent = I18N.t('sub.upgrade_desc');
     const planNameEls = document.querySelectorAll('.plan-name');
