@@ -294,47 +294,76 @@ year,date,home,away,score,odds_h,odds_d,odds_a
 2022,24 Nov 2022,Uruguay,South Korea,0:0,1.82,3.60,5.36
 2022,30 Nov 2022,Wales,England,0:3,10.00,4.55,1.46
 2022,25 Nov 2022,Wales,Iran,0:2,2.23,3.26,4.31
-2026,,Algeria,Austria,,3.00,3.05,2.48
-2026,,Argentina,Austria,,1.60,3.85,5.85
-2026,,Belgium,Iran,,1.43,4.52,7.49
-2026,,Bosnia and Herzegovina,Qatar,,1.40,4.81,7.14
-2026,,Brazil,Haiti,,1.10,10.88,22.75
-2026,,Cape Verde,Saudi Arabia,,2.72,3.58,2.40
-2026,,Colombia,DR Congo,,1.55,4.30,7.80
-2026,,Colombia,Portugal,,3.42,3.32,2.11
-2026,,Croatia,Ghana,,1.60,3.79,5.61
-2026,,Curaçao,Ivory Coast,,21.00,9.40,1.17
-2026,,Czech Republic,Mexico,,3.05,3.46,2.22
-2026,,DR Congo,Uzbekistan,,2.20,3.65,3.50
-2026,,Ecuador,Curaçao,,27.00,11.00,1.14
-2026,,Ecuador,Germany,,4.87,3.74,1.70
-2026,,Egypt,Iran,,2.08,3.10,3.83
-2026,,England,Ghana,,1.22,6.22,13.68
-2026,,France,Iraq,,1.08,10.61,30.28
-2026,,Germany,Ivory Coast,,1.54,4.46,5.64
-2026,,Japan,Sweden,,2.14,3.39,3.36
-2026,,Jordan,Algeria,,5.76,4.02,1.58
-2026,,Jordan,Argentina,,13.23,6.63,1.20
-2026,,Morocco,Haiti,,1.27,5.52,10.90
-2026,,Netherlands,Sweden,,1.76,3.79,4.61
-2026,,New Zealand,Belgium,,12.00,6.08,1.22
-2026,,New Zealand,Egypt,,5.47,3.99,1.61
-2026,,Norway,France,,4.19,3.65,1.80
-2026,,Norway,Senegal,,2.32,3.43,3.00
-2026,,Panama,Croatia,,6.56,3.94,1.54
-2026,,Panama,England,,9.80,6.18,1.25
-2026,,Paraguay,Australia,,2.16,3.26,3.44
-2026,,Portugal,Uzbekistan,,1.20,6.63,14.72
-2026,,Scotland,Brazil,,6.88,4.72,1.42
-2026,,Scotland,Morocco,,5.14,3.56,1.75
-2026,,Senegal,Iraq,,1.31,5.08,9.70
-2026,,South Africa,South Korea,,5.47,3.86,1.61
-2026,,Spain,Saudi Arabia,,1.10,9.79,25.77
-2026,,Switzerland,Canada,,2.41,3.04,3.15
-2026,,Tunisia,Japan,,6.57,4.04,1.53
-2026,,Tunisia,Netherlands,,9.28,5.17,1.32
-2026,,Turkey,Paraguay,,2.06,3.35,3.75
-2026,,Turkey,United States,,2.76,3.56,2.42
-2026,,United States,Australia,,1.60,4.26,5.29
-2026,,Uruguay,Cape Verde,,1.48,4.09,7.54
-2026,,Uruguay,Spain,,5.85,4.08,1.54
+2026,,Algeria,Austria,,3.02,3.01,2.46
+2026,17 Jun 2026,Argentina,Algeria,,1.58,4.21,7.37
+2026,,Argentina,Austria,,1.58,3.93,6.15
+2026,14 Jun 2026,Australia,Turkey,,5.66,3.80,1.80
+2026,17 Jun 2026,Austria,Jordan,,1.42,4.85,10.50
+2026,16 Jun 2026,Belgium,Egypt,,1.57,4.50,7.45
+2026,,Belgium,Iran,,1.44,4.60,7.39
+2026,,Bosnia and Herzegovina,Qatar,,1.44,4.79,6.79
+2026,20 Jun 2026,Brazil,Haiti,,1.14,11.70,26.00
+2026,14 Jun 2026,Brazil,Morocco,,1.72,3.90,6.00
+2026,13 Jun 2026,Canada,Bosnia & Herzegovina,,1.95,3.61,5.15
+2026,19 Jun 2026,Canada,Qatar,,1.30,6.30,14.00
+2026,,Cape Verde,Saudi Arabia,,2.74,3.66,2.40
+2026,,Colombia,DR Congo,,1.50,4.15,6.93
+2026,,Colombia,Portugal,,3.56,3.36,2.03
+2026,,Croatia,Ghana,,1.59,3.81,5.58
+2026,,Curaçao,Ivory Coast,,19.95,8.66,1.13
+2026,,Czech Republic,Mexico,,3.37,3.75,2.07
+2026,19 Jun 2026,Czech Republic,South Africa,,1.95,3.61,4.74
+2026,,DR Congo,Uzbekistan,,2.08,3.58,3.23
+2026,21 Jun 2026,Ecuador,Curacao,,1.15,11.00,35.00
+2026,,Ecuador,Curaçao,,1.11,10.12,25.63
+2026,,Ecuador,Germany,,4.89,3.78,1.70
+2026,,Egypt,Iran,,2.05,3.10,3.85
+2026,18 Jun 2026,England,Croatia,,1.73,3.96,5.90
+2026,,England,Ghana,,1.22,6.33,13.73
+2026,,France,Iraq,,1.09,11.17,29.00
+2026,17 Jun 2026,France,Senegal,,1.53,4.67,7.62
+2026,15 Jun 2026,Germany,Curacao,,1.06,24.00,75.48
+2026,21 Jun 2026,Germany,Ivory Coast,,1.60,4.94,6.15
+2026,18 Jun 2026,Ghana,Panama,,2.45,3.26,3.47
+2026,14 Jun 2026,Haiti,Scotland,,6.25,4.41,1.66
+2026,16 Jun 2026,Iran,New Zealand,,1.90,3.60,4.91
+2026,17 Jun 2026,Iraq,Norway,,15.00,7.49,1.27
+2026,15 Jun 2026,Ivory Coast,Ecuador,,3.42,3.09,2.70
+2026,,Japan,Sweden,,2.16,3.40,3.33
+2026,,Jordan,Algeria,,5.77,4.11,1.58
+2026,,Jordan,Argentina,,13.17,7.09,1.18
+2026,12 Jun 2026,Mexico,South Africa,,1.48,4.62,9.21
+2026,19 Jun 2026,Mexico,South Korea,,2.15,3.35,4.50
+2026,,Morocco,Haiti,,1.19,6.69,14.95
+2026,15 Jun 2026,Netherlands,Japan,,2.10,3.61,4.11
+2026,21 Jun 2026,Netherlands,Sweden,,1.80,4.20,4.88
+2026,,New Zealand,Belgium,,11.58,6.14,1.22
+2026,,New Zealand,Egypt,,5.40,4.09,1.62
+2026,,Norway,France,,4.25,3.77,1.80
+2026,,Norway,Senegal,,2.33,3.47,3.01
+2026,,Panama,Croatia,,6.60,3.95,1.55
+2026,,Panama,England,,9.00,6.71,1.24
+2026,,Paraguay,Australia,,2.11,3.42,3.48
+2026,18 Jun 2026,Portugal,D.R. Congo,,1.31,5.80,13.00
+2026,,Portugal,Uzbekistan,,1.20,6.85,15.21
+2026,14 Jun 2026,Qatar,Switzerland,,18.50,7.89,1.22
+2026,16 Jun 2026,Saudi Arabia,Uruguay,,8.00,4.33,1.55
+2026,,Scotland,Brazil,,6.72,5.08,1.40
+2026,20 Jun 2026,Scotland,Morocco,,6.01,3.84,1.75
+2026,,Senegal,Iraq,,1.30,5.24,10.38
+2026,,South Africa,South Korea,,5.64,3.92,1.61
+2026,12 Jun 2026,South Korea,Czech Republic,,2.71,3.18,3.25
+2026,16 Jun 2026,Spain,Cape Verde,,1.11,13.20,35.00
+2026,,Spain,Saudi Arabia,,1.10,10.49,25.96
+2026,15 Jun 2026,Sweden,Tunisia,,2.00,3.51,5.05
+2026,19 Jun 2026,Switzerland,Bosnia & Herzegovina,,1.63,4.30,6.66
+2026,,Switzerland,Canada,,2.46,3.03,3.19
+2026,,Tunisia,Japan,,6.55,4.09,1.54
+2026,,Tunisia,Netherlands,,9.39,5.33,1.31
+2026,20 Jun 2026,Turkey,Paraguay,,2.15,3.50,4.02
+2026,,Turkey,United States,,2.60,3.81,2.47
+2026,20 Jun 2026,USA,Australia,,1.70,4.49,6.50
+2026,13 Jun 2026,USA,Paraguay,,2.15,3.38,4.31
+2026,,Uruguay,Cape Verde,,1.44,4.31,8.23
+2026,,Uruguay,Spain,,5.96,4.16,1.54
+2026,18 Jun 2026,Uzbekistan,Colombia,,12.50,5.60,1.37

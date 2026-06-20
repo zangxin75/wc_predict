@@ -50,8 +50,10 @@ TEAM_NORMALIZE = {
     "Côte d'Ivoire": "Ivory Coast",
     "Cape Verde Islands": "Cape Verde",
     "DR Congo (Kinshasa)": "DR Congo",
+    "D.R. Congo": "DR Congo",
     "USA": "United States",
     "Ireland": "Republic of Ireland",
+    "Curacao": "Curaçao",
 }
 
 
