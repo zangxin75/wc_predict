@@ -1,0 +1,49 @@
+# Pre-commit hooks — 防止密钥 + 高危模式进仓
+# 安装:
+#   pip install pre-commit
+#   pre-commit install
+# 手动跑全量:
+#   pre-commit run --all-files
+#
+# 注意: 这不替代 CI;CI 仍需独立跑 pip-audit + gitleaks。
+
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.4
+    hooks:
+      - id: gitleaks
+        # 扫描全部历史 + 暂存;CI 也跑同一规则避免本地漏检
+        args: ['--redact', '--no-banner']
+
+  - repo: local
+    hooks:
+      # F-04 防护:防止再次引入跨项目密钥回退路径
+      - id: forbid-cross-project-secret-paths
+        name: Forbid cross-project secret fallback paths
+        entry: |
+          bash -c '
+            if grep -rnE "/home/zx/project/(词源效能|token-efficiency)" \
+                webapp/ scripts/ 2>/dev/null \
+                | grep -vE ":#|\"切换到|\"nav\.token_efficiency|词源效能 LiteLLM|\"词源效能\"|i18n" \
+                | grep -v "__pycache__" \
+                | grep . ; then
+              echo "ERROR: 跨项目密钥路径被禁止(F-04)。请用 env 变量或本项目 .env。"
+              exit 1
+            fi
+          '
+        language: system
+        pass_filenames: false
+        types_or: [python, shell, yaml, toml]
+
+      # 防止 .env 提交
+      - id: forbid-env-commit
+        name: Forbid committing .env files
+        entry: |
+          bash -c '
+            if git diff --cached --name-only 2>/dev/null | grep -E "^\.env$|\.env\.local$" ; then
+              echo "ERROR: .env 含密钥,不允许提交。"
+              exit 1
+            fi
+          '
+        language: system
+        pass_filenames: false
