@@ -10,7 +10,7 @@
   python scripts/scan_2026_misses.py --max 5         # 限量 5 场
   python scripts/scan_2026_misses.py --dry-run       # 只列出,不调 LLM
 
-需要 LITELLM_MASTER_KEY(从词源效能 .env 读)。
+需要 LITELLM_MASTER_KEY(从本项目 .env 读,F-04 已移除跨项目回退)。
 """
 import argparse
 import json
@@ -101,15 +101,9 @@ def main():
                     help="启用智谱 web_search 工具(基于真实赛后报道归因,慢 3-5s/场)")
     args = ap.parse_args()
 
-    env_path = "/home/zx/project/词源效能/token-efficiency/.env"
-    if os.path.exists(env_path) and not os.environ.get("LITELLM_MASTER_KEY"):
-        with open(env_path) as f:
-            for line in f:
-                if line.startswith("LITELLM_MASTER_KEY="):
-                    os.environ["LITELLM_MASTER_KEY"] = line.split("=", 1)[1].strip()
-                    break
+    # F-04: 仅依赖 env(本项目 .env 或 shell 环境)。
     if not args.dry_run and not os.environ.get("LITELLM_MASTER_KEY"):
-        print("✗ 未找到 LITELLM_MASTER_KEY")
+        print("✗ 未找到 LITELLM_MASTER_KEY,请在 .env 或 shell 中设置")
         sys.exit(1)
 
     misses = load_2026_misses(args.max)

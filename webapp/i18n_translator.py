@@ -21,7 +21,7 @@ import hashlib
 from pathlib import Path
 
 # 用相对导入,避开 websearch_client 的 web_search 工具调用,只复用 _call_zhipu
-from webapp.websearch_client import _call_zhipu
+from webapp.websearch_client import _call_zhipu, _sanitize_str
 
 # ── 配置 ──────────────────────────────────────────────
 SUPPORTED_LOCALES = ["en", "zh-CN", "es", "pt", "ar", "fr"]
@@ -137,7 +137,11 @@ def translate_zh_to(text: str, locale: str, namespace: str = "default") -> str:
         return cache[h]
 
     locale_name = LOCALE_NAMES.get(locale, locale)
-    prompt = _PROMPT_SINGLE.format(locale_name=locale_name, text=text)
+    # F-05: 用 <input> 包裹文本,提示模型仅作为翻译源;限长 + 控制字符过滤。
+    prompt = _PROMPT_SINGLE.format(
+        locale_name=locale_name,
+        text=f"<input>\n{_sanitize_str(text, max_len=1500)}\n</input>",
+    )
     res = _call_translate(prompt, max_tokens=400)
     if "error" in res or not res.get("content"):
         return text
@@ -197,8 +201,11 @@ def translate_batch_zh_to(texts: list, locale: str, namespace: str = "default") 
         return out
 
     locale_name = LOCALE_NAMES.get(locale, locale)
-    lines = "\n".join(f"{j+1}. {t}" for j, t in enumerate(pending_texts))
-    prompt = _PROMPT_BATCH.format(locale_name=locale_name, lines=lines)
+    # F-05: 每条原文走 _sanitize_str 过滤控制字符 + 阻断 prompt-break;整体包 <input> 标签
+    lines = "\n".join(
+        f"{j+1}. {_sanitize_str(t, max_len=500)}" for j, t in enumerate(pending_texts)
+    )
+    prompt = _PROMPT_BATCH.format(locale_name=locale_name, lines=f"<input>\n{lines}\n</input>")
     res = _call_translate(prompt, max_tokens=min(8000, 200 * len(pending_texts) + 500),
                            timeout=120)
     if "error" in res or not res.get("content"):

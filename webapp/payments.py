@@ -12,6 +12,7 @@
 
 import os
 import json
+import secrets
 import threading
 import time
 
@@ -88,9 +89,16 @@ def _load_users() -> dict:
         return {}
 
 
+def _atomic_write_json(path: str, data) -> None:
+    """原子写 JSON:tmp + os.replace,防半写损坏。"""
+    tmp = path + ".tmp"
+    with open(tmp, "w") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+    os.replace(tmp, path)
+
+
 def _save_users(users: dict) -> None:
-    with open(PAID_USERS_PATH, "w") as f:
-        json.dump(users, f, indent=2, ensure_ascii=False)
+    _atomic_write_json(PAID_USERS_PATH, users)
 
 
 def create_checkout_session(email: str, price_id: str, origin: str, locale: str = "auto",
@@ -105,7 +113,9 @@ def create_checkout_session(email: str, price_id: str, origin: str, locale: str 
     动态构造 line_items(price_data 内嵌,不依赖预设 price)。传 None 时回退到原 PRICE_TOURNAMENT。
     """
     stripe_locale = LOCALE_MAP.get(locale, "auto")
-    success_url = origin.rstrip("/") + "/?checkout=success"
+    # F-02: success_url 带上 CHECKOUT_SESSION_ID 占位符,Stripe 会在跳转时
+    # 自动替换为真实的 cs_xxx,前端拿这个 id 调 /api/claim-session 兑换 session cookie
+    success_url = origin.rstrip("/") + "/?checkout=success&session_id={CHECKOUT_SESSION_ID}"
     cancel_url = origin.rstrip("/") + "/"
     common = {"customer_email": email, "success_url": success_url, "cancel_url": cancel_url,
               "metadata": {"email": email}, "locale": stripe_locale}
@@ -157,10 +167,7 @@ def _load_codes() -> dict:
 
 def _save_codes(codes: dict) -> None:
     """原子写邀请码池(避免半写)。"""
-    tmp = INVITE_CODES_PATH + ".tmp"
-    with open(tmp, "w") as f:
-        json.dump(codes, f, indent=2, ensure_ascii=False)
-    os.replace(tmp, INVITE_CODES_PATH)
+    _atomic_write_json(INVITE_CODES_PATH, codes)
 
 
 def redeem_invite_code(email: str, code: str) -> dict:
@@ -231,3 +238,134 @@ def handle_webhook(payload: bytes, sig_header: str) -> dict:
                 users[key]["active"] = False
                 _save_users(users)
     return {"received": True}
+
+
+# ── 分享邀请码(社交媒体推广) ──────────────────────────────
+SHARE_CODE_TTL = 86400  # 24h
+SHARE_PLATFORM_PREFIX = {"x": "X", "reddit": "RD", "telegram": "TG", "weibo": "WB"}
+
+
+def _existing_recent_code(platform: str, email: str, codes: dict, now: int) -> dict | None:
+    """同 (platform, email) 24h 内是否已有未 redeem 或已 redeem 的码。
+
+    返回该码记录(或 None)。调用方据此决定 reused 或拒绝。
+    """
+    cutoff = now - SHARE_CODE_TTL
+    target_email = email.strip().lower()
+    for rec in codes.values():
+        meta = rec.get("source_meta") or {}
+        if meta.get("platform") != platform:
+            continue
+        if (meta.get("email", "") or "").strip().lower() != target_email:
+            continue
+        # 未用且未过期
+        if not rec.get("used") and rec.get("expires_at", 0) > now:
+            return rec
+        # 已用且 redeem 在 24h 内(Pro 窗口内)
+        if rec.get("used") and (rec.get("used_at", 0) or rec.get("redeemed_at", 0)) >= cutoff:
+            return rec
+    return None
+
+
+def generate_share_code(platform: str, email: str, source_meta: dict,
+                       expected_email: str | None = None) -> dict:
+    """生成或复用分享邀请码。
+
+    同 (platform, email) 24h 内只允许 1 个有效码:
+      - 已有未用未过期 → 返回旧码(reused=True)
+      - 已有已用且 24h 内 → 返回旧码(reused=True, 已 redeemed)
+      - 否则 → 生成新码(reused=False)
+
+    expected_email: F-08 绑定。若非空,redeem 时必须由同 email 兑换,否则返回
+      email_mismatch。None 表示不绑定(向后兼容)。
+
+    返回 {"code", "expires_at", "reused", "status": "new|active|redeemed"}。
+    """
+    email = (email or "").strip().lower()
+    platform = (platform or "").strip().lower()
+    expected_email = (expected_email or "").strip().lower() or None
+    now = int(time.time())
+    with _invite_lock:
+        codes = _load_codes()
+        existing = _existing_recent_code(platform, email, codes, now)
+        if existing is not None:
+            if existing.get("used"):
+                status = "redeemed"
+            else:
+                status = "active"
+            return {
+                "code": existing["code"],
+                "expires_at": existing.get("expires_at"),
+                "reused": True,
+                "status": status,
+            }
+        prefix = SHARE_PLATFORM_PREFIX.get(platform, platform.upper()[:2])
+        # 8 字符 base32: token_urlsafe(6) → ~8 字符 url-safe
+        suffix = secrets.token_urlsafe(6)[:8].upper().replace("-", "X").replace("_", "Y")
+        code = f"SHARE-{prefix}-{suffix}"
+        expires = now + SHARE_CODE_TTL
+        meta = dict(source_meta or {})
+        meta["platform"] = platform
+        meta["email"] = email
+        if expected_email:
+            meta["expected_email"] = expected_email
+        codes[code] = {
+            "code": code,
+            "used": False,
+            "expires_at": expires,
+            "source": f"share:{platform}",
+            "source_meta": meta,
+            "created_at": now,
+            "used_by": None,
+            "used_at": None,
+        }
+        _save_codes(codes)
+    return {"code": code, "expires_at": expires, "reused": False, "status": "new"}
+
+
+def redeem_share_code(email: str, code: str) -> dict:
+    """分享邀请码 redeem。成功 → email 标记 24h Pro(由前端用 expires_at 倒计时)。
+
+    检查顺序:email 格式 → 存在 → !used → now < expires_at → expected_email 匹配 → 写回。
+    错误码 ∈ {"invalid_email","not_found","already_used","expired","email_mismatch"}。
+    F-08: 若码带 expected_email 绑定,redeem email 必须一致。
+    """
+    email = (email or "").strip().lower()
+    code = (code or "").strip().upper()
+    if not email or "@" not in email:
+        return {"ok": False, "error": "invalid_email"}
+    now = int(time.time())
+    with _invite_lock:
+        codes = _load_codes()
+        rec = codes.get(code)
+        if not rec:
+            return {"ok": False, "error": "not_found"}
+        if rec.get("used"):
+            return {"ok": False, "error": "already_used"}
+        if (rec.get("expires_at") or 0) <= now:
+            return {"ok": False, "error": "expired"}
+        # F-08: expected_email 绑定校验
+        expected = (rec.get("source_meta") or {}).get("expected_email")
+        if expected and expected != email:
+            return {"ok": False, "error": "email_mismatch"}
+        # 消耗码 + 解锁用户(单锁内一次性完成)
+        rec["used"] = True
+        rec["used_by"] = email
+        rec["used_at"] = now
+        _save_codes(codes)
+        users = _load_users()
+        users[email] = {
+            "active": True,
+            "plan": "share",
+            "via": code,
+            "source": rec.get("source", ""),
+            "pro_expires_at": now + SHARE_CODE_TTL,
+            "created": now,
+        }
+        _save_users(users)
+    return {
+        "ok": True,
+        "email": email,
+        "plan": "share",
+        "pro_expires_at": now + SHARE_CODE_TTL,
+    }

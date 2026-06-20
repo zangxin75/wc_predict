@@ -21,12 +21,18 @@ from contextlib import asynccontextmanager
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
-from fastapi import FastAPI, HTTPException, Query, Request
+from fastapi import FastAPI, HTTPException, Query, Request, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
+from starlette.middleware.sessions import SessionMiddleware
 
-from webapp import cache, updater, payments
+from webapp import auth, cache, updater, payments
+from webapp.middleware import SecurityHeadersMiddleware
+from webapp.rate_limit import limiter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 STATIC_DIR = os.path.join(HERE, "static")
@@ -57,36 +63,76 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# CORS(开发便利;本地工具全开放)
+# F-06: slowapi 限流。limiter 必须挂在 app.state;exception_handler 转 429。
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+# CORS 白名单(F-01 修复:从 * 改为显式域名,防止跨站 API 调用)
+# 生产域名 aijialidu.ticp.vip(主域 + www 子域 + HTTPS/HTTP 用于 nginx 重定向场景)
+# 开发:localhost:8000(本机前端)、127.0.0.1:8000
+ALLOWED_ORIGINS = [
+    "https://aijialidu.ticp.vip",
+    "http://aijialidu.ticp.vip",
+    "https://www.aijialidu.ticp.vip",
+    "http://www.aijialidu.ticp.vip",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=ALLOWED_ORIGINS,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Authorization", "Content-Type", "X-Requested-With"],
+    allow_credentials=True,  # 允许 session cookie 跨域(配合 P0-3 session 鉴权)
 )
+
+# Session 中间件 (F-02 修复:替代 x_user_email 查询参数鉴权)
+# 注意:必须在 CORSMiddleware 之后 add, 但实际 Starlette 中间件按 LIFO 处理
+# (后加的先执行),所以最后 add 的最外层。Request 先过 Session 再到 CORS,
+# Set-Cookie 在 response 阶段正确生成。
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=auth.SESSION_SECRET,
+    session_cookie=auth.COOKIE_NAME,
+    max_age=auth.SESSION_MAX_AGE,
+    same_site="lax",     # 防 CSRF 跨站 GET
+    https_only=False,    # dev 允许 http;生产由 nginx 终止 TLS
+    path="/",            # 整站带 cookie
+)
+
+# 安全响应头 (F-09)。Starlette 中间件按 LIFO 执行,SessionMiddleware 已是最外层,
+# 这里再加一层 SecurityHeadersMiddleware 套在外面 → 所有响应都带 CSP/X-Frame 等。
+app.add_middleware(SecurityHeadersMiddleware)
+
+# F-06: slowapi 中间件(LIFO 最外层)→ 配合装饰器 @limiter.limit() 工作。
+app.add_middleware(SlowAPIMiddleware)
 
 
 # ── 页面 ──────────────────────────────────────────────────────────
 @app.get("/")
-def index():
+@limiter.limit("60/minute")
+def index(request: Request):
     return FileResponse(os.path.join(STATIC_DIR, "index.html"))
 
 
 # ── API ───────────────────────────────────────────────────────────
 @app.get("/api/config")
-def get_config():
+@limiter.limit("60/minute")
+def get_config(request: Request):
     """前端配置(轮询间隔等)。"""
     return {"poll_sec": POLL_SEC}
 
 
 @app.get("/api/status")
-def get_status():
+@limiter.limit("60/minute")
+def get_status(request: Request):
     """后台线程状态:上次更新/成功否/下次预计/新增场次。"""
     return cache.get_status()
 
 
 @app.get("/api/schedule")
-def get_schedule(stage: str | None = Query(None, description="按阶段过滤:Group/R32/R16/QF/SF/Final")):
+@limiter.limit("60/minute")
+def get_schedule(request: Request, stage: str | None = Query(None, description="按阶段过滤:Group/R32/R16/QF/SF/Final")):
     """全部赛程富化视图。每场含 status/score/probs/top_score/group/stage/city。
 
     可选 ?stage=Group 只看小组赛。
@@ -98,13 +144,15 @@ def get_schedule(stage: str | None = Query(None, description="按阶段过滤:Gr
 
 
 @app.get("/api/groups")
-def get_groups():
+@limiter.limit("60/minute")
+def get_groups(request: Request):
     """12 组积分榜:已打真实积分 + 未打预测期望积分。"""
     return cache.get_groups()
 
 
 @app.get("/api/champions")
-def get_champions(top: int = Query(15, ge=1, le=48)):
+@limiter.limit("60/minute")
+def get_champions(request: Request, top: int = Query(15, ge=1, le=48)):
     """夺冠概率榜(蒙特卡洛)。?top=N 限制返回条数。"""
     champs = cache.get_champions()
     return {"count": len(champs), "built_at": cache.get_status().get("champions_built_at"),
@@ -112,7 +160,8 @@ def get_champions(top: int = Query(15, ge=1, le=48)):
 
 
 @app.get("/api/market")
-def get_market():
+@limiter.limit("60/minute")
+def get_market(request: Request):
     """数据来源面板:每场预测的数据源(市场反演λ模式A/B vs Elo)+ 反演λ对比。
 
     优先返回 cache 预热结果(后台 updater 每 15 分钟重建一次 + 冷启动时同步预热);
@@ -135,9 +184,10 @@ _value_bets_lock = threading.Lock()
 
 
 @app.get("/api/value-bets")
-def get_value_bets(min_edge: float = Query(0.03, ge=0.0, le=0.5,
-                                            description="最小 edge 阈值(默认 3%%)"),
-                    x_user_email: str = Query(default="", alias="x_user_email")):
+@limiter.limit("30/minute")
+def get_value_bets(request: Request,
+                    min_edge: float = Query(0.03, ge=0.0, le=0.5,
+                                            description="最小 edge 阈值(默认 3%%)")):
     """价值下注面板(纯 Elo vs 市场 devig)— B 方案。Pro 功能,需订阅。
 
     返回:
@@ -147,7 +197,8 @@ def get_value_bets(min_edge: float = Query(0.03, ge=0.0, le=0.5,
 
     静态(随 odds_wc.csv 变),首次请求计算后内存缓存。如需重算可重启服务。
     """
-    if not payments.is_paid(x_user_email):
+    user = auth.get_current_user(request)
+    if not payments.is_paid(user):
         raise HTTPException(402, "Pro feature. Subscribe at /api/create-checkout-session")
     global _value_bets_cache
     if _value_bets_cache is None or _value_bets_cache.get("min_edge") != min_edge:
@@ -257,11 +308,12 @@ def get_value_bets(min_edge: float = Query(0.03, ge=0.0, le=0.5,
 
 
 @app.get("/api/match")
-def get_match(date: str = Query(...), home: str = Query(...), away: str = Query(...),
+@limiter.limit("30/minute")
+def get_match(request: Request,
+              date: str = Query(...), home: str = Query(...), away: str = Query(...),
               with_reflection: int = Query(0), with_intel: int = Query(0),
               with_h2h: int = Query(0),
-              locale: str = Query("zh-CN"),
-              x_user_email: str = Query(default="", alias="x_user_email")):
+              locale: str = Query("zh-CN")):
     """单场详情(含 top5 比分概率、Elo、预期进球、AI 反思数据、赛前情报、历史交手)。
 
     with_reflection=1: 从队伍档案调整 Elo 重算预测(第二步)。
@@ -271,13 +323,14 @@ def get_match(date: str = Query(...), home: str = Query(...), away: str = Query(
     locale: UI 语言(en/zh-CN/es/pt/ar/fr)。
     """
     # Pro 功能 gating(已结束比赛免费)
+    user = auth.get_current_user(request)
     base = None
     for m in cache.get_schedule():
         if m["date"] == date and m["home"] == home and m["away"] == away:
             base = m
             break
     is_finished = base is not None and base.get("status") == "finished"
-    if (with_reflection or with_intel or with_h2h) and not payments.is_paid(x_user_email) and not is_finished:
+    if (with_reflection or with_intel or with_h2h) and not payments.is_paid(user) and not is_finished:
         out = {"reflection": {"has_any": False, "summary_parts": []}}
         if with_reflection:
             out["reflection"]["error"] = "Pro feature. Subscribe to unlock AI Reflection."
@@ -297,7 +350,7 @@ def get_match(date: str = Query(...), home: str = Query(...), away: str = Query(
         out["reflection"] = {"has_any": False, "summary_parts": [], "error": str(e)}
 
     # 第二步:开反思时重算预测(覆盖 Elo 相关字段)
-    if with_reflection and out["reflection"].get("has_any") and payments.is_paid(x_user_email):
+    if with_reflection and out["reflection"].get("has_any") and payments.is_paid(user):
         try:
             from webapp import predictor
             import compute_odds
@@ -361,7 +414,8 @@ _backtest_lock = threading.Lock()
 
 
 @app.get("/api/backtest")
-def get_backtest():
+@limiter.limit("30/minute")
+def get_backtest(request: Request):
     """2018/2022 世界杯正赛回测:赛前 Elo 预测 vs 真实结果 + argmax 命中率。
 
     静态历史数据,首次请求计算(两届赛前 Elo 重建约十秒)后永久内存缓存。
@@ -377,7 +431,8 @@ def get_backtest():
 
 # ── Stripe 订阅 ────────────────────────────────────────
 @app.post("/api/create-checkout-session")
-def create_checkout(email: str = Query(...), price_id: str = Query(...),
+@limiter.limit("10/minute")
+def create_checkout(request: Request, email: str = Query(...), price_id: str = Query(...),
                      origin: str = Query(default="http://localhost:8000"),
                      locale: str = Query(default="auto", description="语言代码,如 zh-CN/es/pt/ar/fr/en"),
                      remaining_count: int = Query(default=0, ge=0, description="按场次计费:当前剩余场次")):
@@ -399,7 +454,8 @@ def create_checkout(email: str = Query(...), price_id: str = Query(...),
 
 
 @app.get("/api/pricing")
-def get_pricing(locale: str = Query(default="en", description="UI 语言,如 zh-CN/en/es")):
+@limiter.limit("60/minute")
+def get_pricing(request: Request, locale: str = Query(default="en", description="UI 语言,如 zh-CN/en/es")):
     """按场次计费实时报价:总场次 / 剩余场次 / 单价 / 当前价 / 全程原价 / 节省。
 
     剩余场次定义:cache.schedule 中 status != 'finished' 的全部比赛(含今天进行中 + 未开赛)。
@@ -450,7 +506,7 @@ def get_pricing(locale: str = Query(default="en", description="UI 语言,如 zh-
 
 
 @app.post("/api/stripe-webhook")
-async def stripe_webhook(request: Request):
+async def stripe_webhook(request: Request):  # 不限速 — Stripe 内部回调
     """Stripe Webhook 回调(处理 checkout.session.completed 等)。"""
     payload = await request.body()
     sig = request.headers.get("stripe-signature", "")
@@ -460,31 +516,170 @@ async def stripe_webhook(request: Request):
 
 
 @app.get("/api/subscription-status")
-def subscription_status(email: str = Query(default="")):
-    """查询邮箱的订阅状态。"""
-    return {"is_paid": payments.is_paid(email), "email": email}
+@limiter.limit("30/minute")
+def subscription_status(request: Request):
+    """查询当前 session 用户的订阅状态(优先从 session 读 email, 兼容 x_user_email)。"""
+    user = auth.get_current_user(request)
+    if not user:
+        return {"is_paid": False, "email": ""}
+    return {"is_paid": payments.is_paid(user), "email": user}
+
+
+# ── Session 鉴权端点 (F-02 修复) ────────────────────────────
+@app.get("/api/whoami")
+@limiter.limit("60/minute")
+def whoami(request: Request):
+    """返回当前 session 用户信息。前端用于判断登录态 + 拉取订阅状态。"""
+    user = auth.get_current_user(request)
+    return {
+        "email": user or "",
+        "is_authenticated": bool(user),
+        "is_paid": payments.is_paid(user) if user else False,
+    }
+
+
+@app.post("/api/claim-session")
+@limiter.limit("10/minute")
+def claim_session(request: Request, session_id: str = Query(..., description="Stripe checkout session id (cs_xxx)")):
+    """Stripe 支付成功回跳后,前端用 session_id 兑换 session cookie。
+
+    安全:服务端用 STRIPE_SECRET_KEY 查 Stripe Session, 拿到 customer_email,
+    只有这个 email 才能开 session。攻击者无法伪造其他人的 email。
+    """
+    if not payments.STRIPE_SECRET_KEY:
+        raise HTTPException(503, "Stripe not configured")
+    try:
+        import stripe as _stripe
+        sess = _stripe.checkout.Session.retrieve(session_id)
+    except Exception as e:
+        raise HTTPException(400, f"invalid session_id: {e}")
+
+    # 从 Stripe session 提取 email (customer_email 优先, 其次 metadata.email)
+    email = (
+        (sess.get("customer_email") or "").strip()
+        or (sess.get("metadata", {}) or {}).get("email", "").strip()
+    )
+    if not email:
+        raise HTTPException(400, "no email associated with this checkout session")
+    email = email.lower()
+
+    # 验证支付状态(必须 paid 才发 session)
+    if sess.get("payment_status") not in ("paid", "no_payment_required"):
+        # 订阅模式可能 immediate 时 payment_status 还是 unpaid, 看 mode + status
+        mode = sess.get("mode", "payment")
+        status = sess.get("status", "")
+        if mode == "subscription" and status in ("complete", "trialing"):
+            pass
+        else:
+            raise HTTPException(402, f"checkout not paid (status={status}, payment_status={sess.get('payment_status')})")
+
+    # 写 session, Set-Cookie 由 SessionMiddleware 下发
+    auth.set_session_user(request, email)
+    return {"ok": True, "email": email, "is_paid": payments.is_paid(email)}
+
+
+@app.post("/api/logout")
+@limiter.limit("30/minute")
+def logout(request: Request):
+    """清空 session(登出)。"""
+    auth.clear_session(request)
+    return {"ok": True}
+
+
+# ── 兼容旧版 x_user_email 鉴权: 接收到合法 cookie 时才放行 ──
+# (P0-3 阶段) — 前端全部迁移到 cookie 后, 此 fallback 可删除。
+# 现在的实现:get_current_user 优先 cookie, 其次 x_user_email(打 deprecation 日志)
 
 
 @app.post("/api/refresh")
-def refresh(force_monte_carlo: bool = Query(False, description="是否顺带刷新夺冠榜(慢)")):
+@limiter.limit("5/minute")
+def refresh(request: Request, force_monte_carlo: bool = Query(False, description="是否顺带刷新夺冠榜(慢)")):
     """手动触发立即更新(唤醒后台线程,不等 15 分钟)。"""
     status = updater.trigger_now(force_monte_carlo=force_monte_carlo)
     return {"triggered": True, "status": status}
 
 
 @app.post("/api/redeem-invite")
-def redeem_invite(email: str = Query(..., description="用户邮箱"),
+@limiter.limit("10/minute")
+def redeem_invite(request: Request,
+                   email: str = Query(..., description="用户邮箱"),
                    code: str = Query(..., description="邀请码,格式 INVITE-XXXX-XXXX")):
-    """一次性邀请码解锁 Pro 权限。
+    """一次性邀请码解锁 Pro 权限 + 写入 session。
 
-    成功:{ok:true, is_paid:true, email, plan:"invite"} → 前端刷新 Pro 状态。
+    成功:{ok:true, is_paid:true, email, plan:"invite"} → 前端刷新 Pro 状态 + Set-Cookie。
     失败:400 + {ok:false, error: invalid_email|not_found|already_used}。
     """
     res = payments.redeem_invite_code(email, code)
     if not res.get("ok"):
         raise HTTPException(status_code=400, detail=res.get("error", "redeem_failed"))
+    # F-02: 写入 session, Set-Cookie 由 SessionMiddleware 下发
+    auth.set_session_user(request, res["email"])
     return {"ok": True, "is_paid": True,
             "email": res["email"], "plan": res.get("plan", "invite")}
+
+
+# ── 分享邀请码(社交媒体推广) ──────────────────────────────
+# F-06: 旧 _share_rate_check 已删除,限流统一由 slowapi @limiter.limit 处理。
+#      单 IP 60s 内最多 10 次(原 6 次放宽,旧 share-verifier 自身有外网 5s 延迟)。
+
+
+@app.post("/api/share/verify")
+@limiter.limit("10/minute")
+def share_verify(request: Request,
+                 platform: str = Query(...),
+                 url: str = Query(...),
+                 email: str = Query(...)):
+    """验证社交平台分享链接 → 返回 24h 邀请码。
+
+    Phase 1 仅支持 x(twitter.com / x.com)。
+    同 (platform, email) 24h 内只发 1 个有效码(reused:true 表示返回旧码)。
+    """
+    email = (email or "").strip().lower()
+    if not email or "@" not in email:
+        raise HTTPException(status_code=400, detail="invalid_email")
+
+    from webapp import share_verifier
+    try:
+        meta = share_verifier.verify_share_url(url, platform=platform)
+    except RuntimeError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+    source_meta = {
+        "tweet_url": url,
+        "handle": meta.get("handle"),
+        "tweet_id": meta.get("tweet_id"),
+        "author_name": meta.get("author_name"),
+        "author_url": meta.get("author_url"),
+    }
+    res = payments.generate_share_code(platform, email, source_meta)
+    return {
+        "ok": True,
+        "platform": meta["platform"],
+        "code": res["code"],
+        "expires_at": res["expires_at"],
+        "reused": res["reused"],
+        "status": res["status"],
+    }
+
+
+@app.post("/api/share/redeem")
+@limiter.limit("10/minute")
+def share_redeem(request: Request, email: str = Query(...),
+                 code: str = Query(...)):
+    """分享邀请码 redeem → 24h Pro。
+
+    错误码 ∈ invalid_email|not_found|already_used|expired。
+    """
+    res = payments.redeem_share_code(email, code)
+    if not res.get("ok"):
+        raise HTTPException(status_code=400, detail=res.get("error", "redeem_failed"))
+    return {
+        "ok": True,
+        "is_paid": True,
+        "email": res["email"],
+        "plan": res.get("plan", "share"),
+        "pro_expires_at": res.get("pro_expires_at"),
+    }
 
 
 # 静态文件(CSS/JS)。index.html 由根路由单独处理。

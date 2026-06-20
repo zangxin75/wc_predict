@@ -18,6 +18,7 @@ fastapi>=0.110       # webapp/app.py FastAPI 应用
 uvicorn[standard]>=0.27  # ASGI 服务器(启动 uvicorn webapp.app:app)
 stripe>=15.0         # Stripe 订阅支付
 python-dotenv>=1.0   # .env 文件加载
+slowapi>=0.1.9       # F-06 全局 IP/API 速率限制
 
 # 测试
 pytest>=7.4
