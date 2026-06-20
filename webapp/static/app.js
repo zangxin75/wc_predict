@@ -142,6 +142,8 @@ function openUpgrade() {
   if (s) s.hidden = true;
   const e = $('upgradeError');
   if (e) e.hidden = true;
+  // 确保弹窗文案跟随当前语言
+  if (window.I18N) I18N.applyDOM();
   const emailInput = $('upgradeEmail');
   if (emailInput) { if (userEmail) emailInput.value = userEmail; requestAnimationFrame(() => emailInput.focus()); }
 }
