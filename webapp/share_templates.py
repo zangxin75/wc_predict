@@ -10,7 +10,7 @@ from datetime import date, datetime
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 TEAMS_I18N_PATH = os.path.join(HERE, "static", "i18n", "teams.json")
-PROJECT_URL = "https://aijialidu.ticp.vip"
+PROJECT_URL = "http://aijialidu.ticp.vip/wc/"
 
 # 模板骨架(每语言一份),字段用 {name} 占位符运行时填
 TEMPLATE_SKELETONS = {
@@ -268,16 +268,35 @@ def _away_name(match: dict, locale: str) -> str:
     return _locale_team(away, locale)
 
 
+def _flatten_odds(odds_map: dict | None) -> dict:
+    """load_odds() 返回 {(year, home, away): (oh, od, oa)}。
+    share 模板只需要按 (home, away) 查 → 在调用方按当前届(year=schedule 的 year)再索引。
+    这里提供扁平化助手:取 (year, h, a) 拆成 {(h, a): tuple, ...},后写覆盖前写。
+    """
+    if not odds_map:
+        return {}
+    flat = {}
+    for k, v in odds_map.items():
+        if len(k) == 3:
+            _, h, a = k
+            flat[(h, a)] = v
+    return flat
+
+
 def build_share_templates(schedule: list, locale: str | None = None,
                           odds_map: dict | None = None) -> dict:
     """生成 3 个分享模板。
 
     schedule: cache.get_schedule() 返回的富化赛程
-    odds_map: 可选,wc2026_odds 加载结果 {(home, away): (oh, od, oa)}
+    odds_map: 可选 — 接受两种格式:
+      • {(year, home, away): (oh, od, oa)}  ← load_odds() 原样
+      • {(home, away): (oh, od, oa)}        ← 已被 flatten
     """
     loc = _resolve_locale(locale)
     skel = TEMPLATE_SKELETONS[loc]
     today_iso = date.today().isoformat()
+
+    flat_odds = _flatten_odds(odds_map)
 
     # 接下来未赛(按日期+时间)
     upcoming = sorted(
@@ -308,27 +327,25 @@ def build_share_templates(schedule: list, locale: str | None = None,
         pick = None
         for m in upcoming:
             key = (m.get("home"), m.get("away"))
-            if odds_map and odds_map.get(key):
+            if flat_odds.get(key):
                 pick = m
                 break
         if pick is None:
             pick = upcoming[0]
         home_name = _home_zh_name(pick, loc)
         away_name = _away_name(pick, loc)
-        days = _days_until(pick.get("date", ""))
+        when_str = _days_until(pick.get("date", ""), loc)
         # odds
         odds_str = "—"
         prob_str = "—"
-        if odds_map:
-            ot = odds_map.get((pick.get("home"), pick.get("away")))
-            if ot and ot[0]:
-                odds_str = f"{ot[0]:.2f}"
-                # implied home prob (devig 简化:1/odds)
-                implied = 1.0 / ot[0] if ot[0] > 0 else 0
-                prob_str = f"{implied * 100:.0f}%"
+        ot = flat_odds.get((pick.get("home"), pick.get("away")))
+        if ot and ot[0]:
+            odds_str = f"{ot[0]:.2f}"
+            implied = 1.0 / ot[0] if ot[0] > 0 else 0
+            prob_str = f"{implied * 100:.0f}%"
         c = c.replace("{c_home}", home_name)
         c = c.replace("{c_away}", away_name)
-        c = c.replace("{c_days}", str(days))
+        c = c.replace("{c_when}", when_str)
         c = c.replace("{c_odds}", odds_str)
         c = c.replace("{c_prob}", prob_str)
     else:

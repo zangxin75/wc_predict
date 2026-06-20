@@ -1,16 +1,13 @@
 """share_verifier.py — 社交平台分享验证(Phase 1 仅支持 X)
 
-校验"链接真实可访问",不验证推文内容、动作类型或原创性。
+校验"链接形态合法",不验证推文真实存在/可访问。
+Phase 1.1 改:跳过 oembed HTTP 探测(Prod 出网限制导致用户体验问题)。
 """
 
-import json
 import re
 import urllib.parse
-import urllib.request
-import urllib.error
 
 
-OEMBED_TIMEOUT = 8  # 秒
 PLATFORM_PREFIX = {"x": "X", "reddit": "RD", "telegram": "TG", "weibo": "WB"}
 
 # 平台 → URL host 白名单(防 SSRF/重定向到非预期域)
@@ -37,32 +34,17 @@ def detect_platform(url: str) -> str | None:
     return None
 
 
-def _http_get_json(url: str, timeout: int = OEMBED_TIMEOUT) -> dict:
-    """无依赖 GET JSON。超时/非 2xx/解析失败抛 RuntimeError。"""
-    req = urllib.request.Request(url, headers={"User-Agent": "wc-predict/1.0 (+share-verify)"})
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            body = resp.read()
-    except urllib.error.HTTPError as e:
-        raise RuntimeError(f"http_{e.code}") from e
-    except urllib.error.URLError as e:
-        raise RuntimeError("network_error") from e
-    except TimeoutError as e:
-        raise RuntimeError("timeout") from e
-    try:
-        return json.loads(body.decode("utf-8", errors="replace"))
-    except (ValueError, UnicodeDecodeError) as e:
-        raise RuntimeError("invalid_response") from e
-
-
 def verify_share_url(url: str, platform: str | None = None) -> dict:
-    """验证社交平台分享链接真实可访问。
+    """验证社交平台分享链接。
+
+    Phase 1.1 策略调整:只校验 URL 格式(host 白名单 + 路径正则)。
+    不再调 publish.twitter.com/oembed — Prod 服务器出网限制/超时导致用户报
+    "网络错误,请重试",但其实问题在第三方验证服务不在用户网络。代价:
+    任何人粘合法 X 链接都能拿码 — Phase 1 MVP 阶段可接受(目标:广撒网邀请)。
 
     返回:
-      {"ok": True, "platform": "x", "author_name": ..., "author_url": ..., "tweet_id": ...}
-      或抛 RuntimeError(由调用方转 error 字符串)。
-
-    Phase 1 仅支持 x;其他平台抛 unsupported_platform。
+      {"ok": True, "platform": "x", "handle": ..., "tweet_id": ..., "verified": False}
+      或抛 RuntimeError(empty_url / unrecognized_url / platform_mismatch / invalid_x_url)。
     """
     url = (url or "").strip()
     if not url:
@@ -80,31 +62,18 @@ def verify_share_url(url: str, platform: str | None = None) -> dict:
 
 
 def _verify_x(url: str) -> dict:
-    """X 平台:调 publish.twitter.com/oembed,200 + author_name 即视为真实。"""
+    """X 平台:仅校验 URL 格式。解析 path → (handle, tweet_id),无需 HTTP。"""
     parsed = urllib.parse.urlparse(url)
     path_re = PLATFORM_URL_RE["x"]
     m = path_re.match(parsed.path)
     if not m:
         raise RuntimeError("invalid_x_url")
     handle, tweet_id = m.group(1), m.group(2)
-
-    oembed_url = "https://publish.twitter.com/oembed?" + urllib.parse.urlencode({"url": url})
-    data = _http_get_json(oembed_url)
-
-    author_name = data.get("author_name", "").strip()
-    author_url = data.get("author_url", "").strip()
-    provider = data.get("provider_name", "").strip().lower()
-    if not author_name or not author_url:
-        raise RuntimeError("oembed_incomplete")
-    if provider and provider not in ("twitter", "x"):
-        raise RuntimeError("oembed_wrong_provider")
-
     return {
         "ok": True,
         "platform": "x",
         "handle": "@" + handle,
         "tweet_id": tweet_id,
-        "author_name": author_name,
-        "author_url": author_url,
-        "html_snippet": (data.get("html") or "")[:500],
+        "verified": False,  # 格式校验,未做真实存在性验证
+        "verify_mode": "format_only",
     }
