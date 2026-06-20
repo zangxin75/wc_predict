@@ -861,11 +861,12 @@ body::before{
 .pro-btn:active{transform:translateY(0) scale(.98)}
 
 .pro-badge{
-  font-family:var(--ff-mono);font-weight:700;font-size:11px;letter-spacing:.08em;
-  color:var(--gold);background:rgba(201,169,97,.12);
-  border:1px solid rgba(201,169,97,.4);border-radius:var(--r-interactive);
-  padding:7px 14px;display:inline-flex;align-items:center;gap:5px;
-  text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:4px;
+  font-family:var(--ff-mono);font-size:10px;color:var(--gold);letter-spacing:.04em;
+}
+.pro-badge::before{
+  content:'';display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:var(--gold);box-shadow:0 0 4px rgba(201,169,97,.5);
 }
 
 /* 升级弹窗 */
@@ -967,7 +968,7 @@ body::before{
 
 @media (max-width:480px){
   .pro-btn{padding:8px 12px;font-size:11px}
-  .pro-badge{padding:6px 10px;font-size:10px}
+  .pro-badge{font-size:9px}
   .upgrade-modal{width:96vw}
   .upgrade-body{padding:16px}
   .upgrade-plan{padding:12px 14px;flex-direction:column;align-items:flex-start;gap:4px}
