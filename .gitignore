@@ -51,3 +51,10 @@ webapp/_taste_skill_tmp.md
 
 # 环境变量(Stripe 密钥等,勿提交)
 .env
+
+# 运行时付费用户数据(含真实 PII — 174840518@qq.com / 8682069@qq.com 等)
+# 不进 git 仓库,通过备份脚本(webapp/data/backup)异地保存
+webapp/paid_users.json
+
+# 运行时邀请码池(已用/未用,含 used_by 邮箱)
+webapp/invite_codes.json

@@ -182,12 +182,18 @@ function bindSharePanel() {
     panel.hidden = !willShow;
     tog.setAttribute('aria-expanded', String(willShow));
     if (willShow) {
-      // 打开时填充模板(从 i18n 读 share.template)
+      // 首次打开:从 localStorage 读上次 idx,推进到下一个模板
       const tpl = $('shareTemplate');
-      if (tpl && !tpl.value) {
-        tpl.value = (typeof t === 'function') ? t('share.template') : '';
+      if (tpl) {
+        const idx = advanceShareTemplateIdx();
+        fillShareTemplate(idx);
       }
     }
+  });
+  // 手动切换到下一个模板
+  $('shareNextBtn')?.addEventListener('click', () => {
+    const idx = advanceShareTemplateIdx();
+    fillShareTemplate(idx);
   });
   $('shareCopyBtn')?.addEventListener('click', async () => {
     const tpl = $('shareTemplate');
@@ -214,6 +220,32 @@ function bindSharePanel() {
 
 
 let _shareLatestCode = '';
+
+// ── 分享模板交替(3 个 A/B/C,持久化到 localStorage) ───────
+const SHARE_TEMPLATE_KEY = 'wc_share_tpl_idx';
+const SHARE_TEMPLATE_COUNT = 3;
+
+function advanceShareTemplateIdx() {
+  let cur = 0;
+  try { cur = parseInt(localStorage.getItem(SHARE_TEMPLATE_KEY) || '0', 10) || 0; } catch {}
+  const next = (cur + 1) % SHARE_TEMPLATE_COUNT;
+  try { localStorage.setItem(SHARE_TEMPLATE_KEY, String(next)); } catch {}
+  return next;
+}
+
+function fillShareTemplate(idx) {
+  const tpl = $('shareTemplate');
+  if (!tpl || typeof t !== 'function') return;
+  const key = `share.template_${'abc'[idx]}`;
+  tpl.value = t(key) || '';
+  // 更新计数显示 "1/3"
+  const cnt = $('shareTplCounter');
+  if (cnt) {
+    const fmt = t('share.template_counter') || '{idx}/{total}';
+    cnt.textContent = fmt.replace('{idx}', String(idx + 1)).replace('{total}', String(SHARE_TEMPLATE_COUNT));
+  }
+}
+
 
 async function handleShareVerify() {
   const urlInput = $('shareUrlInput');

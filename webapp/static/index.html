@@ -210,9 +210,15 @@
           <span class="share-platform-val" data-i18n="share.platform_x">X (Twitter)</span>
         </div>
         <div class="share-template-row">
-          <span class="share-label" data-i18n="share.template_label">Post this on X:</span>
+          <div class="share-template-head">
+            <span class="share-label" data-i18n="share.template_label">Post this on X:</span>
+            <span class="share-tpl-counter" id="shareTplCounter">1/3</span>
+          </div>
           <textarea class="share-template" id="shareTemplate" rows="3" readonly></textarea>
-          <button class="share-copy-btn" id="shareCopyBtn" type="button" data-i18n="share.copy">Copy</button>
+          <div class="share-template-actions">
+            <button class="share-copy-btn" id="shareCopyBtn" type="button" data-i18n="share.copy">Copy</button>
+            <button class="share-next-btn" id="shareNextBtn" type="button" data-i18n="share.template_next">↻ Next</button>
+          </div>
         </div>
         <div class="share-verify-row">
           <span class="share-label" data-i18n="share.paste_label">Paste your X post URL:</span>

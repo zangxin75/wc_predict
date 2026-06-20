@@ -279,5 +279,10 @@
   "share.error_unrecognized": "URL not recognized as X / Twitter",
   "share.error_verify_failed": "Verification failed (post may be private or deleted)",
   "share.error_rate_limited": "Too many attempts, please wait a minute",
-  "share.error_network": "Network error, please retry"
+  "share.error_network": "Network error, please retry",
+  "share.template_a": "🏆 2026 World Cup — 4 days out.\n\nI just ran this predictor. System Elo vs market:\n  • Egypt vs Iran: 21.7% edge (Kelly 27%)\n  • Czech vs Mexico: 17.3% edge\n  • Japan vs Sweden: 16.8% edge\n\nBacktest 128 WC games: 53.1% hit. +0.87 corr vs bookies.\n\nFree tier → try it\n\nhttps://aijialidu.ticp.vip",
+  "share.template_b": "WC2026 predictor I trust (after testing):\n\n▸ 10,000 Monte Carlo sims per match\n▸ Elo + Dixon-Coles, calibrated +0.87 vs market\n▸ Backtest 2018+2022: 53.1% argmax hit (128 games)\n▸ 100 matches covered, 68 upcoming\n\nAI pre-match intel. Value bet scanner. Free →\n\nhttps://aijialidu.ticp.vip",
+  "share.template_c": "Egypt vs Iran in 7 days. Market says 3.85 odds.\n\nThis predictor says Egypt has 21.7% edge. Kelly 27%.\n\nIt hit 53% on past 2 World Cups (128 games).\n\nI don't bet blind. I bet with data. Free →\n\nhttps://aijialidu.ticp.vip",
+  "share.template_counter": "{idx}/{total}",
+  "share.template_next": "↻ Next"
 }

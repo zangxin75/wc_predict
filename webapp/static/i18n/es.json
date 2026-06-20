@@ -279,5 +279,10 @@
   "share.error_unrecognized": "URL no reconocida como X / Twitter",
   "share.error_verify_failed": "Verificación fallida (la publicación puede ser privada o eliminada)",
   "share.error_rate_limited": "Demasiados intentos, espera un minuto",
-  "share.error_network": "Error de red, reintenta"
+  "share.error_network": "Error de red, reintenta",
+  "share.template_a": "🏆 Mundial 2026 — faltan 4 días.\n\nAcabo de probar este predictor. Elo del sistema vs mercado:\n  • Egipto vs Irán: 21.7% edge (Kelly 27%)\n  • Chequia vs México: 17.3% edge\n  • Japón vs Suecia: 16.8% edge\n\nBacktest 128 partidos WC: 53.1% acierto. +0.87 corr vs casas.\n\nGratis → pruébalo\n\nhttps://aijialidu.ticp.vip",
+  "share.template_b": "Predictor del Mundial 2026 en el que confío (tras probar):\n\n▸ 10,000 simulaciones Monte Carlo por partido\n▸ Elo + Dixon-Coles, calibrado +0.87 vs mercado\n▸ Backtest 2018+2022: 53.1% acierto argmax (128 partidos)\n▸ 100 partidos cubiertos, 68 por jugar\n\nIntel previa con IA. Escáner de value bets. Gratis →\n\nhttps://aijialidu.ticp.vip",
+  "share.template_c": "Egipto vs Irán en 7 días. Mercado ofrece 3.85.\n\nEste predictor dice que Egipto tiene 21.7% edge. Kelly 27%.\n\nAcertó 53% en los 2 últimos mundiales (128 partidos).\n\nNo apuesto a ciegas. Apuesto con datos. Gratis →\n\nhttps://aijialidu.ticp.vip",
+  "share.template_counter": "{idx}/{total}",
+  "share.template_next": "↻ Otro"
 }
