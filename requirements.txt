@@ -16,6 +16,8 @@ requests>=2.31       # fetch_wc2026.py 抓 ESPN/Wikipedia
 # Web 系统(webapp/)
 fastapi>=0.110       # webapp/app.py FastAPI 应用
 uvicorn[standard]>=0.27  # ASGI 服务器(启动 uvicorn webapp.app:app)
+stripe>=15.0         # Stripe 订阅支付
+python-dotenv>=1.0   # .env 文件加载
 
 # 测试
 pytest>=7.4

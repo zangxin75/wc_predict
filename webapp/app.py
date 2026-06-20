@@ -21,12 +21,12 @@ from contextlib import asynccontextmanager
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from webapp import cache, updater
+from webapp import cache, updater, payments
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 STATIC_DIR = os.path.join(HERE, "static")
@@ -136,8 +136,9 @@ _value_bets_lock = threading.Lock()
 
 @app.get("/api/value-bets")
 def get_value_bets(min_edge: float = Query(0.03, ge=0.0, le=0.5,
-                                            description="最小 edge 阈值(默认 3%%)")):
-    """价值下注面板(纯 Elo vs 市场 devig)— B 方案。
+                                            description="最小 edge 阈值(默认 3%%)"),
+                    x_user_email: str = Query(default="", alias="x_user_email")):
+    """价值下注面板(纯 Elo vs 市场 devig)— B 方案。Pro 功能,需订阅。
 
     返回:
       - edge_distribution: max edge 分布统计(平均/分位/各阈值场数)
@@ -146,6 +147,8 @@ def get_value_bets(min_edge: float = Query(0.03, ge=0.0, le=0.5,
 
     静态(随 odds_wc.csv 变),首次请求计算后内存缓存。如需重算可重启服务。
     """
+    if not payments.is_paid(x_user_email):
+        raise HTTPException(402, "Pro feature. Subscribe at /api/create-checkout-session")
     global _value_bets_cache
     if _value_bets_cache is None or _value_bets_cache.get("min_edge") != min_edge:
         with _value_bets_lock:
@@ -256,18 +259,28 @@ def get_value_bets(min_edge: float = Query(0.03, ge=0.0, le=0.5,
 @app.get("/api/match")
 def get_match(date: str = Query(...), home: str = Query(...), away: str = Query(...),
               with_reflection: int = Query(0), with_intel: int = Query(0),
-              with_h2h: int = Query(0)):
+              with_h2h: int = Query(0),
+              locale: str = Query("zh-CN"),
+              x_user_email: str = Query(default="", alias="x_user_email")):
     """单场详情(含 top5 比分概率、Elo、预期进球、AI 反思数据、赛前情报、历史交手)。
 
-    with_reflection=1 时:开启反思系统,从队伍档案读 elo_adjustments 调整 Elo
-    后重算预测(第二步)。market 驱动场 probs 不变,Elo 兜底场 probs 基于调整后 Elo。
-
-    with_intel=1 时:调智谱 GLM-4 web_search 拉赛前情报(伤停/近期战绩/战术),
-    塞入 out["intel"](只读,纯展示,不影响 probs)。慢 3-5s,前端用按钮触发。
-
-    with_h2h=1 时:调智谱 GLM-4 web_search 拉历史交手记录,塞入 out["h2h"]
-    (只读,纯展示)。慢 3-5s,前端用按钮触发。
+    with_reflection=1: 从队伍档案调整 Elo 重算预测(第二步)。
+    with_intel=1: 智谱 GLM-4 联网搜索赛前情报(只读,~5s)。
+    with_h2h=1: 智谱 GLM-4 联网搜索历史交手(只读,~5s)。
+    with_reflection/with_intel/with_h2h 为 Pro 功能,需订阅。
+    locale: UI 语言(en/zh-CN/es/pt/ar/fr)。
     """
+    # Pro 功能 gating
+    if (with_reflection or with_intel or with_h2h) and not payments.is_paid(x_user_email):
+        out = {"reflection": {"has_any": False, "summary_parts": []}}
+        if with_reflection:
+            out["reflection"]["error"] = "Pro feature. Subscribe to unlock AI Reflection."
+        if with_intel:
+            out["intel"] = {"error": "Pro feature. Subscribe to unlock pre-match intel."}
+        if with_h2h:
+            out["h2h"] = {"error": "Pro feature. Subscribe to unlock H2H history."}
+        return out
+
     base = None
     for m in cache.get_schedule():
         if m["date"] == date and m["home"] == home and m["away"] == away:
@@ -278,12 +291,12 @@ def get_match(date: str = Query(...), home: str = Query(...), away: str = Query(
     out = dict(base)
     try:
         from webapp import reflection
-        out["reflection"] = reflection.get_match_reflection(home, away)
+        out["reflection"] = reflection.get_match_reflection(home, away, locale=locale)
     except Exception as e:
-        out["reflection"] = {"has_any": False, "summary": "", "error": str(e)}
+        out["reflection"] = {"has_any": False, "summary_parts": [], "error": str(e)}
 
     # 第二步:开反思时重算预测(覆盖 Elo 相关字段)
-    if with_reflection and out["reflection"].get("has_any"):
+    if with_reflection and out["reflection"].get("has_any") and payments.is_paid(x_user_email):
         try:
             from webapp import predictor
             import compute_odds
@@ -315,11 +328,13 @@ def get_match(date: str = Query(...), home: str = Query(...), away: str = Query(
     if with_intel:
         try:
             from webapp import websearch_client
-            out["intel"] = websearch_client.search_pre_match_briefing(
+            from webapp.i18n_translator import localize_intel_cached
+            raw = websearch_client.search_pre_match_briefing(
                 home, away, date,
                 home_zh=base.get("home_zh"),
                 away_zh=base.get("away_zh"),
             )
+            out["intel"] = localize_intel_cached(raw, home, away, date, locale=locale)
         except Exception as e:
             out["intel"] = {"error": str(e)}
 
@@ -327,11 +342,13 @@ def get_match(date: str = Query(...), home: str = Query(...), away: str = Query(
     if with_h2h:
         try:
             from webapp import websearch_client
-            out["h2h"] = websearch_client.search_head_to_head(
+            from webapp.i18n_translator import localize_h2h_cached
+            raw = websearch_client.search_head_to_head(
                 home, away,
                 home_zh=base.get("home_zh"),
                 away_zh=base.get("away_zh"),
             )
+            out["h2h"] = localize_h2h_cached(raw, home, away, locale=locale)
         except Exception as e:
             out["h2h"] = {"error": str(e)}
 
@@ -355,6 +372,36 @@ def get_backtest():
                 from webapp import predictor
                 _backtest_cache = predictor.build_backtest()
     return _backtest_cache
+
+
+# ── Stripe 订阅 ────────────────────────────────────────
+@app.post("/api/create-checkout-session")
+def create_checkout(email: str = Query(...), price_id: str = Query(...),
+                     origin: str = Query(default="http://localhost:8000")):
+    """创建 Stripe Checkout Session,返回支付 URL。"""
+    if not payments.STRIPE_SECRET_KEY:
+        raise HTTPException(503, "Stripe not configured")
+    try:
+        url = payments.create_checkout_session(email, price_id, origin)
+        return {"url": url}
+    except Exception as e:
+        raise HTTPException(400, str(e))
+
+
+@app.post("/api/stripe-webhook")
+async def stripe_webhook(request: Request):
+    """Stripe Webhook 回调(处理 checkout.session.completed 等)。"""
+    payload = await request.body()
+    sig = request.headers.get("stripe-signature", "")
+    if not sig:
+        raise HTTPException(400, "missing stripe-signature")
+    return payments.handle_webhook(payload, sig)
+
+
+@app.get("/api/subscription-status")
+def subscription_status(email: str = Query(default="")):
+    """查询邮箱的订阅状态。"""
+    return {"is_paid": payments.is_paid(email), "email": email}
 
 
 @app.post("/api/refresh")

@@ -1,6 +1,7 @@
 /* ============================================================
    2026 世界杯预测 - 前端逻辑
    轮询 /api/* → 渲染 → 比分变化琥珀脉冲
+   多语言:所有 UI 文案走 t() 函数(由 i18n.js 提供)
    ============================================================ */
 
 // ── 48 队旗帜 emoji(ISO 国家代码)──────────────────
@@ -18,9 +19,6 @@ const FLAG = {
   Sweden:'🇸🇪',Switzerland:'🇨🇭',Tunisia:'🇹🇳',Turkey:'🇹🇷',
   'United States':'🇺🇸',Uruguay:'🇺🇾',Uzbekistan:'🇺🇿'
 };
-const STAGE_ZH = {Group:'小组赛',R32:'32强',R16:'16强',QF:'1/4决赛',SF:'半决赛',Final:'决赛'};
-const WEEKDAY = ['周日','周一','周二','周三','周四','周五','周六'];
-const RESULT_ZH = {home_win:'主胜',draw:'平',away_win:'客胜'};
 
 // ── 状态 ──────────────────────────────────────────
 let pollSec = 30;
@@ -29,18 +27,42 @@ let tickTimer = null;
 let prevScoreMap = {};      // key -> "h-a" 用于检测比分变化
 let firstRender = true;     // 首次渲染(带 staggered 动画)
 let activeStage = 'all';
-let histExpanded = false;  // 历史赛果折叠区展开状态
+let histExpanded = false;   // 历史赛果折叠区展开状态
 let cache = { schedule:[], status:{}, champions:[], groups:{}, backtest:null, market:null, value:null };
+let reflectOn = false;      // 抽屉内反思模式状态
+// ── 订阅状态 ──────────────────────────────────────
+let userEmail = '';         // localStorage wc_email
+let isPaid = false;         // 缓存订阅状态
+let subChecked = false;     // 是否已检查过
 
 // ── 工具 ──────────────────────────────────────────
 const $ = (id) => document.getElementById(id);
+const t = I18N.t;
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const flag = (team) => FLAG[team] || '🏳️';
 const matchKey = (m) => `${m.date}|${m.home}|${m.away}`;
 const scoreSig = (m) => m.status === 'finished' ? `${m.score[0]}-${m.score[1]}` : (m.status);
 
+// ── 取 t() 的阶段/星期/结果映射(动态,跟随语言)──────
+const STAGE_KEY = { Group:'stage.group', R32:'stage.r32', R16:'stage.r16', QF:'stage.qf', SF:'stage.sf', Final:'stage.final' };
+const STAGE_ZH = () => Object.fromEntries(Object.entries(STAGE_KEY).map(([k, v]) => [k, t(v)]));
+const RESULT_KEY = { home_win:'result.home_win', draw:'result.draw', away_win:'result.away_win' };
+const RESULT_ZH = () => Object.fromEntries(Object.entries(RESULT_KEY).map(([k, v]) => [k, t(v)]));
+const WEEKDAY = () => [0,1,2,3,4,5,6].map(i => t(`weekday.${i}`));
+
+// ── 队名本地化(按当前语言)──────────────────
+const teamName = (m, side) => {
+  if (!m) return '';
+  if (I18N.current === 'en') return m[side];
+  if (I18N.current === 'zh-CN') return m[side + '_zh'] || m[side];
+  return I18N.localTeam(m[side]);
+};
+// ── 本地时区日期/时间(BJ → user tz)──────────
+const localDate = (m) => m ? I18N.localDate(m.date, m.kickoff_bj) : '';
+const localTime = (m) => m ? I18N.localTime(m.date, m.kickoff_bj) : '';
+
 async function getJSON(url) {
-  const r = await fetch(url, {cache: 'no-store'});
+  const r = await fetch(url, { cache: 'no-store' });
   if (!r.ok) throw new Error(`${url} → ${r.status}`);
   return r.json();
 }
@@ -49,7 +71,110 @@ function fmtDate(iso) {
   const d = new Date(iso + 'T00:00:00');
   const mm = String(d.getMonth() + 1).padStart(2, '0');
   const dd = String(d.getDate()).padStart(2, '0');
-  return { label: `${mm}.${dd}`, weekday: WEEKDAY[d.getDay()] };
+  return { label: `${mm}.${dd}`, weekday: WEEKDAY()[d.getDay()] };
+}
+
+// ── 订阅 ────────────────────────────────────────────
+function emailSuffix() {
+  return userEmail ? `&x_user_email=${encodeURIComponent(userEmail)}` : '';
+}
+
+async function checkSubscription() {
+  if (!userEmail) return false;
+  try {
+    const d = await getJSON(`api/subscription-status?email=${encodeURIComponent(userEmail)}`);
+    isPaid = !!d.is_paid;
+    subChecked = true;
+    const proBtn = $('proBtn');
+    const proBadge = $('proBadge');
+    if (isPaid) {
+      if (proBtn) proBtn.hidden = true;
+      if (proBadge) proBadge.hidden = false;
+    } else {
+      if (proBtn) proBtn.hidden = false;
+      if (proBadge) proBadge.hidden = true;
+    }
+    return isPaid;
+  } catch { return false; }
+}
+
+function initSubscription() {
+  try { userEmail = localStorage.getItem('wc_email') || ''; } catch {}
+  // 检测 checkout=success 回跳
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('checkout') === 'success') {
+    checkSubscription().then(paid => {
+      if (paid) {
+        const s = $('upgradeStatus');
+        if (s) { s.hidden = false; s.textContent = t('sub.unlocked'); s.className = 'upgrade-status ok'; }
+      }
+    });
+    window.history.replaceState({}, '', window.location.pathname);
+  }
+  if (userEmail) checkSubscription();
+  // Pro 按钮事件
+  const proBtn = $('proBtn');
+  if (proBtn) proBtn.addEventListener('click', openUpgrade);
+  bindUpgradeModal();
+}
+
+function bindUpgradeModal() {
+  $('upgradeClose')?.addEventListener('click', closeUpgrade);
+  $('upgradeScrim')?.addEventListener('click', closeUpgrade);
+  $('planMonthly')?.addEventListener('click', () => handleCheckout('monthly'));
+  $('planTournament')?.addEventListener('click', () => handleCheckout('tournament'));
+  const emailInput = $('upgradeEmail');
+  if (emailInput) {
+    if (userEmail) emailInput.value = userEmail;
+    emailInput.addEventListener('input', () => { const e = $('upgradeError'); if (e) e.hidden = true; });
+  }
+}
+
+function openUpgrade() {
+  const modal = $('upgradeModal');
+  const scrim = $('upgradeScrim');
+  if (modal) { modal.hidden = false; modal.setAttribute('aria-hidden', 'false'); }
+  if (scrim) scrim.hidden = false;
+  const s = $('upgradeStatus');
+  if (s) s.hidden = true;
+  const e = $('upgradeError');
+  if (e) e.hidden = true;
+  const emailInput = $('upgradeEmail');
+  if (emailInput) { if (userEmail) emailInput.value = userEmail; emailInput.focus(); }
+}
+
+function closeUpgrade() {
+  const modal = $('upgradeModal');
+  const scrim = $('upgradeScrim');
+  if (modal) { modal.hidden = true; modal.setAttribute('aria-hidden', 'true'); }
+  if (scrim) scrim.hidden = true;
+}
+
+async function handleCheckout(plan) {
+  const email = $('upgradeEmail').value.trim();
+  if (!email || !email.includes('@')) {
+    const e = $('upgradeError');
+    if (e) { e.hidden = false; e.textContent = 'Please enter a valid email'; }
+    return;
+  }
+  try { localStorage.setItem('wc_email', email); } catch {}
+  userEmail = email;
+  const priceIdMap = { monthly: 'price_monthly', tournament: 'price_tournament' };
+  const base = window.location.origin + window.location.pathname.replace(/\/$/, '');
+  const origin = base;
+  const btn = plan === 'monthly' ? $('planMonthly') : $('planTournament');
+  if (btn) btn.disabled = true;
+  try {
+    const r = await fetch(`api/create-checkout-session?email=${encodeURIComponent(email)}&price_id=${priceIdMap[plan]}&origin=${encodeURIComponent(origin)}`, { method: 'POST' });
+    if (!r.ok) throw new Error(await r.text());
+    const data = await r.json();
+    if (data.url) { window.location.href = data.url; }
+    else { throw new Error('no url'); }
+  } catch (err) {
+    const e = $('upgradeError');
+    if (e) { e.hidden = false; e.textContent = t('sub.checkout_error') + ' ' + err.message; }
+    if (btn) btn.disabled = false;
+  }
 }
 
 // ── 状态栏渲染 ────────────────────────────────────
@@ -57,10 +182,10 @@ function renderStatus() {
   const s = cache.status || {};
   const dot = $('liveDot'), lbl = $('statusLabel');
   dot.className = 'live-dot';
-  if (s.running) { dot.classList.add('busy'); lbl.textContent = '更新中…'; }
-  else if (s.success === false) { dot.classList.add('err'); lbl.textContent = '更新失败(用缓存)'; }
-  else if (s.success) { dot.classList.add('ok'); lbl.textContent = '实时在线'; }
-  else { lbl.textContent = '连接中…'; }
+  if (s.running) { dot.classList.add('busy'); lbl.textContent = t('status.updating'); }
+  else if (s.success === false) { dot.classList.add('err'); lbl.textContent = t('status.failed'); }
+  else if (s.success) { dot.classList.add('ok'); lbl.textContent = t('status.live'); }
+  else { lbl.textContent = t('status.connecting'); }
 
   $('lastUpdated').textContent = s.last_updated ? s.last_updated.slice(11, 16) : '-';
   if (s.error) lbl.textContent = s.error.slice(0, 20);
@@ -71,11 +196,11 @@ function renderSchedule() {
   const list = $('scheduleList');
   let matches = cache.schedule || [];
   if (activeStage !== 'all') matches = matches.filter(m => m.stage === activeStage);
-  if (!matches.length) { list.innerHTML = '<div class="placeholder">无符合筛选的比赛</div>'; return; }
+  if (!matches.length) { list.innerHTML = `<div class="placeholder">${t('empty.no_match')}</div>`; return; }
 
-  // 按日期分组(保持升序)
+  // 按本地时区日期分组(保持升序)
   const byDay = {};
-  for (const m of matches) (byDay[m.date] ||= []).push(m);
+  for (const m of matches) (byDay[localDate(m)] ||= []).push(m);
   const days = Object.keys(byDay).sort();
 
   // 当天及未来 → 主视图;历史(date < 今天)→ 折叠区(默认收起)
@@ -91,7 +216,7 @@ function renderSchedule() {
     let h = `<div class="day-block">`;
     h += `<div class="day-head"><span class="day-date">${f.label}</span>`
        + `<span class="day-weekday">${f.weekday}</span>`
-       + `<span class="day-count">${byDay[day].length} 场</span></div>`;
+       + `<span class="day-count">${t('schedule.match_count', { n: byDay[day].length })}</span></div>`;
     for (const m of byDay[day]) {
       const changed = prevScoreMap[matchKey(m)] !== undefined
                       && prevScoreMap[matchKey(m)] !== scoreSig(m);
@@ -116,13 +241,17 @@ function renderSchedule() {
     }
     const histCount = pastDays.reduce((n, d) => n + byDay[d].length, 0);
     const bodyStyle = histExpanded ? '' : ' style="display:none"';
-    const label = histExpanded ? '收起历史预测' : '查看预测明细';
+    const label = histExpanded ? t('hist.collapse') : t('hist.expand');
     const arrow = histExpanded ? '▴' : '▾';
     const winPct = fin ? Math.round(winHit / fin * 100) : 0;
+    const histTitle = t('hist.title');
+    const histStats = `${t('hist.played', { n: fin })} · `
+      + t('hist.win_hit', { n: winHit, pct: winPct + '%' }) + ' · '
+      + t('hist.score_hit', { n: scoreHit });
     html += `<div class="hist-fold hist-top">`
          + `<button class="hist-toggle" type="button">`
-         + `<span class="hist-title">过往战绩</span>`
-         + `<span class="hist-stats">已打 ${fin} 场 · 胜负命中 <b>${winHit}</b>(${winPct}%) · 比分精准 <b>${scoreHit}</b></span>`
+         + `<span class="hist-title">${histTitle}</span>`
+         + `<span class="hist-stats">${histStats}</span>`
          + `<span class="hist-label">${label}</span><span class="hist-arrow">${arrow}</span>`
          + `</button>`
          + `<div class="hist-body"${bodyStyle}>`;
@@ -141,14 +270,19 @@ function renderSchedule() {
 }
 
 function renderCard(m, flashCls, delayStyle) {
-  const stageZh = STAGE_ZH[m.stage] || m.stage;
-  const groupTag = m.group ? `${stageZh} · ${m.group}组` : stageZh;
-  const homeTeam = teamBlock(m.home, m.home_zh, m.elo_h, 'home');
-  const awayTeam = teamBlock(m.away, m.away_zh, m.elo_a, 'away');
+  const stageZh = STAGE_ZH()[m.stage] || m.stage;
+  const groupTag = m.group ? `${stageZh} · ${m.group}` : stageZh;
+  const homeTeam = teamBlock(m.home, teamName(m, 'home'), m.elo_h, 'home');
+  const awayTeam = teamBlock(m.away, teamName(m, 'away'), m.elo_a, 'away');
   const center = renderCenter(m);
+  const localK = localTime(m);
+  const bjK = m.kickoff_bj;
+  const koTitle = bjK && localK !== bjK
+    ? `${t('schedule.kickoff_bj')}: ${bjK} → ${I18N.tz || 'local'}: ${localK}`
+    : t('schedule.kickoff_bj');
   return `<article class="match-card${flashCls}" data-status="${m.status}"`
     + ` data-date="${esc(m.date)}" data-home="${esc(m.home)}" data-away="${esc(m.away)}"${delayStyle}>`
-    + `<div class="match-meta"><span class="stage-tag">${esc(groupTag)}</span>${m.kickoff_bj ? '<span class="ko-tag" title="北京时间开球">北京 ' + esc(m.kickoff_bj) + '</span>' : ''}`
+    + `<div class="match-meta"><span class="stage-tag">${esc(groupTag)}</span>${localK ? `<span class="ko-tag" title="${esc(koTitle)}">${esc(localK)}</span>` : ''}`
     + `<span class="city-tag">${esc(m.city || '')}</span></div>`
     + `${homeTeam}${center}${awayTeam}</article>`;
 }
@@ -161,7 +295,6 @@ function teamBlock(en, zh, elo, side) {
 }
 
 // 48 方块概率条(官方 48 单元 DNA - 48 个参赛国)+ 三态百分比标签
-// 三重编码(色弱/快读冗余):① 三档金明度 ② 方块填充数 ③ 数字
 // prefix='drawer' 用抽屉尺寸/精度,decimals 控制百分比小数位
 function probCells(probs, prefix, decimals, asOdds) {
   const [ph, pd] = probs;
@@ -180,14 +313,14 @@ function probCells(probs, prefix, decimals, asOdds) {
   const fmt = (v) => {
     if (asOdds) {
       const odds = v > 0 ? (1 / v).toFixed(2) : '-';
-      return prefix === 'drawer' ? odds : `赔率${odds}`;
+      return prefix === 'drawer' ? odds : `${t('result.odds_prefix', { odds })}`;
     }
     return decimals ? (v * 100).toFixed(decimals) : Math.round(v * 100);
   };
   const lbl = (cls, key, val) =>
-    `<span class="pl ${cls}"><span class="pk">${key}</span><span class="pv">${fmt(val)}</span></span>`;
+    `<span class="pl ${cls}"><span class="pk">${t(key)}</span><span class="pv">${fmt(val)}</span></span>`;
   return `<div class="${barCls}">${cells}</div>`
-    + `<div class="${lblCls}">${lbl('home','主',ph)}${lbl('draw','平',pd)}${lbl('away','客',probs[2])}</div>`;
+    + `<div class="${lblCls}">${lbl('home','result.home_win',ph)}${lbl('draw','result.draw',pd)}${lbl('away','result.away_win',probs[2])}</div>`;
 }
 
 // 命中判定:三态 argmax 是否等于实际结果
@@ -200,23 +333,23 @@ function probHit(probs, result) {
 
 // 概率来源徽标:odds=收盘报价 devig 后(更准),elo=Elo 推断
 function srcBadge(m) {
-  if (m.source === 'odds') return '<span class="src-badge odds" title="收盘报价 devig 后概率(108场回测 Δ=−0.066 优于 Elo)">📊报价</span>';
-  return '<span class="src-badge elo" title="Elo 推断概率">Elo</span>';
+  if (m.source === 'odds') return `<span class="src-badge odds" title="${t('src.odds_badge')}">📊${t('src.tag_b')}</span>`;
+  return `<span class="src-badge elo" title="${t('src.elo_badge')}">${t('src.tag_e')}</span>`;
 }
 
 function renderCenter(m) {
   if (m.status === 'finished' && m.score) {
     const [h, a] = m.score;
     const cls = h > a ? 'win-home' : (a > h ? 'win-away' : '');
-    const resultLabel = RESULT_ZH[m.result] || '';
+    const resultLabel = RESULT_ZH()[m.result] || '';
     // 有预测:真实比分 + 赛前预测(48方块) + 命中标记
     if (m.probs) {
       const hit = probHit(m.probs, m.result);
       const ps = m.top_score;
       const scoreHit = ps && ps[0] === h && ps[1] === a;
-      const mark = scoreHit ? '比分精准' : (hit ? '胜负命中' : `实际${resultLabel}`);
+      const mark = scoreHit ? t('mark.precise') : (hit ? t('mark.hit') : t('mark.miss_actual', { result: resultLabel }));
       const markCls = scoreHit ? 'precise' : (hit ? 'hit' : 'miss');
-      const predStr = ps ? `<span class="pred-score"><i>预测</i>${ps[0]}-${ps[1]}</span>` : '';
+      const predStr = ps ? `<span class="pred-score"><i>${t('schedule.predicted')}</i>${ps[0]}-${ps[1]}</span>` : '';
       return `<div class="center-cell">`
         + `<div class="score-big ${cls}">${h}<span class="dash">-</span>${a}</div>`
         + predStr
@@ -228,9 +361,9 @@ function renderCenter(m) {
       + `<div class="topscore"><span class="tsval">${resultLabel}</span></div></div>`;
   }
   if (!m.probs) {
-    return `<div class="center-cell"><span class="no-elo">Elo 缺失</span></div>`;
+    return `<div class="center-cell"><span class="no-elo">${t('card.elo_missing')}</span></div>`;
   }
-  const ts = m.top_score ? `预测 ${m.top_score[0]}-${m.top_score[1]}` : '';
+  const ts = m.top_score ? `${t('schedule.predicted')} ${m.top_score[0]}-${m.top_score[1]}` : '';
   return `<div class="center-cell">`
     + probCells(m.probs, '', 0, true)
     + `<div class="topscore">${ts}${srcBadge(m)}</div></div>`;
@@ -241,7 +374,7 @@ function renderChampions() {
   const list = $('champList');
   const ranking = cache.champions || [];
   if (!ranking.length) {
-    list.innerHTML = '<div class="placeholder">夺冠榜计算中(蒙特卡洛 10000 次,约 1-2 分钟)…</div>';
+    list.innerHTML = `<div class="placeholder">${t('empty.loading_champs')}</div>`;
     return;
   }
   const top = ranking[0].prob;
@@ -260,7 +393,8 @@ function renderChampions() {
   html += '</div>';
   list.innerHTML = html;
   $('champBuiltAt').textContent = cache.status?.champions_built_at
-    ? `更新于 ${cache.status.champions_built_at.slice(11, 16)}` : '10,000 次模拟';
+    ? t('champions.updated_at', { time: cache.status.champions_built_at.slice(11, 16) })
+    : t('champions.simulations');
 }
 
 // ── 小组榜渲染 ────────────────────────────────────
@@ -268,14 +402,14 @@ function renderGroups() {
   const grid = $('groupsGrid');
   const groups = cache.groups || {};
   const keys = Object.keys(groups).sort();
-  if (!keys.length) { grid.innerHTML = '<div class="placeholder">载入小组榜…</div>'; return; }
+  if (!keys.length) { grid.innerHTML = `<div class="placeholder">${t('empty.loading_groups')}</div>`; return; }
   let html = '';
   for (const g of keys) {
     const rows = groups[g];
     html += `<div class="group-card"><div class="group-card-head">`
-      + `<span class="group-letter">${g}</span><span class="group-label">GROUP ${g}</span></div>`
+      + `<span class="group-letter">${g}</span><span class="group-label">${t('groups.label')} ${g}</span></div>`
       + `<table class="group-table"><thead><tr>`
-      + `<th>队</th><th>已打</th><th>积分</th><th>期望</th><th>净胜</th></tr></thead><tbody>`;
+      + `<th>${t('groups.col.team')}</th><th>${t('groups.col.played')}</th><th>${t('groups.col.points')}</th><th>${t('groups.col.expected')}</th><th>${t('groups.col.gd')}</th></tr></thead><tbody>`;
     for (const r of rows) {
       html += `<tr><td><div class="team-cell"><span class="tflag">${flag(r.team)}</span>`
         + `<span class="tname">${esc(r.team_zh)}</span></div></td>`
@@ -288,45 +422,45 @@ function renderGroups() {
   grid.innerHTML = html;
 }
 
-// ── 单场详情抽屉 ──────────────────────────────────
 // ── 历史回测渲染(2018/2022 赛前 Elo vs 真实结果)──────────
 function renderBacktest() {
   const wrap = $('backtestList');
   const data = cache.backtest;
   if (!data || !data.tournaments) {
-    wrap.innerHTML = '<div class="placeholder">回测计算中(赛前 Elo 重建,约 10 秒)…</div>';
+    wrap.innerHTML = `<div class="placeholder">${t('empty.loading_backtest')}</div>`;
     return;
   }
   let html = '<div class="bt-wrap">';
-  for (const t of data.tournaments) {
-    const rate = (t.hit_rate != null) ? (t.hit_rate * 100).toFixed(1) : '-';
-    const sRate = (t.score_hit_rate != null) ? (t.score_hit_rate * 100).toFixed(1) : '-';
+  for (const tdata of data.tournaments) {
+    const rate = (tdata.hit_rate != null) ? (tdata.hit_rate * 100).toFixed(1) : '-';
+    const sRate = (tdata.score_hit_rate != null) ? (tdata.score_hit_rate * 100).toFixed(1) : '-';
     html += '<section class="bt-block">'
       + '<div class="bt-head">'
-      + `<span class="bt-name">${esc(t.name)}</span>`
-      + `<span class="bt-rate">${rate}<small>%</small><i>胜负</i></span>`
-      + `<span class="bt-subrate">精确比分 <b>${sRate}%</b> <small>${t.score_hits}/${t.counted}</small></span>`
-      + `<span class="bt-meta">共 ${t.count} 场</span>`
+      + `<span class="bt-name">${esc(tdata.name)}</span>`
+      + `<span class="bt-rate">${rate}<small>%</small><i>${t('backtest.win_rate_short')}</i></span>`
+      + `<span class="bt-subrate">${t('backtest.exact_short')} <b>${sRate}%</b> <small>${tdata.score_hits}/${tdata.counted}</small></span>`
+      + `<span class="bt-meta">${t('backtest.matches_total', { n: tdata.count })}</span>`
       + '</div><div class="bt-matches">';
-    for (const m of t.matches) {
+    for (const m of tdata.matches) {
       const [h, a] = m.score;
-      const resZh = RESULT_ZH[m.result] || '';
+      const resZh = RESULT_ZH()[m.result] || '';
       const hitCls = m.hit === true ? 'ok' : (m.hit === false ? 'no' : 'na');
       const ps = m.pred_score;
       const scoreHit = m.score_hit === true;
-      const mark = scoreHit ? '★ 精确'
-        : (m.hit === true ? '✓ 胜负'
-        : (m.hit === false ? '✗ ' + resZh : '—'));
+      const dash = t('card.dash');
+      const mark = scoreHit ? t('card.star_exact')
+        : (m.hit === true ? t('card.win_hit')
+        : (m.hit === false ? t('card.loss_prefix', { result: resZh }) : dash));
       const markCls = scoreHit ? 'exact' : hitCls;
-      const psHtml = ps ? `<span class="bt-pscore ${scoreHit?'exact':''}">${ps[0]}-${ps[1]}</span>` : '<span class="bt-pscore">—</span>';
+      const psHtml = ps ? `<span class="bt-pscore ${scoreHit?'exact':''}">${ps[0]}-${ps[1]}</span>` : `<span class="bt-pscore">${dash}</span>`;
       const probs = m.probs
-        ? `<span class="bt-probs">主${Math.round(m.probs[0]*100)}·平${Math.round(m.probs[1]*100)}·客${Math.round(m.probs[2]*100)} ${srcBadge(m)}</span>`
-        : '<span class="bt-probs">Elo 缺失</span>';
+        ? `<span class="bt-probs">${t('bt.tri_probs', { a: Math.round(m.probs[0]*100), b: Math.round(m.probs[1]*100), c: Math.round(m.probs[2]*100) })} ${srcBadge(m)}</span>`
+        : `<span class="bt-probs">${t('bt.elo_missing')}</span>`;
       html += `<div class="bt-row ${hitCls}">`
         + `<span class="bt-date">${esc(m.date.slice(5))}</span>`
-        + `<span class="bt-team">${flag(m.home)} ${esc(m.home_zh)}</span>`
-        + `<span class="bt-scoreline">预${psHtml}<span class="bt-real">真${h}-${a}</span></span>`
-        + `<span class="bt-team right">${esc(m.away_zh)} ${flag(m.away)}</span>`
+        + `<span class="bt-team">${flag(m.home)} ${esc(teamName(m, 'home'))}</span>`
+        + `<span class="bt-scoreline">${t('backtest.pred')}${psHtml}<span class="bt-real">${t('backtest.actual')}${h}-${a}</span></span>`
+        + `<span class="bt-team right">${esc(teamName(m, 'away'))} ${flag(m.away)}</span>`
         + probs
         + `<span class="bt-mark ${markCls}">${mark}</span></div>`;
     }
@@ -343,39 +477,39 @@ function renderMarket() {
   const s = d.summary;
   const pct = n => s.total ? (n / s.total * 100).toFixed(0) : 0;
   $('mktSummary').innerHTML =
-    `共 ${s.total} 场 · ` +
-    `<b class="mkt-tag mkt-a">A</b> 仅1X2反演 ${s.mode_a} 场(${pct(s.mode_a)}%) · ` +
-    `<b class="mkt-tag mkt-e">Elo</b> 纯 Elo ${s.elo} 场(${pct(s.elo)}%) · ` +
-    (s.mode_b ? `<b class="mkt-tag mkt-b">B</b> 1X2+OU反演 ${s.mode_b} 场 · ` : '');
+    `${t('market.total_summary', { total: s.total })} · ` +
+    `<b class="mkt-tag mkt-a">A</b> ${t('market.mode_a_count', { n: s.mode_a, pct: pct(s.mode_a) })} · ` +
+    `<b class="mkt-tag mkt-e">Elo</b> ${t('market.elo_count', { n: s.elo, pct: pct(s.elo) })} · ` +
+    (s.mode_b ? `<b class="mkt-tag mkt-b">B</b> ${t('market.mode_b_count', { n: s.mode_b })} · ` : '');
   $('vbNote') && ($('vbNote').textContent = '');  // noop safety
   const tagHtml = m => `<b class="mkt-tag mkt-${m.toLowerCase()}">${m}</b>`;
-  const tri = p => p ? `主${pct2(p[0])} 平${pct2(p[1])} 客${pct2(p[2])}` : '—';
+  const tri = p => p ? `${t('result.h_short')}${pct2(p[0])} ${t('result.d_short')}${pct2(p[1])} ${t('result.a_short')}${pct2(p[2])}` : '—';
   const pct2 = x => (x * 100).toFixed(0) + '%';
   const rows = d.matches.map(m => {
     if (m.mode === 'Elo') {
       return `<div class="mkt-row elo">
         <span class="mkt-tag-wrap">${tagHtml(m.mode)}</span>
-        <span class="mkt-match">${m.home_zh} vs ${m.away_zh}</span>
-        <span class="mkt-src">无市场报价,Elo 推断</span>
+        <span class="mkt-match">${esc(teamName(m, 'home'))} vs ${esc(teamName(m, 'away'))}</span>
+        <span class="mkt-src">${t('market.no_odds')}</span>
         <span class="mkt-prob">${tri(m.prob_elo)}</span>
       </div>`;
     }
     const src = m.mode === 'B'
-      ? `1X2 ${m.odds_1x2.join('/')} + OU${m.ou_line} ${(m.ou||[]).join('/')}`
-      : `1X2 ${m.odds_1x2.join('/')}`;
+      ? `${t('market.odds_1x2', { odds: m.odds_1x2.join('/') })} + ${t('market.odds_ou', { line: m.ou_line, odds: (m.ou||[]).join('/') })}`
+      : t('market.odds_1x2', { odds: m.odds_1x2.join('/') });
     return `<div class="mkt-row inv">
       <span class="mkt-tag-wrap">${tagHtml(m.mode)}</span>
-      <span class="mkt-match">${m.home_zh} vs ${m.away_zh}</span>
+      <span class="mkt-match">${esc(teamName(m, 'home'))} vs ${esc(teamName(m, 'away'))}</span>
       <span class="mkt-src">${esc(src)}</span>
-      <span class="mkt-prob"><span class="mkt-pinv">反演 ${tri(m.prob_inverted)}</span><span class="mkt-pelo">Elo ${tri(m.prob_elo)}</span></span>
+      <span class="mkt-prob"><span class="mkt-pinv">${t('market.inverted')} ${tri(m.prob_inverted)}</span><span class="mkt-pelo">${t('market.elo_short')} ${tri(m.prob_elo)}</span></span>
     </div>`;
   });
   $('mktList').innerHTML = rows.join('');
 }
 
 async function openDrawer(date, home, away) {
-  $('drawerTitle').textContent = '比赛详情';
-  $('drawerBody').innerHTML = '<div class="placeholder">载入…</div>';
+  $('drawerTitle').textContent = t('drawer.title');
+  $('drawerBody').innerHTML = `<div class="placeholder">${t('empty.loading_match')}</div>`;
   $('drawer').classList.add('open');
   $('drawerScrim').classList.add('open');
   $('drawer').setAttribute('aria-hidden', 'false');
@@ -384,12 +518,12 @@ async function openDrawer(date, home, away) {
   let refl = false;
   try { refl = localStorage.getItem(storeKey) === '1'; } catch {}
   try {
-    const url = `api/match?date=${encodeURIComponent(date)}&home=${encodeURIComponent(home)}&away=${encodeURIComponent(away)}`
-      + (refl ? '&with_reflection=1' : '');
+    const url = `api/match?date=${encodeURIComponent(date)}&home=${encodeURIComponent(home)}&away=${encodeURIComponent(away)}&locale=${encodeURIComponent(I18N.current)}`
+      + (refl ? '&with_reflection=1' : '') + emailSuffix();
     const m = await getJSON(url);
     renderDrawer(m);
   } catch (e) {
-    $('drawerBody').innerHTML = `<div class="placeholder">加载失败: ${esc(e.message)}</div>`;
+    $('drawerBody').innerHTML = `<div class="placeholder">${t('empty.load_failed', { err: e.message })}</div>`;
   }
 }
 function renderValue() {
@@ -402,12 +536,12 @@ function renderValue() {
   if (dist && dist.n) {
     const pct = x => (x * 100).toFixed(1) + '%';
     $('vbSummary').innerHTML =
-      `<div class="vb-stat">扫描 <b>${dist.n}</b> 场(max edge)</div>` +
-      `<div class="vb-stat">平均 <b>${pct(dist.mean)}</b> · 中位 <b>${pct(dist.median)}</b> · 最大 <b>${pct(dist.max)}</b></div>` +
-      `<div class="vb-stat">阈值 ≥1% ${dist.thresholds['1%']} 场 · ≥3% ${dist.thresholds['3%']} 场 · ≥5% ${dist.thresholds['5%']} 场 · ≥10% ${dist.thresholds['10%']} 场</div>` +
-      `<div class="vb-stat vb-warn">⚠ ${d.n_value_bets} 场 ≥3% edge,但大多在冷门队(Elo 数据稀疏),实际不可信</div>`;
+      `<div class="vb-stat">${t('value.scan_n', { n: dist.n })}</div>` +
+      `<div class="vb-stat">${t('value.dist', { avg: pct(dist.mean), med: pct(dist.median), max: pct(dist.max) })}</div>` +
+      `<div class="vb-stat">${t('value.thresholds', { a: dist.thresholds['1%'], b: dist.thresholds['3%'], c: dist.thresholds['5%'], d: dist.thresholds['10%'] })}</div>` +
+      `<div class="vb-stat vb-warn">${t('value.warn', { n: d.n_value_bets })}</div>`;
   } else {
-    $('vbSummary').innerHTML = '<div class="placeholder">无 odds 数据,稍后再试</div>';
+    $('vbSummary').innerHTML = `<div class="placeholder">${t('value.no_odds')}</div>`;
   }
   // Top 20 表格
   const fmt = x => (x * 100).toFixed(0) + '%';
@@ -417,15 +551,15 @@ function renderValue() {
     const mkt = v.p_mkt.map(fmt).join('/');
     return `<div class="vb-row ${edgeClass(v.max_edge)}">
       <span class="vb-date">${v.date}</span>
-      <span class="vb-match">${v.home_zh} vs ${v.away_zh}</span>
-      <span class="vb-elo">Elo ${elo}</span>
-      <span class="vb-mkt">市场 ${mkt}</span>
+      <span class="vb-match">${esc(teamName(v, 'home'))} vs ${esc(teamName(v, 'away'))}</span>
+      <span class="vb-elo">${t('value.elo_pct', { p: elo })}</span>
+      <span class="vb-mkt">${t('value.mkt_pct', { p: mkt })}</span>
       <span class="vb-edge">${(v.max_edge*100).toFixed(1)}%</span>
       <span class="vb-pick"><b>${v.picked}</b> @ ${v.odds.toFixed(2)}</span>
-      <span class="vb-kelly">Kelly ${(v.kelly*100).toFixed(1)}%</span>
+      <span class="vb-kelly">${t('value.kelly')} ${(v.kelly*100).toFixed(1)}%</span>
     </div>`;
   }).join('');
-  $('vbList').innerHTML = rows || '<div class="placeholder">未赛 ≥3% 价值机会 0 场</div>';
+  $('vbList').innerHTML = rows || `<div class="placeholder">${t('value.empty')}</div>`;
 }
 
 function closeDrawer() {
@@ -434,53 +568,53 @@ function closeDrawer() {
   $('drawer').setAttribute('aria-hidden', 'true');
 }
 function renderDrawer(m) {
-  const stageZh = STAGE_ZH[m.stage] || m.stage;
+  const stageZh = STAGE_ZH()[m.stage] || m.stage;
   let html = `<div class="drawer-section"><h4>${esc(stageZh)} · ${esc(m.city || '')}</h4>`;
   html += `<div class="drawer-teams">`
-    + `<div class="drawer-team"><span class="flag">${flag(m.home)}</span><span class="name">${esc(m.home_zh)}</span><span class="elo">Elo ${m.elo_h ?? '-'}</span></div>`
+    + `<div class="drawer-team"><span class="flag">${flag(m.home)}</span><span class="name">${esc(teamName(m, 'home'))}</span><span class="elo">Elo ${m.elo_h ?? '-'}</span></div>`
     + `<div class="drawer-vs">VS</div>`
-    + `<div class="drawer-team"><span class="flag">${flag(m.away)}</span><span class="name">${esc(m.away_zh)}</span><span class="elo">Elo ${m.elo_a ?? '-'}</span></div>`
+    + `<div class="drawer-team"><span class="flag">${flag(m.away)}</span><span class="name">${esc(teamName(m, 'away'))}</span><span class="elo">Elo ${m.elo_a ?? '-'}</span></div>`
     + `</div></div>`;
 
   if (m.status === 'finished' && m.score) {
-    html += `<div class="drawer-section"><h4>最终比分</h4>`
+    html += `<div class="drawer-section"><h4>${t('drawer.final_score')}</h4>`
       + `<div class="scoreline"><span class="num">${m.score[0]}</span><span class="num dash">:</span><span class="num">${m.score[1]}</span></div>`
-      + `<div class="stat-row"><span class="k">结果</span><span class="v">${esc(RESULT_ZH[m.result] || '')}</span></div></div>`;
+      + `<div class="stat-row"><span class="k">${t('drawer.result')}</span><span class="v">${esc(RESULT_ZH()[m.result] || '')}</span></div></div>`;
   }
   if (m.probs) {
-    html += `<div class="drawer-section"><h4>三态概率</h4>`
+    html += `<div class="drawer-section"><h4>${t('drawer.probs')}</h4>`
       + probCells(m.probs, 'drawer', 1)
       + `</div>`;
   }
   if (m.lam_h != null) {
-    html += `<div class="drawer-section"><h4>模型参数</h4>`
-      + `<div class="stat-row"><span class="k">主队预期进球 λ</span><span class="v">${m.lam_h}</span></div>`
-      + `<div class="stat-row"><span class="k">客队预期进球 λ</span><span class="v">${m.lam_a}</span></div>`
-      + `<div class="stat-row"><span class="k">主场加成</span><span class="v">${m.host_adv ? '+' + m.host_adv : '中立'}</span></div></div>`;
+    html += `<div class="drawer-section"><h4>${t('drawer.model_params')}</h4>`
+      + `<div class="stat-row"><span class="k">${t('drawer.lam_home')}</span><span class="v">${m.lam_h}</span></div>`
+      + `<div class="stat-row"><span class="k">${t('drawer.lam_away')}</span><span class="v">${m.lam_a}</span></div>`
+      + `<div class="stat-row"><span class="k">${t('drawer.host_adv')}</span><span class="v">${m.host_adv ? '+' + m.host_adv : t('drawer.neutral')}</span></div></div>`;
   }
   if (m.mode) {
-    const MODE_DESC = {B:'赔率 + 大小球(最准)', A:'仅胜负赔率', Elo:'历史实力分(无赔率)'};
-    const MODE_LABEL = {B:'B', A:'A', Elo:'Elo'};
-    html += `<div class="drawer-section"><h4>数据来源</h4>`
-      + `<div class="stat-row"><span class="k">预测依据</span><span class="v src-mode">`
-      + `<b class="mkt-tag mkt-${m.mode.toLowerCase()}">${MODE_LABEL[m.mode]}</b> ${esc(MODE_DESC[m.mode])}</span></div>`;
+    const MODE_DESC = { B:'mode.b_desc', A:'mode.a_desc', Elo:'mode.elo_desc' };
+    const MODE_LABEL = { B:t('src.tag_b'), A:t('src.tag_a'), Elo:t('src.tag_e') };
+    html += `<div class="drawer-section"><h4>${t('drawer.data_source')}</h4>`
+      + `<div class="stat-row"><span class="k">${t('drawer.prediction_basis')}</span><span class="v src-mode">`
+      + `<b class="mkt-tag mkt-${m.mode.toLowerCase()}">${MODE_LABEL[m.mode]}</b> ${t(MODE_DESC[m.mode])}</span></div>`;
     if (m.odds_1x2) {
-      html += `<div class="stat-row"><span class="k">BetExplorer 胜负赔率</span><span class="v mono">${m.odds_1x2.join(' / ')}</span></div>`;
+      html += `<div class="stat-row"><span class="k">${t('drawer.odds_1x2')}</span><span class="v mono">${m.odds_1x2.join(' / ')}</span></div>`;
     }
     if (m.ou) {
-      html += `<div class="stat-row"><span class="k">BetExplorer 大小球赔率</span><span class="v mono">≥3 球 ${m.ou[0]} / ≤2 球 ${m.ou[1]}</span></div>`;
+      html += `<div class="stat-row"><span class="k">${t('drawer.odds_ou')}</span><span class="v mono">${t('drawer.ou_format', { over: m.ou[0], under: m.ou[1] })}</span></div>`;
     }
     if (m.lam_inverted && m.lam_elo) {
-      html += `<div class="stat-row"><span class="k">市场推算 预期进球</span><span class="v mono">主队 ${m.lam_inverted[0]} / 客队 ${m.lam_inverted[1]}</span></div>`
-        + `<div class="stat-row"><span class="k">实力分推算 预期进球</span><span class="v mono dim">主队 ${m.lam_elo[0]} / 客队 ${m.lam_elo[1]}</span></div>`;
+      html += `<div class="stat-row"><span class="k">${t('drawer.lam_market')}</span><span class="v mono">${t('drawer.lam_market_row', { h: m.lam_inverted[0], a: m.lam_inverted[1] })}</span></div>`
+        + `<div class="stat-row"><span class="k">${t('drawer.lam_elo')}</span><span class="v mono dim">${t('drawer.lam_elo_row_dim', { h: m.lam_elo[0], a: m.lam_elo[1] })}</span></div>`;
     } else if (m.lam_elo) {
-      html += `<div class="stat-row"><span class="k">实力分推算 预期进球</span><span class="v mono">主队 ${m.lam_elo[0]} / 客队 ${m.lam_elo[1]}</span></div>`;
+      html += `<div class="stat-row"><span class="k">${t('drawer.lam_elo')}</span><span class="v mono">${t('drawer.lam_elo_row', { h: m.lam_elo[0], a: m.lam_elo[1] })}</span></div>`;
     }
     html += `</div>`;
   }
   if (m.top5 && m.top5.length) {
     const maxp = m.top5[0][2];
-    html += `<div class="drawer-section"><h4>Top5 比分概率</h4><div class="top5-list">`;
+    html += `<div class="drawer-section"><h4>${t('drawer.top5')}</h4><div class="top5-list">`;
     for (const [h, a, p] of m.top5) {
       html += `<div class="top5-row"><span class="sc">${h}-${a}</span>`
         + `<div class="bar5"><div class="fill5" style="width:${p / maxp * 100}%"></div></div>`
@@ -488,43 +622,53 @@ function renderDrawer(m) {
     }
     html += `</div></div>`;
   }
-  // AI 反思(实验):默认关,toggle 切换会重拉 with_reflection=1 重算预测
+  // AI 反思(实验):默认关,Pro 功能
   let reflectStoreKey = null;
   let reflectStored = false;
-  if (m.reflection && m.reflection.has_any) {
+  if (m.reflection && m.reflection.has_any && isPaid) {
     const r = m.reflection;
     reflectStoreKey = `wc_reflect_${m.date}_${m.home}_${m.away}`;
     try { reflectStored = localStorage.getItem(reflectStoreKey) === '1'; } catch {}
-    const adj = m.reflection_adj || {home: 0, away: 0};
+    const adj = m.reflection_adj || { home: 0, away: 0 };
     const modeBadge = reflectStored
-      ? `<span class="ref-mode-badge on">反思预测 主 ${adj.home >= 0 ? '+' : ''}${adj.home} / 客 ${adj.away >= 0 ? '+' : ''}${adj.away}</span>`
-      : `<span class="ref-mode-badge off">基础预测</span>`;
+      ? `<span class="ref-mode-badge on">${t('drawer.reflection_on', { home: (adj.home >= 0 ? '+' : '') + adj.home, away: (adj.away >= 0 ? '+' : '') + adj.away })}</span>`
+      : `<span class="ref-mode-badge off">${t('drawer.reflection_basic')}</span>`;
     html += `<div class="drawer-section reflection-section">`
       + `<div class="reflection-head">`
-      + `<h4>AI 反思 <span class="badge-exp">实验</span></h4>`
-      + `<label class="switch" title="开启后用队伍历史特征调整 Elo 重算预测(市场驱动场 probs 不变)">`
+      + `<h4>${t('drawer.reflection_title')} <span class="badge-exp">${t('drawer.reflection_badge')}</span></h4>`
+      + `<label class="switch" title="${t('drawer.reflection_toggle_title')}">`
       + `<input type="checkbox" id="reflectToggle">`
       + `<span class="slider"></span></label></div>`
       + `<div class="reflection-mode-line">${modeBadge}</div>`
-      + `<div class="reflection-summary">${esc(r.summary || '')}</div>`
+      + `<div class="reflection-summary">${esc(formatReflectionSummary(r.summary_parts))}</div>`
       + `<div class="reflection-body">`;
-    if (r.home_archive) html += renderTeamArchive(r.home_archive, 'home');
-    if (r.away_archive) html += renderTeamArchive(r.away_archive, 'away');
+    if (r.home_archive) html += renderTeamArchive(r.home_archive, 'home', r.home_translated);
+    if (r.away_archive) html += renderTeamArchive(r.away_archive, 'away', r.away_translated);
     html += `</div></div>`;
   }
-  // 赛前情报(web search):默认仅按钮,点击才调 LLM
-  html += `<div class="drawer-section intel-section">`
-    + `<div class="intel-head">`
-    + `<h4>赛前情报 <span class="badge-ws">联网搜索</span></h4>`
-    + `<button class="intel-btn" id="intelBtn">获取赛前情报</button></div>`
-    + `<div id="intelBody" class="intel-body"></div></div>`;
-  // 历史交手(web search):默认仅按钮,点击才调 LLM
-  html += `<div class="drawer-section h2h-section">`
-    + `<div class="h2h-head">`
-    + `<h4>历史交手 <span class="badge-ws">联网搜索</span></h4>`
-    + `<button class="h2h-btn" id="h2hBtn">查询历史交手</button></div>`
-    + `<div id="h2hBody" class="h2h-body"></div></div>`;
+  // 赛前情报 + 历史交手(Pro 功能)
+  if (isPaid) {
+    html += `<div class="drawer-section intel-section">`
+      + `<div class="intel-head">`
+      + `<h4>${t('drawer.intel_title')} <span class="badge-ws">${t('drawer.intel_badge')}</span></h4>`
+      + `<button class="intel-btn" id="intelBtn">${t('drawer.intel_fetch')}</button></div>`
+      + `<div id="intelBody" class="intel-body"></div></div>`;
+    html += `<div class="drawer-section h2h-section">`
+      + `<div class="h2h-head">`
+      + `<h4>${t('drawer.h2h_title')} <span class="badge-ws">${t('drawer.h2h_badge')}</span></h4>`
+      + `<button class="h2h-btn" id="h2hBtn">${t('drawer.h2h_fetch')}</button></div>`
+      + `<div id="h2hBody" class="h2h-body"></div></div>`;
+  } else {
+    html += `<div class="drawer-section pro-gate-drawer"><div class="pro-gate-drawer-inner">`
+      + `<span class="pro-gate-icon-sm">⭐</span>`
+      + `<span>${t('sub.pro_feature')}</span>`
+      + `<button class="pro-gate-btn-sm" type="button">${t('sub.upgrade')}</button>`
+      + `</div></div>`;
+  }
   $('drawerBody').innerHTML = html;
+  // 抽屉 Pro gate 按钮
+  const gateBtn = $('drawerBody')?.querySelector('.pro-gate-btn-sm');
+  if (gateBtn) gateBtn.addEventListener('click', openUpgrade);
   // 反思 toggle:写 localStorage + 重拉 API(带 with_reflection=1)
   const toggle = $('reflectToggle');
   if (toggle && reflectStoreKey) {
@@ -550,16 +694,16 @@ function renderDrawer(m) {
 async function fetchIntel(date, home, away) {
   const btn = $('intelBtn');
   const body = $('intelBody');
-  if (btn) { btn.disabled = true; btn.textContent = '搜索中…(约 5 秒)'; }
-  if (body) body.innerHTML = '<div class="placeholder">智谱 GLM-4 联网搜索赛前情报…</div>';
+  if (btn) { btn.disabled = true; btn.textContent = t('intel.fetch_loading'); }
+  if (body) body.innerHTML = `<div class="placeholder">${t('drawer.intel_loading')}</div>`;
   try {
-    const url = `api/match?date=${encodeURIComponent(date)}&home=${encodeURIComponent(home)}&away=${encodeURIComponent(away)}&with_intel=1`;
+    const url = `api/match?date=${encodeURIComponent(date)}&home=${encodeURIComponent(home)}&away=${encodeURIComponent(away)}&with_intel=1&locale=${encodeURIComponent(I18N.current)}${emailSuffix()}`;
     const m = await getJSON(url);
     renderIntel(m.intel);
   } catch (e) {
-    if (body) body.innerHTML = `<div class="placeholder">加载失败: ${esc(e.message)}</div>`;
+    if (body) body.innerHTML = `<div class="placeholder">${t('empty.load_failed', { err: e.message })}</div>`;
   } finally {
-    if (btn) { btn.disabled = false; btn.textContent = '重新获取赛前情报'; }
+    if (btn) { btn.disabled = false; btn.textContent = t('drawer.intel_refetch'); }
   }
 }
 
@@ -567,25 +711,25 @@ function renderIntel(intel) {
   const body = $('intelBody');
   if (!body) return;
   if (!intel) {
-    body.innerHTML = '<div class="placeholder">无情报数据</div>';
+    body.innerHTML = `<div class="placeholder">${t('drawer.intel_empty')}</div>`;
     return;
   }
   if (intel.error) {
     body.innerHTML = `<div class="placeholder">✗ ${esc(intel.error)}</div>`;
     return;
   }
-  const CONF = {high:'高可信', medium:'中可信', low:'低可信'};
-  const IMPACT = {high:'重大影响', medium:'中等', low:'轻微'};
+  const CONF = { high:'intel.conf.high', medium:'intel.conf.medium', low:'intel.conf.low' };
+  const IMPACT = { high:'intel.impact.high', medium:'intel.impact.medium', low:'intel.impact.low' };
   let h = '';
   // 伤停
   if (intel.injuries && intel.injuries.length) {
-    h += '<div class="intel-subhead">伤停 / 缺阵</div><ul class="intel-list">';
+    h += `<div class="intel-subhead">${t('intel.injuries')}</div><ul class="intel-list">`;
     for (const inj of intel.injuries) {
       const cls = inj.impact || 'medium';
-      h += `<li class="intel-inj"><span class="intel-team">${esc(inj.team === intel._home ? '主' : '客')}</span>`
+      h += `<li class="intel-inj"><span class="intel-team">${esc(inj.team === intel._home ? t('intel.team.home') : t('intel.team.away'))}</span>`
         + `<span class="intel-player">${esc(inj.player)}</span>`
         + `<span class="intel-reason">${esc(inj.reason || '')}</span>`
-        + `<span class="intel-impact impact-${esc(cls)}">${esc(IMPACT[cls] || cls)}</span></li>`;
+        + `<span class="intel-impact impact-${esc(cls)}">${t(IMPACT[cls] || cls)}</span></li>`;
     }
     h += '</ul>';
   }
@@ -593,12 +737,12 @@ function renderIntel(intel) {
   if (intel.form_home || intel.form_away) {
     h += '<div class="intel-grid">';
     if (intel.form_home) {
-      h += `<div class="intel-form"><div class="intel-form-team">主队近期</div>`
+      h += `<div class="intel-form"><div class="intel-form-team">${t('intel.form_home')}</div>`
         + `<div class="intel-form-wdl">${renderWDL(intel.form_home.recent5)}</div>`
         + `<div class="intel-form-note">${esc(intel.form_home.note || '')}</div></div>`;
     }
     if (intel.form_away) {
-      h += `<div class="intel-form"><div class="intel-form-team">客队近期</div>`
+      h += `<div class="intel-form"><div class="intel-form-team">${t('intel.form_away')}</div>`
         + `<div class="intel-form-wdl">${renderWDL(intel.form_away.recent5)}</div>`
         + `<div class="intel-form-note">${esc(intel.form_away.note || '')}</div></div>`;
     }
@@ -606,23 +750,23 @@ function renderIntel(intel) {
   }
   // 战术要点
   if (intel.tactical_notes && intel.tactical_notes.length) {
-    h += '<div class="intel-subhead">战术要点</div><ul class="intel-notes">';
+    h += `<div class="intel-subhead">${t('intel.tactical')}</div><ul class="intel-notes">`;
     for (const n of intel.tactical_notes) h += `<li>${esc(n)}</li>`;
     h += '</ul>';
   }
   // 媒体关注
   if (intel.headline_concerns && intel.headline_concerns.length) {
-    h += '<div class="intel-subhead">媒体关注</div><ul class="intel-notes">';
+    h += `<div class="intel-subhead">${t('intel.media')}</div><ul class="intel-notes">`;
     for (const n of intel.headline_concerns) h += `<li>${esc(n)}</li>`;
     h += '</ul>';
   }
   // 预测暗示
   if (intel.prediction_hint) {
-    h += `<div class="intel-hint">⚖ ${esc(intel.prediction_hint)}</div>`;
+    h += `<div class="intel-hint">${t('intel.hint', { hint: intel.prediction_hint })}</div>`;
   }
   // 元信息
   h += `<div class="intel-meta">`
-    + `<span class="conf-${esc(intel.confidence || 'low')}">${esc(CONF[intel.confidence] || '?')}</span>`
+    + `<span class="conf-${esc(intel.confidence || 'low')}">${t(CONF[intel.confidence] || 'intel.conf.low')}</span>`
     + (intel.search_summary ? `<span class="intel-search-summary">${esc(intel.search_summary)}</span>` : '')
     + `</div>`;
   body.innerHTML = h;
@@ -631,7 +775,7 @@ function renderIntel(intel) {
 function renderWDL(s) {
   if (!s) return '';
   return s.split('').map(c => {
-    const m = {W: 'win', D: 'draw', L: 'loss'};
+    const m = { W: 'win', D: 'draw', L: 'loss' };
     return `<span class="wdl-${m[c] || 'draw'}">${c}</span>`;
   }).join('');
 }
@@ -640,16 +784,16 @@ function renderWDL(s) {
 async function fetchH2H(date, home, away) {
   const btn = $('h2hBtn');
   const body = $('h2hBody');
-  if (btn) { btn.disabled = true; btn.textContent = '搜索中…(约 5 秒)'; }
-  if (body) body.innerHTML = '<div class="placeholder">智谱 GLM-4 联网搜索历史交手…</div>';
+  if (btn) { btn.disabled = true; btn.textContent = t('h2h.fetch_loading'); }
+  if (body) body.innerHTML = `<div class="placeholder">${t('drawer.h2h_loading')}</div>`;
   try {
-    const url = `api/match?date=${encodeURIComponent(date)}&home=${encodeURIComponent(home)}&away=${encodeURIComponent(away)}&with_h2h=1`;
+    const url = `api/match?date=${encodeURIComponent(date)}&home=${encodeURIComponent(home)}&away=${encodeURIComponent(away)}&with_h2h=1&locale=${encodeURIComponent(I18N.current)}${emailSuffix()}`;
     const m = await getJSON(url);
     renderH2H(m.h2h);
   } catch (e) {
-    if (body) body.innerHTML = `<div class="placeholder">加载失败: ${esc(e.message)}</div>`;
+    if (body) body.innerHTML = `<div class="placeholder">${t('empty.load_failed', { err: e.message })}</div>`;
   } finally {
-    if (btn) { btn.disabled = false; btn.textContent = '重新查询历史交手'; }
+    if (btn) { btn.disabled = false; btn.textContent = t('drawer.h2h_refetch'); }
   }
 }
 
@@ -657,14 +801,14 @@ function renderH2H(h2h) {
   const body = $('h2hBody');
   if (!body) return;
   if (!h2h) {
-    body.innerHTML = '<div class="placeholder">无交手数据</div>';
+    body.innerHTML = `<div class="placeholder">${t('drawer.h2h_empty')}</div>`;
     return;
   }
   if (h2h.error) {
     body.innerHTML = `<div class="placeholder">✗ ${esc(h2h.error)}</div>`;
     return;
   }
-  const CONF = {high:'高可信', medium:'中可信', low:'低可信'};
+  const CONF = { high:'intel.conf.high', medium:'intel.conf.medium', low:'intel.conf.low' };
   let h = '';
   if (h2h.summary) {
     h += `<div class="h2h-summary">${esc(h2h.summary)}</div>`;
@@ -674,7 +818,7 @@ function renderH2H(h2h) {
   }
   const matches = h2h.matches || [];
   if (matches.length) {
-    h += '<div class="h2h-subhead">交锋明细</div><ul class="h2h-list">';
+    h += `<div class="h2h-subhead">${t('h2h.matches_label')}</div><ul class="h2h-list">`;
     for (const m of matches) {
       let score = '-';
       if (Array.isArray(m.score) && m.score.length >= 2) {
@@ -693,41 +837,75 @@ function renderH2H(h2h) {
     h += '</ul>';
   }
   h += `<div class="h2h-meta">`
-    + `<span class="conf-${esc(h2h.confidence || 'low')}">${esc(CONF[h2h.confidence] || '?')}</span>`
+    + `<span class="conf-${esc(h2h.confidence || 'low')}">${t(CONF[h2h.confidence] || 'intel.conf.low')}</span>`
     + `</div>`;
-  body.innerHTML = h || '<div class="placeholder">无交手数据</div>';
+  body.innerHTML = h || `<div class="placeholder">${t('drawer.h2h_empty')}</div>`;
+}
+
+// ── 反思 summary 格式化(按当前语言)─────────────
+function formatReflectionSummary(parts) {
+  if (!parts || !parts.length) return '';
+  const sep = t('ref.summary_sep');
+  return parts.map(p => {
+    const name = I18N.current === 'zh-CN' ? (p.name_zh || p.team_en) : (p.team_en || p.name_zh);
+    return t('ref.summary_team', { name, adj: p.n_adj, les: p.n_les });
+  }).join(sep);
+}
+
+// ── 反思中的队伍名(按当前语言)────────────────────
+function archTeamName(arch) {
+  if (!arch) return '';
+  if (I18N.current === 'zh-CN') return arch.name_zh || arch.team || arch.name;
+  if (I18N.current === 'en') return arch.team || arch.name || arch.name_zh;
+  return I18N.localTeam(arch.team || arch.name) || arch.name_zh;
 }
 
 // ── 队伍档案渲染(反思系统子模块) ─────────────────
-function renderTeamArchive(arch, side) {
-  const CONF = {high:'高可信', medium:'中可信', low:'低可信'};
+function renderTeamArchive(arch, side, translated) {
+  const CONF = { high:'intel.conf.high', medium:'intel.conf.medium', low:'intel.conf.low' };
+  const showOrig = I18N.current !== 'zh-CN' && !translated;   // 缺翻译时才显示 "原文" 徽章
+  const origNote = showOrig ? `<span class="ref-orig-note">${t('ref.original_lang_note')}</span>` : '';
   let h = `<div class="ref-team ref-${side}">`
     + `<div class="ref-team-head"><span class="ref-team-flag">${flag(arch.team || arch.name)}</span>`
-    + `<span class="ref-team-name">${esc(arch.name_zh || arch.team || arch.name)}</span></div>`;
+    + `<span class="ref-team-name">${esc(archTeamName(arch))}</span>`
+    + `${origNote}</div>`;
   const adj = arch.elo_adjustments || [];
+  const adjNotesTr = (translated && translated.notes) || [];
   if (adj.length) {
-    h += `<div class="ref-subhead">长期特征(可迁移)</div>`;
-    for (const a of adj) {
+    h += `<div class="ref-subhead">${t('ref.adjustments')}</div>`;
+    for (let i = 0; i < adj.length; i++) {
+      const a = adj[i];
       const sign = a.value > 0 ? '+' : '';
+      const noteTxt = (translated && adjNotesTr[i]) ? adjNotesTr[i] : (a.note || '');
       h += `<div class="ref-adj">`
         + `<span class="ref-adj-key mono">${esc(a.key)}</span>`
         + `<span class="ref-adj-val">${sign}${a.value}</span>`
-        + `<span class="ref-adj-conf conf-${esc(a.confidence)}">${esc(CONF[a.confidence] || '?')}</span>`
-        + `<span class="ref-adj-note">${esc(a.note || '')}</span></div>`;
+        + `<span class="ref-adj-conf conf-${esc(a.confidence)}">${t(CONF[a.confidence] || 'intel.conf.low')}</span>`
+        + `<span class="ref-adj-note">${esc(noteTxt)}</span></div>`;
     }
   }
   const les = arch.recent_lessons || [];
+  const lesTr = (translated && translated.lessons) || [];
   if (les.length) {
-    h += `<div class="ref-subhead">历史错场归因</div>`;
-    for (const l of les) {
+    h += `<div class="ref-subhead">${t('ref.lessons')}</div>`;
+    for (let i = 0; i < les.length; i++) {
+      const l = les[i];
+      const lesTrI = lesTr[i] || {};
+      const causesTr = lesTrI.causes || [];
+      const vsName = I18N.current === 'zh-CN' ? (I18N.localTeam(l.vs) || l.vs)
+                                              : I18N.localTeam(l.vs);
       h += `<div class="ref-lesson ${l.reusable ? 'reusable' : 'oneshot'}">`
         + `<div class="ref-lesson-head">`
         + `<span class="ref-lesson-date mono">${esc(l.date)}</span>`
-        + `<span class="ref-lesson-vs">vs ${esc(l.vs)} <small>${esc(l.tournament || '')}</small></span>`
-        + `<span class="ref-lesson-score mono">预 ${esc(l.prediction)} / 真 ${esc(l.actual)}</span>`
-        + `<span class="ref-lesson-tag ${l.reusable ? 'tag-reusable' : 'tag-oneshot'}">${l.reusable ? '✓ 可迁移' : '一次性'}</span>`
+        + `<span class="ref-lesson-vs">vs ${esc(vsName)} <small>${esc(l.tournament || '')}</small></span>`
+        + `<span class="ref-lesson-score mono">${t('backtest.pred')} ${esc(l.prediction)} / ${t('backtest.actual')} ${esc(l.actual)}</span>`
+        + `<span class="ref-lesson-tag ${l.reusable ? 'tag-reusable' : 'tag-oneshot'}">${l.reusable ? t('ref.reusable') : t('ref.oneshot')}</span>`
         + `</div><ul class="ref-causes">`;
-      for (const c of (l.causes || [])) h += `<li>${esc(c)}</li>`;
+      const causes = l.causes || [];
+      for (let ci = 0; ci < causes.length; ci++) {
+        const txt = causesTr[ci] || causes[ci];
+        h += `<li>${esc(txt)}</li>`;
+      }
       h += `</ul></div>`;
     }
   }
@@ -756,7 +934,7 @@ async function poll() {
     }
   } catch (e) {
     console.warn('poll 失败(保留旧数据):', e);
-    const lbl = $('statusLabel'); lbl.textContent = '连接断开(用缓存)';
+    const lbl = $('statusLabel'); lbl.textContent = t('status.disconnected');
     $('liveDot').className = 'live-dot err';
   }
 }
@@ -771,35 +949,117 @@ function tick() {
   $('footStamp').textContent = new Date().toTimeString().slice(0, 8);
 }
 
+// ── 语言切换器 UI 逻辑(HTML 中已有按钮)──────────
+function bindLangSwitcher() {
+  const btn = $('langBtn');
+  const menu = $('langMenu');
+  if (!btn || !menu) return;
+  // 渲染菜单(i18n.js 已暴露 LOCALES/META)
+  function paintMenu() {
+    menu.innerHTML = I18N.LOCALES.map(code => {
+      const m = I18N.META[code];
+      const active = code === I18N.current ? ' active' : '';
+      return `<button class="lang-opt${active}" data-lang="${code}" type="button" role="option">`
+        + `<span class="opt-flag">${m.flag}</span><span>${m.name}</span></button>`;
+    }).join('');
+    menu.querySelectorAll('.lang-opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        const code = opt.getAttribute('data-lang');
+        if (code) {
+          I18N.switchTo(code, true);
+          try { localStorage.setItem('wc_locale_user', '1'); } catch {}
+          updateLangBtn();
+          closeLangMenu();
+        }
+      });
+    });
+  }
+  function updateLangBtn() {
+    const m = I18N.META[I18N.current];
+    $('langCurrent').textContent = `${m.flag} ${m.name}`;
+  }
+  function openLangMenu() {
+    menu.hidden = false;
+    btn.setAttribute('aria-expanded', 'true');
+  }
+  function closeLangMenu() {
+    menu.hidden = true;
+    btn.setAttribute('aria-expanded', 'false');
+  }
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    if (menu.hidden) openLangMenu(); else closeLangMenu();
+  });
+  document.addEventListener('click', e => {
+    if (!menu.hidden && !menu.contains(e.target) && e.target !== btn) closeLangMenu();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLangMenu(); });
+  // 监听 i18n 变更 → 重渲染所有动态内容
+  document.addEventListener('i18n:changed', () => {
+    updateLangBtn();
+    paintMenu();
+    I18N.applyDOM();
+    if (cache.schedule.length) renderSchedule();
+    if (cache.status && Object.keys(cache.status).length) renderStatus();
+    if (cache.champions && cache.champions.length) renderChampions();
+    if (cache.groups && Object.keys(cache.groups).length) renderGroups();
+    if (cache.backtest) renderBacktest();
+    if (cache.market) renderMarket();
+    if (cache.value) renderValue();
+    // 刷新 Pro gate 文案
+    if ($('panel-value')?.querySelector('.pro-gate-icon')) {
+      const panel = $('panel-value');
+      panel.innerHTML = `<div class="vb-placeholder-pro"><div class="pro-gate-icon">⭐</div><h3>${esc(t('sub.pro_feature'))}</h3><p>${esc(t('sub.upgrade_prompt'))}</p><p class="pro-gate-features">${esc(t('sub.pro_features'))}</p><button class="pro-gate-btn" type="button">${esc(t('sub.upgrade'))}</button></div>`;
+      panel.querySelector('.pro-gate-btn')?.addEventListener('click', openUpgrade);
+    }
+  });
+  paintMenu();
+  updateLangBtn();
+}
+
 // ── 事件绑定 ──────────────────────────────────────
 function bindEvents() {
   // tab 切换
-  document.querySelectorAll('.tab').forEach(t => {
-    t.addEventListener('click', () => {
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
       document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
       document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-      t.classList.add('active');
-      $('panel-' + t.dataset.tab).classList.add('active');
+      tab.classList.add('active');
+      $('panel-' + tab.dataset.tab).classList.add('active');
       // 切到夺冠/小组时立即拉一次
-      if (t.dataset.tab === 'champions') {
+      if (tab.dataset.tab === 'champions') {
         getJSON('api/champions?top=20').then(d => { cache.champions = d.ranking; renderChampions(); }).catch(()=>{});
-      } else if (t.dataset.tab === 'groups') {
+      } else if (tab.dataset.tab === 'groups') {
         getJSON('api/groups').then(d => { cache.groups = d; renderGroups(); }).catch(()=>{});
-      } else if (t.dataset.tab === 'backtest') {
+      } else if (tab.dataset.tab === 'backtest') {
         if (!cache.backtest) {
           getJSON('api/backtest').then(d => { cache.backtest = d; renderBacktest(); }).catch(()=>{});
         } else { renderBacktest(); }
-      } else if (t.dataset.tab === 'market') {
+      } else if (tab.dataset.tab === 'market') {
         if (!cache.market) {
           getJSON('api/market').then(d => { cache.market = d; renderMarket(); }).catch(()=>{});
         } else { renderMarket(); }
-      } else if (t.dataset.tab === 'value') {
-        if (!cache.value) {
-          getJSON('api/value-bets?min_edge=0.03').then(d => { cache.value = d; renderValue(); }).catch(()=>{});
-        } else { renderValue(); }
+      } else if (tab.dataset.tab === 'value') {
+        loadValueTab();
       }
     });
   });
+
+  function loadValueTab() {
+    if (!isPaid && subChecked) {
+      showValueGate();
+      return;
+    }
+    if (!cache.value) {
+      getJSON('api/value-bets?min_edge=0.03' + emailSuffix()).then(d => { cache.value = d; renderValue(); }).catch(()=>{});
+    } else { renderValue(); }
+  }
+  function showValueGate() {
+    const panel = $('panel-value');
+    panel.innerHTML = `<div class="vb-placeholder-pro"><div class="pro-gate-icon">⭐</div><h3>${esc(t('sub.pro_feature'))}</h3><p>${esc(t('sub.upgrade_prompt'))}</p><p class="pro-gate-features">${esc(t('sub.pro_features'))}</p><button class="pro-gate-btn" type="button">${esc(t('sub.upgrade'))}</button></div>`;
+    panel.querySelector('.pro-gate-btn')?.addEventListener('click', openUpgrade);
+  }
+
   // 阶段筛选
   $('stageFilter').addEventListener('click', e => {
     const b = e.target.closest('.chip'); if (!b) return;
@@ -815,7 +1075,7 @@ function bindEvents() {
     btn.classList.add('spinning');
     btn.disabled = true;
     try {
-      await fetch('api/refresh', {method: 'POST'});
+      await fetch('api/refresh', { method: 'POST' });
       countdown = 3;   // 稍等后台处理
     } catch (e) { console.warn(e); }
     setTimeout(() => { btn.classList.remove('spinning'); btn.disabled = false; }, 2500);
@@ -835,10 +1095,13 @@ function bindEvents() {
 
 // ── 启动 ──────────────────────────────────────────
 async function start() {
+  await I18N.ready;  // 等待 i18n.js 加载完翻译(避免 race)
   bindEvents();
+  bindLangSwitcher();
   try { const cfg = await getJSON('api/config'); pollSec = cfg.poll_sec || 30; } catch {}
   countdown = pollSec;
   await poll();
+  initSubscription();  // 异步订阅检查(不阻塞)
   tickTimer = setInterval(tick, 1000);
 }
 start();

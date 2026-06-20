@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="static/favicon.svg">
-<title>2026 世界盃 · 预测指挥中心</title>
+<title>WORLD CUP 2026 · Prediction Center</title>
 <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
@@ -16,37 +16,55 @@
     <span class="brand-mark" aria-hidden="true"></span>
     <div class="brand-text">
       <h1 class="brand-title">WORLD CUP <span class="year">2026</span></h1>
-      <p class="brand-sub">预测指挥中心 · LIVE PREDICTION DECK · <span class="rally">WE ARE 26</span></p>
+      <p class="brand-sub" data-i18n="app.subtitle">预测指挥中心 · LIVE PREDICTION DECK · <span class="rally">WE ARE 26</span></p>
     </div>
   </div>
 
   <div class="status-cluster" id="statusCluster">
     <div class="status-cell">
       <span class="live-dot" id="liveDot"></span>
-      <span class="status-label" id="statusLabel">连接中…</span>
+      <span class="status-label" id="statusLabel" data-i18n="status.connecting">连接中…</span>
     </div>
     <div class="status-cell">
-      <span class="meta-key">上次更新</span>
+      <span class="meta-key" data-i18n="common.last_updated">Last updated</span>
       <span class="meta-val mono" id="lastUpdated">-</span>
     </div>
     <div class="status-cell countdown-cell">
-      <span class="meta-key">下次刷新</span>
+      <span class="meta-key" data-i18n="common.next_refresh">Next refresh</span>
       <span class="meta-val mono accent" id="countdown">--</span>
     </div>
-    <button class="refresh-btn" id="refreshBtn" title="立即触发后台抓取+重算">
-      <span class="refresh-ico">⟳</span> 立即刷新
+    <button class="refresh-btn" id="refreshBtn" data-i18n="nav.refresh" data-i18n-attr="title"
+      title="立即触发后台抓取+重算">
+      <span class="refresh-ico">⟳</span> <span data-i18n="nav.refresh">立即刷新</span>
     </button>
-    <a href="/" class="switch-app" title="切换到词源效能">词源效能 <span aria-hidden="true">⟶</span></a>
+
+    <div class="lang-switch" id="langSwitcherWrap">
+      <button class="lang-btn" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+        <span class="lang-current" id="langCurrent">🌐 EN</span>
+        <span class="lang-arrow">▾</span>
+      </button>
+      <div class="lang-menu" id="langMenu" role="listbox" hidden></div>
+    </div>
+
+    <div class="pro-wrap">
+      <button class="pro-btn" id="proBtn" type="button" hidden data-i18n="sub.upgrade">✨ Upgrade</button>
+      <span class="pro-badge" id="proBadge" hidden data-i18n="sub.pro_badge">PRO</span>
+    </div>
+
+    <a href="/" class="switch-app" data-i18n="nav.token_efficiency"
+      data-i18n-attr="title" title="切换到词源效能">
+      <span data-i18n="nav.token_efficiency">词源效能</span> <span aria-hidden="true">⟶</span>
+    </a>
   </div>
 </header>
 
 <nav class="tabs">
-  <button class="tab active" data-tab="schedule">赛程时刻表</button>
-  <button class="tab" data-tab="champions">夺冠概率</button>
-  <button class="tab" data-tab="groups">小组积分</button>
-  <button class="tab" data-tab="backtest">历史回测</button>
-  <button class="tab" data-tab="market">数据来源</button>
-  <button class="tab" data-tab="value">价值下注</button>
+  <button class="tab active" data-tab="schedule" data-i18n="tabs.schedule">赛程时刻表</button>
+  <button class="tab" data-tab="champions" data-i18n="tabs.champions">夺冠概率</button>
+  <button class="tab" data-tab="groups" data-i18n="tabs.groups">小组积分</button>
+  <button class="tab" data-tab="backtest" data-i18n="tabs.backtest">历史回测</button>
+  <button class="tab" data-tab="market" data-i18n="tabs.market">数据来源</button>
+  <button class="tab" data-tab="value" data-i18n="tabs.value">价值下注</button>
 </nav>
 
 <main class="deck">
@@ -55,93 +73,122 @@
   <section class="panel active" id="panel-schedule">
     <div class="panel-controls">
       <div class="filter-group" id="stageFilter">
-        <button class="chip active" data-stage="all">全部</button>
-        <button class="chip" data-stage="Group">小组赛</button>
-        <button class="chip" data-stage="R32">32强</button>
-        <button class="chip" data-stage="R16">16强</button>
-        <button class="chip" data-stage="QF">1/4</button>
-        <button class="chip" data-stage="SF">半决赛</button>
-        <button class="chip" data-stage="Final">决赛</button>
+        <button class="chip active" data-stage="all" data-i18n="stage.all">全部</button>
+        <button class="chip" data-stage="Group" data-i18n="stage.group">小组赛</button>
+        <button class="chip" data-stage="R32" data-i18n="stage.r32">32强</button>
+        <button class="chip" data-stage="R16" data-i18n="stage.r16">16强</button>
+        <button class="chip" data-stage="QF" data-i18n="stage.qf">1/4</button>
+        <button class="chip" data-stage="SF" data-i18n="stage.sf">半决赛</button>
+        <button class="chip" data-stage="Final" data-i18n="stage.final">决赛</button>
       </div>
       <span class="legend">
-        <span class="leg"><i class="dot upcoming"></i>未开赛</span>
-        <span class="leg"><i class="dot today"></i>进行中</span>
-        <span class="leg"><i class="dot finished"></i>已结束</span>
+        <span class="leg"><i class="dot upcoming"></i><span data-i18n="legend.upcoming">未开赛</span></span>
+        <span class="leg"><i class="dot today"></i><span data-i18n="legend.today">进行中</span></span>
+        <span class="leg"><i class="dot finished"></i><span data-i18n="legend.finished">已结束</span></span>
       </span>
     </div>
     <div id="scheduleList" class="schedule-list">
-      <div class="placeholder">载入赛程…</div>
+      <div class="placeholder" data-i18n="empty.loading_schedule">载入赛程…</div>
     </div>
   </section>
 
   <!-- 02 夺冠 -->
   <section class="panel" id="panel-champions">
     <div class="champ-head">
-      <h2 class="panel-title">夺冠概率 · MONTE CARLO</h2>
-      <span class="champ-note mono" id="champBuiltAt">10,000 次模拟</span>
+      <h2 class="panel-title" data-i18n="champions.title">夺冠概率 · MONTE CARLO</h2>
+      <span class="champ-note mono" id="champBuiltAt" data-i18n="champions.simulations">10,000 次模拟</span>
     </div>
     <div id="champList" class="champ-list">
-      <div class="placeholder">载入夺冠榜…</div>
+      <div class="placeholder" data-i18n="empty.loading_champs">载入夺冠榜…</div>
     </div>
   </section>
 
   <!-- 03 小组 -->
   <section class="panel" id="panel-groups">
-    <h2 class="panel-title">小组积分 · 已打真实 + 未打预测期望</h2>
+    <h2 class="panel-title" data-i18n="groups.title">小组积分 · 已打真实 + 未打预测期望</h2>
     <div id="groupsGrid" class="groups-grid">
-      <div class="placeholder">载入小组榜…</div>
+      <div class="placeholder" data-i18n="empty.loading_groups">载入小组榜…</div>
     </div>
   </section>
 
   <!-- 04 回测 -->
   <section class="panel" id="panel-backtest">
-    <h2 class="panel-title">历史回测 · 赛前 Elo 预测 vs 真实结果</h2>
+    <h2 class="panel-title" data-i18n="backtest.title">历史回测 · 赛前 Elo 预测 vs 真实结果</h2>
     <div id="backtestList" class="bt-wrap">
-      <div class="placeholder">切换至此页加载(首次赛前 Elo 重建约 10 秒)</div>
+      <div class="placeholder" data-i18n="empty.loading_backtest">切换至此页加载(首次赛前 Elo 重建约 10 秒)</div>
     </div>
   </section>
 
   <section class="panel" id="panel-market">
-    <h2 class="panel-title">数据来源 · 单场预测的驱动源与反演λ对比</h2>
+    <h2 class="panel-title" data-i18n="market.title">数据来源 · 单场预测的驱动源与反演λ对比</h2>
     <div class="mkt-summary" id="mktSummary"></div>
     <div class="mkt-legend">
-      <span class="mkt-leg"><b class="mkt-tag mkt-b">B</b>1X2+总进球反演(最准)</span>
-      <span class="mkt-leg"><b class="mkt-tag mkt-a">A</b>仅1X2反演(总量先验)</span>
-      <span class="mkt-leg"><b class="mkt-tag mkt-e">Elo</b>纯 Elo 推断</span>
+      <span class="mkt-leg"><b class="mkt-tag mkt-b">B</b><span data-i18n="market.legend.b">1X2+总进球反演(最准)</span></span>
+      <span class="mkt-leg"><b class="mkt-tag mkt-a">A</b><span data-i18n="market.legend.a">仅1X2反演(总量先验)</span></span>
+      <span class="mkt-leg"><b class="mkt-tag mkt-e">Elo</b><span data-i18n="market.legend.elo">纯 Elo 推断</span></span>
     </div>
     <div id="mktList" class="mkt-wrap">
-      <div class="placeholder">切换至此页加载数据来源…</div>
+      <div class="placeholder" data-i18n="market.placeholder">切换至此页加载数据来源…</div>
     </div>
   </section>
 
   <section class="panel" id="panel-value">
-    <h2 class="panel-title">价值下注 · 系统 Elo vs 市场 devig(纯对比,不下注)</h2>
+    <h2 class="panel-title" data-i18n="value.title">价值下注 · 系统 Elo vs 市场 devig(纯对比,不下注)</h2>
     <div class="vb-note" id="vbNote"></div>
     <div class="vb-summary" id="vbSummary"></div>
-    <h3 class="vb-sub">未赛 Top 20 价值机会(按 Kelly 降序)</h3>
+    <h3 class="vb-sub" data-i18n="value.subhead">未赛 Top 20 价值机会(按 Kelly 降序)</h3>
     <div id="vbList" class="vb-wrap">
-      <div class="placeholder">切换至此页加载价值下注数据…</div>
+      <div class="placeholder" data-i18n="value.placeholder">切换至此页加载价值下注数据…</div>
     </div>
   </section>
 
 </main>
 
 <footer class="cmd-footer">
-  <span>Elo + Dixon-Coles + 蒙特卡洛,数据源 ESPN,后台自动刷新</span>
+  <span data-i18n="footer.line1">Elo + Dixon-Coles + 蒙特卡洛,数据源 ESPN,后台自动刷新</span>
   <span class="mono dim" id="footStamp">-</span>
-  <a href="/" class="footer-link" title="切换到词源效能">◈ Token Efficiency</a>
+  <a href="/" class="footer-link" data-i18n="footer.token_efficiency" data-i18n-attr="title"
+    title="切换到词源效能">◈ Token Efficiency</a>
 </footer>
 
 <!-- 单场详情抽屉 -->
 <aside class="drawer" id="drawer" aria-hidden="true">
   <div class="drawer-head">
-    <span class="drawer-title" id="drawerTitle">比赛详情</span>
-    <button class="drawer-close" id="drawerClose">✕</button>
+    <span class="drawer-title" id="drawerTitle" data-i18n="drawer.title">比赛详情</span>
+    <button class="drawer-close" id="drawerClose" data-i18n="drawer.close" data-i18n-attr="aria-label" aria-label="关闭">✕</button>
   </div>
   <div class="drawer-body" id="drawerBody"></div>
 </aside>
 <div class="drawer-scrim" id="drawerScrim"></div>
 
+<!-- 升级 Pro 弹窗 -->
+<aside class="upgrade-modal" id="upgradeModal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="upgrade-head">
+    <span class="upgrade-title" id="upgradeTitle" data-i18n="sub.upgrade_title">Support the Project</span>
+    <button class="upgrade-close" id="upgradeClose" aria-label="Close">✕</button>
+  </div>
+  <div class="upgrade-body">
+    <p class="upgrade-desc" data-i18n="sub.upgrade_desc">Unlock AI Reflection, Web Search Intel & H2H, Value Bets panel</p>
+    <div class="upgrade-input-row">
+      <input type="email" class="upgrade-input" id="upgradeEmail" placeholder="you@example.com" data-i18n-attr="placeholder" autocomplete="email" spellcheck="false">
+    </div>
+    <div class="upgrade-plans">
+      <button class="upgrade-plan" id="planMonthly" type="button">
+        <span class="plan-name" data-i18n="sub.monthly">$5 / month</span>
+        <span class="plan-action" data-i18n="sub.pay_monthly">Subscribe $5/mo</span>
+      </button>
+      <button class="upgrade-plan" id="planTournament" type="button">
+        <span class="plan-name" data-i18n="sub.tournament">$12 full tournament</span>
+        <span class="plan-action" data-i18n="sub.pay_tournament">Buy Tournament Pass $12</span>
+      </button>
+    </div>
+    <div class="upgrade-error" id="upgradeError" hidden></div>
+    <div class="upgrade-status" id="upgradeStatus" hidden></div>
+  </div>
+</aside>
+<div class="upgrade-scrim" id="upgradeScrim"></div>
+
+<script src="static/i18n.js"></script>
 <script src="static/app.js"></script>
 </body>
 </html>
