@@ -1,9 +1,9 @@
 year,date,home,away,odds_h,odds_d,odds_a,ou_line,ou_over,ou_under
 2026,,Algeria,Austria,3.01,3.07,2.47,2.5,1.96,2.25
 2026,,Argentina,Austria,1.59,3.91,6.05,2.5,1.93,2.50
-2026,,Belgium,Iran,1.44,4.56,7.32,2.5,2.05,2.50
+2026,,Belgium,Iran,1.44,4.57,7.35,2.5,2.05,2.50
 2026,,Bosnia and Herzegovina,Qatar,1.44,4.74,6.77,2.5,2.07,2.75
-2026,,Brazil,Haiti,1.11,10.53,21.47,2.5,2.12,3.50
+2026,,Brazil,Haiti,1.11,10.63,22.32,2.5,2.12,3.50
 2026,,Canada,Qatar,1.30,5.45,10.54,2.5,1.75,2.24
 2026,,Cape Verde,Saudi Arabia,2.72,3.58,2.39,2.5,1.98,2.25
 2026,,Colombia,DR Congo,1.55,4.30,7.80,2.5,1.90,2.25
@@ -24,17 +24,17 @@ year,date,home,away,odds_h,odds_d,odds_a,ou_line,ou_over,ou_under
 2026,,Jordan,Algeria,5.77,4.06,1.58,2.5,1.97,2.50
 2026,,Jordan,Argentina,13.29,6.70,1.20,2.5,1.83,3.00
 2026,,Mexico,South Korea,2.06,3.21,4.08,2.5,2.36,1.68
-2026,,Morocco,Haiti,1.24,5.85,11.86,2.5,2.04,2.75
+2026,,Morocco,Haiti,1.24,5.82,11.91,2.5,2.04,2.75
 2026,,Netherlands,Sweden,1.72,4.01,4.59,2.5,2.18,2.50
 2026,,New Zealand,Belgium,11.79,6.20,1.22,2.5,2.04,2.75
 2026,,New Zealand,Egypt,5.46,4.03,1.61,2.5,1.94,2.25
-2026,,Norway,France,4.22,3.71,1.80,2.5,2.14,2.50
+2026,,Norway,France,4.21,3.73,1.80,2.5,2.14,2.50
 2026,,Norway,Senegal,2.32,3.45,3.02,2.5,1.91,2.50
 2026,,Panama,Croatia,6.57,3.95,1.54,2.5,1.93,2.50
-2026,,Panama,England,10.01,6.23,1.25,2.5,2.01,2.75
-2026,,Paraguay,Australia,2.12,3.35,3.44,2.5,1.67,2.50
-2026,,Portugal,Uzbekistan,1.20,6.75,14.74,2.5,1.90,3.00
-2026,,Scotland,Brazil,6.87,5.00,1.40,2.5,2.06,2.50
+2026,,Panama,England,10.09,6.29,1.25,2.5,2.01,2.75
+2026,,Paraguay,Australia,2.12,3.35,3.45,2.5,1.67,2.50
+2026,,Portugal,Uzbekistan,1.20,6.75,14.83,2.5,1.90,3.00
+2026,,Scotland,Brazil,6.92,5.00,1.39,2.5,2.06,2.50
 2026,,Scotland,Morocco,5.61,3.67,1.68,2.5,1.87,2.25
 2026,,Senegal,Iraq,1.30,5.15,10.26,2.5,1.98,2.50
 2026,,South Africa,South Korea,5.66,3.89,1.62,2.5,1.84,2.50
@@ -44,7 +44,7 @@ year,date,home,away,odds_h,odds_d,odds_a,ou_line,ou_over,ou_under
 2026,,Tunisia,Japan,6.59,4.04,1.53,2.5,2.03,2.25
 2026,,Tunisia,Netherlands,9.36,5.21,1.32,2.5,2.22,2.50
 2026,,Turkey,Paraguay,2.05,3.39,3.80,2.5,1.83,2.50
-2026,,Turkey,United States,2.56,3.73,2.50,2.5,2.10,2.50
+2026,,Turkey,United States,2.58,3.73,2.49,2.5,2.10,2.50
 2026,,United States,Australia,1.59,4.24,5.82,2.5,2.04,2.50
 2026,,Uruguay,Cape Verde,1.46,4.16,7.82,2.5,1.85,2.25
 2026,,Uruguay,Spain,5.79,4.09,1.54,2.5,1.93,2.50
