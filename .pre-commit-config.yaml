@@ -12,7 +12,10 @@ repos:
     rev: v8.18.4
     hooks:
       - id: gitleaks
-        # 扫描全部历史 + 暂存;CI 也跑同一规则避免本地漏检
+        # CI 跑(网络可达 proxy.golang.org);本地手动跑:
+        #   pre-commit run --hook-stage manual gitleaks --all-files
+        # 本地默认跳过 — gitleaks 需 Go toolchain 下载依赖,WSL 无外网时失败。
+        stages: [manual]
         args: ['--redact', '--no-banner']
 
   - repo: local

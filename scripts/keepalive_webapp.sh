@@ -52,9 +52,9 @@ done
 sleep 1
 
 # ── 3. 后台拉起 ─────────────────────────────────────────
-log "starting: cd ${PROJ} && python3 -m uvicorn webapp.app:app --host 0.0.0.0 --port ${PORT}"
+log "starting: cd ${PROJ} && ./.venv/bin/python -m uvicorn webapp.app:app --host 127.0.0.1 --port ${PORT}"
 cd "$PROJ" || { log "ABORT  cannot cd to ${PROJ}"; exit 1; }
-nohup python3 -m uvicorn webapp.app:app --host 0.0.0.0 --port "$PORT" \
+nohup ./.venv/bin/python -m uvicorn webapp.app:app --host 127.0.0.1 --port "$PORT" \
   >> "$LOG" 2>&1 &
 echo $! > "$PIDFILE"
 new_pid=$(cat "$PIDFILE")
