@@ -142,14 +142,43 @@ async function openUpgrade() {
   if (s) s.hidden = true;
   const e = $('upgradeError');
   if (e) e.hidden = true;
-  // 加载当前语言的翻译并应用到弹窗
-  const lang = (window.I18N && I18N.current) || 'en';
-  const ok = await fetchI18nAndShow(lang);
-  if (!ok) {  // fallback: 试试英语
-    await fetchI18nAndShow('en');
+  // 直接读取页面已加载的语言数据,不依赖 I18N.t()
+  const locale = (window.I18N && I18N.current) || 'en';
+  // 优先用 I18N 已缓存的内存 dict,没有则 fallback fetch
+  if (window.I18N && I18N.dict && I18N.dict[locale]) {
+    applyUpgradeDict(I18N.dict[locale]);
+  } else if (window.I18N && I18N.dict && I18N.dict.en) {
+    applyUpgradeDict(I18N.dict.en);
+  } else {
+    await fallbackFetchUpgrade(locale);
   }
   const emailInput = $('upgradeEmail');
   if (emailInput) { if (userEmail) emailInput.value = userEmail; requestAnimationFrame(() => emailInput.focus()); }
+}
+
+function applyUpgradeDict(d) {
+  const titleEl = $('upgradeTitle');
+  if (titleEl) titleEl.textContent = d['sub.upgrade_title'] || titleEl.textContent;
+  const descEl = document.querySelector('.upgrade-desc');
+  if (descEl) descEl.textContent = d['sub.upgrade_desc'] || descEl.textContent;
+  const planNameEls = document.querySelectorAll('.plan-name');
+  const planActionEls = document.querySelectorAll('.plan-action');
+  if (planNameEls[0]) planNameEls[0].textContent = d['sub.monthly'] || planNameEls[0].textContent;
+  if (planNameEls[1]) planNameEls[1].textContent = d['sub.tournament'] || planNameEls[1].textContent;
+  if (planActionEls[0]) planActionEls[0].textContent = d['sub.pay_monthly'] || planActionEls[0].textContent;
+  if (planActionEls[1]) planActionEls[1].textContent = d['sub.pay_tournament'] || planActionEls[1].textContent;
+}
+
+async function fallbackFetchUpgrade(locale) {
+  for (const l of [locale, 'en']) {
+    try {
+      const r = await fetch('static/i18n/' + l + '.json');
+      if (!r.ok) continue;
+      const d = await r.json();
+      applyUpgradeDict(d);
+      return;
+    } catch {}
+  }
 }
 
 async function fetchI18nAndShow(locale) {

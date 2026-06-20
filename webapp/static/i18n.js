@@ -290,7 +290,8 @@ const I18N = (() => {
     get tz() { return userTz; },
     get teams() { return teams; },
     localTeam, localTime, localDate,
-    LOCALES, META, applyDOM
+    LOCALES, META, applyDOM,
+    get dict() { return dict; },
   };
 })();
 
