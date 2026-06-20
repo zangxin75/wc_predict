@@ -39,18 +39,22 @@ LOCALE_MAP = {
     "ar": "auto",
 }
 
-# 前端 placeholder → 真实 price_id 映射
+# 前端 placeholder → (price_id, mode) 映射
+# monthly: subscription 模式; tournament: 一次性 payment 模式
 PRICE_MAP = {
-    "price_monthly": PRICE_MONTHLY,
-    "price_tournament": PRICE_TOURNAMENT,
+    "price_monthly": (PRICE_MONTHLY, "subscription"),
+    "price_tournament": (PRICE_TOURNAMENT, "payment"),
 }
 
 stripe.api_key = STRIPE_SECRET_KEY
 
 
-def resolve_price_id(key: str) -> str:
-    """解析前端传入的 placeholder price_id 为 Stripe 真实 price_id。"""
-    return PRICE_MAP.get(key) or key
+def resolve_price(key: str) -> tuple[str, str]:
+    """解析前端 placeholder → (price_id, mode)。"""
+    v = PRICE_MAP.get(key)
+    if v:
+        return v
+    return (key, "subscription")
 
 
 def _load_users() -> dict:
@@ -69,13 +73,15 @@ def _save_users(users: dict) -> None:
 def create_checkout_session(email: str, price_id: str, origin: str, locale: str = "auto") -> str:
     """创建 Stripe Checkout Session,返回支付链接。
 
+    price_id 为前端 placeholder(price_monthly/price_tournament)。
+    mode 自动选择: monthly→subscription, tournament→payment(一次性)。
     locale: 前端语言代码(如 zh-CN),映射为 Stripe 支持的语言。
     """
-    resolved = resolve_price_id(price_id)
+    resolved, mode = resolve_price(price_id)
     stripe_locale = LOCALE_MAP.get(locale, "auto")
     session = stripe.checkout.Session.create(
         customer_email=email,
-        mode="subscription",
+        mode=mode,
         line_items=[{"price": resolved, "quantity": 1}],
         success_url=origin.rstrip("/") + "/?checkout=success",
         cancel_url=origin.rstrip("/") + "/",

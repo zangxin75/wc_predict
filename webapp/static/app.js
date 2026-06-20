@@ -133,14 +133,17 @@ function bindUpgradeModal() {
 function openUpgrade() {
   const modal = $('upgradeModal');
   const scrim = $('upgradeScrim');
-  if (modal) { modal.hidden = false; modal.setAttribute('aria-hidden', 'false'); }
+  if (modal) {
+    modal.removeAttribute('aria-hidden');
+    modal.hidden = false;
+  }
   if (scrim) scrim.hidden = false;
   const s = $('upgradeStatus');
   if (s) s.hidden = true;
   const e = $('upgradeError');
   if (e) e.hidden = true;
   const emailInput = $('upgradeEmail');
-  if (emailInput) { if (userEmail) emailInput.value = userEmail; emailInput.focus(); }
+  if (emailInput) { if (userEmail) emailInput.value = userEmail; requestAnimationFrame(() => emailInput.focus()); }
 }
 
 function closeUpgrade() {
