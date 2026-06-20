@@ -62,8 +62,9 @@ const teamName = (m, side) => {
 const localDate = (m) => m ? I18N.localDate(m.date, m.kickoff_bj) : '';
 const localTime = (m) => m ? I18N.localTime(m.date, m.kickoff_bj) : '';
 
-async function getJSON(url) {
-  const r = await fetch(url, { cache: 'no-store' });
+async function getJSON(url, opts = {}) {
+  // F-02: credentials: 'include' 让浏览器带上 session cookie
+  const r = await fetch(url, { cache: 'no-store', credentials: 'include', ...opts });
   if (!r.ok) throw new Error(`${url} → ${r.status}`);
   return r.json();
 }
@@ -75,15 +76,18 @@ function fmtDate(iso) {
   return { label: `${mm}.${dd}`, weekday: WEEKDAY()[d.getDay()] };
 }
 
-// ── 订阅 ────────────────────────────────────────────
+// ── 订阅 (F-02 修复:从 localStorage email 改为服务端 session) ────────
+// 保留 userEmail 变量以兼容旧调用点;新代码优先用 /api/whoami
 function emailSuffix() {
-  return userEmail ? `&x_user_email=${encodeURIComponent(userEmail)}` : '';
+  // 兼容保留(返回空串);后端会从 session cookie 自动读 email
+  return '';
 }
 
 async function checkSubscription() {
-  if (!userEmail) return false;
+  // F-02: 从服务端 /api/whoami 读当前 session 用户
   try {
-    const d = await getJSON(`api/subscription-status?email=${encodeURIComponent(userEmail)}`);
+    const d = await getJSON('api/whoami');
+    userEmail = d.email || '';
     isPaid = !!d.is_paid;
     subChecked = true;
     const proBtn = $('proBtn');
@@ -100,19 +104,33 @@ async function checkSubscription() {
 }
 
 function initSubscription() {
-  try { userEmail = localStorage.getItem('wc_email') || ''; } catch {}
-  // 检测 checkout=success 回跳
+  // F-02: 启动时先 call /api/whoami 同步 session 状态
+  checkSubscription();
+  // 检测 checkout=success 回跳 → 用 session_id 兑换 session cookie
   const params = new URLSearchParams(window.location.search);
   if (params.get('checkout') === 'success') {
-    checkSubscription().then(paid => {
-      if (paid) {
-        const s = $('upgradeStatus');
-        if (s) { s.hidden = false; s.textContent = t('sub.unlocked'); s.className = 'upgrade-status ok'; }
-      }
-    });
+    const sessionId = params.get('session_id');
+    if (sessionId) {
+      // POST /api/claim-session → 服务端查 Stripe, 写入 session, 下发 cookie
+      getJSON(`api/claim-session?session_id=${encodeURIComponent(sessionId)}`, { method: 'POST' })
+        .then(d => {
+          if (d && d.ok) {
+            userEmail = d.email;
+            isPaid = !!d.is_paid;
+            subChecked = true;
+            const proBtn = $('proBtn'); if (proBtn) proBtn.hidden = isPaid;
+            const proBadge = $('proBadge'); if (proBadge) proBadge.hidden = !isPaid;
+            const s = $('upgradeStatus');
+            if (s) { s.hidden = false; s.textContent = t('sub.unlocked'); s.className = 'upgrade-status ok'; }
+          }
+        })
+        .catch(e => console.warn('[claim-session]', e));
+    } else {
+      // 旧版 success_url 不带 session_id: 走 fallback, 让用户重新登录
+      console.warn('[checkout] no session_id in URL; please log in again');
+    }
     window.history.replaceState({}, '', window.location.pathname);
   }
-  if (userEmail) checkSubscription();
   // Pro 按钮事件
   const proBtn = $('proBtn');
   if (proBtn) proBtn.addEventListener('click', openUpgrade);
@@ -150,6 +168,138 @@ function bindUpgradeModal() {
       if (ev.key === 'Enter') { ev.preventDefault(); handleRedeemInvite(); }
     });
   }
+  // 分享 X → 24h 邀请码
+  bindSharePanel();
+}
+
+
+function bindSharePanel() {
+  const tog = $('shareToggleBtn');
+  const panel = $('sharePanel');
+  if (!tog || !panel) return;
+  tog.addEventListener('click', () => {
+    const willShow = panel.hidden;
+    panel.hidden = !willShow;
+    tog.setAttribute('aria-expanded', String(willShow));
+    if (willShow) {
+      // 打开时填充模板(从 i18n 读 share.template)
+      const tpl = $('shareTemplate');
+      if (tpl && !tpl.value) {
+        tpl.value = (typeof t === 'function') ? t('share.template') : '';
+      }
+    }
+  });
+  $('shareCopyBtn')?.addEventListener('click', async () => {
+    const tpl = $('shareTemplate');
+    if (!tpl) return;
+    try {
+      await navigator.clipboard.writeText(tpl.value);
+      const btn = $('shareCopyBtn');
+      if (btn) {
+        const orig = btn.textContent;
+        btn.textContent = (typeof t === 'function') ? t('share.copied') : 'Copied!';
+        setTimeout(() => { btn.textContent = orig; }, 1500);
+      }
+    } catch (e) {
+      tpl.select();
+      document.execCommand && document.execCommand('copy');
+    }
+  });
+  $('shareVerifyBtn')?.addEventListener('click', handleShareVerify);
+  $('shareUrlInput')?.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Enter') { ev.preventDefault(); handleShareVerify(); }
+  });
+  $('shareUseCodeBtn')?.addEventListener('click', handleShareUseCode);
+}
+
+
+let _shareLatestCode = '';
+
+async function handleShareVerify() {
+  const urlInput = $('shareUrlInput');
+  const errEl = $('upgradeError');
+  const resultEl = $('shareResult');
+  const codeEl = $('shareCodeDisplay');
+  const labelEl = $('shareResultLabel');
+  const useBtn = $('shareUseCodeBtn');
+  const btn = $('shareVerifyBtn');
+  if (!urlInput || !btn) return;
+  if (errEl) errEl.hidden = true;
+  const url = urlInput.value.trim();
+  const email = $('upgradeEmail')?.value.trim() || userEmail || '';
+  if (!url) {
+    if (errEl) {
+      errEl.textContent = (typeof t === 'function') ? t('share.error_empty_url') : 'Paste X URL';
+      errEl.hidden = false;
+    }
+    return;
+  }
+  if (!email || !email.includes('@')) {
+    if (errEl) {
+      errEl.textContent = (typeof t === 'function') ? t('share.error_invalid_email') : 'Enter valid email';
+      errEl.hidden = false;
+    }
+    return;
+  }
+  btn.disabled = true;
+  try {
+    const r = await fetch('api/share/verify?' + new URLSearchParams({
+      platform: 'x', url, email,
+    }).toString(), { method: 'POST' });
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok || !data.ok) {
+      const detail = data.detail || 'verify_failed';
+      const errKey = {
+        invalid_email: 'share.error_invalid_email',
+        invalid_x_url: 'share.error_invalid_url',
+        unrecognized_url: 'share.error_unrecognized',
+        platform_mismatch: 'share.error_unrecognized',
+        http_404: 'share.error_verify_failed',
+        rate_limited: 'share.error_rate_limited',
+        empty_url: 'share.error_empty_url',
+        network_error: 'share.error_network',
+        timeout: 'share.error_network',
+      }[detail] || 'share.error_verify_failed';
+      if (errEl) {
+        errEl.textContent = (typeof t === 'function') ? t(errKey) : detail;
+        errEl.hidden = false;
+      }
+      return;
+    }
+    _shareLatestCode = data.code;
+    if (codeEl) codeEl.textContent = data.code;
+    if (useBtn) useBtn.hidden = false;
+    if (resultEl) resultEl.hidden = false;
+    if (labelEl) {
+      const key = data.reused ? 'share.success_reused' : 'share.success_new';
+      let msg = (typeof t === 'function') ? t(key) : '';
+      if (data.reused && data.expires_at) {
+        const until = new Date(data.expires_at);
+        msg = msg.replace('{time}', until.toLocaleString());
+      }
+      labelEl.textContent = msg;
+    }
+  } catch (e) {
+    if (errEl) {
+      errEl.textContent = (typeof t === 'function') ? t('share.error_network') : 'Network error';
+      errEl.hidden = false;
+    }
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+
+async function handleShareUseCode() {
+  const inv = $('inviteCode');
+  const errEl = $('upgradeError');
+  if (!_shareLatestCode) return;
+  if (inv) {
+    inv.value = _shareLatestCode;
+    inv.focus();
+  }
+  // 直接 redeem
+  await handleRedeemInvite();
 }
 
 async function openUpgrade() {

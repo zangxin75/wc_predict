@@ -976,6 +976,70 @@ body::before{
 .upgrade-plan-invite:hover{border-color:var(--gold-line);background:rgba(201,169,97,.04)}
 .upgrade-plan-invite .plan-name{font-size:13px;font-weight:600;color:var(--text-dim)}
 .upgrade-plan-invite .plan-action{color:var(--text-dim);font-weight:600}
+.upgrade-share-row{margin-top:10px}
+.upgrade-plan-share{
+  border-style:dashed;border-color:rgba(201,169,97,.35);
+  background:transparent;
+}
+.upgrade-plan-share:hover{border-color:var(--gold-line);background:rgba(201,169,97,.04)}
+.upgrade-plan-share .plan-name{font-size:13px;font-weight:600;color:var(--text-dim)}
+.upgrade-plan-share .plan-action{color:var(--text-dim);font-weight:600}
+.upgrade-share-panel{
+  margin-top:10px;padding:12px;
+  border:1px solid rgba(201,169,97,.2);border-radius:var(--r-tag);
+  background:rgba(255,255,255,.02);
+  display:flex;flex-direction:column;gap:12px;
+}
+.share-platform-row{display:flex;align-items:center;gap:10px}
+.share-label{
+  font-size:11px;font-family:var(--ff-mono);
+  color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;
+}
+.share-platform-val{font-size:13px;font-weight:600;color:var(--text)}
+.share-template-row{display:flex;flex-direction:column;gap:6px}
+.share-template{
+  width:100%;min-height:64px;
+  background:rgba(0,0,0,.25);color:var(--text);
+  border:1px solid rgba(255,255,255,.08);border-radius:var(--r-tag);
+  padding:8px 10px;font-family:var(--ff-body);font-size:13px;
+  resize:vertical;line-height:1.5;
+}
+.share-copy-btn{
+  align-self:flex-end;
+  padding:5px 14px;font-size:12px;
+  background:transparent;color:var(--gold-hi);
+  border:1px solid var(--gold-line);border-radius:var(--r-tag);
+  cursor:pointer;font-family:var(--ff-mono);
+  text-transform:uppercase;letter-spacing:1px;
+  transition:background .15s;
+}
+.share-copy-btn:hover{background:rgba(201,169,97,.1)}
+.share-verify-row{display:flex;flex-direction:column;gap:8px}
+.share-url-input{font-family:var(--ff-mono);font-size:12px}
+.upgrade-plan-verify{
+  padding:10px 14px;font-size:13px;
+}
+.upgrade-plan-verify .plan-name{font-size:13px;font-weight:700;color:var(--gold-hi)}
+.share-result{
+  padding:10px;border-radius:var(--r-tag);
+  background:rgba(94,168,96,.08);
+  border:1px solid rgba(94,168,96,.3);
+  display:flex;flex-direction:column;gap:8px;align-items:center;
+}
+.share-result-label{font-size:12px;color:var(--signal-ok);font-weight:600}
+.share-code-display{
+  font-family:var(--ff-mono);font-size:18px;font-weight:700;
+  color:var(--gold-hi);letter-spacing:2px;
+  padding:8px 16px;background:rgba(0,0,0,.3);
+  border:1px dashed rgba(201,169,97,.4);border-radius:var(--r-tag);
+  user-select:all;
+}
+.upgrade-plan-use{
+  padding:8px 14px;font-size:12px;
+  border-color:var(--gold-line);background:rgba(201,169,97,.1);
+}
+.upgrade-plan-use .plan-name{font-size:12px;font-weight:700;color:var(--gold-hi)}
+.upgrade-plan-use .plan-action{font-size:11px;color:var(--text-dim)}
 .upgrade-error{
   font-size:12px;color:var(--signal-err);padding:8px 10px;
   background:rgba(194,84,80,.1);border:1px solid rgba(194,84,80,.3);
