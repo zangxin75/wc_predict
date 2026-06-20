@@ -131,22 +131,46 @@ def harvest(path):
 
 
 def merge_to_csv(rows_2026):
-    """rows_2026: [(home,away,score,oh,od,oa)] → merge 进 odds_wc.csv(只动 2026)。"""
+    """rows_2026: [(home,away,score,oh,od,oa)] → merge 进 odds_wc.csv(只动 2026)。
+
+    合并策略(2026-06-19 调整):**只填空,不覆盖**。主源已是 The Odds API
+    (Pinnacle,抽水更低),BetExplorer 仅作为补充,只在缺数据时回填。
+    已有非空 odds_h 的行 → 保留不动;空 odds_h 的行 → 填入新值;不存在的
+    key → 新增。
+
+    同时保留已有 2026 行作为 fallback(BetExplorer 比赛结束后会撤盘,
+    重跑脚本时无赔率返回会导致历史盘口被清空)。
+    """
     by_key = {}
     if os.path.exists(OUT_CSV):
         with open(OUT_CSV, newline="", encoding="utf-8") as f:
             for r in csv.DictReader(f):
                 by_key[(r["year"], r["home"], r["away"])] = r
-    # 清掉旧 2026(本次全量替换),保留其他届
+    # 保留已有 2026 行(防止"全量替换"清掉已结束比赛的盘口)
+    preserved = {k: v for k, v in by_key.items() if k[0] == "2026"}
     merged = {k: v for k, v in by_key.items() if k[0] != "2026"}
     added = 0
+    skipped_existing = 0
     for home, away, score, oh, od, oa in rows_2026:
-        merged[("2026", home, away)] = {
+        k = ("2026", home, away)
+        existing = preserved.get(k)
+        if existing and existing.get("odds_h"):
+            # 已有非空赔率(主源已填)→ 跳过,避免覆盖 Pinnacle 优质报价
+            merged[k] = existing
+            skipped_existing += 1
+            continue
+        merged[k] = {
             "year": "2026", "date": "", "home": home, "away": away,
             "score": score or "", "odds_h": f"{oh:.2f}",
             "odds_d": f"{od:.2f}", "odds_a": f"{oa:.2f}",
         }
         added += 1
+    # 本次未抓到但之前已有的 2026 行 → 保留(已结束比赛撤盘后仍可用作回测)
+    kept = 0
+    for k, v in preserved.items():
+        if k not in merged:
+            merged[k] = v
+            kept += 1
     fields = ["year", "date", "home", "away", "score", "odds_h", "odds_d", "odds_a"]
     all_rows = sorted(merged.values(),
                       key=lambda m: (str(m["year"]), m["home"], m["away"]))
@@ -156,6 +180,8 @@ def merge_to_csv(rows_2026):
         for r in all_rows:
             w.writerow({fn: r.get(fn, "") for fn in fields})
     kept_other = len(all_rows) - added
+    if skipped_existing:
+        print(f"  (跳过 {skipped_existing} 场已有非空赔率,保留主源数据)")
     return added, kept_other
 
 

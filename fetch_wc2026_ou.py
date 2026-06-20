@@ -33,24 +33,24 @@ import compute_odds as co
 HERE = os.path.dirname(os.path.abspath(__file__))
 OU_CSV = co.OU_CSV
 CACHE = os.path.join(HERE, "webapp", "data", "cache.json")
-OVERVIEW = "https://www.betexplorer.com/football/world/world-cup-2026/"
+OVERVIEW = "https://www.betexplorer.com/football/world/world-championship-2026/"
 
-# 概览页取每场详情链接 + 一行文本(含队名/比分/1X2)。复用 fetch_wc2026_odds 的锚点。
+# 概览页取每场详情链接 + 一行文本(含队名/比分/1X2)。
+# 2026-06-19 改:旧 li.table-main__oddsLi 已弃用,改用 td.table-main__odds > button[data-odd]。
 JS_LINKS = r"""()=>{
   const out=[];
-  const olis = [...document.querySelectorAll('li.table-main__oddsLi')];
-  for(const li of olis){
-    const mi = li.parentElement;
-    const txt = (mi? mi.innerText:'').replace(/\n/g,' ').replace(/\s+/g,' ').trim();
-    const links = [...(mi||li).querySelectorAll('a[href]')];
-    const detail = links.map(a=>a.getAttribute('href')).filter(h=>h.includes('world-championship-2026/'));
-    // odds 优先在 oddsLi 内,缺失则取整个 matchInfo 的前 3 个(概览页有时 odds 在 li 外)
-    let odds = [...li.querySelectorAll('[data-odd]')].map(e=>e.getAttribute('data-odd'));
-    if(odds.length < 3 && mi){
-      odds = [...mi.querySelectorAll('[data-odd]')].map(e=>e.getAttribute('data-odd'));
-    }
-    if(detail.length) out.push({text:txt, href: detail[0], odds:odds.slice(0,3)});
-  }
+  document.querySelectorAll('tr').forEach(tr => {
+    const a = tr.querySelector('a.in-match');
+    if(!a) return;
+    const href = a.getAttribute('href');
+    if(!href || !href.includes('world-championship-2026/')) return;
+    const spans = [...a.querySelectorAll('span')];
+    if(spans.length < 2) return;
+    const txt = tr.innerText.replace(/\s+/g, ' ').trim();
+    const odds = [...tr.querySelectorAll('button[data-odd]')]
+      .slice(0, 3).map(b => b.getAttribute('data-odd'));
+    out.push({text: txt, href: href, odds: odds});
+  });
   return out;
 }"""
 
@@ -122,116 +122,175 @@ def parse_row(text):
 
 
 def merge_ou(rows):
-    """rows: [(home,away,oh,od,oa,ou_over,ou_under)] → merge 进 ou_wc.csv(year=2026)。"""
+    """rows: [(home,away,oh,od,oa,ou_over,ou_under)] → merge 进 ou_wc.csv(year=2026)。
+
+    ⚠️ 2026-06-19 改 merge 模式:保留所有已存在的 2026 行(含手补 OU 的 5 场),
+    新数据只覆盖存在的字段,空字段保留旧值。这样反复跑不会丢手补数据。
+    """
     by_key = {}
     if os.path.exists(OU_CSV):
         with open(OU_CSV, newline="", encoding="utf-8") as f:
             for r in csv.DictReader(f):
                 by_key[(r["year"], r["home"], r["away"])] = r
-    merged = {k: v for k, v in by_key.items() if k[0] != "2026"}
+    added = 0
+    updated = 0
     for home, away, oh, od, oa, oov, ou in rows:
-        merged[("2026", home, away)] = {
+        key = ("2026", home, away)
+        old = by_key.get(key)
+        new_row = {
             "year": "2026", "date": "", "home": home, "away": away,
-            "odds_h": f"{oh:.2f}", "odds_d": f"{od:.2f}", "odds_a": f"{oa:.2f}",
-            "ou_line": "2.5", "ou_over": f"{oov:.2f}" if oov else "",
-            "ou_under": f"{ou:.2f}" if ou else "",
+            "odds_h": f"{oh:.2f}",
+            "odds_d": f"{od:.2f}",
+            "odds_a": f"{oa:.2f}",
+            "ou_line": (old or {}).get("ou_line") or "2.5",
+            "ou_over": f"{oov:.2f}" if oov else (old or {}).get("ou_over", ""),
+            "ou_under": f"{ou:.2f}" if ou else (old or {}).get("ou_under", ""),
         }
+        if old is None:
+            added += 1
+        elif (new_row["ou_over"] != old.get("ou_over")
+              or new_row["ou_under"] != old.get("ou_under")
+              or new_row["odds_h"] != old.get("odds_h")):
+            updated += 1
+        by_key[key] = new_row
     fields = ["year", "date", "home", "away", "odds_h", "odds_d", "odds_a",
               "ou_line", "ou_over", "ou_under"]
-    all_rows = sorted(merged.values(), key=lambda m: (str(m["year"]), m["home"], m["away"]))
+    all_rows = sorted(by_key.values(),
+                      key=lambda m: (str(m["year"]), m["home"], m["away"]))
     with open(OU_CSV, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=fields)
         w.writeheader()
         for r in all_rows:
             w.writerow({fn: r.get(fn, "") for fn in fields})
-    return len(rows), len(all_rows) - len(rows)
+    return added, updated, len(all_rows)
 
 
 def main():
-    ap = argparse.ArgumentParser(description="2026 WC Over/Under 半自动采集 → ou_wc.csv")
+    ap = argparse.ArgumentParser(description="2026 WC OU/1X2 半自动采集 → ou_wc.csv")
     ap.add_argument("--dry", action="store_true", help="只打印不写")
+    ap.add_argument("--with-ou", action="store_true",
+                    help="启用 Playwright 详情页 OU 异步抓取(慢,~8s/场,默认关)")
     args = ap.parse_args()
 
-    from playwright.sync_api import sync_playwright
     wc = load_wc_teams()
     print("=" * 60)
-    print("  2026 世界杯 Over/Under 采集(半自动)")
+    print(f"  2026 WC OU/1X2 采集(概览{'+OU异步' if args.with_ou else '仅1X2'})")
     print("=" * 60)
-    collected = []
-    manual = []
-    with sync_playwright() as p:
-        b = p.chromium.launch(headless=True)
-        pg = b.new_page()
-        links = []
-        for pt in ("results/", "fixtures/"):
-            try:
-                pg.goto(OVERVIEW + pt, wait_until="domcontentloaded", timeout=45000)
-                pg.wait_for_timeout(5000)
-                links.extend(pg.evaluate(f"({JS_LINKS})()"))
-            except Exception as e:
-                print(f"  [{pt}] 概览抓取失败: {str(e)[:60]}")
-        # 去重(同 href 取一次)
-        seen_href = {}
-        for r in links:
-            seen_href.setdefault(r["href"], r)
-        print(f"  概览取得 {len(seen_href)} 个 WC 详情链接")
-        for href, rec in seen_href.items():
-            parsed = parse_row(rec["text"])
-            if not parsed:
+
+    # ── 阶段 1:概览抓 1X2(requests+BS4,无需 Playwright)──
+    import requests as _req
+    from bs4 import BeautifulSoup as _BS
+    headers = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+                             "(KHTML, like Gecko) Chrome/120.0 Safari/537.36",
+               "Accept-Language": "en-US,en;q=0.9"}
+    one_x_two = {}   # (home,away) → (oh,od,oa)
+    seen = set()
+    for pt in ("results/", "fixtures/"):
+        try:
+            r = _req.get(OVERVIEW + pt, headers=headers, timeout=30)
+            r.raise_for_status()
+        except Exception as e:
+            print(f"  [{pt}] 拉取失败: {str(e)[:60]}")
+            continue
+        soup = _BS(r.text, "html.parser")
+        for tr in soup.find_all("tr"):
+            a = tr.find("a", class_="in-match")
+            if not a:
                 continue
-            home, away, odds3 = parsed
+            href = a.get("href") or ""
+            if "world-championship-2026/" not in href:
+                continue
+            spans = a.find_all("span")
+            if len(spans) < 2:
+                continue
+            home = co.normalize_team(spans[0].get_text(strip=True))
+            away = co.normalize_team(spans[-1].get_text(strip=True))
             if wc and (home not in wc or away not in wc):
                 continue
-            url = "https://www.betexplorer.com" + href
-            ou = None
-            det_odds = None
-            try:
-                pg.goto(url, wait_until="domcontentloaded", timeout=45000)
-                pg.wait_for_timeout(4000)
-                # 1X2:详情页顶部收盘区前 3 个 data-odd(主平客)
-                det_odds = pg.evaluate(
-                    "(()=>{const d=[...document.querySelectorAll('[data-odd]')]"
-                    ".slice(0,3).map(e=>+e.getAttribute('data-odd'));"
-                    "return d.length===3?d:null;})()")
-                # 点「Over/Under」锚点 → 页面自带 token 异步渲染 OU 报价表
-                if pg.evaluate("(()=>!!document.querySelector('a[data-tab=\"ou\"]'))()"):
-                    pg.evaluate("document.querySelector('a[data-tab=\"ou\"]').click()")
-                    pg.wait_for_timeout(4000)
-                    ou = pg.evaluate(f"({JS_OU25})()")
-            except Exception as e:
-                print(f"  详情页失败 {home}-{away}: {str(e)[:50]}")
-            # 1X2 优先概览,其次详情页顶 3 个 data-odd
-            use = odds3 or det_odds
-            if use is None or len(use) != 3:
-                manual.append((home, away, None, None, None, url))
-                print(f"  ✗ {home}-{away}  无 1X2(概览+详情均缺)→ {url}")
+            key = (home, away)
+            if key in seen:
                 continue
-            oh, od, oa = use
-            # 有 1X2 即收集(OU 缺则 ou_over/under 空 → tournament_sim 退模式A,仍用反演λ)
-            if ou:
-                collected.append((home, away, oh, od, oa, ou["over"], ou["under"]))
-                print(f"  ✓ {home}-{away}  1X2 {oh:.2f}/{od:.2f}/{oa:.2f}  OU2.5 {ou['over']}/{ou['under']} (n={ou['n']})")
-            else:
-                collected.append((home, away, oh, od, oa, None, None))
-                manual.append((home, away, oh, od, oa, url))
-                print(f"  △ {home}-{away}  1X2 {oh:.2f}/{od:.2f}/{oa:.2f}  OU 未提取(退模式A,可手补)→ {url}")
-        b.close()
+            odds = []
+            for btn in tr.find_all("button", attrs={"data-odd": True}):
+                try:
+                    odds.append(float(btn["data-odd"]))
+                except (ValueError, KeyError):
+                    continue
+                if len(odds) >= 3:
+                    break
+            if len(odds) >= 3:
+                one_x_two[key] = (odds[0], odds[1], odds[2])
+            seen.add(key)
+    print(f"  概览取得 {len(one_x_two)} 场 1X2")
 
-    print("-" * 60)
-    print(f"  自动获取 OU: {len(collected)} 场   待手补: {len(manual)} 场")
-    if manual:
-        print("  手补格式(ou_wc.csv 追加,ou_over/under 留空则退模式A):")
-        for home, away, oh, od, oa, url in manual:
-            print(f"    2026,,{home},{away},{oh:.2f},{od:.2f},{oa:.2f},2.5,<over>,<under>  # {url}")
+    # ── 阶段 2 (可选):Playwright 详情页 OU 异步抓 ──
+    ou_data = {}   # (home,away) → {over,under,n}
+    if args.with_ou:
+        print(f"  启 Playwright 抓 OU 详情(每场 ~8s,{len(one_x_two)} 场预计 {len(one_x_two)*8//60} 分钟)...")
+        from playwright.sync_api import sync_playwright
+        with sync_playwright() as p:
+            b = p.chromium.launch(headless=True)
+            pg = b.new_page()
+            for (home, away), _ in one_x_two.items():
+                href = None
+                # 反查 href(重新解析一遍 results/fixtures 找该场)
+                for pt in ("results/", "fixtures/"):
+                    try:
+                        r = _req.get(OVERVIEW + pt, headers=headers, timeout=30)
+                        soup = _BS(r.text, "html.parser")
+                        for tr in soup.find_all("tr"):
+                            a = tr.find("a", class_="in-match")
+                            if not a:
+                                continue
+                            spans = a.find_all("span")
+                            if len(spans) < 2:
+                                continue
+                            h2 = co.normalize_team(spans[0].get_text(strip=True))
+                            a2 = co.normalize_team(spans[-1].get_text(strip=True))
+                            if (h2, a2) == (home, away):
+                                href = a.get("href")
+                                break
+                        if href:
+                            break
+                    except Exception:
+                        continue
+                if not href:
+                    continue
+                url = "https://www.betexplorer.com" + href
+                try:
+                    pg.goto(url, wait_until="domcontentloaded", timeout=45000)
+                    pg.wait_for_timeout(4000)
+                    if pg.evaluate("(()=>!!document.querySelector('a[data-tab=\"ou\"]'))()"):
+                        pg.evaluate("document.querySelector('a[data-tab=\"ou\"]').click()")
+                        pg.wait_for_timeout(4000)
+                        ou_data[(home, away)] = pg.evaluate(f"({JS_OU25})()")
+                except Exception as e:
+                    print(f"    ⚠ {home}-{away}: {str(e)[:50]}")
+            b.close()
+        print(f"  OU 抓到 {len(ou_data)} 场")
+
+    # ── 阶段 3:合并 1X2 + OU → merge 写 ou_wc.csv ──
+    collected = []
+    for (home, away), (oh, od, oa) in one_x_two.items():
+        ou = ou_data.get((home, away))
+        if ou:
+            collected.append((home, away, oh, od, oa, ou["over"], ou["under"]))
+        else:
+            collected.append((home, away, oh, od, oa, None, None))
+    print(f"  待写入 {len(collected)} 场 (OU 字段留空 {sum(1 for c in collected if c[5] is None)} 场 → 模式A)")
+
     if args.dry:
-        print("  --dry,不写 ou_wc.csv")
+        for home, away, oh, od, oa, oov, ou in collected[:5]:
+            print(f"    [示例] {home} vs {away}  {oh:.2f}/{od:.2f}/{oa:.2f}  "
+                  f"OU={oov}/{ou}")
+        print(f"  --dry,不写 ou_wc.csv")
         return
+
     if collected:
-        added, kept = merge_ou(collected)
-        print(f"✓ ou_wc.csv:写入 {added} 场(含 OU),文件共 {added+kept} 场")
-        print("  mode B 现已可用:monte_carlo 自载 ou_wc.csv → 这几场用 OU 约束反演(更准)。")
+        added, updated, total = merge_ou(collected)
+        print(f"✓ ou_wc.csv:新增 {added} 场,更新 {updated} 场,文件共 {total} 场")
     else:
-        print("  无自动 OU 产出,ou_wc.csv 未改(模式A 仍生效)。")
+        print("  无数据可写,ou_wc.csv 未改")
 
 
 if __name__ == "__main__":

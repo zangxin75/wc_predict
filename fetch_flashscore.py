@@ -1,16 +1,24 @@
 """fetch_flashscore.py — 从 Flashscore 抓 2026 世界杯 1X2 + Over/Under 赔率。
 
-机制:
+⚠️ 2026-06-19 标 deprecated:
+  Flashscore 是纯 React SPA,概览页静态 HTML 零数据(全部由 GraphQL 异步加载)。
+  原方案尝试 Playwright + wait_for_selector("a.event__match") 失败(选择器可能也变了),
+  且每场详情页 SPA 渲染 ~10s,慢 5 倍以上。
+
+  同期 fetch_wc2026_odds.py 已重写为 requests+BS4,静态 HTML 即可拿到 1X2;
+  fetch_wc2026_ou.py 用 Playwright 抓详情页 OU 异步表(选择器 a[data-tab="ou"] 仍有效)。
+  故本脚本当前不再走 update_odds.sh。代码保留以备 BetExplorer 全面失效时切换。
+
+  真正要恢复 Flashscore 抓取,需要:
+  1. 调研 GraphQL 端点(https://2.ds.lsapp.eu/pq_graphql?)直接 POST 拿 JSON
+  2. 或用 playwright + 更激进的等待(networkidle + 长 timeout)
+  3. 或换 OddsPortal(类似 BetExplorer 但 DOM 可能更稳定)
+
+机制(2026-06-19 之前的旧版):
   1. Playwright 渲染 Flashscore WC2026 fixtures/results 页
   2. 提取比赛详情链接,同步解析队名、比分
   3. 逐场访问详情页(必须 SPA 渲染后才能提取)
   4. 写 odds_wc.csv + ou_wc.csv
-
-注意:
-  - Flashscore 是 SPA,概览页 match <a> 用 a[href*="/match/football/"]
-  - 详情页 1X2 赔率在 .odds 元素 (第一组即主赔率)
-  - OU 需要点 ODDS tab → OVER/UNDER tab,等 ~10s 加载
-  - Live 比赛的赔率是在play赔率,非收盘价
 """
 import argparse
 import csv
@@ -192,12 +200,18 @@ def extract_ou_from_detail(pg):
 
 
 def merge_1x2(rows):
-    """rows: [(home,away,score,oh,od,oa)] → merge 进 odds_wc.csv。"""
+    """rows: [(home,away,score,oh,od,oa)] → merge 进 odds_wc.csv。
+
+    保留已有 2026 行作为 fallback(博彩方比赛结束后撤盘,重跑脚本时
+    无赔率返回会导致历史盘口被清空)。
+    """
     by_key = {}
     if os.path.exists(ODDS_CSV):
         with open(ODDS_CSV, newline="", encoding="utf-8") as f:
             for r in csv.DictReader(f):
                 by_key[(r["year"], r["home"], r["away"])] = r
+    # 保留已有 2026 行(防止"全量替换"清掉已结束比赛的盘口)
+    preserved = {k: v for k, v in by_key.items() if k[0] == "2026"}
     merged = {k: v for k, v in by_key.items() if k[0] != "2026"}
     added = 0
     for home, away, score, oh, od, oa in rows:
@@ -207,6 +221,12 @@ def merge_1x2(rows):
             "odds_a": f"{oa:.2f}",
         }
         added += 1
+    # 本次未抓到但之前已有的 2026 行 → 保留(已结束比赛撤盘后仍可用作回测)
+    kept = 0
+    for k, v in preserved.items():
+        if k not in merged:
+            merged[k] = v
+            kept += 1
     fields = ["year", "date", "home", "away", "score", "odds_h", "odds_d", "odds_a"]
     all_rows = sorted(merged.values(), key=lambda m: (str(m["year"]), m["home"], m["away"]))
     with open(ODDS_CSV, "w", newline="", encoding="utf-8") as f:
@@ -214,17 +234,23 @@ def merge_1x2(rows):
         w.writeheader()
         for r in all_rows:
             w.writerow({fn: r.get(fn, "") for fn in fields})
-    kept = len(all_rows) - added
-    return added, kept
+    kept_other = len(all_rows) - added
+    return added, kept_other
 
 
 def merge_ou(rows):
-    """rows: [(home,away,oh,od,oa,ou_over,ou_under)] → merge 进 ou_wc.csv。"""
+    """rows: [(home,away,oh,od,oa,ou_over,ou_under)] → merge 进 ou_wc.csv。
+
+    保留已有 2026 行作为 fallback(已结束比赛 OU 盘会撤,重跑时
+    无 OU 返回会清空历史盘口,影响回测)。
+    """
     by_key = {}
     if os.path.exists(OU_CSV):
         with open(OU_CSV, newline="", encoding="utf-8") as f:
             for r in csv.DictReader(f):
                 by_key[(r["year"], r["home"], r["away"])] = r
+    # 保留已有 2026 行(防止"全量替换"清掉已结束比赛的盘口)
+    preserved = {k: v for k, v in by_key.items() if k[0] == "2026"}
     merged = {k: v for k, v in by_key.items() if k[0] != "2026"}
     added = 0
     for home, away, oh, od, oa, oov, ou in rows:
@@ -235,6 +261,12 @@ def merge_ou(rows):
             "ou_under": f"{ou:.2f}" if ou else "",
         }
         added += 1
+    # 本次未抓到但之前已有的 2026 行 → 保留(已结束比赛撤盘后仍可用作回测)
+    kept = 0
+    for k, v in preserved.items():
+        if k not in merged:
+            merged[k] = v
+            kept += 1
     fields = ["year", "date", "home", "away", "odds_h", "odds_d", "odds_a",
               "ou_line", "ou_over", "ou_under"]
     all_rows = sorted(merged.values(), key=lambda m: (str(m["year"]), m["home"], m["away"]))
@@ -243,8 +275,8 @@ def merge_ou(rows):
         w.writeheader()
         for r in all_rows:
             w.writerow({fn: r.get(fn, "") for fn in fields})
-    kept = len(all_rows) - added
-    return added, kept
+    kept_other = len(all_rows) - added
+    return added, kept_other
 
 
 def main():
