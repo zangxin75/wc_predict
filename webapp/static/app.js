@@ -130,7 +130,7 @@ function bindUpgradeModal() {
   }
 }
 
-function openUpgrade() {
+async function openUpgrade() {
   const modal = $('upgradeModal');
   const scrim = $('upgradeScrim');
   if (modal) {
@@ -142,22 +142,33 @@ function openUpgrade() {
   if (s) s.hidden = true;
   const e = $('upgradeError');
   if (e) e.hidden = true;
-  // 确保弹窗文案跟随当前语言
-  if (window.I18N) {
-    const curLang = I18N.current || '?';
-    const titleEl = $('upgradeTitle');
-    if (titleEl) titleEl.textContent = '[' + curLang + '] ' + I18N.t('sub.upgrade_title');
-    const descEl = document.querySelector('.upgrade-desc');
-    if (descEl) descEl.textContent = I18N.t('sub.upgrade_desc');
-    const planNameEls = document.querySelectorAll('.plan-name');
-    const planActionEls = document.querySelectorAll('.plan-action');
-    if (planNameEls[0]) planNameEls[0].textContent = I18N.t('sub.monthly');
-    if (planNameEls[1]) planNameEls[1].textContent = I18N.t('sub.tournament');
-    if (planActionEls[0]) planActionEls[0].textContent = I18N.t('sub.pay_monthly');
-    if (planActionEls[1]) planActionEls[1].textContent = I18N.t('sub.pay_tournament');
+  // 加载当前语言的翻译并应用到弹窗
+  const lang = (window.I18N && I18N.current) || 'en';
+  const ok = await fetchI18nAndShow(lang);
+  if (!ok) {  // fallback: 试试英语
+    await fetchI18nAndShow('en');
   }
   const emailInput = $('upgradeEmail');
   if (emailInput) { if (userEmail) emailInput.value = userEmail; requestAnimationFrame(() => emailInput.focus()); }
+}
+
+async function fetchI18nAndShow(locale) {
+  try {
+    const r = await fetch('static/i18n/' + locale + '.json');
+    if (!r.ok) return false;
+    const dict = await r.json();
+    const titleEl = $('upgradeTitle');
+    if (titleEl) titleEl.textContent = dict['sub.upgrade_title'] || 'Support the Project';
+    const descEl = document.querySelector('.upgrade-desc');
+    if (descEl) descEl.textContent = dict['sub.upgrade_desc'] || '';
+    const planNameEls = document.querySelectorAll('.plan-name');
+    const planActionEls = document.querySelectorAll('.plan-action');
+    if (planNameEls[0]) planNameEls[0].textContent = dict['sub.monthly'] || '';
+    if (planNameEls[1]) planNameEls[1].textContent = dict['sub.tournament'] || '';
+    if (planActionEls[0]) planActionEls[0].textContent = dict['sub.pay_monthly'] || '';
+    if (planActionEls[1]) planActionEls[1].textContent = dict['sub.pay_tournament'] || '';
+    return true;
+  } catch { return false; }
 }
 
 function closeUpgrade() {
