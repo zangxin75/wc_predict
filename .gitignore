@@ -61,3 +61,6 @@ webapp/paid_users.json
 
 # 运行时邀请码池(已用/未用,含 used_by 邮箱)
 webapp/invite_codes.json
+
+# 运行时活跃 session 记录(单 session 限制方案 D)
+webapp/active_sessions.json

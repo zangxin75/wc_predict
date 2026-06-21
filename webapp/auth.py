@@ -26,7 +26,10 @@
     (启动时会发警告, 强烈建议生产环境显式设置)
 """
 import hashlib
+import json
 import os
+import secrets
+import threading
 import time
 import warnings
 from typing import Optional
@@ -69,18 +72,51 @@ SESSION_SECRET = _resolve_secret()
 SESSION_MAX_AGE = 30 * 24 * 3600   # 30 天
 COOKIE_NAME = "wcpredict_session"
 
+# 单 session 限制:每账号同时只允许 1 个活跃 session(方案 D)
+# 存储:active_sessions.json = {email: jti}
+# 登录时:jti 覆盖旧记录 → 旧 session 自动失效
+# get_current_user:比对 session.jti vs active_sessions[email],不匹配视为未登录
+ACTIVE_SESSIONS_PATH = os.path.join(os.path.dirname(__file__), "active_sessions.json")
+_sessions_lock = threading.Lock()
+
+
+def _load_active_sessions() -> dict:
+    try:
+        with open(ACTIVE_SESSIONS_PATH) as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+
+def _save_active_sessions(data: dict) -> None:
+    tmp = ACTIVE_SESSIONS_PATH + ".tmp"
+    with open(tmp, "w") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+    os.replace(tmp, ACTIVE_SESSIONS_PATH)
+
 
 def get_current_user(request: Request) -> Optional[str]:
     """从 session cookie 取当前用户 email。
 
     返回 None 表示未登录。优先 cookie, 后备读取 x_user_email query 参数
     (向后兼容, 命中时打 DeprecationWarning)。
+
+    单 session 限制:session.jti 必须匹配 active_sessions[email] 的最新值,
+    否则视为被踢(返回 None)。
     """
     # 1) 优先从 session middleware 取
     sess = getattr(request, "session", None) or {}
     email = sess.get("email")
+    jti = sess.get("jti")
     if email:
-        return str(email).strip().lower()
+        email = str(email).strip().lower()
+        # 单 session 校验:jti 必须匹配最新登录
+        if jti:
+            with _sessions_lock:
+                active = _load_active_sessions()
+                if active.get(email) != jti:
+                    return None  # 旧 session,已被新登录踢掉
+        return email
 
     # 2) 向后兼容: x_user_email 查询参数 (会打警告)
     legacy = request.query_params.get("x_user_email")
@@ -107,11 +143,34 @@ def require_user(request: Request) -> str:
 
 
 def set_session_user(request: Request, email: str) -> None:
-    """写入 session["email"]。Set-Cookie 由 SessionMiddleware 自动下发。"""
-    request.session["email"] = email.strip().lower()
+    """写入 session["email"] + 生成新 jti,覆盖该 email 的旧 session(单 session 限制)。
+
+    Set-Cookie 由 SessionMiddleware 自动下发。
+    """
+    email = email.strip().lower()
+    jti = secrets.token_hex(16)
+    request.session["email"] = email
+    request.session["jti"] = jti
     request.session["iat"] = int(time.time())
+    with _sessions_lock:
+        active = _load_active_sessions()
+        active[email] = jti  # 覆盖 → 旧 session 自动失效
+        _save_active_sessions(active)
 
 
 def clear_session(request: Request) -> None:
-    """清空 session(登出)。"""
+    """清空 session(登出)。
+
+    同时从 active_sessions 移除该 email(若 jti 匹配,避免新登录的 session 被误删)。
+    """
+    sess = getattr(request, "session", None) or {}
+    email = sess.get("email")
+    jti = sess.get("jti")
+    if email and jti:
+        with _sessions_lock:
+            active = _load_active_sessions()
+            # 只在 jti 仍是最新时才删除(避免登出旧设备,把新登录也踢了)
+            if active.get(email) == jti:
+                active.pop(email, None)
+                _save_active_sessions(active)
     request.session.clear()
