@@ -148,21 +148,27 @@ def split_live_schedule(records):
 
 
 def write_csvs(live, sched):
-    """写 wc2026_live.csv(9 列)+ wc2026_schedule.csv。"""
+    """写 wc2026_live.csv(9 列)+ wc2026_schedule.csv。
+
+    已打比赛同时写入 schedule(带比分) — 前端 schedule 视图需要这些数据
+    才能渲染"历史战绩"折叠区。LIVE 仍保留以兼容 update_live.py 回写 results.csv。
+    """
     with open(LIVE_OUT, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(LIVE_HEADER)
         for r in live:
             w.writerow([r["date"], r["home"], r["away"], r["hs"], r["as_"],
                         r["tournament"], r["city"], r["country"], "TRUE"])
+    # schedule 同时包含未赛 + 已赛(已赛带比分,前端会按 status='finished' 渲染折叠区)
     with open(SCHED_OUT, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(SCHED_HEADER)
-        for r in sched:
-            hs = r["hs"] if (r.get("completed") and r["hs"] is not None) else ""
-            as_ = r["as_"] if (r.get("completed") and r["as_"] is not None) else ""
+        for r in sched + live:   # live 紧跟 sched — 顺序不影响渲染(前端按日期分组)
+            is_done = r.get("completed") and r["hs"] is not None and r["as_"] is not None
+            hs = str(r["hs"]) if is_done else ""
+            as_ = str(r["as_"]) if is_done else ""
             w.writerow([r["date"], r["home"], r["away"],
-                        r["group"], r["stage"], r["city"],
+                        r.get("group", ""), r.get("stage", ""), r.get("city", ""),
                         r.get("kickoff_utc", ""), hs, as_])
 
 
