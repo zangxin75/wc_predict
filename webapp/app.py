@@ -429,24 +429,23 @@ def get_backtest(request: Request):
     return _backtest_cache
 
 
-# ── Stripe 订阅 ────────────────────────────────────────
+# ── Stripe 一次性付费(按场次动态定价)────────────────────
 @app.post("/api/create-checkout-session")
 @limiter.limit("10/minute")
-def create_checkout(request: Request, email: str = Query(...), price_id: str = Query(...),
+def create_checkout(request: Request, email: str = Query(...),
                      origin: str = Query(default="http://localhost:8000"),
                      locale: str = Query(default="auto", description="语言代码,如 zh-CN/es/pt/ar/fr/en"),
-                     remaining_count: int = Query(default=0, ge=0, description="按场次计费:当前剩余场次")):
+                     remaining_count: int = Query(..., gt=0, description="按场次计费:当前剩余场次,必须 > 0")):
     """创建 Stripe Checkout Session,返回支付 URL。
 
-    locale 映射到 Stripe 支持的 Checkout 语言,使支付页面与前端语言一致。
-    remaining_count > 0 时,price_tournament 走 price_data 内嵌动态定价(按场次)。
+    amount = remaining_count × 单价(locale 决定币种:中文区 CNY,其他 USD)。
+    locale 映射到 Stripe 支持的 Checkout 语言。
     """
     if not payments.STRIPE_SECRET_KEY:
         raise HTTPException(503, "Stripe not configured")
     try:
         url = payments.create_checkout_session(
-            email, price_id, origin, locale=locale,
-            remaining_count=remaining_count if remaining_count > 0 else None,
+            email, origin, locale=locale, remaining_count=remaining_count,
         )
         return {"url": url}
     except Exception as e:

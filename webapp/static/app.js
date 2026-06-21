@@ -588,15 +588,19 @@ async function handleCheckout(plan) {
   }
   try { localStorage.setItem('wc_email', email); } catch {}
   userEmail = email;
-  const priceIdMap = { tournament: 'price_tournament' };
   const base = window.location.origin + window.location.pathname.replace(/\/$/, '');
   const origin = base;
   const locale = (typeof I18N !== 'undefined' && I18N.current) || 'auto';
   const remaining = _currentPricing?.remaining_matches || 0;
+  if (remaining <= 0) {
+    const e = $('upgradeError');
+    if (e) { e.hidden = false; e.textContent = t('sub.checkout_error') + ' no remaining matches'; }
+    return;
+  }
   const btn = $('planTournament');
   if (btn) btn.disabled = true;
   try {
-    const url = `api/create-checkout-session?email=${encodeURIComponent(email)}&price_id=${priceIdMap[plan] || 'price_tournament'}&origin=${encodeURIComponent(origin)}&locale=${encodeURIComponent(locale)}&remaining_count=${remaining}`;
+    const url = `api/create-checkout-session?email=${encodeURIComponent(email)}&origin=${encodeURIComponent(origin)}&locale=${encodeURIComponent(locale)}&remaining_count=${remaining}`;
     const r = await fetch(url, { method: 'POST' });
     if (!r.ok) throw new Error(await r.text());
     const data = await r.json();

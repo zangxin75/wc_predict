@@ -1,12 +1,12 @@
-"""payments.py — Stripe 订阅集成
+"""payments.py — Stripe 一次性付费集成(按场次动态定价)
 
 环境变量:
   STRIPE_SECRET_KEY          sk_live_xxx
-  STRIPE_PUBLISHABLE_KEY     pk_live_xxx
-  STRIPE_PRICE_MONTHLY       price_xxx ($5/month)
-  STRIPE_PRICE_TOURNAMENT    price_xxx ($12 full tournament)
+  STRIPE_PUBLISHABLE_KEY     pk_live_xxx(备用,前端暂未用 Stripe.js)
   STRIPE_WEBHOOK_SECRET      whsec_xxx
 
+收费模式:剩余场次数 × 单价(中文区 ¥2/场,其他 $0.28/场)。
+Stripe 端用 price_data 内嵌动态构造 line_items,无需预创建 Price。
 数据存储: paid_users.json (email → {active, subscription_id, plan, created})
 """
 
@@ -45,8 +45,6 @@ _invite_lock = threading.Lock()  # 并发安全:同一时刻只有一个 redeem 
 
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
 STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "")
-PRICE_MONTHLY = os.environ.get("STRIPE_PRICE_MONTHLY", "")
-PRICE_TOURNAMENT = os.environ.get("STRIPE_PRICE_TOURNAMENT", "")
 WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
 
 # 前端 locale → Stripe Checkout locale 映射
@@ -63,22 +61,7 @@ LOCALE_MAP = {
     "ar": "auto",
 }
 
-# 前端 placeholder → (price_id, mode) 映射
-# monthly: subscription 模式; tournament: 一次性 payment 模式
-PRICE_MAP = {
-    "price_monthly": (PRICE_MONTHLY, "subscription"),
-    "price_tournament": (PRICE_TOURNAMENT, "payment"),
-}
-
 stripe.api_key = STRIPE_SECRET_KEY
-
-
-def resolve_price(key: str) -> tuple[str, str]:
-    """解析前端 placeholder → (price_id, mode)。"""
-    v = PRICE_MAP.get(key)
-    if v:
-        return v
-    return (key, "subscription")
 
 
 def _load_users() -> dict:
@@ -101,17 +84,18 @@ def _save_users(users: dict) -> None:
     _atomic_write_json(PAID_USERS_PATH, users)
 
 
-def create_checkout_session(email: str, price_id: str, origin: str, locale: str = "auto",
-                            remaining_count: int | None = None) -> str:
-    """创建 Stripe Checkout Session,返回支付链接。
+def create_checkout_session(email: str, origin: str, locale: str = "auto",
+                            remaining_count: int = 0) -> str:
+    """创建 Stripe Checkout Session(按场次动态定价),返回支付链接。
 
-    price_id 为前端 placeholder(price_monthly/price_tournament)。
-    mode 自动选择: monthly→subscription, tournament→payment(一次性)。
+    mode 固定为 payment(一次性);amount = remaining_count × unit_price(locale 决定币种)。
+    Stripe 端用 price_data 内嵌,不需要预创建 Price 对象。
+
     locale: 前端语言代码(如 zh-CN),映射为 Stripe 支持的语言。
-
-    remaining_count: 按场次计费模式下,当前剩余未赛场次。后端会用 remaining × PRICE_PER_MATCH
-    动态构造 line_items(price_data 内嵌,不依赖预设 price)。传 None 时回退到原 PRICE_TOURNAMENT。
+    remaining_count: 必填,当前剩余未赛场次(<=0 抛 ValueError)。
     """
+    if remaining_count <= 0:
+        raise ValueError("remaining_count must be > 0")
     stripe_locale = LOCALE_MAP.get(locale, "auto")
     # F-02: success_url 带上 CHECKOUT_SESSION_ID 占位符,Stripe 会在跳转时
     # 自动替换为真实的 cs_xxx,前端拿这个 id 调 /api/claim-session 兑换 session cookie
@@ -119,32 +103,22 @@ def create_checkout_session(email: str, price_id: str, origin: str, locale: str 
     cancel_url = origin.rstrip("/") + "/"
     common = {"customer_email": email, "success_url": success_url, "cancel_url": cancel_url,
               "metadata": {"email": email}, "locale": stripe_locale}
-    if price_id == "price_tournament" and remaining_count is not None and remaining_count > 0:
-        # 按场次动态定价:price_data 内嵌,mode=payment(一次性)。
-        unit, currency = unit_price_for_locale(locale)
-        amount_minor = max(50, int(round(remaining_count * unit * 100)))
-        return stripe.checkout.Session.create(
-            mode="payment",
-            line_items=[{
-                "price_data": {
-                    "currency": currency.lower(),
-                    "unit_amount": amount_minor,
-                    "product_data": {
-                        "name": f"WC2026 Pro · {remaining_count} matches × {currency_symbol(currency)}{unit:.2f}/match",
-                    },
+    unit, currency = unit_price_for_locale(locale)
+    amount_minor = max(50, int(round(remaining_count * unit * 100)))
+    return stripe.checkout.Session.create(
+        mode="payment",
+        line_items=[{
+            "price_data": {
+                "currency": currency.lower(),
+                "unit_amount": amount_minor,
+                "product_data": {
+                    "name": f"WC2026 Pro · {remaining_count} matches × {currency_symbol(currency)}{unit:.2f}/match",
                 },
-                "quantity": 1,
-            }],
-            **common,
-        ).url
-    # 回退路径:用预设 price_id(monthly 或 tournament 默认价)
-    resolved, mode = resolve_price(price_id)
-    session = stripe.checkout.Session.create(
-        mode=mode,
-        line_items=[{"price": resolved, "quantity": 1}],
+            },
+            "quantity": 1,
+        }],
         **common,
-    )
-    return session.url
+    ).url
 
 
 def is_paid(email: str | None, users: dict | None = None) -> bool:

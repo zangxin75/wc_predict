@@ -92,8 +92,6 @@ if [ ! -f ".env" ]; then
 # 测试密钥(用 4242 4242 4242 4242 测试卡):
 STRIPE_SECRET_KEY=sk_test_YOUR_KEY_HERE
 STRIPE_PUBLISHABLE_KEY=pk_test_YOUR_KEY_HERE
-STRIPE_PRICE_MONTHLY=price_YOUR_MONTHLY_ID
-STRIPE_PRICE_TOURNAMENT=price_YOUR_TOURNAMENT_ID
 STRIPE_WEBHOOK_SECRET=whsec_YOUR_WEBHOOK_SECRET
 ENVEOF
   info ".env 文件已创建(测试密钥),正式上线前请替换为 live 密钥!"
@@ -207,6 +205,5 @@ if grep -q "sk_test" .env 2>/dev/null; then
   echo "  正式上线前请替换 .env 中的密钥为 Stripe live 密钥:"
   echo "  - STRIPE_SECRET_KEY=sk_live_xxx"
   echo "  - STRIPE_PUBLISHABLE_KEY=pk_live_xxx"
-  echo "  - STRIPE_PRICE_MONTHLY 和 STRIPE_PRICE_TOURNAMENT 在 Dashboard 重新创建"
   echo "  - 重新配置 Webhook Endpoint(https)"
 fi
