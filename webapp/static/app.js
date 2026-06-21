@@ -1496,6 +1496,26 @@ async function poll() {
       cache.groups = await getJSON('api/groups');
       renderGroups();
     }
+    // 单 session 被踢检测:每次 poll 顺带查 whoami,发现 isPaid 变 false 立即重渲
+    try {
+      const me = await getJSON('api/whoami');
+      const newPaid = !!me.is_paid;
+      if (newPaid !== isPaid) {
+        isPaid = newPaid;
+        const proBtn = $('proBtn');
+        const proBadge = $('proBadge');
+        if (isPaid) {
+          if (proBtn) proBtn.hidden = true;
+          if (proBadge) proBadge.hidden = false;
+        } else {
+          if (proBtn) proBtn.hidden = false;
+          if (proBadge) proBadge.hidden = true;
+          renderSchedule();
+          renderMarket();
+          renderValue();
+        }
+      }
+    } catch {}
   } catch (e) {
     console.warn('poll 失败(保留旧数据):', e);
     const lbl = $('statusLabel'); lbl.textContent = t('status.disconnected');
