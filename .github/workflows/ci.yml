@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Smoke import (webapp.app must be loadable without .env)
+        env:
+          # CI must NOT use real Stripe keys. Provide stubs so module
+          # import succeeds without touching live services.
+          STRIPE_SECRET_KEY: sk_test_ci_stub
+          STRIPE_PUBLISHABLE_KEY: pk_test_ci_stub
+          STRIPE_WEBHOOK_SECRET: whsec_ci_stub
+          GLM_API_KEY: ci_stub
+          LITELLM_MASTER_KEY: sk-litellm-ci
+          SESSION_SECRET: ci_only_insecure_stub_secret_do_not_use_in_prod_0123456789abcdef
+        run: |
+          python -c "from webapp.app import app; print('webapp import OK:', app.title)"
+
+      - name: Run tests
+        env:
+          STRIPE_SECRET_KEY: sk_test_ci_stub
+          STRIPE_PUBLISHABLE_KEY: pk_test_ci_stub
+          STRIPE_WEBHOOK_SECRET: whsec_ci_stub
+          GLM_API_KEY: ci_stub
+          LITELLM_MASTER_KEY: sk-litellm-ci
+          SESSION_SECRET: ci_only_insecure_stub_secret_do_not_use_in_prod_0123456789abcdef
+        run: |
+          python -m pytest tests/ -q

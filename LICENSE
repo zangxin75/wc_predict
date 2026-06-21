@@ -1,0 +1,26 @@
+PROPRIETARY LICENSE — ALL RIGHTS RESERVED
+
+Copyright (c) 2026 zangxin75
+
+This software and its associated documentation files (the "Software") are
+proprietary and confidential. Unauthorized use, reproduction, modification,
+merging, publication, distribution, sublicensing, and/or selling of the
+Software, in whole or in part, via any medium, is strictly prohibited
+without the prior express written consent of the copyright holder.
+
+The Software contains:
+  - Real-money payment processing logic (Stripe LIVE mode)
+  - Personally Identifiable Information (PII) handling for paid users
+  - Proprietary prediction models and trained parameters
+
+NO LICENSE IS GRANTED TO USE, COPY, OR REDISTRIBUTE THIS SOFTWARE BEYOND
+THE EXPLICIT PERMISSION OF THE COPYRIGHT HOLDER.
+
+For licensing inquiries, contact: zangxin75 (https://github.com/zangxin75)
+
+---
+
+This license applies to all source code, configuration, models, and
+documentation contained in this repository unless otherwise stated in
+specific files. Where a file carries its own license header or notice,
+that file's license takes precedence within the scope of that file only.

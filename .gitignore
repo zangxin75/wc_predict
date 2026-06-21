@@ -64,3 +64,6 @@ webapp/invite_codes.json
 
 # 运行时活跃 session 记录(单 session 限制方案 D)
 webapp/active_sessions.json
+
+# 一次性扫描产物(可由 scan_arbitrage.py 重新生成)
+scan_arbitrage_*.json

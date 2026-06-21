@@ -1,0 +1,73 @@
+# Docker build exclusions — keep image small and secret-free.
+# Mirrors .gitignore patterns relevant to image builds.
+
+# Python bytecode & caches
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Virtualenvs (mount at runtime, do not bake)
+.venv/
+venv/
+
+# Version control
+.git/
+.gitignore
+
+# CI / IDE / editor
+.github/
+.vscode/
+.idea/
+.claude/
+.omc/
+
+# Documentation (not needed in runtime image)
+docs/
+README.md
+CLAUDE.md
+CHANGELOG.md
+CONTRIBUTING.md
+LICENSE
+数据获取指南.md
+
+# Tests (run in CI, not in production container)
+tests/
+
+# Secrets — NEVER bake into image
+.env
+.env.example
+
+# Runtime data with PII — mount from persistent volume, never bake
+webapp/paid_users.json
+webapp/invite_codes.json
+webapp/active_sessions.json
+webapp/data/cache.json
+
+# Scraped / fetched data — regenerate via fetch_wc2026.py on first run
+.wc2026_cache.json
+wc2026_schedule.csv
+wc2026_live.csv
+odds_wc.csv
+ou_wc.csv
+
+# Translation caches (regenerate on demand)
+data/i18n_cache/
+data/match_i18n_cache/
+
+# Logs & backups
+*.log
+*.bak
+
+# One-shot scan artifacts
+scan_arbitrage_*.json
+
+# Local dev scratch
+_*.py
+_*.html
+_*.csv
+webapp/_verify*.py
+webapp/_mobile_probe.py
+webapp/_shot.py
+webapp/_shots/
+webapp/_taste_skill_tmp.md
