@@ -579,6 +579,25 @@ def claim_session(request: Request, session_id: str = Query(..., description="St
     return {"ok": True, "email": email, "is_paid": payments.is_paid(email)}
 
 
+@app.post("/api/email-login")
+@limiter.limit("10/minute")
+def email_login(request: Request, email: str = Query(..., description="已 Pro 用户邮箱")):
+    """已 Pro 用户跨设备恢复登录:输入 email,服务端验证 is_paid → 发 session cookie。
+
+    场景:邀请码 Pro 用户在第二台设备(手机)恢复访问,无邀请码可用。
+
+    安全:无密码 — 任何人输入已知 Pro 邮箱即解锁。Pro 状态只解锁看赔率,
+    不涉及支付/PII,风险可控。非 Pro 邮箱返回 404(避免反向枚举)。
+    """
+    email = (email or "").strip().lower()
+    if not email or "@" not in email:
+        raise HTTPException(400, "invalid_email")
+    if not payments.is_paid(email):
+        raise HTTPException(404, "email_not_pro")
+    auth.set_session_user(request, email)
+    return {"ok": True, "email": email, "is_paid": True}
+
+
 @app.post("/api/logout")
 @limiter.limit("30/minute")
 def logout(request: Request):

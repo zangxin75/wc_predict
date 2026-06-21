@@ -142,6 +142,7 @@ function bindUpgradeModal() {
   $('upgradeScrim')?.addEventListener('click', closeUpgrade);
   $('planTournament')?.addEventListener('click', () => handleCheckout('tournament'));
   $('redeemInviteBtn')?.addEventListener('click', handleRedeemInviteOrToggleShare);
+  $('emailLoginBtn')?.addEventListener('click', handleEmailLogin);
   // 场次明细 折叠/展开
   $('matchListToggle')?.addEventListener('click', () => {
     const list = $('matchList');
@@ -655,6 +656,51 @@ async function handleRedeemInvite() {
       if (planName) planName.textContent = t('sub.invite_label');
       if (planAction) planAction.textContent = t('sub.invite_action');
       // 刷掉付费墙:数据来源 / 价值下注 / 抽屉
+      document.querySelectorAll('.pro-gate-drawer').forEach(d => d.remove());
+      renderProGate();
+      renderMarket();
+      renderValue();
+      renderStatus();
+    }, 1200);
+  } catch (err) {
+    if (errEl) { errEl.hidden = false; errEl.textContent = err.message; }
+    if (btn) btn.disabled = false;
+  }
+}
+
+async function handleEmailLogin() {
+  const email = $('upgradeEmail')?.value.trim() || userEmail;
+  const errEl = $('upgradeError');
+  if (!email || !email.includes('@')) {
+    if (errEl) { errEl.hidden = false; errEl.textContent = t('sub.invite_need_email'); }
+    return;
+  }
+  const btn = $('emailLoginBtn');
+  if (btn) btn.disabled = true;
+  try {
+    const r = await fetch(`api/email-login?email=${encodeURIComponent(email)}`, { method: 'POST' });
+    let data;
+    try { data = await r.json(); } catch { data = {}; }
+    if (!r.ok || !data.ok) {
+      const errKey = ({
+        invalid_email: 'sub.invite_invalid_email',
+        email_not_pro: 'sub.email_login_not_pro',
+      })[data.detail] || 'sub.email_login_error';
+      throw new Error(t(errKey));
+    }
+    userEmail = data.email || email;
+    try { localStorage.setItem('wc_email', userEmail); } catch {}
+    isPaid = true;
+    const s = $('upgradeStatus');
+    if (s) { s.hidden = false; s.textContent = t('sub.email_login_success'); s.className = 'upgrade-status ok'; }
+    if (btn) btn.textContent = t('sub.email_login_success');
+    setTimeout(() => {
+      closeUpgrade();
+      if (btn) { btn.disabled = false; btn.textContent = ''; }
+      const planAction = btn?.querySelector('.plan-action');
+      const planName = btn?.querySelector('.plan-name');
+      if (planName) planName.textContent = t('sub.email_login_label');
+      if (planAction) planAction.textContent = t('sub.email_login_action');
       document.querySelectorAll('.pro-gate-drawer').forEach(d => d.remove());
       renderProGate();
       renderMarket();
