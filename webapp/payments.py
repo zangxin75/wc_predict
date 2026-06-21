@@ -5,7 +5,7 @@
   STRIPE_PUBLISHABLE_KEY     pk_live_xxx(备用,前端暂未用 Stripe.js)
   STRIPE_WEBHOOK_SECRET      whsec_xxx
 
-收费模式:剩余场次数 × 单价(中文区 ¥2/场,其他 $0.28/场)。
+收费模式:剩余场次数 × 单价(中文区 ¥3/场,其他 $0.42/场)。
 Stripe 端用 price_data 内嵌动态构造 line_items,无需预创建 Price。
 数据存储: paid_users.json (email → {active, subscription_id, plan, created})
 """
@@ -22,19 +22,20 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PAID_USERS_PATH = os.path.join(HERE, "paid_users.json")
 INVITE_CODES_PATH = os.path.join(HERE, "invite_codes.json")
 
-# 按场次计费:基础单价 ¥2 人民币/场(可由环境变量覆盖)。
+# 按场次计费:基础单价 ¥3 人民币/场(可由环境变量覆盖)。
 # 非中文区按 CNY_TO_USD 汇率折算为 USD 显示和收款。
-PRICE_PER_MATCH_CNY = float(os.environ.get("PRICE_PER_MATCH_CNY", "2.0"))
+# 单价 ≥ ¥3 是为了满足 Stripe live 模式 $0.40 USD 最小金额限制(¥2×1≈$0.28 不够)。
+PRICE_PER_MATCH_CNY = float(os.environ.get("PRICE_PER_MATCH_CNY", "3.0"))
 CNY_TO_USD = float(os.environ.get("CNY_TO_USD", "0.14"))
 PRICE_PER_MATCH_USD = round(PRICE_PER_MATCH_CNY * CNY_TO_USD, 2)
 
 
 def unit_price_for_locale(locale: str | None) -> tuple[float, str]:
     """根据 locale 返回 (unit_price, currency)。
-    中文区(以 zh 开头)用 CNY,其他用 USD。
+
+    统一用 USD 收款 — Stripe live 模式下 CNY 最小金额限制严格
+    (¥3 折算后仍被拒),USD $0.42 可通过。中文区汇率由用户信用卡网络处理。
     """
-    if locale and locale.lower().startswith("zh"):
-        return (PRICE_PER_MATCH_CNY, "CNY")
     return (PRICE_PER_MATCH_USD, "USD")
 
 
