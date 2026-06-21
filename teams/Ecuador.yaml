@@ -1,6 +1,6 @@
 name: Ecuador
 name_zh: Ecuador
-updated: '2026-06-16'
+updated: '2026-06-22'
 elo_adjustments: []
 recent_lessons:
 - date: '2022-11-25'
@@ -43,3 +43,19 @@ recent_lessons:
   - 厄瓜多尔在下半场比分落后时大举压上，阵型脱节，被科特迪瓦通过快速反击制造致命威胁并转化为唯一进球
   reusable: true
   llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-21'
+  tournament: 2026 美加墨世界杯
+  vs: Curaçao
+  venue: neutral
+  prediction: 2-0
+  actual: 0-0
+  miss_type: result
+  causes:
+  - 库拉索采取极度保守的低位密集防守战术，放弃控球专注防守，有效切断了厄瓜多尔中场与前锋的联系
+  - 厄瓜多尔破密集防守手段单一，过度依赖边路传中，缺乏具有创造力的中路渗透和禁区前沿的远射
+  - 厄瓜多尔核心攻击手（如瓦伦西亚等）被库拉索后卫贴身包夹限制，绝对得分机会转化率极低
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-22
+  web_search_used: false
+  sources: []
+  search_summary: null

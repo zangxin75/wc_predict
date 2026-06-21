@@ -1,6 +1,6 @@
 name: Turkey
 name_zh: Turkey
-updated: '2026-06-16'
+updated: '2026-06-22'
 elo_adjustments: []
 recent_lessons:
 - date: '2026-06-14'
@@ -16,3 +16,19 @@ recent_lessons:
   - 系统低估了澳大利亚在洲际大赛中的防守韧性与低位防守组织力，成功零封对手。
   reusable: true
   llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-20'
+  tournament: 2026 美加墨世界杯
+  vs: Paraguay
+  venue: neutral
+  prediction: 2-1
+  actual: 0-1
+  miss_type: result
+  causes:
+  - 土耳其面对南美球队时缺乏破局手段，进攻端陷入阵地战僵局未能取得进球
+  - 巴拉圭展现了极强的战术纪律性，通过低位密集防守成功限制了土耳其的边路进攻
+  - 土耳其防线出现漏洞，巴拉圭通过高效的防守反击打入全场唯一进球
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-22
+  web_search_used: false
+  sources: []
+  search_summary: null
