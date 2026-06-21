@@ -657,6 +657,7 @@ async function handleRedeemInvite() {
       if (planAction) planAction.textContent = t('sub.invite_action');
       // 刷掉付费墙:数据来源 / 价值下注 / 抽屉
       document.querySelectorAll('.pro-gate-drawer').forEach(d => d.remove());
+      renderSchedule();
       renderProGate();
       renderMarket();
       renderValue();
@@ -702,6 +703,7 @@ async function handleEmailLogin() {
       if (planName) planName.textContent = t('sub.email_login_label');
       if (planAction) planAction.textContent = t('sub.email_login_action');
       document.querySelectorAll('.pro-gate-drawer').forEach(d => d.remove());
+      renderSchedule();
       renderProGate();
       renderMarket();
       renderValue();
