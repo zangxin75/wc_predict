@@ -114,7 +114,7 @@ def test_split_live_schedule():
 
 # ── FETCH-01:混合 events → live + schedule CSV ──────────────
 def test_full_pipeline_mixed(tmp_path, monkeypatch):
-    """2 已打 + 1 未打 → live.csv 2 行,schedule.csv 1 行。"""
+    """2 已打 + 1 未打 → live.csv 2 行,schedule.csv 3 行(未打+已打,前端历史折叠区依赖)。"""
     events = [
         _mock_event("Brazil", "Serbia", "2", "0", note="FIFA World Cup, Group G"),
         _mock_event("Spain", "Costa Rica", "7", "0", note="FIFA World Cup, Group E"),
@@ -138,8 +138,12 @@ def test_full_pipeline_mixed(tmp_path, monkeypatch):
 
     with open(tmp_path / "sched.csv", encoding="utf-8") as f:
         rows = list(csv.reader(f))
-    assert len(rows) == 2                            # 列头 + 1 未打
-    assert rows[1][3] == "C"                         # group 列
+    # sched 写入顺序:未打在前,已打紧随(供前端历史折叠区渲染比分)
+    assert len(rows) == 4                            # 列头 + 1 未打 + 2 已打
+    assert rows[1][1] == "France" and rows[1][7] == ""   # 未打场比分空
+    assert rows[2][1] == "Brazil" and rows[2][7] == "2" and rows[2][8] == "0"
+    assert rows[3][1] == "Spain" and rows[3][7] == "7" and rows[3][8] == "0"
+    assert rows[2][3] == "G"                         # group 列(Brazil 所在 G 组)
 
 
 # ── FETCH-03:结构不全 → None(容错跳过脏数据)──────────────
