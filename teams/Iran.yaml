@@ -1,6 +1,6 @@
 name: Iran
 name_zh: Iran
-updated: '2026-06-16'
+updated: '2026-06-23'
 elo_adjustments: []
 recent_lessons:
 - date: '2022-11-21'
@@ -69,3 +69,19 @@ recent_lessons:
   - 新西兰门将超预期发挥与前锋极高的转化率，在处于场面被动及预期进球数（xG）落后的情况下逼平强敌
   reusable: true
   llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-21'
+  tournament: 2026 美加墨世界杯
+  vs: Belgium
+  venue: neutral
+  prediction: 1-0
+  actual: 0-0
+  miss_type: result
+  causes:
+  - 伊朗队极强的低位防守和战术纪律成功冻结了比利时的前场攻击群，导致比利时未能打入系统预期的进球
+  - 伊朗门将及中卫线（如贝兰万德与哈利扎德）在禁区内的统治级防空与扑救表现零封了对手的绝对得分机会
+  - 比利时中场缺乏破密集防守的纵深传球与攻坚手段，进攻端陷入得势不得分的战术僵局
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-23
+  web_search_used: false
+  sources: []
+  search_summary: null

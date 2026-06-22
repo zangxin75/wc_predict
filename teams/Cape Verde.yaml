@@ -1,6 +1,6 @@
 name: Cape Verde
 name_zh: Cape Verde
-updated: '2026-06-16'
+updated: '2026-06-23'
 elo_adjustments: []
 recent_lessons:
 - date: '2026-06-15'
@@ -17,3 +17,19 @@ recent_lessons:
   - 西班牙前锋莫拉塔在对方极度的身体对抗下完全迷失，全场0次禁区内有效触球，缺乏破密集防守的B计划
   reusable: true
   llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-21'
+  tournament: 2026 美加墨世界杯
+  vs: Uruguay
+  venue: neutral
+  prediction: 2-0
+  actual: 2-2
+  miss_type: result
+  causes:
+  - 乌拉圭领先后战术保守，防线回收过深，缺乏持续的前场压迫导致中场失控
+  - 佛得角展现出极强的战术纪律性与身体对抗能力，利用边路快速反击两度撕开乌拉圭防线
+  - 乌拉圭后防线球员（如阿劳霍等）在比赛后半段出现体能断崖与防守注意力不集中的致命问题
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-23
+  web_search_used: false
+  sources: []
+  search_summary: null
