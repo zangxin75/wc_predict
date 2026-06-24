@@ -1,6 +1,6 @@
 name: England
 name_zh: England
-updated: '2026-06-16'
+updated: '2026-06-25'
 elo_adjustments: []
 recent_lessons:
 - date: '2022-11-21'
@@ -57,3 +57,19 @@ recent_lessons:
   - 克罗地亚作为连续经历三场加时赛的球队，展现出极强的战术韧性与抗压能力，在加时赛中并未出现系统预期的体能断崖，反而掌控了比赛节奏
   reusable: true
   llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-23'
+  tournament: 2026 美加墨世界杯
+  vs: Ghana
+  venue: neutral
+  prediction: 2-0
+  actual: 0-0
+  miss_type: result
+  causes:
+  - 加纳门将神勇发挥与防线战术纪律严明，成功零封对手化解预期进球
+  - 加纳中场采用高强度身体对抗与破坏战术，成功切断英格兰前场攻击群的联系
+  - 英格兰破密集防守乏术，边路缺乏纵深爆破，阵地战进攻端表现便秘
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-25
+  web_search_used: false
+  sources: []
+  search_summary: null

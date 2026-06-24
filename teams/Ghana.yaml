@@ -1,6 +1,6 @@
 name: Ghana
 name_zh: Ghana
-updated: '2026-06-16'
+updated: '2026-06-25'
 elo_adjustments: []
 recent_lessons:
 - date: '2022-11-28'
@@ -17,3 +17,19 @@ recent_lessons:
   - 韩国全场高达61%的控球率和35脚传中,放弃了系统预期的中场控制与防守平衡,将比赛变成互捅局
   reusable: true
   llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-23'
+  tournament: 2026 美加墨世界杯
+  vs: England
+  venue: neutral
+  prediction: 2-0
+  actual: 0-0
+  miss_type: result
+  causes:
+  - 加纳门将神勇发挥与防线战术纪律严明，成功零封对手化解预期进球
+  - 加纳中场采用高强度身体对抗与破坏战术，成功切断英格兰前场攻击群的联系
+  - 英格兰破密集防守乏术，边路缺乏纵深爆破，阵地战进攻端表现便秘
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-25
+  web_search_used: false
+  sources: []
+  search_summary: null
