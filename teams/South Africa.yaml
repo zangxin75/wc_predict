@@ -1,6 +1,6 @@
 name: South Africa
 name_zh: South Africa
-updated: '2026-06-20'
+updated: '2026-06-26'
 elo_adjustments: []
 recent_lessons:
 - date: '2026-06-18'
@@ -16,6 +16,22 @@ recent_lessons:
   - 捷克队破密集防守手段单一，领先后退守过深导致中场失控，未能扩大比分
   reusable: true
   llm_source: glm-4-flash auto 2026-06-20
+  web_search_used: false
+  sources: []
+  search_summary: null
+- date: '2026-06-25'
+  tournament: 2026 美加墨世界杯
+  vs: South Korea
+  venue: neutral
+  prediction: 0-1
+  actual: 1-0
+  miss_type: result
+  causes:
+  - 南非队针对韩国队后场出球体系部署了极具侵略性的中前场高位压迫，迫使韩国后卫出现致命失误导致丢球
+  - 韩国队核心攻击手被南非队身体对抗能力极强的中卫组合成功限制，导致进攻端缺乏有效转化
+  - 南非队利用世界杯舞台展现了极强的战术纪律性与防守反击执行力，成功化解了韩国队的技术流控球优势
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-26
   web_search_used: false
   sources: []
   search_summary: null
