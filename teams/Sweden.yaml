@@ -1,6 +1,6 @@
 name: Sweden
 name_zh: Sweden
-updated: '2026-06-16'
+updated: '2026-06-27'
 elo_adjustments: []
 recent_lessons:
 - date: '2018-06-18'
@@ -43,3 +43,19 @@ recent_lessons:
   - 比赛模型偏差：系统高估了瑞士在淘汰赛中的抗压能力与进攻终结效率，双方在生死战中均采取极度保守的策略，实际比赛质量远低于预期
   reusable: true
   llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-25'
+  tournament: 2026 美加墨世界杯
+  vs: Japan
+  venue: neutral
+  prediction: 1-0
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 瑞典队利用身体和防空优势通过定位球破门，打破了日本队防线
+  - 日本队在领先后缺乏终结比赛的能力，进攻端得势不得分
+  - 北欧球队传统的密集防守与高举高打战术有效克制了日本队的地面传控
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-27
+  web_search_used: false
+  sources: []
+  search_summary: null

@@ -1,6 +1,6 @@
 name: Japan
 name_zh: 日本
-updated: '2026-06-20'
+updated: '2026-06-27'
 elo_adjustments:
 - key: vs_south_america
   value: 20
@@ -122,6 +122,22 @@ recent_lessons:
   - 日本队展现出极强的战术韧性与抗压能力,在落后局面下通过积极的跑动和高强度逼抢两度扳平比分
   reusable: true
   llm_source: glm-4-flash auto 2026-06-20
+  web_search_used: false
+  sources: []
+  search_summary: null
+- date: '2026-06-25'
+  tournament: 2026 美加墨世界杯
+  vs: Sweden
+  venue: neutral
+  prediction: 1-0
+  actual: 1-1
+  miss_type: result
+  causes:
+  - 瑞典队利用身体和防空优势通过定位球破门，打破了日本队防线
+  - 日本队在领先后缺乏终结比赛的能力，进攻端得势不得分
+  - 北欧球队传统的密集防守与高举高打战术有效克制了日本队的地面传控
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-27
   web_search_used: false
   sources: []
   search_summary: null

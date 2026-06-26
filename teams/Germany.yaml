@@ -1,6 +1,6 @@
 name: Germany
 name_zh: Germany
-updated: '2026-06-16'
+updated: '2026-06-27'
 elo_adjustments: []
 recent_lessons:
 - date: '2022-11-23'
@@ -58,3 +58,19 @@ recent_lessons:
   - 体能透支：德国队在下半场大举压上导致阵型严重脱节，在比赛最后阶段（补时阶段）防线体能断崖式下降，被韩国队连入两球
   reusable: true
   llm_source: glm-4-flash auto 2026-06-16
+- date: '2026-06-25'
+  tournament: 2026 美加墨世界杯
+  vs: Ecuador
+  venue: neutral
+  prediction: 0-1
+  actual: 2-1
+  miss_type: result
+  causes:
+  - 厄瓜多尔利用基多高原主场优势，全场保持高强度跑动，导致德国队下半场体能断崖式下降
+  - 厄瓜多尔针对性高空轰炸与定位球战术成功击穿德国防线，利用身高优势打入关键进球
+  - 德国队面对南美球队极具侵略性的贴身逼抢出现严重不适，中场出球频频失误导致被反击破门
+  reusable: true
+  llm_source: glm-4-flash auto 2026-06-27
+  web_search_used: false
+  sources: []
+  search_summary: null
