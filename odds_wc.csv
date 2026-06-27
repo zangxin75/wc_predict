@@ -297,6 +297,7 @@ year,date,home,away,score,odds_h,odds_d,odds_a
 2026,,Algeria,Austria,,3.02,3.01,2.46
 2026,17 Jun 2026,Argentina,Algeria,,1.58,4.21,7.37
 2026,,Argentina,Austria,,1.58,3.93,6.15
+2026,,Argentina,Cape Verde,,1.16,7.01,16.83
 2026,14 Jun 2026,Australia,Turkey,,5.66,3.80,1.80
 2026,17 Jun 2026,Austria,Jordan,,1.42,4.85,10.50
 2026,16 Jun 2026,Belgium,Egypt,,1.57,4.50,7.45
@@ -323,8 +324,10 @@ year,date,home,away,score,odds_h,odds_d,odds_a
 2026,,England,Ghana,,1.22,6.33,13.73
 2026,,France,Iraq,,1.09,11.17,29.00
 2026,17 Jun 2026,France,Senegal,,1.53,4.67,7.62
+2026,,France,Sweden,,1.44,4.29,7.61
 2026,15 Jun 2026,Germany,Curacao,,1.06,24.00,75.48
 2026,21 Jun 2026,Germany,Ivory Coast,,1.60,4.94,6.15
+2026,,Germany,Paraguay,,1.36,4.89,9.11
 2026,18 Jun 2026,Ghana,Panama,,2.45,3.26,3.47
 2026,14 Jun 2026,Haiti,Scotland,,6.25,4.41,1.66
 2026,16 Jun 2026,Iran,New Zealand,,1.90,3.60,4.91
