@@ -1,17 +1,17 @@
 year,date,home,away,odds_h,odds_d,odds_a,ou_line,ou_over,ou_under
 2026,,Algeria,Austria,3.84,2.33,2.78,2.5,1.96,2.25
 2026,,Argentina,Austria,1.47,4.44,7.46,2.5,1.93,2.50
-2026,,Argentina,Cape Verde,1.16,7.68,18.00,2.5,,
-2026,,Australia,Egypt,3.33,2.90,2.45,2.5,,
+2026,,Argentina,Cape Verde,1.16,7.69,18.00,2.5,,
+2026,,Australia,Egypt,3.32,2.90,2.45,2.5,,
 2026,,Belgium,Iran,1.41,4.58,8.21,2.5,2.05,2.50
 2026,,Belgium,Senegal,2.21,3.24,3.43,2.5,,
 2026,,Bosnia and Herzegovina,Qatar,1.42,5.00,7.07,2.5,2.07,2.75
 2026,,Brazil,Haiti,1.12,10.88,21.70,2.5,2.12,3.50
-2026,,Brazil,Japan,1.71,3.75,5.29,2.5,,
+2026,,Brazil,Japan,1.73,3.72,5.23,2.5,,
 2026,,Canada,Qatar,1.30,5.45,10.54,2.5,1.75,2.24
 2026,,Cape Verde,Saudi Arabia,2.46,3.44,2.86,2.5,1.98,2.25
 2026,,Colombia,DR Congo,1.54,3.96,6.92,2.5,1.90,2.25
-2026,,Colombia,Ghana,1.51,3.96,7.18,2.5,,
+2026,,Colombia,Ghana,1.52,3.95,7.15,2.5,,
 2026,,Colombia,Portugal,4.16,3.64,1.89,2.5,1.99,2.25
 2026,,Croatia,Ghana,1.79,3.33,5.39,2.5,1.83,2.50
 2026,,Curaçao,Ivory Coast,18.00,7.95,1.16,2.5,1.75,3.50
@@ -21,21 +21,21 @@ year,date,home,away,odds_h,odds_d,odds_a,ou_line,ou_over,ou_under
 2026,,Ecuador,Curaçao,1.15,8.60,16.77,2.5,2.12,3.00
 2026,,Ecuador,Germany,4.40,4.29,1.72,2.5,1.98,2.50
 2026,,Egypt,Iran,2.48,2.64,3.77,2.5,1.97,2.00
-2026,,England,DR Congo,1.27,5.50,12.08,2.5,,
+2026,,England,DR Congo,1.28,5.47,12.22,2.5,,
 2026,,England,Ghana,1.18,7.30,16.22,2.5,2.07,2.75
 2026,,France,Iraq,1.08,12.26,29.27,2.5,1.91,3.50
-2026,,France,Sweden,1.26,6.16,10.35,2.5,,
+2026,,France,Sweden,1.26,6.15,10.33,2.5,,
 2026,,Germany,Ivory Coast,1.46,4.76,6.63,2.5,2.44,2.50
 2026,,Germany,Paraguay,1.36,5.08,8.83,2.5,,
 2026,,Ghana,Panama,2.34,3.17,3.24,2.5,2.40,1.74
-2026,,Ivory Coast,Norway,3.65,3.58,2.02,2.5,,
+2026,,Ivory Coast,Norway,3.65,3.57,2.02,2.5,,
 2026,,Japan,Sweden,1.88,3.58,4.32,2.5,1.84,2.50
 2026,,Jordan,Algeria,6.69,4.32,1.49,2.5,1.97,2.50
 2026,,Jordan,Argentina,15.40,7.10,1.19,2.5,1.83,3.00
 2026,,Mexico,Ecuador,2.20,2.93,3.94,2.5,,
 2026,,Mexico,South Korea,2.06,3.21,4.08,2.5,2.36,1.68
 2026,,Morocco,Haiti,1.31,5.58,10.00,2.5,2.04,2.75
-2026,,Netherlands,Morocco,2.30,3.10,3.46,2.5,,
+2026,,Netherlands,Morocco,2.28,3.11,3.50,2.5,,
 2026,,Netherlands,Sweden,1.70,4.03,4.88,2.5,2.18,2.50
 2026,,New Zealand,Belgium,17.00,7.74,1.17,2.5,2.04,2.75
 2026,,New Zealand,Egypt,5.82,3.82,1.63,2.5,1.94,2.25
@@ -51,7 +51,7 @@ year,date,home,away,odds_h,odds_d,odds_a,ou_line,ou_over,ou_under
 2026,,Senegal,Iraq,1.23,6.47,13.00,2.5,1.98,2.50
 2026,,South Africa,Canada,4.90,3.33,1.84,2.5,,
 2026,,South Africa,South Korea,5.47,3.70,1.69,2.5,1.84,2.50
-2026,,Spain,Austria,1.30,5.30,10.49,2.5,,
+2026,,Spain,Austria,1.30,5.30,10.46,2.5,,
 2026,,Spain,Saudi Arabia,1.10,10.66,23.24,2.5,1.74,3.50
 2026,,Switzerland,Algeria,2.03,3.28,3.95,2.5,,
 2026,,Switzerland,Bosnia and Herzegovina,1.56,4.09,6.11,2.5,1.99,1.95
@@ -61,7 +61,7 @@ year,date,home,away,odds_h,odds_d,odds_a,ou_line,ou_over,ou_under
 2026,,Turkey,Paraguay,2.08,3.32,3.76,2.5,1.83,2.50
 2026,,Turkey,United States,3.57,4.00,1.96,2.5,2.10,2.50
 2026,,United States,Australia,1.59,4.24,5.82,2.5,2.04,2.50
-2026,,United States,Bosnia and Herzegovina,1.37,4.86,8.83,2.5,,
+2026,,United States,Bosnia and Herzegovina,1.37,4.85,8.73,2.5,,
 2026,,Uruguay,Cape Verde,1.38,4.59,8.79,2.5,1.85,2.25
 2026,,Uruguay,Spain,6.74,4.19,1.53,2.5,1.93,2.50
 2026,,Uzbekistan,Colombia,10.70,5.27,1.31,2.5,1.77,2.23
