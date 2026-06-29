@@ -1,17 +1,17 @@
 year,date,home,away,odds_h,odds_d,odds_a,ou_line,ou_over,ou_under
 2026,,Algeria,Austria,3.84,2.33,2.78,2.5,1.96,2.25
 2026,,Argentina,Austria,1.47,4.44,7.46,2.5,1.93,2.50
-2026,,Argentina,Cape Verde,1.16,7.67,18.31,2.5,,
-2026,,Australia,Egypt,3.30,2.89,2.46,2.5,,
+2026,,Argentina,Cape Verde,1.18,7.31,17.72,2.5,,
+2026,,Australia,Egypt,3.30,2.94,2.50,2.5,,
 2026,,Belgium,Iran,1.41,4.58,8.21,2.5,2.05,2.50
-2026,,Belgium,Senegal,2.21,3.22,3.46,2.5,,
+2026,,Belgium,Senegal,2.23,3.26,3.51,2.5,,
 2026,,Bosnia and Herzegovina,Qatar,1.42,5.00,7.07,2.5,2.07,2.75
 2026,,Brazil,Haiti,1.12,10.88,21.70,2.5,2.12,3.50
-2026,,Brazil,Japan,1.75,3.61,5.01,2.5,,
+2026,,Brazil,Japan,1.79,3.65,5.04,2.5,,
 2026,,Canada,Qatar,1.30,5.45,10.54,2.5,1.75,2.24
 2026,,Cape Verde,Saudi Arabia,2.46,3.44,2.86,2.5,1.98,2.25
 2026,,Colombia,DR Congo,1.54,3.96,6.92,2.5,1.90,2.25
-2026,,Colombia,Ghana,1.52,3.91,7.17,2.5,,
+2026,,Colombia,Ghana,1.54,3.97,7.24,2.5,,
 2026,,Colombia,Portugal,4.16,3.64,1.89,2.5,1.99,2.25
 2026,,Croatia,Ghana,1.79,3.33,5.39,2.5,1.83,2.50
 2026,,Curaçao,Ivory Coast,18.00,7.95,1.16,2.5,1.75,3.50
@@ -21,21 +21,21 @@ year,date,home,away,odds_h,odds_d,odds_a,ou_line,ou_over,ou_under
 2026,,Ecuador,Curaçao,1.15,8.60,16.77,2.5,2.12,3.00
 2026,,Ecuador,Germany,4.40,4.29,1.72,2.5,1.98,2.50
 2026,,Egypt,Iran,2.48,2.64,3.77,2.5,1.97,2.00
-2026,,England,DR Congo,1.27,5.44,12.36,2.5,,
+2026,,England,DR Congo,1.29,5.45,12.02,2.5,,
 2026,,England,Ghana,1.18,7.30,16.22,2.5,2.07,2.75
 2026,,France,Iraq,1.08,12.26,29.27,2.5,1.91,3.50
-2026,,France,Sweden,1.26,6.10,10.51,2.5,,
+2026,,France,Sweden,1.27,6.20,10.54,2.5,,
 2026,,Germany,Ivory Coast,1.46,4.76,6.63,2.5,2.44,2.50
-2026,,Germany,Paraguay,1.36,5.02,9.00,2.5,,
+2026,,Germany,Paraguay,1.38,5.12,9.07,2.5,,
 2026,,Ghana,Panama,2.34,3.17,3.24,2.5,2.40,1.74
-2026,,Ivory Coast,Norway,3.64,3.49,2.04,2.5,,
+2026,,Ivory Coast,Norway,3.69,3.54,2.07,2.5,,
 2026,,Japan,Sweden,1.88,3.58,4.32,2.5,1.84,2.50
 2026,,Jordan,Algeria,6.69,4.32,1.49,2.5,1.97,2.50
 2026,,Jordan,Argentina,15.40,7.10,1.19,2.5,1.83,3.00
-2026,,Mexico,Ecuador,2.22,2.91,3.89,2.5,,
+2026,,Mexico,Ecuador,2.25,2.94,3.91,2.5,,
 2026,,Mexico,South Korea,2.06,3.21,4.08,2.5,2.36,1.68
 2026,,Morocco,Haiti,1.31,5.58,10.00,2.5,2.04,2.75
-2026,,Netherlands,Morocco,2.31,3.11,3.44,2.5,,
+2026,,Netherlands,Morocco,2.35,3.16,3.46,2.5,,
 2026,,Netherlands,Sweden,1.70,4.03,4.88,2.5,2.18,2.50
 2026,,New Zealand,Belgium,17.00,7.74,1.17,2.5,2.04,2.75
 2026,,New Zealand,Egypt,5.82,3.82,1.63,2.5,1.94,2.25
@@ -44,16 +44,16 @@ year,date,home,away,odds_h,odds_d,odds_a,ou_line,ou_over,ou_under
 2026,,Panama,Croatia,7.95,4.62,1.43,2.5,1.93,2.50
 2026,,Panama,England,15.80,8.06,1.17,2.5,2.01,2.75
 2026,,Paraguay,Australia,2.82,2.27,3.96,2.5,1.67,2.50
-2026,,Portugal,Croatia,1.78,3.52,4.83,2.5,,
+2026,,Portugal,Croatia,1.81,3.54,4.91,2.5,,
 2026,,Portugal,Uzbekistan,1.14,8.54,19.03,2.5,1.90,3.00
 2026,,Scotland,Brazil,9.85,5.27,1.33,2.5,2.06,2.50
 2026,,Scotland,Morocco,5.61,3.67,1.68,2.5,1.87,2.25
 2026,,Senegal,Iraq,1.23,6.47,13.00,2.5,1.98,2.50
 2026,,South Africa,Canada,4.90,3.33,1.84,2.5,,
 2026,,South Africa,South Korea,5.47,3.70,1.69,2.5,1.84,2.50
-2026,,Spain,Austria,1.30,5.24,10.54,2.5,,
+2026,,Spain,Austria,1.32,5.23,10.44,2.5,,
 2026,,Spain,Saudi Arabia,1.10,10.66,23.24,2.5,1.74,3.50
-2026,,Switzerland,Algeria,2.01,3.29,3.96,2.5,,
+2026,,Switzerland,Algeria,2.04,3.33,3.98,2.5,,
 2026,,Switzerland,Bosnia and Herzegovina,1.56,4.09,6.11,2.5,1.99,1.95
 2026,,Switzerland,Canada,2.53,3.01,3.15,2.5,1.83,2.50
 2026,,Tunisia,Japan,8.13,4.41,1.44,2.5,2.03,2.25
@@ -61,7 +61,7 @@ year,date,home,away,odds_h,odds_d,odds_a,ou_line,ou_over,ou_under
 2026,,Turkey,Paraguay,2.08,3.32,3.76,2.5,1.83,2.50
 2026,,Turkey,United States,3.57,4.00,1.96,2.5,2.10,2.50
 2026,,United States,Australia,1.59,4.24,5.82,2.5,2.04,2.50
-2026,,United States,Bosnia and Herzegovina,1.37,4.82,8.61,2.5,,
+2026,,United States,Bosnia and Herzegovina,1.39,4.82,8.62,2.5,,
 2026,,Uruguay,Cape Verde,1.38,4.59,8.79,2.5,1.85,2.25
 2026,,Uruguay,Spain,6.74,4.19,1.53,2.5,1.93,2.50
 2026,,Uzbekistan,Colombia,10.70,5.27,1.31,2.5,1.77,2.23
