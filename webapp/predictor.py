@@ -311,6 +311,20 @@ def read_schedule():
     return rows
 
 
+# ESPN 原始 stage 文本 → 前端枚举(与 index.html data-stage / app.js STAGE_KEY 对齐)。
+# CSV 存的是 ESPN 原文(Round of 32 / Quarterfinals ...),前端按钮用 R32/QF 等短码,
+# 不规范化会导致阶段过滤匹配不上(app.js 按 m.stage===activeStage 比较)、卡片标签
+# 显示英文原文。未知值(如 ESPN 兜底的 "Knockout")原样透传。
+STAGE_NORM = {
+    "Group": "Group",
+    "Round of 32": "R32",
+    "Round of 16": "R16",
+    "Quarterfinals": "QF",
+    "Semifinals": "SF",
+    "Final": "Final",
+}
+
+
 def enrich_match(sched_row, elo, results_map, odds_map=None, ou_map=None):
     """★【learning 点】把一行赛程 + Elo + 已打结果融合成前端卡片数据契约。
 
@@ -347,7 +361,7 @@ def enrich_match(sched_row, elo, results_map, odds_map=None, ou_map=None):
         "date": date, "home": home, "away": away,
         "home_zh": EN_TO_ZH.get(home, home),
         "away_zh": EN_TO_ZH.get(away, away),
-        "group": group, "stage": stage, "city": city,
+        "group": group, "stage": STAGE_NORM.get(stage, stage), "city": city,
         "kickoff_bj": _utc_to_bj(ko_utc),
     }
 
