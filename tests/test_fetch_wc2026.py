@@ -188,3 +188,64 @@ def test_double_source_failure_raises(monkeypatch):
                         lambda *a, **k: (_ for _ in ()).throw(RuntimeError("net down")))
     with pytest.raises(RuntimeError, match="双源失败"):
         fetch_wc2026.main()
+
+
+# ── FETCH-11:后期轮次(SF/Final)补录 ─────────────────────────
+# ESPN scoreboard 对【对阵未确定】的淘汰赛轮次不返回 event,需从已打
+# 上一轮结果推导补录。覆盖:推导配对 / stage 去重 / QF 不足 / Final 填充。
+def _rec(date, home, away, hs, as_, stage, completed=True):
+    """构造已解析 record(seed_late_rounds 的输入单元)。"""
+    return {"date": date, "home": home, "away": away, "hs": hs, "as_": as_,
+            "completed": completed, "stage": stage, "group": "", "city": "",
+            "kickoff_utc": "", "state": "post" if completed else "pre",
+            "tournament": "FIFA World Cup", "country": ""}
+
+
+def test_seed_semifinals_from_completed_qf():
+    """4 场 QF 完成 → 按 date 相邻配对补 2 场 SF + Final 占位。"""
+    records = [
+        _rec("2026-07-09", "France", "Morocco", 2, 0, "Quarterfinals"),
+        _rec("2026-07-10", "Spain", "Belgium", 2, 1, "Quarterfinals"),
+        _rec("2026-07-11", "Norway", "England", 1, 2, "Quarterfinals"),
+        _rec("2026-07-12", "Argentina", "Switzerland", 3, 1, "Quarterfinals"),
+    ]
+    seeded = fetch_wc2026.seed_late_rounds(records)
+    sf = [s for s in seeded if s["stage"] == "Semifinals"]
+    assert len(sf) == 2
+    assert (sf[0]["home"], sf[0]["away"]) == ("France", "Spain")       # QF[0]-QF[1]
+    assert (sf[1]["home"], sf[1]["away"]) == ("England", "Argentina")  # QF[2]-QF[3]
+    final = [s for s in seeded if s["stage"] == "Final"]
+    assert len(final) == 1 and final[0]["home"] == ""                  # SF 未打,决赛待定
+
+
+def test_seed_skipped_when_espn_has_round():
+    """ESPN 已返回 Semifinals → 不补 SF(按 stage 去重)。"""
+    records = [
+        _rec("2026-07-09", "France", "Morocco", 2, 0, "Quarterfinals"),
+        _rec("2026-07-10", "Spain", "Belgium", 2, 1, "Quarterfinals"),
+        _rec("2026-07-11", "Norway", "England", 1, 2, "Quarterfinals"),
+        _rec("2026-07-12", "Argentina", "Switzerland", 3, 1, "Quarterfinals"),
+        _rec("2026-07-14", "France", "Spain", None, None, "Semifinals", completed=False),
+    ]
+    seeded = fetch_wc2026.seed_late_rounds(records)
+    assert not any(s["stage"] == "Semifinals" for s in seeded)
+
+
+def test_seed_no_semifinals_when_qf_incomplete():
+    """QF 未打满 4 场 → 不补 SF(对阵无法确定),但仍补 Final 占位。"""
+    records = [_rec("2026-07-09", "France", "Morocco", 2, 0, "Quarterfinals")]
+    seeded = fetch_wc2026.seed_late_rounds(records)
+    assert not any(s["stage"] == "Semifinals" for s in seeded)
+    assert any(s["stage"] == "Final" and s["home"] == "" for s in seeded)
+
+
+def test_seed_final_filled_when_semifinals_done():
+    """2 场 SF 完成 → Final 补录并填对阵(SF 胜者)。"""
+    records = [
+        _rec("2026-07-14", "France", "Spain", 2, 1, "Semifinals"),
+        _rec("2026-07-15", "England", "Argentina", 0, 1, "Semifinals"),
+    ]
+    seeded = fetch_wc2026.seed_late_rounds(records)
+    final = [s for s in seeded if s["stage"] == "Final"]
+    assert len(final) == 1
+    assert (final[0]["home"], final[0]["away"]) == ("France", "Argentina")

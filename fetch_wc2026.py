@@ -147,6 +147,82 @@ def split_live_schedule(records):
     return live, sched
 
 
+# ── 后期轮次(SF/Final)补录 ──────────────────────────────────────────────
+# ESPN scoreboard 只返回【对阵已确定】的比赛;半决赛/决赛在上一轮踢完前
+# 完全缺席(连 TBD 占位都没有),导致 wc2026_schedule.csv 在 7-12 QF 结束后
+# 突然断档。这里用 FIFA 公开的赛程骨架(日期/场地固定)补上,对阵从已打
+# 淘汰赛结果推导,ESPN 一旦自己返回该轮次则自动跳过(按 stage 去重)。
+LATE_ROUNDS = {
+    # stage: [(date, city, kickoff_utc)] — kickoff 未官方确认则留空
+    "Semifinals": [
+        ("2026-07-14", "Arlington, Texas", ""),          # SF1: QF[0]胜 vs QF[1]胜
+        ("2026-07-15", "Atlanta, Georgia", "2026-07-15T19:00Z"),  # SF2: 当地 15:00ET
+    ],
+    "Final": [
+        ("2026-07-19", "East Rutherford, New Jersey", ""),  # SF1胜 vs SF2胜
+    ],
+}
+
+
+def _winner_of(rec):
+    """已打比赛胜者(总比分高者);平局/异常 → None(淘汰赛理论上有加时点球)。"""
+    try:
+        hs, as_ = int(rec["hs"]), int(rec["as_"])
+    except (TypeError, ValueError):
+        return None
+    if hs > as_:
+        return rec["home"]
+    if as_ > hs:
+        return rec["away"]
+    return None
+
+
+def _seed_rec(date, home, away, stage, city, kickoff_utc):
+    """构造补录行(结构同 parse_event 返回)。"""
+    return {
+        "date": date, "kickoff_utc": kickoff_utc,
+        "home": home, "away": away,
+        "hs": None, "as_": None,
+        "tournament": "FIFA World Cup", "city": city, "country": "USA",
+        "group": "", "stage": stage,
+        "state": "pre", "completed": False,
+    }
+
+
+def seed_late_rounds(records):
+    """对 ESPN 缺失的 SF/Final 补录。
+
+    对阵推导:4 场 QF 按 date 升序 → 相邻配对(QF[0]-QF[1] / QF[2]-QF[3])
+    进两场半决赛,正是 2026 官方签表顺序。Final 待两场 SF 踢出再填,
+    否则 home/away 留空(对阵待定,enrich_match 会安全返回 probs=None)。
+    返回补录 record 列表。"""
+    out = []
+    have = {r["stage"] for r in records}
+
+    qf = sorted([r for r in records
+                 if r["stage"] == "Quarterfinals" and r["completed"]],
+                key=lambda r: r["date"])
+    qf_w = [_winner_of(r) for r in qf]
+
+    if "Semifinals" not in have and len(qf) >= 4:
+        sf_pairs = [(qf_w[0] or "", qf_w[1] or ""),
+                    (qf_w[2] or "", qf_w[3] or "")]
+        for (date, city, ko), (h, a) in zip(LATE_ROUNDS["Semifinals"], sf_pairs):
+            out.append(_seed_rec(date, h, a, "Semifinals", city, ko))
+
+    sf = sorted([r for r in records
+                 if r["stage"] == "Semifinals" and r["completed"]],
+                key=lambda r: r["date"])
+    if "Final" not in have:
+        sf_w = [_winner_of(r) for r in sf]
+        date, city, ko = LATE_ROUNDS["Final"][0]
+        h = sf_w[0] if len(sf_w) >= 1 and sf_w[0] else ""
+        a = sf_w[1] if len(sf_w) >= 2 and sf_w[1] else ""
+        out.append(_seed_rec(date, h, a, "Final", city, ko))
+
+    return out
+
+
 def write_csvs(live, sched):
     """写 wc2026_live.csv(9 列)+ wc2026_schedule.csv。
 
@@ -196,9 +272,15 @@ def main():
 
     events = data.get("events", [])
     records = [r for r in (parse_event(ev) for ev in events) if r]
+    seeded = seed_late_rounds(records)
+    records += seeded
     live, sched = split_live_schedule(records)
     write_csvs(live, sched)
-    print(f"  抓取 {len(records)} 场:已打 {len(live)},未打 {len(sched)}")
+    print(f"  抓取 {len(events)} 场 ESPN:已打 {len(live)},未打 {len(sched)}")
+    if seeded:
+        for s in seeded:
+            vs = f"{s['home']} vs {s['away']}" if s["home"] and s["away"] else "对阵待定"
+            print(f"  + 补录 {s['date']} {s['stage']}: {vs} ({s['city']})")
     if live:
         print(f"  最近已打示例:{live[0]['date']} {live[0]['home']} {live[0]['hs']}-"
               f"{live[0]['as_']} {live[0]['away']} ({live[0]['group'] or live[0]['stage']})")
