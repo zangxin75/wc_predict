@@ -27,6 +27,7 @@ if hasattr(sys.stdout, "reconfigure"):
 HERE = os.path.dirname(os.path.abspath(__file__))
 LIVE_OUT = os.path.join(HERE, "wc2026_live.csv")
 SCHED_OUT = os.path.join(HERE, "wc2026_schedule.csv")
+RESULTS_PATH = os.path.join(HERE, "results.csv")   # seed_late_rounds 查已打 SF 比分用
 CACHE_PATH = os.path.join(HERE, ".wc2026_cache.json")
 
 ESPN_URL = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard"
@@ -153,13 +154,16 @@ def split_live_schedule(records):
 # 突然断档。这里用 FIFA 公开的赛程骨架(日期/场地固定)补上,对阵从已打
 # 淘汰赛结果推导,ESPN 一旦自己返回该轮次则自动跳过(按 stage 去重)。
 LATE_ROUNDS = {
-    # stage: [(date, city, kickoff_utc)] — kickoff 未官方确认则留空
+    # stage: [(date, city, kickoff_utc)] — 7 月美东夏令时 EDT=UTC-4
     "Semifinals": [
-        ("2026-07-14", "Arlington, Texas", ""),          # SF1: QF[0]胜 vs QF[1]胜
-        ("2026-07-15", "Atlanta, Georgia", "2026-07-15T19:00Z"),  # SF2: 当地 15:00ET
+        ("2026-07-14", "Arlington, Texas", "2026-07-14T19:00Z"),       # SF1: 当地 15:00ET
+        ("2026-07-15", "Atlanta, Georgia", "2026-07-15T19:00Z"),       # SF2: 当地 15:00ET
     ],
     "Final": [
-        ("2026-07-19", "East Rutherford, New Jersey", ""),  # SF1胜 vs SF2胜
+        ("2026-07-19", "East Rutherford, New Jersey", "2026-07-19T19:00Z"),  # 当地 15:00ET
+    ],
+    "Third Place": [
+        ("2026-07-18", "Miami Gardens, Florida", "2026-07-18T21:00Z"),  # 当地 17:00ET(季军赛)
     ],
 }
 
@@ -189,13 +193,107 @@ def _seed_rec(date, home, away, stage, city, kickoff_utc):
     }
 
 
-def seed_late_rounds(records):
+def _load_results_index(path=None):
+    """读 results.csv → {(date, home, away): (hs, as_)}。
+
+    供 seed_late_rounds 查已打 SF 真实比分:ESPN scoreboard 不返回已打淘汰赛,
+    SF 占位行比分恒为 None,Final 对阵只能从 results.csv 推导胜者。
+    容错:文件缺/格式错 → {}(不抛,seed 退化为留空对阵,前端显示"待定")。"""
+    idx = {}
+    p = path or RESULTS_PATH
+    if not os.path.exists(p):
+        return idx
+    try:
+        with open(p, newline="", encoding="utf-8") as f:
+            for r in csv.reader(f):
+                if not r or r[0] == "date" or len(r) < 5:
+                    continue
+                hs, as_ = r[3], r[4]
+                if hs.lstrip("-").isdigit() and as_.lstrip("-").isdigit():
+                    idx[(r[0], r[1], r[2])] = (int(hs), int(as_))
+    except Exception:
+        pass
+    return idx
+
+
+def _sf_winners(records, sf_pairs, results_idx):
+    """收集两场 SF 胜者(优先级:records 已打 SF > results.csv 比分),去重。
+
+    records 已打 SF:ESPN 返回的 completed Semifinals(测试/罕见生产场景)。
+    results_idx:ESPN 不返回已打 SF 时的生产主路径 —— 按占位配对查比分。
+    主客顺序兜底(results.csv 主客可能反写);平局/无比分 → 该场不出胜者。"""
+    winners, seen = [], set()
+    for r in sorted([r for r in records
+                     if r["stage"] == "Semifinals" and r["completed"]],
+                    key=lambda r: r["date"]):
+        w = _winner_of(r)
+        if w and w not in seen:
+            winners.append(w); seen.add(w)
+    for i, (h, a) in enumerate(sf_pairs):
+        if len(winners) >= 2 or not h or not a:
+            continue
+        d = LATE_ROUNDS["Semifinals"][i][0] if i < len(LATE_ROUNDS["Semifinals"]) else ""
+        sc = results_idx.get((d, h, a)) or results_idx.get((d, a, h))
+        if sc and sc[0] != sc[1]:
+            w = h if sc[0] > sc[1] else a
+            if w not in seen:
+                winners.append(w); seen.add(w)
+    return winners
+
+
+def _loser_of(rec):
+    """已打比赛输家(总比分低者);平局/异常 → None。与 _winner_of 对偶。"""
+    try:
+        hs, as_ = int(rec["hs"]), int(rec["as_"])
+    except (TypeError, ValueError):
+        return None
+    if hs > as_:
+        return rec["away"]
+    if as_ > hs:
+        return rec["home"]
+    return None
+
+
+def _sf_losers(records, sf_pairs, results_idx):
+    """收集两场 SF 输家(优先级:records 已打 SF > results.csv 比分),去重。
+
+    与 _sf_winners 对偶,供 Third Place(季军赛)推导:SF 两边输家对阵。
+    主客顺序兜底;平局/无比分 → 该场不出输家。"""
+    losers, seen = [], set()
+    for r in sorted([r for r in records
+                     if r["stage"] == "Semifinals" and r["completed"]],
+                    key=lambda r: r["date"]):
+        l = _loser_of(r)
+        if l and l not in seen:
+            losers.append(l); seen.add(l)
+    for i, (h, a) in enumerate(sf_pairs):
+        if len(losers) >= 2 or not h or not a:
+            continue
+        d = LATE_ROUNDS["Semifinals"][i][0] if i < len(LATE_ROUNDS["Semifinals"]) else ""
+        sc = results_idx.get((d, h, a)) or results_idx.get((d, a, h))
+        if sc and sc[0] != sc[1]:
+            l = a if sc[0] > sc[1] else h   # 输家(与胜者相反)
+            if l not in seen:
+                losers.append(l); seen.add(l)
+    return losers
+
+
+def seed_late_rounds(records, results_idx=None):
     """对 ESPN 缺失的 SF/Final 补录。
 
     对阵推导:4 场 QF 按 date 升序 → 相邻配对(QF[0]-QF[1] / QF[2]-QF[3])
-    进两场半决赛,正是 2026 官方签表顺序。Final 待两场 SF 踢出再填,
-    否则 home/away 留空(对阵待定,enrich_match 会安全返回 probs=None)。
-    返回补录 record 列表。"""
+    进两场半决赛,正是 2026 官方签表顺序。
+
+    Final 对阵来源(优先级):
+      1. records 里已打 SF 的胜者(ESPN 返回了该轮次,罕见)
+      2. results.csv 里已打 SF 的真实比分(生产主路径:ESPN 不返回已打 SF,
+         SF 占位行比分恒 None,Final 必须查 results.csv 推导胜者)
+    两场均未打 → Final home/away 留空(对阵待定,enrich_match 安全返回 probs=None)。
+
+    results_idx:可选,{(date,home,away):(hs,as_)};None 时只看 records。
+    返回补录 record 列表(SF 占位保持无比分,避免 split_live_schedule 误分流)。"""
+    if results_idx is None:
+        results_idx = {}
     out = []
     have = {r["stage"] for r in records}
 
@@ -204,21 +302,33 @@ def seed_late_rounds(records):
                 key=lambda r: r["date"])
     qf_w = [_winner_of(r) for r in qf]
 
+    sf_pairs = []
     if "Semifinals" not in have and len(qf) >= 4:
         sf_pairs = [(qf_w[0] or "", qf_w[1] or ""),
                     (qf_w[2] or "", qf_w[3] or "")]
         for (date, city, ko), (h, a) in zip(LATE_ROUNDS["Semifinals"], sf_pairs):
             out.append(_seed_rec(date, h, a, "Semifinals", city, ko))
+    elif "Semifinals" in have:
+        sf_pairs = [(r["home"], r["away"]) for r in sorted(
+            [r for r in records if r["stage"] == "Semifinals"],
+            key=lambda r: r["date"])][:2]
 
-    sf = sorted([r for r in records
-                 if r["stage"] == "Semifinals" and r["completed"]],
-                key=lambda r: r["date"])
     if "Final" not in have:
-        sf_w = [_winner_of(r) for r in sf]
+        sf_w = _sf_winners(records, sf_pairs, results_idx)
         date, city, ko = LATE_ROUNDS["Final"][0]
-        h = sf_w[0] if len(sf_w) >= 1 and sf_w[0] else ""
-        a = sf_w[1] if len(sf_w) >= 2 and sf_w[1] else ""
+        h = sf_w[0] if len(sf_w) >= 1 else ""
+        a = sf_w[1] if len(sf_w) >= 2 else ""
         out.append(_seed_rec(date, h, a, "Final", city, ko))
+
+    # Third Place(季军赛):SF 两边输家,需 SF 已打(查 results.csv)。
+    # SF 未打完 → 不补(对阵推不出,且 7-18 已过,占位无意义)。
+    if "Third Place" not in have:
+        sf_l = _sf_losers(records, sf_pairs, results_idx)
+        if sf_l:
+            date, city, ko = LATE_ROUNDS["Third Place"][0]
+            h = sf_l[0] if len(sf_l) >= 1 else ""
+            a = sf_l[1] if len(sf_l) >= 2 else ""
+            out.append(_seed_rec(date, h, a, "Third Place", city, ko))
 
     return out
 
@@ -272,7 +382,8 @@ def main():
 
     events = data.get("events", [])
     records = [r for r in (parse_event(ev) for ev in events) if r]
-    seeded = seed_late_rounds(records)
+    results_idx = _load_results_index()
+    seeded = seed_late_rounds(records, results_idx=results_idx)
     records += seeded
     live, sched = split_live_schedule(records)
     write_csvs(live, sched)
