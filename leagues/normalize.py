@@ -18,7 +18,7 @@ FD_RESULT_COLS = {
 # fixtures.csv(未来赛程):Pinnacle 是开盘列 PPH/PPD/PPA,其余同名
 FD_FIXTURE_COLS = dict(FD_RESULT_COLS, ps_h="PPH", ps_d="PPD", ps_a="PPA")
 
-RESULT_FIELDS = ["season", "date", "home", "away", "gh", "ga",
+RESULT_FIELDS = ["season", "date", "home", "away", "gh", "ga", "neutral",
                  "b365h", "b365d", "b365a", "ps_h", "ps_d", "ps_a",
                  "ou_over", "ou_under", "ah_line", "ah_h", "ah_a"]
 FIXTURE_FIELDS = ["date", "time", "home", "away",
