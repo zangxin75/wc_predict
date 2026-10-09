@@ -1693,7 +1693,7 @@ def test_ou25_and_btts_sanity():
     low = predict.score_matrix(0.6, 0.5)
     assert predict.ou25_over(high) > predict.ou25_over(low)
     assert predict.btts_yes(high) > predict.btts_yes(low)
-    assert 0 < predict.btts_yes(low) < predict.ou25_over(low) < 1
+    assert 0 < predict.ou25_over(low) < predict.btts_yes(low) < 1   # 低 λ:1-1 属 under 格,BTTS(≈0.18)> Over2.5(≈0.04)
 
 
 def test_elo_probs_symmetry_and_home_adv():
@@ -1707,7 +1707,7 @@ def test_elo_probs_symmetry_and_home_adv():
 def test_devig_and_kelly():
     dv = predict.devig(2.0, 3.0, 4.0)
     assert abs(sum(dv) - 1.0) < 1e-9
-    assert dv[0] > 1 / 2.0                        # 去水后概率上升(去掉水位)
+    assert dv[0] < 1 / 2.0                        # 比例去水:水线>1 → 单项概率被压缩(1/2+1/3+1/4=1.083 → 0.4615)
     assert predict.devig(None, 3.0, 4.0) is None
     assert predict.devig(1.0, 3.0, 4.0) is None   # 赔率 ≤1 非法
     assert predict.kelly(0.6, 2.0) > 0            # 正 edge
@@ -1905,7 +1905,7 @@ def predict_match(home, away, *, elo, dc_params, dc_glob, odds=None, neutral=Fal
 - [ ] **Step 4: 跑测试确认通过**
 
 Run: `pytest tests/test_leagues_predict.py -v`
-Expected: 8 passed
+Expected: 9 passed
 
 - [ ] **Step 5: Commit**
 
