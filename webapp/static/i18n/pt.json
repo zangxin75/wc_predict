@@ -185,6 +185,7 @@
   "stage.r16": "Oitavas",
   "stage.r32": "16-avos",
   "stage.sf": "Semi",
+  "stage.tp": "Terceiro lugar",
   "status.connecting": "Conectando…",
   "status.disconnected": "Sem conexão (cache)",
   "status.failed": "Falha (cache)",

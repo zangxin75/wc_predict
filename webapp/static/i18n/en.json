@@ -185,6 +185,7 @@
   "stage.r16": "Round of 16",
   "stage.r32": "Round of 32",
   "stage.sf": "Semi-final",
+  "stage.tp": "Third-place",
   "status.connecting": "Connecting…",
   "status.disconnected": "Disconnected (cached)",
   "status.failed": "Update failed (cached)",

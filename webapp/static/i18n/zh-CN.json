@@ -185,6 +185,7 @@
   "stage.r16": "16强",
   "stage.r32": "32强",
   "stage.sf": "半决赛",
+  "stage.tp": "三四名",
   "status.connecting": "连接中…",
   "status.disconnected": "连接断开(用缓存)",
   "status.failed": "更新失败(用缓存)",

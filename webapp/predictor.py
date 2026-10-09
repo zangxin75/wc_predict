@@ -322,6 +322,7 @@ STAGE_NORM = {
     "Quarterfinals": "QF",
     "Semifinals": "SF",
     "Final": "Final",
+    "Third Place": "TP",
 }
 
 

@@ -45,7 +45,7 @@ const matchKey = (m) => `${m.date}|${m.home}|${m.away}`;
 const scoreSig = (m) => m.status === 'finished' ? `${m.score[0]}-${m.score[1]}` : (m.status);
 
 // ── 取 t() 的阶段/星期/结果映射(动态,跟随语言)──────
-const STAGE_KEY = { Group:'stage.group', R32:'stage.r32', R16:'stage.r16', QF:'stage.qf', SF:'stage.sf', Final:'stage.final' };
+const STAGE_KEY = { Group:'stage.group', R32:'stage.r32', R16:'stage.r16', QF:'stage.qf', SF:'stage.sf', Final:'stage.final', TP:'stage.tp' };
 const STAGE_ZH = () => Object.fromEntries(Object.entries(STAGE_KEY).map(([k, v]) => [k, t(v)]));
 const RESULT_KEY = { home_win:'result.home_win', draw:'result.draw', away_win:'result.away_win' };
 const RESULT_ZH = () => Object.fromEntries(Object.entries(RESULT_KEY).map(([k, v]) => [k, t(v)]));
@@ -813,14 +813,11 @@ function renderCard(m, flashCls, delayStyle) {
   const homeTeam = teamBlock(m.home, teamName(m, 'home'), m.elo_h, 'home');
   const awayTeam = teamBlock(m.away, teamName(m, 'away'), m.elo_a, 'away');
   const center = renderCenter(m);
-  const localK = localTime(m);
-  const bjK = m.kickoff_bj;
-  const koTitle = bjK && localK !== bjK
-    ? `${t('schedule.kickoff_bj')}: ${bjK} → ${I18N.tz || 'local'}: ${localK}`
-    : t('schedule.kickoff_bj');
+  const koK = m.kickoff_bj || localTime(m);   // 按北京时间显示(后端 kickoff_bj 已转北京);无则兜底本地
+  const koTitle = t('schedule.kickoff_bj');
   return `<article class="match-card${flashCls}" data-status="${m.status}"`
     + ` data-date="${esc(m.date)}" data-home="${esc(m.home)}" data-away="${esc(m.away)}"${delayStyle}>`
-    + `<div class="match-meta"><span class="stage-tag">${esc(groupTag)}</span>${localK ? `<span class="ko-tag" title="${esc(koTitle)}">${esc(localK)}</span>` : ''}`
+    + `<div class="match-meta"><span class="stage-tag">${esc(groupTag)}</span>${koK ? `<span class="ko-tag" title="${esc(koTitle)}">${esc(koK)}</span>` : ''}`
     + `<span class="city-tag">${esc(m.city || '')}</span></div>`
     + `${homeTeam}${center}${awayTeam}</article>`;
 }
