@@ -35,10 +35,15 @@ def update_once():
         leagues_cache.set_status(running=False, last_error=f"elo: {e}")
         leagues_cache.save()
         return
+    try:
+        from leagues import train_xgb
+        xgb_lookup = train_xgb.build_upcoming_lookup(elo)
+    except Exception:
+        xgb_lookup = {}
     for code in config.LEAGUE_CODES:
         try:
             build.rebuild_dc(code)
-            payload = build.rebuild(code, elo=elo)
+            payload = build.rebuild(code, elo=elo, xgb=xgb_lookup)
             standings = build.compute_standings(build.load_results(code), payload["season"])
             sim = None
             try:

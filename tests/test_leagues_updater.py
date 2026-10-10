@@ -26,6 +26,7 @@ def tmp_cache(tmp_path, monkeypatch):
     monkeypatch.setattr(leagues_updater.build, "rebuild_ucl",
                         lambda elo=None, ucl_odds=None: {"code": "UCL", "season": "2627", "matches": []})
     monkeypatch.setattr("leagues.fetch_odds_ucl.fetch_ucl_odds", lambda: {})
+    monkeypatch.setattr("leagues.train_xgb.build_upcoming_lookup", lambda elo=None: {})
     return tmp_path
 
 
