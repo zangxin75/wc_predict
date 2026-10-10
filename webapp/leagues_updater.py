@@ -40,7 +40,13 @@ def update_once():
             build.rebuild_dc(code)
             payload = build.rebuild(code, elo=elo)
             standings = build.compute_standings(build.load_results(code), payload["season"])
-            leagues_cache.set_league(code, predictions=payload, standings=standings)
+            sim = None
+            try:
+                from leagues import season_sim
+                sim = season_sim.simulate_season(code)
+            except Exception as e:
+                errors.append(f"{code} sim: {e}")
+            leagues_cache.set_league(code, predictions=payload, standings=standings, sim=sim)
         except Exception as e:
             errors.append(f"{code}: {e}")
             traceback.print_exc()

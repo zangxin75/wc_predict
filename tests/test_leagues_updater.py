@@ -22,6 +22,7 @@ def tmp_cache(tmp_path, monkeypatch):
     monkeypatch.setattr(leagues_updater.build, "compute_standings",
                         lambda results, season: [{"team": "A", "pts": 3}])
     monkeypatch.setattr(leagues_updater.build, "load_results", lambda code: [])
+    monkeypatch.setattr("leagues.season_sim.simulate_season", lambda code: None)
     return tmp_path
 
 
