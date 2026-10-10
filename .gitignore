@@ -67,3 +67,7 @@ webapp/active_sessions.json
 
 # 一次性扫描产物(可由 scan_arbitrage.py 重新生成)
 scan_arbitrage_*.json
+
+# 联赛板块运行时数据(Task 1-12)
+data/leagues/
+webapp/data/leagues_cache.json

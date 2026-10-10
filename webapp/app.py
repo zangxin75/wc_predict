@@ -31,6 +31,8 @@ from slowapi.middleware import SlowAPIMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 
 from webapp import auth, cache, updater, payments
+from webapp import leagues as leagues_api
+from webapp import leagues_cache, leagues_updater
 from webapp.middleware import SecurityHeadersMiddleware
 from webapp.rate_limit import limiter
 
@@ -51,8 +53,14 @@ async def lifespan(app: FastAPI):
                          daemon=True, name="updater")
     t.start()
     print("[app] 后台更新线程已启动")
+    # 联赛板块:独立缓存 + 独立后台线程(与 WC updater 互不阻塞)
+    leagues_cache.load()
+    lt = threading.Thread(target=leagues_updater.loop, daemon=True, name="leagues-updater")
+    lt.start()
+    print("[app] 联赛后台更新线程已启动")
     yield
     updater.stop()
+    leagues_updater.stop()
     print("[app] 关闭")
 
 
@@ -107,12 +115,21 @@ app.add_middleware(SecurityHeadersMiddleware)
 # F-06: slowapi 中间件(LIFO 最外层)→ 配合装饰器 @limiter.limit() 工作。
 app.add_middleware(SlowAPIMiddleware)
 
+# 联赛板块 API 路由(/api/leagues/*,Task 11)
+app.include_router(leagues_api.router)
+
 
 # ── 页面 ──────────────────────────────────────────────────────────
 @app.get("/")
 @limiter.limit("60/minute")
 def index(request: Request):
     return FileResponse(os.path.join(STATIC_DIR, "index.html"))
+
+
+@app.get("/leagues")
+@limiter.limit("60/minute")
+def leagues_page(request: Request):
+    return FileResponse(os.path.join(STATIC_DIR, "leagues.html"))
 
 
 # ── API ───────────────────────────────────────────────────────────
