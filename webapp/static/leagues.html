@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="leagues.title">联赛预测</title>
+  <link rel="icon" href="static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="static/style.css?v=6">
+  <style>
+    .lg-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0; }
+    .lg-tab { padding: 6px 14px; border-radius: 16px; border: 1px solid var(--border, #444);
+              background: none; color: inherit; cursor: pointer; }
+    .lg-tab.active { background: var(--accent, #4f8cff); color: #fff; border-color: transparent; }
+    .lg-sub { display: flex; gap: 6px; margin: 8px 0 16px; flex-wrap: wrap; }
+    .lg-sub button { padding: 4px 10px; font-size: 13px; border-radius: 12px;
+                     border: 1px solid var(--border, #444); background: none;
+                     color: inherit; cursor: pointer; }
+    .lg-sub button.active { background: var(--accent, #4f8cff); color: #fff; }
+    table.lg { width: 100%; border-collapse: collapse; font-size: 14px; }
+    table.lg th, table.lg td { padding: 6px 8px; border-bottom: 1px solid var(--border, #333);
+                               text-align: center; }
+    table.lg td.teams { text-align: left; }
+    .lg-low { color: #e6a23c; font-size: 12px; }
+    .lg-mask { color: var(--muted, #999); letter-spacing: 2px; }
+    .lg-pro { color: var(--accent, #4f8cff); cursor: pointer; font-size: 12px; }
+    .lg-status { color: var(--muted, #999); font-size: 12px; margin-top: 12px; }
+    .lg-score { font-weight: 600; }
+  </style>
+</head>
+<body>
+<header>
+  <h1 data-i18n="leagues.title">联赛预测</h1>
+  <a href="/" class="switch-app" data-i18n-attr="title" data-i18n="nav.wc" title="World Cup">
+    <span data-i18n="nav.wc">世界杯</span> <span aria-hidden="true">⟶</span>
+  </a>
+</header>
+<main>
+  <div class="lg-tabs" id="leagueTabs"></div>
+  <div class="lg-sub" id="subTabs"></div>
+  <section id="content"><p class="lg-status" data-i18n="leagues.not_ready">数据构建中,请稍候…</p></section>
+  <p class="lg-status" id="statusLine"></p>
+</main>
+<script src="static/i18n.js?v=25"></script>
+<script src="static/leagues.js?v=1"></script>
+</body>
+</html>

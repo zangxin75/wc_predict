@@ -38,7 +38,7 @@ const I18N = (() => {
     'fr':'fr','fr-FR':'fr','fr-BE':'fr','fr-CA':'fr','fr-CH':'fr'
   };
 
-  const I18N_VER = 7;                   // 翻译缓存版本;i18n JSON 变动时+1
+  const I18N_VER = 8;                   // 翻译缓存版本;i18n JSON 变动时+1
   let current = 'en';
   let dict = {};
   let teams = {};                       // 48 队多语言译名(由 teams.json 加载)
