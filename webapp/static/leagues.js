@@ -40,6 +40,7 @@
     const pb = $('proBtn'), pg = $('proBadge');
     if (pb) pb.hidden = state.isPaid;
     if (pg) pg.hidden = !state.isPaid;
+    bindProModal();
     if (typeof I18N !== "undefined") { await I18N.ready; await I18N.loadClubs(); }  // 俱乐部译名就绪后再渲染
     bindRefreshBtn();
     await refreshLeagues();
@@ -49,6 +50,60 @@
       const cd = $('countdown');
       if (cd) cd.textContent = countdown + 's';
     }, 1000);
+  }
+
+  // ── Pro 弹窗(联赛页自有:邮箱恢复 + 邀请码,不跳世界杯页)──
+  function proStatus(msgKey, isErr) {
+    const s = $('lgProStatus');
+    if (!s) return;
+    s.hidden = false;
+    s.textContent = tt(msgKey);
+    s.style.color = isErr ? 'var(--signal-err, #e06c75)' : 'var(--signal-ok, #7ec97e)';
+  }
+  function closeProModal() {
+    const m = $('lgProModal'), sc = $('lgProScrim');
+    if (m) m.hidden = true;
+    if (sc) sc.hidden = true;
+    const s = $('lgProStatus'); if (s) s.hidden = true;
+  }
+  function bindProModal() {
+    const btn = $('proBtn'), m = $('lgProModal'), sc = $('lgProScrim');
+    if (!btn || !m) return;
+    btn.addEventListener('click', () => { m.hidden = false; if (sc) sc.hidden = false; });
+    const closeBtn = $('lgProClose');
+    if (closeBtn) closeBtn.addEventListener('click', closeProModal);
+    if (sc) sc.addEventListener('click', closeProModal);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeProModal(); });
+
+    const emailBtn = $('lgEmailLoginBtn');
+    if (emailBtn) emailBtn.addEventListener('click', async () => {
+      const email = ($('lgEmail')?.value || '').trim();
+      if (!email || !email.includes('@')) return proStatus('sub.invite_invalid_email', true);
+      try {
+        const r = await fetch(`/api/email-login?email=${encodeURIComponent(email)}`, { method: 'POST' });
+        if (!r.ok) throw new Error(String(r.status));
+        const j = await r.json();
+        if (j.is_paid) { proStatus('sub.email_login_success', false); setTimeout(() => location.reload(), 800); }
+        else proStatus('sub.email_login_not_pro', true);
+      } catch (e) { proStatus('sub.email_login_error', true); }
+    });
+
+    const invBtn = $('lgInviteBtn');
+    if (invBtn) invBtn.addEventListener('click', async () => {
+      const email = ($('lgEmail')?.value || '').trim();
+      const code = ($('lgInvite')?.value || '').trim();
+      if (!code) return proStatus('sub.invite_need_email', true);
+      if (!email || !email.includes('@')) return proStatus('sub.invite_need_email', true);
+      try {
+        const r = await fetch(`/api/redeem-invite?email=${encodeURIComponent(email)}&code=${encodeURIComponent(code)}`, { method: 'POST' });
+        if (!r.ok) {
+          const key = r.status === 404 ? 'sub.invite_not_found' : r.status === 409 ? 'sub.invite_already_used' : 'sub.invite_error';
+          return proStatus(key, true);
+        }
+        proStatus('sub.invite_success', false);
+        setTimeout(() => location.reload(), 800);
+      } catch (e) { proStatus('sub.invite_error', true); }
+    });
   }
 
   function bindRefreshBtn() {
