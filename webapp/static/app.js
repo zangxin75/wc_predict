@@ -92,13 +92,9 @@ async function checkSubscription() {
     subChecked = true;
     const proBtn = $('proBtn');
     const proBadge = $('proBadge');
-    if (isPaid) {
-      if (proBtn) proBtn.hidden = true;
-      if (proBadge) proBadge.hidden = false;
-    } else {
-      if (proBtn) proBtn.hidden = false;
-      if (proBadge) proBadge.hidden = true;
-    }
+    // 第一阶段限时免费:Upgrade 按钮一律隐藏(Stripe 购买流已随世界杯落幕失效)
+    if (proBtn) proBtn.hidden = true;
+    if (proBadge) proBadge.hidden = !isPaid;
     return isPaid;
   } catch { return false; }
 }
@@ -1499,14 +1495,12 @@ async function poll() {
       const newPaid = !!me.is_paid;
       if (newPaid !== isPaid) {
         isPaid = newPaid;
+        // 免费阶段:Upgrade 一律隐藏,仅同步 PRO 徽章
         const proBtn = $('proBtn');
         const proBadge = $('proBadge');
-        if (isPaid) {
-          if (proBtn) proBtn.hidden = true;
-          if (proBadge) proBadge.hidden = false;
-        } else {
-          if (proBtn) proBtn.hidden = false;
-          if (proBadge) proBadge.hidden = true;
+        if (proBtn) proBtn.hidden = true;
+        if (proBadge) proBadge.hidden = !isPaid;
+        if (!isPaid) {
           renderSchedule();
           renderMarket();
           renderValue();
