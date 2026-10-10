@@ -20,11 +20,11 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         response = await call_next(request)
         response.headers["Content-Security-Policy"] = (
             "default-src 'self'; "
-            "script-src 'self' https://js.stripe.com 'unsafe-inline'; "
+            "script-src 'self' https://js.stripe.com https://static.cloudflareinsights.com 'unsafe-inline'; "
             "style-src 'self' 'unsafe-inline'; "
             "img-src 'self' data: https:; "
             "frame-src https://js.stripe.com https://hooks.stripe.com; "
-            "connect-src 'self' https://api.stripe.com; "
+            "connect-src 'self' https://api.stripe.com https://ipapi.co https://cloudflareinsights.com; "
             "object-src 'none'; "
             "base-uri 'self'"
         )
