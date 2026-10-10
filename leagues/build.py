@@ -195,7 +195,8 @@ def rebuild_all(elo=None, xgb=None):
 def fetch_all_if_stale(fixtures_h=20, results_h=20):
     """按文件新鲜度补抓(updater 用)。单联赛失败记 errors,不阻塞其他联赛。"""
     from . import fetch_espn, fetch_fd
-    report = {"fd_history": {}, "fixtures": None, "schedules": {}, "errors": []}
+    report = {"fd_history": {}, "fixtures": None, "schedules": {}, "ucl": None,
+              "errors": []}
     for code in config.LEAGUE_CODES:
         if not fetch_fd.is_fresh(config.paths(code)["results"], results_h):
             try:
@@ -217,4 +218,58 @@ def fetch_all_if_stale(fixtures_h=20, results_h=20):
                 report["schedules"][code] = {"rows": n, "missing_months": missing}
             except Exception as e:
                 report["errors"].append(f"schedule {code}: {e}")
+    # UCL:赛程同新鲜度;历史回填重(11+ 赛季 × 12 月),results_h 阈值控制频率
+    if not fetch_fd.is_fresh(config.paths("UCL")["schedule"], fixtures_h):
+        try:
+            n, missing = fetch_espn.fetch_schedule("UCL")
+            report["schedules"]["UCL"] = {"rows": n, "missing_months": missing}
+        except Exception as e:
+            report["errors"].append(f"schedule UCL: {e}")
+    if not fetch_fd.is_fresh(config.paths("UCL")["results"], results_h):
+        try:
+            n, total_missing, degraded = fetch_espn.fetch_ucl_history()
+            report["ucl"] = {"rows": n, "missing": total_missing, "degraded": degraded}
+        except Exception as e:
+            report["errors"].append(f"ucl_history: {e}")
     return report
+
+
+def rebuild_ucl(elo=None, ucl_odds=None):
+    """UCL 预测全量重建:借用制 DC(fit_ucl_global)+ TheOddsAPI 赔率。
+
+    low_confidence = 任一方 borrow.low_confidence(非五大联赛队,N-2)。
+    新进欧冠、历史里没有的队不在 borrow_map → predict_match 自动回退纯 Elo
+    并自带 low_confidence=True,两条路径一致。
+    """
+    season = config.current_season()
+    schedule = load_schedule("UCL")
+    if elo is None:
+        elo = build_elo_pool()[0]
+    league_params = {}
+    for code in config.LEAGUE_CODES:
+        for t, p in _load_dc(code)["params"].items():
+            league_params.setdefault(t, p)
+    glob, borrow = dixon_coles.fit_ucl_global(load_results("UCL"), league_params)
+    _atomic_json(config.paths("UCL")["dc_params"],
+                 {"league": "UCL", "params": borrow, "global": glob})
+    matches = []
+    for m in schedule:
+        base = {"date": m["date"], "time": m.get("time", ""), "home": m["home"],
+                "away": m["away"], "status": m["status"], "neutral": bool(m.get("neutral"))}
+        if m["status"] == "post":
+            base["gh"], base["ga"] = m["gh"], m["ga"]
+        else:
+            odds = (ucl_odds or {}).get((m["home"], m["away"]))
+            low = (borrow.get(m["home"], {}).get("low_confidence", True)
+                   or borrow.get(m["away"], {}).get("low_confidence", True))
+            pred = predict_mod.predict_match(
+                m["home"], m["away"], elo=elo, dc_params=borrow, dc_glob=glob,
+                odds=odds, neutral=base["neutral"], low_confidence=low)
+            base.update(pred)
+            if odds:
+                base["odds"] = {k: odds.get(k) for k in ("b365h", "b365d", "b365a")}
+        matches.append(base)
+    payload = {"code": "UCL", "season": season,
+               "generated_at": date.today().isoformat(), "matches": matches}
+    _atomic_json(config.paths("UCL")["predictions"], payload)
+    return payload

@@ -23,6 +23,9 @@ def tmp_cache(tmp_path, monkeypatch):
                         lambda results, season: [{"team": "A", "pts": 3}])
     monkeypatch.setattr(leagues_updater.build, "load_results", lambda code: [])
     monkeypatch.setattr("leagues.season_sim.simulate_season", lambda code: None)
+    monkeypatch.setattr(leagues_updater.build, "rebuild_ucl",
+                        lambda elo=None, ucl_odds=None: {"code": "UCL", "season": "2627", "matches": []})
+    monkeypatch.setattr("leagues.fetch_odds_ucl.fetch_ucl_odds", lambda: {})
     return tmp_path
 
 
@@ -37,7 +40,7 @@ def _stub_rebuild(monkeypatch, fail_codes=()):
 def test_update_once_populates_all_leagues(monkeypatch):
     _stub_rebuild(monkeypatch)
     leagues_updater.update_once()
-    assert leagues_cache.get_codes() == ["D1", "E0", "F1", "I1", "SP1"]
+    assert leagues_cache.get_codes() == ["D1", "E0", "F1", "I1", "SP1", "UCL"]
     assert leagues_cache.get_league("E0")["standings"] == [{"team": "A", "pts": 3}]
     assert leagues_cache.get_status()["last_error"] is None
     assert leagues_cache.get_status()["running"] is False
@@ -47,7 +50,7 @@ def test_update_once_isolates_single_league_failure(monkeypatch):
     _stub_rebuild(monkeypatch, fail_codes={"D1"})
     leagues_updater.update_once()                   # 不抛
     assert "D1" not in leagues_cache.get_codes()
-    assert len(leagues_cache.get_codes()) == 4      # 其他联赛照常
+    assert len(leagues_cache.get_codes()) == 5      # 4 联赛 + UCL(D1 失败被隔离)
     assert "D1" in leagues_cache.get_status()["last_error"]
 
 

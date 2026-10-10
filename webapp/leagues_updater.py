@@ -50,6 +50,19 @@ def update_once():
         except Exception as e:
             errors.append(f"{code}: {e}")
             traceback.print_exc()
+    # UCL:借用制 + TheOddsAPI 赔率(配额敏感,失败静默降级为无赔率)
+    try:
+        from leagues import fetch_odds_ucl
+        ucl_odds = fetch_odds_ucl.fetch_ucl_odds()
+    except Exception as e:
+        errors.append(f"ucl_odds: {e}")
+        ucl_odds = {}
+    try:
+        payload = build.rebuild_ucl(elo=elo, ucl_odds=ucl_odds)
+        leagues_cache.set_league("UCL", predictions=payload, standings=[])
+    except Exception as e:
+        errors.append(f"UCL: {e}")
+        traceback.print_exc()
     leagues_cache.set_status(running=False,
                              last_error="; ".join(errors) if errors else None,
                              last_success=None if errors else "ok")

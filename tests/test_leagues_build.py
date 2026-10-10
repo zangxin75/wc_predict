@@ -130,6 +130,7 @@ def test_fetch_all_if_stale_isolates_failures(sandbox, monkeypatch):
                         if code == "D1" else (10, []))
     monkeypatch.setattr(fetch_fd, "fetch_fixtures", lambda codes=None: {c: 1 for c in codes})
     monkeypatch.setattr(fetch_espn, "fetch_schedule", lambda code, **kw: (30, []))
+    monkeypatch.setattr(fetch_espn, "fetch_ucl_history", lambda **kw: (100, 5, False))
     report = build.fetch_all_if_stale()
     assert any("D1" in e for e in report["errors"])
     assert report["fd_history"]["E0"]["rows"] == 10  # 其他联赛不受影响
