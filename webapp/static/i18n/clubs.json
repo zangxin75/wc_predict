@@ -1,0 +1,385 @@
+{
+ "_meta": {
+  "note": "联赛俱乐部译名表。键 = API 英文名(含 fd/espn 双数据源变体),值 = 各语言译名",
+  "coverage": "zh-CN 全量(中国官方/媒体译名);其余语言回退英文原文",
+  "count": 126
+ },
+ "AEK Athens": {
+  "zh-CN": "AEK雅典"
+ },
+ "Alaves": {
+  "zh-CN": "阿拉维斯"
+ },
+ "Alavés": {
+  "zh-CN": "阿拉维斯"
+ },
+ "Angers": {
+  "zh-CN": "昂热"
+ },
+ "Arsenal": {
+  "zh-CN": "阿森纳"
+ },
+ "Aston Villa": {
+  "zh-CN": "阿斯顿维拉"
+ },
+ "Atalanta": {
+  "zh-CN": "亚特兰大"
+ },
+ "Ath Bilbao": {
+  "zh-CN": "毕尔巴鄂竞技"
+ },
+ "Ath Madrid": {
+  "zh-CN": "马德里竞技"
+ },
+ "Augsburg": {
+  "zh-CN": "奥格斯堡"
+ },
+ "Auxerre": {
+  "zh-CN": "欧塞尔"
+ },
+ "Barcelona": {
+  "zh-CN": "巴塞罗那"
+ },
+ "Bayer Leverkusen": {
+  "zh-CN": "勒沃库森"
+ },
+ "Bayern Munich": {
+  "zh-CN": "拜仁慕尼黑"
+ },
+ "Betis": {
+  "zh-CN": "皇家贝蒂斯"
+ },
+ "Bodo/Glimt": {
+  "zh-CN": "博德闪耀"
+ },
+ "Bologna": {
+  "zh-CN": "博洛尼亚"
+ },
+ "Bournemouth": {
+  "zh-CN": "伯恩茅斯"
+ },
+ "Brentford": {
+  "zh-CN": "布伦特福德"
+ },
+ "Brest": {
+  "zh-CN": "布雷斯特"
+ },
+ "Brighton": {
+  "zh-CN": "布莱顿"
+ },
+ "Cagliari": {
+  "zh-CN": "卡利亚里"
+ },
+ "Celta": {
+  "zh-CN": "塞尔塔"
+ },
+ "Celta Vigo": {
+  "zh-CN": "塞尔塔"
+ },
+ "Chelsea": {
+  "zh-CN": "切尔西"
+ },
+ "Club Brugge": {
+  "zh-CN": "布鲁日"
+ },
+ "Como": {
+  "zh-CN": "科莫"
+ },
+ "Coventry": {
+  "zh-CN": "考文垂"
+ },
+ "Coventry City": {
+  "zh-CN": "考文垂"
+ },
+ "Crystal Palace": {
+  "zh-CN": "水晶宫"
+ },
+ "Deportivo": {
+  "zh-CN": "拉科鲁尼亚"
+ },
+ "Dortmund": {
+  "zh-CN": "多特蒙德"
+ },
+ "Ein Frankfurt": {
+  "zh-CN": "法兰克福"
+ },
+ "Elche": {
+  "zh-CN": "埃尔切"
+ },
+ "Elversberg": {
+  "zh-CN": "埃尔夫斯堡"
+ },
+ "Espanol": {
+  "zh-CN": "西班牙人"
+ },
+ "Espanyol": {
+  "zh-CN": "西班牙人"
+ },
+ "Everton": {
+  "zh-CN": "埃弗顿"
+ },
+ "FC Cologne": {
+  "zh-CN": "科隆"
+ },
+ "FC Koln": {
+  "zh-CN": "科隆"
+ },
+ "FC Porto": {
+  "zh-CN": "波尔图"
+ },
+ "Fenerbahce": {
+  "zh-CN": "费内巴切"
+ },
+ "Feyenoord Rotterdam": {
+  "zh-CN": "费耶诺德"
+ },
+ "Fiorentina": {
+  "zh-CN": "佛罗伦萨"
+ },
+ "Freiburg": {
+  "zh-CN": "弗赖堡"
+ },
+ "Frosinone": {
+  "zh-CN": "弗罗西诺内"
+ },
+ "Fulham": {
+  "zh-CN": "富勒姆"
+ },
+ "Galatasaray": {
+  "zh-CN": "加拉塔萨雷"
+ },
+ "Genoa": {
+  "zh-CN": "热那亚"
+ },
+ "Getafe": {
+  "zh-CN": "赫塔费"
+ },
+ "Hamburg": {
+  "zh-CN": "汉堡"
+ },
+ "Hamburg SV": {
+  "zh-CN": "汉堡"
+ },
+ "Hoffenheim": {
+  "zh-CN": "霍芬海姆"
+ },
+ "Hull": {
+  "zh-CN": "赫尔城"
+ },
+ "Hull City": {
+  "zh-CN": "赫尔城"
+ },
+ "Inter": {
+  "zh-CN": "国际米兰"
+ },
+ "Ipswich": {
+  "zh-CN": "伊普斯维奇"
+ },
+ "Juventus": {
+  "zh-CN": "尤文图斯"
+ },
+ "LASK Linz": {
+  "zh-CN": "LASK林茨"
+ },
+ "La Coruna": {
+  "zh-CN": "拉科鲁尼亚"
+ },
+ "Lazio": {
+  "zh-CN": "拉齐奥"
+ },
+ "Le Havre": {
+  "zh-CN": "勒阿弗尔"
+ },
+ "Le Mans": {
+  "zh-CN": "勒芒"
+ },
+ "Lecce": {
+  "zh-CN": "莱切"
+ },
+ "Leeds": {
+  "zh-CN": "利兹联"
+ },
+ "Lens": {
+  "zh-CN": "朗斯"
+ },
+ "Levante": {
+  "zh-CN": "莱万特"
+ },
+ "Leverkusen": {
+  "zh-CN": "勒沃库森"
+ },
+ "Lille": {
+  "zh-CN": "里尔"
+ },
+ "Liverpool": {
+  "zh-CN": "利物浦"
+ },
+ "Lorient": {
+  "zh-CN": "洛里昂"
+ },
+ "Lyon": {
+  "zh-CN": "里昂"
+ },
+ "M'gladbach": {
+  "zh-CN": "门兴格拉德巴赫"
+ },
+ "Mainz": {
+  "zh-CN": "美因茨"
+ },
+ "Malaga": {
+  "zh-CN": "马拉加"
+ },
+ "Man City": {
+  "zh-CN": "曼城"
+ },
+ "Man United": {
+  "zh-CN": "曼联"
+ },
+ "Marseille": {
+  "zh-CN": "马赛"
+ },
+ "Milan": {
+  "zh-CN": "AC米兰"
+ },
+ "Monaco": {
+  "zh-CN": "摩纳哥"
+ },
+ "Monza": {
+  "zh-CN": "蒙扎"
+ },
+ "Málaga": {
+  "zh-CN": "马拉加"
+ },
+ "Napoli": {
+  "zh-CN": "那不勒斯"
+ },
+ "Newcastle": {
+  "zh-CN": "纽卡斯尔联"
+ },
+ "Nice": {
+  "zh-CN": "尼斯"
+ },
+ "Nott'm Forest": {
+  "zh-CN": "诺丁汉森林"
+ },
+ "Osasuna": {
+  "zh-CN": "奥萨苏纳"
+ },
+ "PSV Eindhoven": {
+  "zh-CN": "埃因霍温"
+ },
+ "Paderborn": {
+  "zh-CN": "帕德博恩"
+ },
+ "Paris FC": {
+  "zh-CN": "巴黎FC"
+ },
+ "Paris SG": {
+  "zh-CN": "巴黎圣日耳曼"
+ },
+ "Parma": {
+  "zh-CN": "帕尔马"
+ },
+ "RB Leipzig": {
+  "zh-CN": "RB莱比锡"
+ },
+ "Racing Santander": {
+  "zh-CN": "桑坦德竞技"
+ },
+ "Real Madrid": {
+  "zh-CN": "皇家马德里"
+ },
+ "Real Sociedad": {
+  "zh-CN": "皇家社会"
+ },
+ "Rennes": {
+  "zh-CN": "雷恩"
+ },
+ "Roma": {
+  "zh-CN": "罗马"
+ },
+ "SC Paderborn 07": {
+  "zh-CN": "帕德博恩"
+ },
+ "SV Elversberg": {
+  "zh-CN": "埃尔夫斯堡"
+ },
+ "Sabah FK": {
+  "zh-CN": "萨巴赫"
+ },
+ "Santander": {
+  "zh-CN": "桑坦德竞技"
+ },
+ "Sassuolo": {
+  "zh-CN": "萨索洛"
+ },
+ "Schalke 04": {
+  "zh-CN": "沙尔克04"
+ },
+ "Sevilla": {
+  "zh-CN": "塞维利亚"
+ },
+ "Shakhtar Donetsk": {
+  "zh-CN": "顿涅茨克矿工"
+ },
+ "Slavia Prague": {
+  "zh-CN": "布拉格斯拉维亚"
+ },
+ "Slovan Bratislava": {
+  "zh-CN": "布拉迪斯拉发"
+ },
+ "Sociedad": {
+  "zh-CN": "皇家社会"
+ },
+ "Sporting CP": {
+  "zh-CN": "葡萄牙体育"
+ },
+ "Strasbourg": {
+  "zh-CN": "斯特拉斯堡"
+ },
+ "Stuttgart": {
+  "zh-CN": "斯图加特"
+ },
+ "Sunderland": {
+  "zh-CN": "桑德兰"
+ },
+ "TSG Hoffenheim": {
+  "zh-CN": "霍芬海姆"
+ },
+ "Torino": {
+  "zh-CN": "都灵"
+ },
+ "Tottenham": {
+  "zh-CN": "托特纳姆热刺"
+ },
+ "Toulouse": {
+  "zh-CN": "图卢兹"
+ },
+ "Troyes": {
+  "zh-CN": "特鲁瓦"
+ },
+ "Udinese": {
+  "zh-CN": "乌迪内斯"
+ },
+ "Union Berlin": {
+  "zh-CN": "柏林联合"
+ },
+ "Valencia": {
+  "zh-CN": "瓦伦西亚"
+ },
+ "Vallecano": {
+  "zh-CN": "巴列卡诺"
+ },
+ "Venezia": {
+  "zh-CN": "威尼斯"
+ },
+ "Viking FK": {
+  "zh-CN": "维京"
+ },
+ "Villarreal": {
+  "zh-CN": "比利亚雷亚尔"
+ },
+ "Werder Bremen": {
+  "zh-CN": "云达不莱梅"
+ }
+}

@@ -7,6 +7,7 @@
 
   const $ = (id) => document.getElementById(id);
   const tt = (k) => (window.I18N && I18N.t) ? I18N.t(k) : k;
+  const cn = (n) => (window.I18N && I18N.localClub) ? I18N.localClub(n) : n;
   const pct = (v) => v == null ? '–' : (v * 100).toFixed(1) + '%';
   const oddsTxt = (v) => v == null ? `<span class="lg-mask">***</span>` : v.toFixed(2);
 
@@ -22,6 +23,7 @@
       const me = await api('/api/whoami');
       state.isPaid = !!me.is_paid;
     } catch (e) { state.isPaid = false; }
+    if (window.I18N) { await I18N.ready; await I18N.loadClubs(); }  // 俱乐部译名就绪后再渲染
     await refreshLeagues();
     setInterval(tick, POLL_MS);
   }
@@ -92,7 +94,7 @@
          <td>${oddsTxt(m.odds && m.odds.b365a)}</td>`;
       const top = (!isPost && m.top_scores) ?
         m.top_scores.slice(0, 3).map(([s, p]) => `${s} ${pct(p)}`).join(' ') : '';
-      return `<tr><td>${m.date}</td><td class="teams">${m.home} vs ${m.away}${low}</td>
+      return `<tr><td>${m.date}</td><td class="teams">${cn(m.home)} vs ${cn(m.away)}${low}</td>
         <td>${score}</td>${probs}${odds}<td>${top}</td></tr>`;
     }).join('');
     return `<table class="lg"><thead><tr><th></th><th></th><th>${tt('leagues.score')}</th>
@@ -105,7 +107,7 @@
     return `<table class="lg"><thead><tr><th>#</th><th></th>
       <th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
       </tr></thead><tbody>${rows.map((t, i) =>
-        `<tr><td>${i + 1}</td><td class="teams">${t.team}</td><td>${t.p}</td><td>${t.w}</td>
+        `<tr><td>${i + 1}</td><td class="teams">${cn(t.team)}</td><td>${t.p}</td><td>${t.w}</td>
          <td>${t.d}</td><td>${t.l}</td><td>${t.gf}</td><td>${t.ga}</td>
          <td>${t.gd}</td><td><b>${t.pts}</b></td></tr>`).join('')}</tbody></table>`;
   }
@@ -114,7 +116,7 @@
     if (!sim || !sim.teams) return `<p class="lg-status">${tt('leagues.not_ready')}</p>`;
     const rows = Object.entries(sim.teams)
       .sort((a, b) => b[1].title - a[1].title)
-      .map(([team, p]) => `<tr><td class="teams">${team}</td>
+      .map(([team, p]) => `<tr><td class="teams">${cn(team)}</td>
         <td>${pct(p.title)}</td><td>${pct(p.ucl)}</td><td>${pct(p.releg)}</td></tr>`).join('');
     return `<table class="lg"><thead><tr><th></th><th>${tt('leagues.title_race')}</th>
       <th>${tt('leagues.ucl_spots')}</th><th>${tt('leagues.relegation')}</th></tr></thead>
@@ -127,7 +129,7 @@
     return `<table class="lg"><thead><tr><th></th><th></th><th>${tt('leagues.pick')}</th>
       <th>${tt('leagues.edge')}</th><th>${tt('leagues.odds')}</th><th>${tt('leagues.kelly')}</th>
       </tr></thead><tbody>${values.map(v =>
-        `<tr><td>${v.date}</td><td class="teams">${v.home} vs ${v.away}</td>
+        `<tr><td>${v.date}</td><td class="teams">${cn(v.home)} vs ${cn(v.away)}</td>
          <td>${v.pick}</td><td>${pct(v.max_edge)}</td>
          <td>${(v.odds[v.pick] || 0).toFixed(2)}</td><td>${pct(v.kelly)}</td></tr>`).join('')}
       </tbody></table>`;

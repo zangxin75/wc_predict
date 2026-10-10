@@ -35,14 +35,14 @@ def test_i18n_key_parity_all_locales():
 def test_i18n_ver_bumped():
     with open(os.path.join(STATIC, "i18n.js"), encoding="utf-8") as f:
         src = f.read()
-    assert "I18N_VER = 8" in src
+    assert "I18N_VER = 9" in src
 
 
 def test_index_html_has_leagues_nav_and_bumped_script():
     with open(os.path.join(STATIC, "index.html"), encoding="utf-8") as f:
         html = f.read()
     assert 'href="/leagues"' in html
-    assert "i18n.js?v=25" in html
+    assert "i18n.js?v=26" in html
 
 
 def test_leagues_html_matches_index_versions():

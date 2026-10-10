@@ -38,11 +38,13 @@ const I18N = (() => {
     'fr':'fr','fr-FR':'fr','fr-BE':'fr','fr-CA':'fr','fr-CH':'fr'
   };
 
-  const I18N_VER = 8;                   // 翻译缓存版本;i18n JSON 变动时+1
+  const I18N_VER = 9;                   // 翻译缓存版本;i18n JSON 变动时+1
   let current = 'en';
   let dict = {};
   let teams = {};                       // 48 队多语言译名(由 teams.json 加载)
   let teamsLoaded = false;
+  let clubs = {};                       // 联赛俱乐部译名(由 clubs.json 加载)
+  let clubsLoaded = false;
   let ipPromise = null;
   let userTz = null;                    // IANA 时区,如 "Asia/Shanghai" / "America/New_York"
   let readyResolve = null;
@@ -77,6 +79,30 @@ const I18N = (() => {
       console.warn('[i18n] teams.json load failed', e);
     }
     return teams;
+  }
+
+  // ── 加载俱乐部译名表(只一次)──────────────
+  async function loadClubs() {
+    if (clubsLoaded) return clubs;
+    try {
+      const r = await fetch(`static/i18n/clubs.json?v=${I18N_VER}`, { cache: 'no-cache' });
+      if (r.ok) {
+        clubs = await r.json();
+        clubsLoaded = true;
+      }
+    } catch (e) {
+      console.warn('[i18n] clubs.json load failed', e);
+    }
+    return clubs;
+  }
+
+  // ── 俱乐部名本地化:enName → 当前语言译名,无译名回退英文 ──
+  function localClub(enName) {
+    if (!enName) return '';
+    if (current === 'en') return enName;
+    const tr = clubs[enName];
+    if (tr && tr[current]) return tr[current];
+    return enName;
   }
 
   // ── 队名本地化:enName → 当前语言译名,fallback 链
@@ -264,8 +290,9 @@ const I18N = (() => {
   async function init(opts = {}) {
     // 时区先于语言确定(localStorage → 浏览器 → UTC),用 default 即可
     userTz = detectTz();
-    // 队名翻译表后台加载(非阻塞)
+    // 队名/俱乐部翻译表后台加载(非阻塞)
     loadTeams();
+    loadClubs();
     const initial = opts.locale || detectLocale();
     await switchTo(initial, false);
     if (!opts.skipIP && !localStorage.getItem('wc_locale_user')) {
@@ -290,7 +317,7 @@ const I18N = (() => {
     get current() { return current; },
     get tz() { return userTz; },
     get teams() { return teams; },
-    localTeam, localTime, localDate,
+    localTeam, localClub, loadClubs, localTime, localDate,
     LOCALES, META, applyDOM,
     get dict() { return dict; },
   };
