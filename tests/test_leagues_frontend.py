@@ -41,7 +41,7 @@ def test_i18n_ver_bumped():
 def test_index_html_has_leagues_nav_and_bumped_script():
     with open(os.path.join(STATIC, "index.html"), encoding="utf-8") as f:
         html = f.read()
-    assert 'href="/leagues"' in html
+    assert 'href="/"' in html  # 联赛现为首页
     assert "i18n.js?v=26" in html
     assert "app.js?v=43" in html
 

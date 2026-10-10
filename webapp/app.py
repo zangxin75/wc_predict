@@ -123,6 +123,13 @@ app.include_router(leagues_api.router)
 @app.get("/")
 @limiter.limit("60/minute")
 def index(request: Request):
+    # 首页 = 联赛板块;世界杯在 /wc
+    return FileResponse(os.path.join(STATIC_DIR, "leagues.html"))
+
+
+@app.get("/wc")
+@limiter.limit("60/minute")
+def worldcup_page(request: Request):
     return FileResponse(os.path.join(STATIC_DIR, "index.html"))
 
 
