@@ -6,8 +6,8 @@
   const state = { leagues: [], code: null, tab: 'matches', isPaid: false, data: {} };
 
   const $ = (id) => document.getElementById(id);
-  const tt = (k) => (window.I18N && I18N.t) ? I18N.t(k) : k;
-  const cn = (n) => (window.I18N && I18N.localClub) ? I18N.localClub(n) : n;
+  const tt = (k) => (typeof I18N !== "undefined" && I18N.t) ? I18N.t(k) : k;
+  const cn = (n) => (typeof I18N !== "undefined" && I18N.localClub) ? I18N.localClub(n) : n;
   const pct = (v) => v == null ? '–' : (v * 100).toFixed(1) + '%';
   const oddsTxt = (v) => v == null ? `<span class="lg-mask">***</span>` : v.toFixed(2);
 
@@ -23,7 +23,7 @@
       const me = await api('/api/whoami');
       state.isPaid = !!me.is_paid;
     } catch (e) { state.isPaid = false; }
-    if (window.I18N) { await I18N.ready; await I18N.loadClubs(); }  // 俱乐部译名就绪后再渲染
+    if (typeof I18N !== "undefined") { await I18N.ready; await I18N.loadClubs(); }  // 俱乐部译名就绪后再渲染
     await refreshLeagues();
     setInterval(tick, POLL_MS);
   }
@@ -46,9 +46,10 @@
   async function tick() { await refreshLeagues(); }
 
   function renderTabs() {
+    const zh = typeof I18N !== 'undefined' && I18N.current === 'zh-CN';
     $('leagueTabs').innerHTML = state.leagues.map(l =>
       `<button class="lg-tab ${l.code === state.code ? 'active' : ''}"
-        data-code="${l.code}" ${l.available ? '' : 'disabled'}>${l.name_zh}</button>`
+        data-code="${l.code}" ${l.available ? '' : 'disabled'}>${zh ? l.name_zh : l.name}</button>`
     ).join('');
     $('leagueTabs').querySelectorAll('button[data-code]').forEach(b =>
       b.onclick = () => { state.code = b.dataset.code; renderTabs(); loadTab(); });
@@ -142,7 +143,7 @@
   // ── 语言切换器(与 app.js bindLangSwitcher 同构,作用于联赛页)──
   function bindLangSwitcher() {
     const btn = $('langBtn'), menu = $('langMenu');
-    if (!btn || !menu || !window.I18N) return;
+    if (!btn || !menu || typeof I18N === "undefined") return;
     const paint = () => {
       menu.innerHTML = I18N.LOCALES.map(code => {
         const m = I18N.META[code];

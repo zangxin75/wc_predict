@@ -43,6 +43,7 @@ def test_index_html_has_leagues_nav_and_bumped_script():
         html = f.read()
     assert 'href="/leagues"' in html
     assert "i18n.js?v=26" in html
+    assert "app.js?v=43" in html
 
 
 def test_leagues_html_matches_index_versions():

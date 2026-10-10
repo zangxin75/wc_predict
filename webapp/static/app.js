@@ -305,7 +305,7 @@ async function fetchShareTemplates(locale) {
 async function fillShareTemplate(idx) {
   const tpl = $('shareTemplate');
   if (!tpl) return;
-  const locale = (window.I18N && I18N.current) ? I18N.current : 'en';
+  const locale = (typeof I18N !== "undefined" && I18N.current) ? I18N.current : 'en';
   // locale 切换或首次 → 拉取
   if (!_shareTemplatesCache || _shareTemplatesCache.locale !== locale) {
     await fetchShareTemplates(locale);
