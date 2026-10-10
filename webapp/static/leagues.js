@@ -139,5 +139,43 @@
     return `<p class="lg-status"><a class="lg-pro" href="/#pro">✨ ${tt('leagues.pro_only')}</a></p>`;
   }
 
-  document.addEventListener('DOMContentLoaded', boot);
+  // ── 语言切换器(与 app.js bindLangSwitcher 同构,作用于联赛页)──
+  function bindLangSwitcher() {
+    const btn = $('langBtn'), menu = $('langMenu');
+    if (!btn || !menu || !window.I18N) return;
+    const paint = () => {
+      menu.innerHTML = I18N.LOCALES.map(code => {
+        const m = I18N.META[code];
+        return `<button class="lang-opt${code === I18N.current ? ' active' : ''}" data-lang="${code}" type="button" role="option">`
+          + `<span class="opt-flag">${m.flag}</span><span>${m.name}</span></button>`;
+      }).join('');
+      menu.querySelectorAll('.lang-opt').forEach(opt =>
+        opt.onclick = () => {
+          const code = opt.getAttribute('data-lang');
+          if (code) { I18N.switchTo(code, true); closeMenu(); }
+        });
+      $('langCurrent').textContent = `${I18N.META[I18N.current].flag} ${I18N.META[I18N.current].name}`;
+    };
+    const closeMenu = () => { menu.hidden = true; btn.setAttribute('aria-expanded', 'false'); };
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      if (menu.hidden) { menu.hidden = false; btn.setAttribute('aria-expanded', 'true'); }
+      else closeMenu();
+    });
+    document.addEventListener('click', e => {
+      if (!menu.hidden && !menu.contains(e.target) && e.target !== btn) closeMenu();
+    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+    paint();
+    // 语言切换 → 译名/标签全量重渲染
+    document.addEventListener('i18n:changed', () => {
+      paint();
+      if (state.code) { renderTabs(); loadTab(); }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    await boot();
+    bindLangSwitcher();
+  });
 })();

@@ -33,6 +33,14 @@
   <a href="/" class="switch-app" data-i18n-attr="title" data-i18n="nav.wc" title="World Cup">
     <span data-i18n="nav.wc">世界杯</span> <span aria-hidden="true">⟶</span>
   </a>
+
+  <div class="lang-switch" id="langSwitcherWrap">
+    <button class="lang-btn" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+      <span class="lang-current" id="langCurrent">🌐 EN</span>
+      <span class="lang-arrow">▾</span>
+    </button>
+    <div class="lang-menu" id="langMenu" role="listbox" hidden></div>
+  </div>
 </header>
 <main>
   <div class="lg-tabs" id="leagueTabs"></div>
@@ -41,6 +49,6 @@
   <p class="lg-status" id="statusLine"></p>
 </main>
 <script src="static/i18n.js?v=26"></script>
-<script src="static/leagues.js?v=2"></script>
+<script src="static/leagues.js?v=3"></script>
 </body>
 </html>
