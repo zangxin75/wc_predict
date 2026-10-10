@@ -294,5 +294,6 @@
   "share.template_b": "我信任的这个世界杯预测器(测试后):\n\n▸ 每场 10,000 次蒙特卡洛模拟\n▸ Elo + Dixon-Coles,与市场校准 +0.87\n▸ 回测 2018+2022:53.1% argmax 命中(128 场)\n▸ 100 场比赛全覆盖,68 场未赛\n\nAI 赛前情报。价值下注扫描器。免费 →\n\nhttp://aijialidu.ticp.vip/wc/",
   "share.template_c": "7 天后埃及对伊朗。庄家开 3.85 赔率。\n\n这个预测器说埃及有 21.7% edge,Kelly 27%。\n\n它在过去两届世界杯 128 场里命中 53%。\n\n我不盲赌。我用数据赌。免费试 →\n\nhttp://aijialidu.ticp.vip/wc/",
   "share.template_counter": "{idx}/{total}",
-  "share.template_next": "↻ 换一个"
+  "share.template_next": "↻ 换一个",
+  "nav.leagues": "联赛"
 }

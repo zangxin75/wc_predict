@@ -294,5 +294,6 @@
   "share.template_b": "متنبئ كأس العالم 2026 أثق به (بعد الاختبار):\n\n▸ 10,000 محاكاة Monte Carlo لكل مباراة\n▸ Elo + Dixon-Coles، معايرة +0.87 مقابل السوق\n▸ اختبار رجعي 2018+2022: 53.1% إصابة argmax (128 مباراة)\n▸ 100 مباراة مغطاة، 68 قادمة\n\nمعلومات ما قبل المباراة بالذكاء الاصطناعي. ماسح value bets. مجاني ←\n\nhttp://aijialidu.ticp.vip/wc/",
   "share.template_c": "مصر vs إيران بعد 7 أيام. السوق يقدم 3.85.\n\nهذا المتنبئ يقول أن مصر لديها edge 21.7%. Kelly 27%.\n\nأصاب 53% في آخر بطولتين (128 مباراة).\n\nلا أراهن أعمى. أراهن بالبيانات. مجاني →\n\nhttp://aijialidu.ticp.vip/wc/",
   "share.template_counter": "{idx}/{total}",
-  "share.template_next": "↻ التالي"
+  "share.template_next": "↻ التالي",
+  "nav.leagues": "الدوريات"
 }

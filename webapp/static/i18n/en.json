@@ -294,5 +294,6 @@
   "share.template_b": "WC2026 predictor I trust (after testing):\n\n▸ 10,000 Monte Carlo sims per match\n▸ Elo + Dixon-Coles, calibrated +0.87 vs market\n▸ Backtest 2018+2022: 53.1% argmax hit (128 games)\n▸ 100 matches covered, 68 upcoming\n\nAI pre-match intel. Value bet scanner. Free →\n\nhttp://aijialidu.ticp.vip/wc/",
   "share.template_c": "Egypt vs Iran in 7 days. Market says 3.85 odds.\n\nThis predictor says Egypt has 21.7% edge. Kelly 27%.\n\nIt hit 53% on past 2 World Cups (128 games).\n\nI don't bet blind. I bet with data. Free →\n\nhttp://aijialidu.ticp.vip/wc/",
   "share.template_counter": "{idx}/{total}",
-  "share.template_next": "↻ Next"
+  "share.template_next": "↻ Next",
+  "nav.leagues": "Leagues"
 }
