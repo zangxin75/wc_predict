@@ -4,6 +4,20 @@
 (() => {
   const POLL_MS = 60000;
   const state = { leagues: [], code: null, tab: 'matches', isPaid: false, data: {} };
+  let countdown = POLL_MS / 1000;
+
+  // ── 状态栏(WC 页同款:live-dot / 上次更新 / 倒计时)──
+  function setStatus(kind, labelKey) {
+    const dot = $('liveDot'), label = $('statusLabel');
+    if (!dot || !label) return;
+    dot.className = 'live-dot ' + kind;
+    label.textContent = tt(labelKey);
+    if (kind) label.removeAttribute('data-i18n');
+  }
+  function stampUpdated() {
+    const el = $('lastUpdated');
+    if (el) el.textContent = new Date().toTimeString().slice(0, 8);
+  }
 
   const $ = (id) => document.getElementById(id);
   const tt = (k) => (typeof I18N !== "undefined" && I18N.t) ? I18N.t(k) : k;
@@ -23,9 +37,29 @@
       const me = await api('/api/whoami');
       state.isPaid = !!me.is_paid;
     } catch (e) { state.isPaid = false; }
+    const pb = $('proBtn'), pg = $('proBadge');
+    if (pb) pb.hidden = state.isPaid;
+    if (pg) pg.hidden = !state.isPaid;
     if (typeof I18N !== "undefined") { await I18N.ready; await I18N.loadClubs(); }  // 俱乐部译名就绪后再渲染
+    bindRefreshBtn();
     await refreshLeagues();
-    setInterval(tick, POLL_MS);
+    setInterval(async () => {
+      countdown -= 1;
+      if (countdown <= 0) { countdown = POLL_MS / 1000; await tick(); }
+      const cd = $('countdown');
+      if (cd) cd.textContent = countdown + 's';
+    }, 1000);
+  }
+
+  function bindRefreshBtn() {
+    const btn = $('refreshBtn');
+    if (!btn) return;
+    btn.addEventListener('click', async () => {
+      setStatus('busy', 'status.updating');
+      try { await api('/api/refresh'); } catch (e) { /* 触发失败不阻塞本地刷新 */ }
+      countdown = POLL_MS / 1000;
+      await tick();
+    });
   }
 
   async function refreshLeagues() {
@@ -38,7 +72,10 @@
       }
       renderTabs();
       await loadTab();
+      setStatus('ok', 'status.live');
+      stampUpdated();
     } catch (e) {
+      setStatus('err', 'status.failed');
       $('content').innerHTML = `<p class="lg-status">${tt('leagues.not_ready')}</p>`;
     }
   }

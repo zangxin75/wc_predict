@@ -864,6 +864,7 @@ body::before{
   display:inline-flex;align-items:center;gap:4px;
   font-family:var(--ff-mono);font-size:10px;color:var(--gold);letter-spacing:.04em;
 }
+.pro-btn[hidden],.pro-badge[hidden]{display:none}   /* 覆盖 flex,让 [hidden] 生效 */
 .pro-badge::before{
   content:'';display:inline-block;width:6px;height:6px;border-radius:50%;
   background:var(--gold);box-shadow:0 0 4px rgba(201,169,97,.5);

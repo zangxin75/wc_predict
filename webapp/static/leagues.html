@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title data-i18n="leagues.title">联赛预测</title>
   <link rel="icon" href="static/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="static/style.css?v=6">
+  <link rel="stylesheet" href="static/style.css?v=7">
   <style>
     .lg-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0; }
     .lg-tab { padding: 6px 14px; border-radius: 16px; border: 1px solid var(--border, #444);
@@ -31,15 +31,47 @@
   </style>
 </head>
 <body>
-<header>
-  <h1 data-i18n="leagues.title">联赛预测</h1>
+<div class="led-strip"></div>
 
-  <div class="lang-switch" id="langSwitcherWrap">
+<header class="cmd-header">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <div class="brand-text">
+      <h1 class="brand-title">LEAGUES <span class="year">PREDICT</span></h1>
+      <p class="brand-sub" data-i18n="leagues.subtitle">五大联赛 + 欧冠 · 数据驱动预测 · LIVE PREDICTION DECK</p>
+    </div>
+  </div>
+
+  <div class="status-cluster" id="statusCluster">
+    <div class="status-cell">
+      <span class="live-dot" id="liveDot"></span>
+      <span class="status-label" id="statusLabel" data-i18n="status.connecting">连接中…</span>
+    </div>
+    <div class="status-cell">
+      <span class="meta-key" data-i18n="common.last_updated">Last updated</span>
+      <span class="meta-val mono" id="lastUpdated">-</span>
+    </div>
+    <div class="status-cell countdown-cell">
+      <span class="meta-key" data-i18n="common.next_refresh">Next refresh</span>
+      <span class="meta-val mono accent" id="countdown">--</span>
+    </div>
+    <button class="refresh-btn" id="refreshBtn" data-i18n="nav.refresh" data-i18n-attr="title"
+      title="立即触发后台抓取+重算">
+      <span class="refresh-ico">⟳</span> <span data-i18n="nav.refresh">立即刷新</span>
+    </button>
+
+    <div class="lang-switch" id="langSwitcherWrap">
     <button class="lang-btn" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
       <span class="lang-current" id="langCurrent">🌐 EN</span>
       <span class="lang-arrow">▾</span>
     </button>
     <div class="lang-menu" id="langMenu" role="listbox" hidden></div>
+    </div>
+
+    <div class="pro-wrap">
+      <a class="pro-btn" id="proBtn" href="/wc#pro" style="text-decoration:none" data-i18n="sub.upgrade">✨ Upgrade</a>
+      <span class="pro-badge" id="proBadge" hidden data-i18n="sub.pro_badge">PRO</span>
+    </div>
   </div>
 </header>
 <main>
@@ -52,6 +84,6 @@
   <a href="/wc" class="lg-wc-link" data-i18n="footer.wc_archive" title="World Cup 2026">⚽ 世界杯 2026（已落幕）»</a>
 </footer>
 <script src="static/i18n.js?v=26"></script>
-<script src="static/leagues.js?v=5"></script>
+<script src="static/leagues.js?v=6"></script>
 </body>
 </html>
