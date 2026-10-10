@@ -71,8 +71,19 @@ def free_client(monkeypatch):
     app.dependency_overrides.pop(auth_mod.get_current_user, None)
 
 
-def test_matches_free_user_odds_null_no_market_keys(free_client):
-    """N-1:非 Pro 响应递归不含 edge/kelly/market 键,odds=null。"""
+def test_matches_free_user_sees_all_in_free_phase(free_client):
+    """第一阶段 LEAGUES_FREE=True:所有人看完整字段(含 market)。"""
+    r = free_client.get("/api/leagues/E0/matches")
+    assert r.status_code == 200
+    m = r.json()["matches"][0]
+    assert m["odds"]["b365h"] == 1.9
+    assert m["market"]["pick"] == "draw"
+
+
+def test_matches_gating_when_paid_phase(free_client, monkeypatch):
+    """第二阶段 LEAGUES_FREE=False 时:N-1 字段白名单恢复生效。"""
+    from webapp import leagues as leagues_api
+    monkeypatch.setattr(leagues_api, "LEAGUES_FREE", False)
     r = free_client.get("/api/leagues/E0/matches")
     assert r.status_code == 200
     body = r.json()
@@ -90,7 +101,16 @@ def test_matches_pro_user_sees_odds_and_market(pro_client):
     assert m["market"]["pick"] == "draw" and m["market"]["kelly"] == 0.012
 
 
-def test_value_non_pro_returns_402(free_client):
+def test_value_free_phase_returns_200(free_client):
+    """第一阶段 LEAGUES_FREE=True:价值下注免费开放。"""
+    r = free_client.get("/api/leagues/E0/value")
+    assert r.status_code == 200
+    assert len(r.json()["values"]) == 1
+
+
+def test_value_non_pro_returns_402_in_paid_phase(free_client, monkeypatch):
+    from webapp import leagues as leagues_api
+    monkeypatch.setattr(leagues_api, "LEAGUES_FREE", False)
     r = free_client.get("/api/leagues/E0/value")
     assert r.status_code == 402
 

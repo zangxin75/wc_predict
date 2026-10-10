@@ -15,6 +15,10 @@ from webapp.rate_limit import limiter
 
 router = APIRouter(prefix="/api/leagues", tags=["leagues"])
 
+# 第一阶段推广期(2025-08 起):联赛板块限时全量免费,Pro 仅作种子用户标识。
+# 第二阶段收费时改回 False 即恢复 402 门控 + 字段白名单。
+LEAGUES_FREE = True
+
 VALID_CODES = set(config.ALL_CODES)
 
 # 免费用户可见字段(预测本身免费;odds 键保留但值=null,前端渲染逻辑统一)
@@ -28,6 +32,8 @@ VALUE_MIN_EDGE = 0.03
 
 
 def _is_pro(user):
+    if LEAGUES_FREE:
+        return True
     return bool(user and payments.is_paid(user))
 
 

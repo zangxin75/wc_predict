@@ -38,7 +38,8 @@
       state.isPaid = !!me.is_paid;
     } catch (e) { state.isPaid = false; }
     const pb = $('proBtn'), pg = $('proBadge');
-    if (pb) pb.hidden = state.isPaid;
+    // 第一阶段限时免费:全量开放,Upgrade 按钮隐藏;PRO 徽章仅作种子用户标识
+    if (pb) pb.hidden = true;
     if (pg) pg.hidden = !state.isPaid;
     bindProModal();
     if (typeof I18N !== "undefined") { await I18N.ready; await I18N.loadClubs(); }  // 俱乐部译名就绪后再渲染
