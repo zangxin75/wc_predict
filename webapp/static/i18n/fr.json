@@ -320,5 +320,9 @@
   "leagues.today_title": "Aujourd’hui & à venir",
   "leagues.today": "Aujourd’hui",
   "leagues.tomorrow": "Demain",
-  "leagues.finished": "Matchs terminés"
+  "leagues.finished": "Matchs terminés",
+  "leagues.search_ph": "Rechercher équipe / date…",
+  "leagues.searching": "Recherche…",
+  "leagues.search_none": "Aucun match correspondant",
+  "leagues.search_results": "Résultats"
 }

@@ -320,5 +320,9 @@
   "leagues.today_title": "今日 & 即将开赛",
   "leagues.today": "今天",
   "leagues.tomorrow": "明天",
-  "leagues.finished": "已完赛"
+  "leagues.finished": "已完赛",
+  "leagues.search_ph": "搜索球队 / 日期…",
+  "leagues.searching": "检索中…",
+  "leagues.search_none": "没有匹配的比赛",
+  "leagues.search_results": "共找到"
 }

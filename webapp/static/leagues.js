@@ -64,6 +64,7 @@
     bindProModal();
     if (typeof I18N !== "undefined") { await I18N.ready; await I18N.loadClubs(); }  // 俱乐部译名就绪后再渲染
     bindRefreshBtn();
+    bindSearch();
     await refreshLeagues();
     loadSchedule();
     setInterval(async () => {
@@ -157,7 +158,7 @@
     }
   }
 
-  async function tick() { await refreshLeagues(); loadSchedule(); }
+  async function tick() { await refreshLeagues(); loadSchedule(); search.cache = {}; if (search.kw) doSearch(search.kw); }
 
   // ── 今日/未来赛程聚合板(/api/leagues/schedule,跨联赛按开赛时间排)──
   async function loadSchedule() {
@@ -216,13 +217,13 @@
         data-code="${l.code}" ${l.available ? '' : 'disabled'}>${zh ? l.name_zh : l.name}</button>`
     ).join('');
     $('leagueTabs').querySelectorAll('button[data-code]').forEach(b =>
-      b.onclick = () => { state.code = b.dataset.code; renderTabs(); loadTab(); syncRoute(); scrollToContent(); });
+      b.onclick = () => { state.code = b.dataset.code; clearSearch(); renderTabs(); loadTab(); syncRoute(); scrollToContent(); });
     const subs = ['matches', 'standings', 'sim', 'value'];
     $('subTabs').innerHTML = subs.map(s =>
       `<button class="${s === state.tab ? 'active' : ''}" data-tab="${s}">${tt('leagues.tab.' + s)}</button>`
     ).join('');
     $('subTabs').querySelectorAll('button').forEach(b =>
-      b.onclick = () => { state.tab = b.dataset.tab; renderTabs(); loadTab(); syncRoute(); scrollToContent(); });
+      b.onclick = () => { state.tab = b.dataset.tab; clearSearch(); renderTabs(); loadTab(); syncRoute(); scrollToContent(); });
   }
 
   async function loadTab() {
@@ -247,32 +248,84 @@
     }
   }
 
-  function renderMatches(d) {
-    const row = (m) => {
-      const isPost = m.status === 'post';
-      const score = isPost ? `<span class="lg-score">${m.gh}–${m.ga}</span>` : '';
-      const low = m.low_confidence ? ` <span class="lg-low">⚠ ${tt('leagues.low_conf')}</span>` : '';
-      const probs = isPost ? '' :
-        `<td>${pct(m.probs.home)}</td><td>${pct(m.probs.draw)}</td><td>${pct(m.probs.away)}</td>`;
-      const odds = isPost ? '<td colspan="3" class="lg-c-odds"></td>' :
-        `<td class="lg-c-odds">${oddsTxt(m.odds && m.odds.b365h)}</td><td class="lg-c-odds">${oddsTxt(m.odds && m.odds.b365d)}</td>
-         <td class="lg-c-odds">${oddsTxt(m.odds && m.odds.b365a)}</td>`;
-      const top = (!isPost && m.top_scores) ?
-        m.top_scores.slice(0, 3).map(([s, p]) => `${s} ${pct(p)}`).join(' ') : '';
-      return `<tr><td>${m.date}</td><td class="teams">${cn(m.home)} vs ${cn(m.away)}${low}</td>
-        <td>${score}</td>${probs}${odds}<td class="lg-c-top">${top}</td></tr>`;
+  function matchRow(m) {
+    const isPost = m.status === 'post';
+    const score = isPost ? `<span class="lg-score">${m.gh}–${m.ga}</span>` : '';
+    const low = m.low_confidence ? ` <span class="lg-low">⚠ ${tt('leagues.low_conf')}</span>` : '';
+    const probs = isPost ? '' :
+      `<td>${pct(m.probs.home)}</td><td>${pct(m.probs.draw)}</td><td>${pct(m.probs.away)}</td>`;
+    const odds = isPost ? '<td colspan="3" class="lg-c-odds"></td>' :
+      `<td class="lg-c-odds">${oddsTxt(m.odds && m.odds.b365h)}</td><td class="lg-c-odds">${oddsTxt(m.odds && m.odds.b365d)}</td>
+       <td class="lg-c-odds">${oddsTxt(m.odds && m.odds.b365a)}</td>`;
+    const top = (!isPost && m.top_scores) ?
+      m.top_scores.slice(0, 3).map(([s, p]) => `${s} ${pct(p)}`).join(' ') : '';
+    return `<tr><td>${m.date}</td><td class="teams">${cn(m.home)} vs ${cn(m.away)}${low}</td>
+      <td>${score}</td>${probs}${odds}<td class="lg-c-top">${top}</td></tr>`;
+  }
+  const matchThead = () => `<thead><tr><th></th><th></th><th>${tt('leagues.score')}</th>
+    <th>1</th><th>X</th><th>2</th><th colspan="3" class="lg-c-odds">${tt('leagues.odds')}</th>
+    <th class="lg-c-top">${tt('leagues.score')}</th></tr></thead>`;
+
+  // ── 全联赛关键字检索:队名(原文+本地译名)或日期匹配,按联赛分组展示 ──
+  const search = { kw: '', cache: {}, seq: 0 };
+  function clearSearch() {
+    search.kw = ''; search.seq++;
+    const inp = $('searchInput');
+    if (inp) inp.value = '';
+  }
+  function bindSearch() {
+    const inp = $('searchInput');
+    if (!inp) return;
+    let timer = null;
+    inp.addEventListener('input', () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => doSearch(inp.value.trim()), 250);
+    });
+    inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') { clearTimeout(timer); doSearch(inp.value.trim()); } });
+  }
+  async function doSearch(q) {
+    const c = $('content');
+    search.kw = q;
+    const mySeq = ++search.seq;
+    if (!q) { if (state.code) loadTab(); return; }
+    if (c) c.innerHTML = `<p class="lg-status">${tt('leagues.searching') || ''}</p>`;
+    const kw = q.toLowerCase();
+    const zh = typeof I18N !== 'undefined' && I18N.current === 'zh-CN';
+    const groups = [];
+    for (const l of state.leagues) {
+      if (!l.available) continue;
+      if (!search.cache[l.code]) {
+        try { search.cache[l.code] = await api(`/api/leagues/${l.code}/matches`); } catch (e) { continue; }
+      }
+      const d = search.cache[l.code];
+      const ms = (d.matches || []).filter(m =>
+        (cn(m.home) + ' ' + cn(m.away) + ' ' + m.home + ' ' + m.away + ' ' + m.date).toLowerCase().indexOf(kw) >= 0);
+      if (ms.length) groups.push({ l, ms });
+    }
+    if (mySeq !== search.seq) return;  // 已被更新的输入取代
+    if (!c) return;
+    if (!groups.length) { c.innerHTML = `<p class="lg-status">${tt('leagues.search_none')}</p>`; return; }
+    const block = ({ l, ms }) => {
+      const up = ms.filter(m => m.status !== 'post');
+      const post = ms.filter(m => m.status === 'post')
+        .sort((a, b) => (b.date + (b.time || '')).localeCompare(a.date + (a.time || '')));
+      return `<h3 class="lg-today-date">${zh ? l.name_zh : l.name}<span class="lg-today-count">${ms.length}</span></h3>
+        ${post.length ? `<div class="lg-scroll"><table class="lg">${matchThead()}<tbody>${post.map(matchRow).join('')}</tbody></table></div>` : ''}
+        ${up.length ? `<div class="lg-scroll"><table class="lg">${matchThead()}<tbody>${up.map(matchRow).join('')}</tbody></table></div>` : ''}`;
     };
-    const thead = `<thead><tr><th></th><th></th><th>${tt('leagues.score')}</th>
-      <th>1</th><th>X</th><th>2</th><th colspan="3" class="lg-c-odds">${tt('leagues.odds')}</th>
-      <th class="lg-c-top">${tt('leagues.score')}</th></tr></thead>`;
+    c.innerHTML = groups.map(block).join('') + `<p class="lg-status">${tt('leagues.search_results')}: ${groups.reduce((n, g) => n + g.ms.length, 0)}</p>`;
+    scrollToContent();
+  }
+
+  function renderMatches(d) {
     const upcoming = d.matches.filter(m => m.status !== 'post');
     const post = d.matches.filter(m => m.status === 'post')
       .sort((a, b) => (b.date + (b.time || '')).localeCompare(a.date + (a.time || '')));
-    const upcomingTable = `<div class="lg-scroll"><table class="lg">${thead}<tbody>${upcoming.map(row).join('')}</tbody></table></div>`;
+    const upcomingTable = `<div class="lg-scroll"><table class="lg">${matchThead()}<tbody>${upcoming.map(matchRow).join('')}</tbody></table></div>`;
     const postBlock = post.length ? `
       <details class="lg-post">
         <summary><span class="lg-fold-label">${tt('leagues.finished')} (${post.length})</span><span class="lg-fold-arrow">▾</span></summary>
-        <div class="lg-scroll"><table class="lg">${thead}<tbody>${post.map(row).join('')}</tbody></table></div>
+        <div class="lg-scroll"><table class="lg">${matchThead()}<tbody>${post.map(matchRow).join('')}</tbody></table></div>
       </details>` : '';
     return `${postBlock}${upcomingTable}
       <p class="lg-status">${tt('leagues.updated')}: ${d.generated_at || ''}</p>`;

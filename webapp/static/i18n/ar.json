@@ -320,5 +320,9 @@
   "leagues.today_title": "اليوم والقادمة",
   "leagues.today": "اليوم",
   "leagues.tomorrow": "غدًا",
-  "leagues.finished": "المباريات المنتهية"
+  "leagues.finished": "المباريات المنتهية",
+  "leagues.search_ph": "ابحث عن فريق / تاريخ…",
+  "leagues.searching": "جارٍ البحث…",
+  "leagues.search_none": "لا توجد مباريات مطابقة",
+  "leagues.search_results": "النتائج"
 }

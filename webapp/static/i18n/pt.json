@@ -320,5 +320,9 @@
   "leagues.today_title": "Hoje e próximos",
   "leagues.today": "Hoje",
   "leagues.tomorrow": "Amanhã",
-  "leagues.finished": "Partidas encerradas"
+  "leagues.finished": "Partidas encerradas",
+  "leagues.search_ph": "Buscar time / data…",
+  "leagues.searching": "Buscando…",
+  "leagues.search_none": "Nenhuma partida correspondente",
+  "leagues.search_results": "Resultados"
 }
