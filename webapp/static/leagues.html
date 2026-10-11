@@ -24,6 +24,9 @@
                                 font-size: 16px; padding: 10px 8px; user-select: none; }
     details.lg-post > summary::-webkit-details-marker { display: none; }
     .lg-scroll table.lg { min-width: 480px; }
+    /* 大字号模式:隐藏次要列(赔率/比分预测),核心列整屏放下,无需横拖 */
+    html.fb-large .lg-c-odds, html.fb-large .lg-c-top { display: none; }
+    html.fb-large .lg-scroll table.lg { min-width: 0; }
     table.lg { width: 100%; border-collapse: collapse; font-size: 14px; }
     table.lg th, table.lg td { padding: 6px 8px; border-bottom: 1px solid var(--border, #333);
                                text-align: center; }
@@ -215,7 +218,7 @@ window.addEventListener('unhandledrejection', function (e) {
 });
 </script>
 <script src="static/i18n.js?v=30"></script>
-<script src="static/fontfit.js?v=1"></script>
-<script src="static/leagues.js?v=21"></script>
+<script src="static/fontfit.js?v=2"></script>
+<script src="static/leagues.js?v=22"></script>
 </body>
 </html>

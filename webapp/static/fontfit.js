@@ -19,6 +19,7 @@
       // 补偿当前浏览器缩放,保证最终视觉字号稳定为 saved
       var z = Math.min(2.5, Math.max(1, saved / browserZoom()));
       document.body.style.zoom = (z > 1.04) ? z : '';
+      document.documentElement.classList.toggle('fb-large', z >= 1.25);
     }
     apply();
 

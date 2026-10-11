@@ -254,17 +254,17 @@
       const low = m.low_confidence ? ` <span class="lg-low">⚠ ${tt('leagues.low_conf')}</span>` : '';
       const probs = isPost ? '' :
         `<td>${pct(m.probs.home)}</td><td>${pct(m.probs.draw)}</td><td>${pct(m.probs.away)}</td>`;
-      const odds = isPost ? '<td colspan="3"></td>' :
-        `<td>${oddsTxt(m.odds && m.odds.b365h)}</td><td>${oddsTxt(m.odds && m.odds.b365d)}</td>
-         <td>${oddsTxt(m.odds && m.odds.b365a)}</td>`;
+      const odds = isPost ? '<td colspan="3" class="lg-c-odds"></td>' :
+        `<td class="lg-c-odds">${oddsTxt(m.odds && m.odds.b365h)}</td><td class="lg-c-odds">${oddsTxt(m.odds && m.odds.b365d)}</td>
+         <td class="lg-c-odds">${oddsTxt(m.odds && m.odds.b365a)}</td>`;
       const top = (!isPost && m.top_scores) ?
         m.top_scores.slice(0, 3).map(([s, p]) => `${s} ${pct(p)}`).join(' ') : '';
       return `<tr><td>${m.date}</td><td class="teams">${cn(m.home)} vs ${cn(m.away)}${low}</td>
-        <td>${score}</td>${probs}${odds}<td>${top}</td></tr>`;
+        <td>${score}</td>${probs}${odds}<td class="lg-c-top">${top}</td></tr>`;
     };
     const thead = `<thead><tr><th></th><th></th><th>${tt('leagues.score')}</th>
-      <th>1</th><th>X</th><th>2</th><th colspan="3">${tt('leagues.odds')}</th>
-      <th>${tt('leagues.score')}</th></tr></thead>`;
+      <th>1</th><th>X</th><th>2</th><th colspan="3" class="lg-c-odds">${tt('leagues.odds')}</th>
+      <th class="lg-c-top">${tt('leagues.score')}</th></tr></thead>`;
     const upcoming = d.matches.filter(m => m.status !== 'post');
     const post = d.matches.filter(m => m.status === 'post')
       .sort((a, b) => (b.date + (b.time || '')).localeCompare(a.date + (a.time || '')));
