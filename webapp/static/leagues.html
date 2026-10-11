@@ -95,6 +95,22 @@
       table.lg th, table.lg td { padding: 9px 5px; }
       main { padding-left: 8px; padding-right: 8px; }
     }
+    /* ── 竖屏表格卡片化:列内容竖向堆叠,整屏显示所有列 ── */
+    @media (max-width: 640px) {
+      .lg-scroll table.lg { min-width: 0; }
+      table.lg thead { display: none; }
+      table.lg tr { display: block; padding: 8px 4px; border-bottom: 1px solid var(--border, #2a2a33); }
+      table.lg tr:last-child { border-bottom: none; }
+      table.lg td { display: inline-block; border: none; text-align: left; padding: 2px 8px 2px 0; }
+      table.lg td.teams { display: block; font-weight: 600; font-size: 16px; padding: 3px 0; }
+      table.lg td.lg-c-odds { padding-top: 2px; }
+      table.lg td.lg-c-odds:not(:empty):before { content: '赔率 '; color: var(--muted, #999); font-size: 12px; }
+      table.lg td.lg-c-odds + td.lg-c-odds:before,
+      table.lg td.lg-c-odds + td.lg-c-odds + td.lg-c-odds:before { content: ''; }
+      table.lg td.lg-c-top:not(:empty):before { content: '预测 '; color: var(--muted, #999); font-size: 12px; }
+      /* 卡片化后空间足够,大字号模式也显示全部列 */
+      html.fb-large table.lg td.lg-c-odds, html.fb-large table.lg td.lg-c-top { display: inline-block; }
+    }
     /* ── 手机横屏:压扁头部,单行看板,充分利用宽度 ── */
     @media (orientation: landscape) and (max-height: 520px) {
       .cmd-header { padding: 6px 14px; flex-wrap: nowrap; }
