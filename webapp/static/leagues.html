@@ -43,7 +43,10 @@
     /* ── 今日/即将开赛聚合板 ── */
     .lg-today { margin: 14px 0 4px; border: 1px solid var(--line, #2a2a33); border-radius: 12px;
       background: var(--bg-card, #141419); padding: 12px 14px 10px; }
-    .lg-today-title { font-size: 14px; letter-spacing: .06em; margin: 0 0 8px; display: flex; align-items: center; gap: 8px; }
+    .lg-today-title { font-size: 14px; letter-spacing: .06em; margin: 0; display: flex; align-items: center; gap: 8px; cursor: pointer; list-style: none; user-select: none; }
+    .lg-today-title::-webkit-details-marker { display: none; }
+    .lg-today-title .lg-today-arrow { margin-left: auto; color: var(--muted, #999); transition: transform .2s; }
+    details.lg-today[open] .lg-today-arrow { transform: rotate(180deg); }
     .lg-today-date { font-size: 12px; color: var(--muted, #999); margin: 10px 0 4px; display: flex; align-items: center; gap: 6px; }
     .lg-today-count { background: var(--line, #2a2a33); border-radius: 8px; padding: 0 7px; font-size: 11px; }
     .lg-today-row { display: flex; align-items: center; gap: 10px; padding: 5px 6px; border-radius: 8px;
@@ -130,10 +133,10 @@
 <main>
   <div class="lg-tabs" id="leagueTabs"></div>
   <div class="lg-sub" id="subTabs"></div>
-  <section class="lg-today" id="todayBoard" hidden>
-    <h2 class="lg-today-title"><span class="live-dot on"></span><span data-i18n="leagues.today_title">今日 &amp; 即将开赛</span></h2>
+  <details class="lg-today" id="todayBoard" hidden>
+    <summary class="lg-today-title"><span class="live-dot on"></span><span data-i18n="leagues.today_title">今日 &amp; 即将开赛</span><span class="lg-today-count" id="todayCount"></span><span class="lg-today-arrow">▾</span></summary>
     <div id="todayGroups"></div>
-  </section>
+  </details>
   <section id="content"><p class="lg-status" data-i18n="leagues.not_ready">数据构建中,请稍候…</p></section>
   <p class="lg-status" id="statusLine"></p>
 </main>
@@ -183,6 +186,6 @@ window.addEventListener('unhandledrejection', function (e) {
 });
 </script>
 <script src="static/i18n.js?v=30"></script>
-<script src="static/leagues.js?v=17"></script>
+<script src="static/leagues.js?v=19"></script>
 </body>
 </html>

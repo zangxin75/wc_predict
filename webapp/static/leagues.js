@@ -195,9 +195,18 @@
       }
       groups.innerHTML = html;
       box.hidden = false;
+      const tc = $('todayCount');
+      if (tc) tc.textContent = String(d.matches.length);
+      try { box.open = localStorage.getItem('fb_today_open') === '1'; } catch (e) {}
+      box.ontoggle = () => { try { localStorage.setItem('fb_today_open', box.open ? '1' : '0'); } catch (e) {} };
       groups.querySelectorAll('.lg-today-row,.lg-chip').forEach(el =>
-        el.onclick = () => { state.code = el.dataset.code; state.tab = 'matches'; renderTabs(); loadTab(); syncRoute(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        el.onclick = () => { state.code = el.dataset.code; state.tab = 'matches'; renderTabs(); loadTab(); syncRoute(); document.body.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
     } catch (e) { box.hidden = true; }
+  }
+
+  function scrollToContent() {
+    const c = $('content');
+    if (c) c.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function renderTabs() {
@@ -207,13 +216,13 @@
         data-code="${l.code}" ${l.available ? '' : 'disabled'}>${zh ? l.name_zh : l.name}</button>`
     ).join('');
     $('leagueTabs').querySelectorAll('button[data-code]').forEach(b =>
-      b.onclick = () => { state.code = b.dataset.code; renderTabs(); loadTab(); syncRoute(); });
+      b.onclick = () => { state.code = b.dataset.code; renderTabs(); loadTab(); syncRoute(); scrollToContent(); });
     const subs = ['matches', 'standings', 'sim', 'value'];
     $('subTabs').innerHTML = subs.map(s =>
       `<button class="${s === state.tab ? 'active' : ''}" data-tab="${s}">${tt('leagues.tab.' + s)}</button>`
     ).join('');
     $('subTabs').querySelectorAll('button').forEach(b =>
-      b.onclick = () => { state.tab = b.dataset.tab; renderTabs(); loadTab(); syncRoute(); });
+      b.onclick = () => { state.tab = b.dataset.tab; renderTabs(); loadTab(); syncRoute(); scrollToContent(); });
   }
 
   async function loadTab() {
