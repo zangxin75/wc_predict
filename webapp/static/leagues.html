@@ -7,8 +7,7 @@
   <link rel="icon" href="static/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="static/style.css?v=7">
   <style>
-    .lg-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 8px; padding: 0 16px; }
-    .lg-sub { padding: 0 16px; }
+    .lg-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0; }
     .lg-tab { padding: 6px 14px; border-radius: 16px; border: 1px solid var(--border, #444);
               background: none; color: inherit; cursor: pointer; }
     .lg-tab.active { background: var(--accent, #4f8cff); color: #fff; border-color: transparent; }
@@ -57,22 +56,10 @@
     .lg-today-probs { font-size: 12px; color: var(--muted, #999); display: inline-flex; gap: 6px; }
     .lg-today-probs .lg-fav { color: var(--accent, #4f8cff); font-weight: 700; }
     .lg-today-odds { font-size: 12px; color: var(--muted, #999); }
-    /* ── 联赛页头部紧凑化:看板顶到首屏 ── */
-    .cmd-header { padding: 10px 16px; gap: 10px; flex-wrap: wrap; }
-    .cmd-header .brand-sub { display: none; }
-    .cmd-header .brand-title { font-size: 18px; }
-    .cmd-header .countdown-cell,
-    .cmd-header .status-cell:not(:first-child) { display: none; } /* 只留 live 状态点 */
-    .cmd-header .refresh-btn { padding: 6px 10px; font-size: 12px; min-height: 32px; }
-    .cmd-header .lang-btn { padding: 6px 10px; font-size: 12px; min-height: 32px; }
-    main { padding-top: 6px; }
   </style>
 </head>
 <body>
 <div class="led-strip"></div>
-
-<div class="lg-tabs" id="leagueTabs"></div>
-<div class="lg-sub" id="subTabs"></div>
 
 <header class="cmd-header">
   <div class="brand">
@@ -116,6 +103,8 @@
   </div>
 </header>
 <main>
+  <div class="lg-tabs" id="leagueTabs"></div>
+  <div class="lg-sub" id="subTabs"></div>
   <section class="lg-today" id="todayBoard" hidden>
     <h2 class="lg-today-title"><span class="live-dot on"></span><span data-i18n="leagues.today_title">今日 &amp; 即将开赛</span></h2>
     <div id="todayGroups"></div>
