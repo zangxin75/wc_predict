@@ -266,7 +266,8 @@
       <th>1</th><th>X</th><th>2</th><th colspan="3">${tt('leagues.odds')}</th>
       <th>${tt('leagues.score')}</th></tr></thead>`;
     const upcoming = d.matches.filter(m => m.status !== 'post');
-    const post = d.matches.filter(m => m.status === 'post');
+    const post = d.matches.filter(m => m.status === 'post')
+      .sort((a, b) => (b.date + (b.time || '')).localeCompare(a.date + (a.time || '')));
     const upcomingTable = `<div class="lg-scroll"><table class="lg">${thead}<tbody>${upcoming.map(row).join('')}</tbody></table></div>`;
     const postBlock = post.length ? `
       <details class="lg-post">
