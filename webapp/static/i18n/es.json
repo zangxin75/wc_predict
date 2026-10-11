@@ -316,5 +316,8 @@
   "leagues.kelly": "Stake Kelly",
   "footer.wc_archive": "⚽ Mundial 2026 (archivado) »",
   "footer.disclaimer": "Las predicciones son solo informativas y no constituyen consejo de apuestas",
-  "leagues.subtitle": "Top-5 ligas + UCL · Predicción basada en datos · LIVE PREDICTION DECK"
+  "leagues.subtitle": "Top-5 ligas + UCL · Predicción basada en datos · LIVE PREDICTION DECK",
+  "leagues.today_title": "Hoy y próximos",
+  "leagues.today": "Hoy",
+  "leagues.tomorrow": "Mañana"
 }

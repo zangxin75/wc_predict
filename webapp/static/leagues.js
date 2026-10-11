@@ -45,6 +45,7 @@
     if (typeof I18N !== "undefined") { await I18N.ready; await I18N.loadClubs(); }  // 俱乐部译名就绪后再渲染
     bindRefreshBtn();
     await refreshLeagues();
+    loadSchedule();
     setInterval(async () => {
       countdown -= 1;
       if (countdown <= 0) { countdown = POLL_MS / 1000; await tick(); }
@@ -136,7 +137,48 @@
     }
   }
 
-  async function tick() { await refreshLeagues(); }
+  async function tick() { await refreshLeagues(); loadSchedule(); }
+
+  // ── 今日/未来赛程聚合板(/api/leagues/schedule,跨联赛按开赛时间排)──
+  async function loadSchedule() {
+    const box = $('todayBoard'), groups = $('todayGroups');
+    if (!box || !groups) return;
+    try {
+      const d = await api('/api/leagues/schedule?days=3');
+      if (!d.matches || !d.matches.length) { box.hidden = true; return; }
+      const zh = typeof I18N !== 'undefined' && I18N.current === 'zh-CN';
+      const byDate = {};
+      for (const m of d.matches) (byDate[m.date] = byDate[m.date] || []).push(m);
+      const today = d.today;
+      let html = '';
+      for (const date of Object.keys(byDate).sort()) {
+        const tomorrow = new Date(today + 'T12:00');
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const tstr = tomorrow.toISOString().slice(0, 10);
+        const label = date === today ? tt('leagues.today')
+          : date === tstr ? tt('leagues.tomorrow')
+          : date.slice(5);
+        const rows = byDate[date].map(m => {
+          const p = m.probs || {};
+          const lgb = `<button class="lg-chip" data-code="${m.league}" title="${m.league_name}">${zh ? m.league_name_zh : m.league_name}</button>`;
+          const low = m.low_confidence ? ` <span class="lg-low">⚠</span>` : '';
+          const fav = Math.max(p.home || 0, p.draw || 0, p.away || 0);
+          const prob = (v) => `<span class="${v === fav ? 'lg-fav' : ''}">${pct(v)}</span>`;
+          const odds = m.odds ? `<span class="lg-today-odds">${(m.odds.b365h ?? '–')} / ${(m.odds.b365d ?? '–')} / ${(m.odds.b365a ?? '–')}</span>` : '';
+          return `<div class="lg-today-row" data-code="${m.league}">
+            <span class="lg-today-time mono">${m.time || ''}</span>${lgb}
+            <span class="teams">${cn(m.home)} – ${cn(m.away)}${low}</span>
+            <span class="lg-today-probs mono">${prob(p.home)} ${prob(p.draw)} ${prob(p.away)}</span>
+            ${odds}</div>`;
+        }).join('');
+        html += `<h3 class="lg-today-date">${label}<span class="lg-today-count">${byDate[date].length}</span></h3>${rows}`;
+      }
+      groups.innerHTML = html;
+      box.hidden = false;
+      groups.querySelectorAll('.lg-today-row,.lg-chip').forEach(el =>
+        el.onclick = () => { state.code = el.dataset.code; state.tab = 'matches'; renderTabs(); loadTab(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    } catch (e) { box.hidden = true; }
+  }
 
   function renderTabs() {
     const zh = typeof I18N !== 'undefined' && I18N.current === 'zh-CN';

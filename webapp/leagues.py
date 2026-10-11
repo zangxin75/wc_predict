@@ -64,6 +64,42 @@ def list_leagues(request: Request):
             "status": leagues_cache.get_status()}
 
 
+@router.get("/schedule")
+@limiter.limit("30/minute")
+def league_schedule(request: Request, days: int = 3, user=Depends(auth.get_current_user)):
+    """跨联赛聚合的未来赛程(首页顶部"今天/即将开赛"看板数据源)。
+
+    取今天(含)起 days 天内所有联赛未开赛场次,按 (date,time) 排序;
+    已完赛的不进榜(用户在联赛页能看到)。字段与 /matches 同一套白名单。
+    """
+    from datetime import date as _date, timedelta as _td
+    days = max(1, min(days, 7))
+    today = _date.today()
+    horizon = today + _td(days=days)
+    pro = _is_pro(user)
+    rows = []
+    for code in leagues_cache.get_codes():
+        entry = leagues_cache.get_league(code)
+        p = entry.get("predictions") if entry else None
+        if not p:
+            continue
+        for m in p.get("matches", []):
+            if m.get("status") == "post":
+                continue
+            try:
+                md = _date.fromisoformat(str(m.get("date", "")))
+            except ValueError:
+                continue
+            if md < today or md > horizon:
+                continue
+            rows.append({"league": code,
+                         "league_name": config.LEAGUES.get(code, {}).get("name", code),
+                         "league_name_zh": config.LEAGUES.get(code, {}).get("name_zh", code),
+                         **_public_match(m, pro)})
+    rows.sort(key=lambda r: (r["date"], r.get("time", "")))
+    return {"today": today.isoformat(), "days": days, "matches": rows}
+
+
 @router.get("/{code}/matches")
 @limiter.limit("30/minute")
 def league_matches(code: str, request: Request, user=Depends(auth.get_current_user)):

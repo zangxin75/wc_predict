@@ -316,5 +316,8 @@
   "leagues.kelly": "حصة كيلي",
   "footer.wc_archive": "⚽ كأس العالم 2026 (أرشيف) »",
   "footer.disclaimer": "التنبؤات للاسترشاد فقط ولا تُعد توصية للمراهنة",
-  "leagues.subtitle": "أفضل 5 دوريات + دوري الأبطال · تنبؤات مبنية على البيانات · LIVE PREDICTION DECK"
+  "leagues.subtitle": "أفضل 5 دوريات + دوري الأبطال · تنبؤات مبنية على البيانات · LIVE PREDICTION DECK",
+  "leagues.today_title": "اليوم والقادمة",
+  "leagues.today": "اليوم",
+  "leagues.tomorrow": "غدًا"
 }
