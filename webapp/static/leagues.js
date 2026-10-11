@@ -79,7 +79,7 @@
 
     const emailBtn = $('lgEmailLoginBtn');
     if (emailBtn) emailBtn.addEventListener('click', async () => {
-      const email = ($('lgEmail')?.value || '').trim();
+      const email = ($('lgEmail') ? $('lgEmail').value : '').trim();
       if (!email || !email.includes('@')) return proStatus('sub.invite_invalid_email', true);
       try {
         const r = await fetch(`/api/email-login?email=${encodeURIComponent(email)}`, { method: 'POST' });
@@ -92,8 +92,8 @@
 
     const invBtn = $('lgInviteBtn');
     if (invBtn) invBtn.addEventListener('click', async () => {
-      const email = ($('lgEmail')?.value || '').trim();
-      const code = ($('lgInvite')?.value || '').trim();
+      const email = ($('lgEmail') ? $('lgEmail').value : '').trim();
+      const code = ($('lgInvite') ? $('lgInvite').value : '').trim();
       if (!code) return proStatus('sub.invite_need_email', true);
       if (!email || !email.includes('@')) return proStatus('sub.invite_need_email', true);
       try {
@@ -164,7 +164,7 @@
           const low = m.low_confidence ? ` <span class="lg-low">⚠</span>` : '';
           const fav = Math.max(p.home || 0, p.draw || 0, p.away || 0);
           const prob = (v) => `<span class="${v === fav ? 'lg-fav' : ''}">${pct(v)}</span>`;
-          const odds = m.odds ? `<span class="lg-today-odds">${(m.odds.b365h ?? '–')} / ${(m.odds.b365d ?? '–')} / ${(m.odds.b365a ?? '–')}</span>` : '';
+          const odds = m.odds ? `<span class="lg-today-odds">${(m.odds.b365h != null ? m.odds.b365h : '–')} / ${(m.odds.b365d != null ? m.odds.b365d : '–')} / ${(m.odds.b365a != null ? m.odds.b365a : '–')}</span>` : '';
           return `<div class="lg-today-row" data-code="${m.league}">
             <span class="lg-today-time mono">${m.time || ''}</span>${lgb}
             <span class="teams">${cn(m.home)} – ${cn(m.away)}${low}</span>

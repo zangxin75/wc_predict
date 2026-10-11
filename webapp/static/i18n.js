@@ -347,7 +347,8 @@ if (document.readyState === 'loading') {
     location.replace(u.href);
   }
 
-  fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(4000) })
+  const ctrl = typeof AbortSignal !== 'undefined' && AbortSignal.timeout ? { signal: AbortSignal.timeout(4000) } : {};
+  fetch('https://ipapi.co/json/', ctrl)
     .then(r => r.ok ? r.json() : Promise.reject(r.status))
     .then(d => {
       if ((d.country_code || '').toUpperCase() === 'CN') goCN();
