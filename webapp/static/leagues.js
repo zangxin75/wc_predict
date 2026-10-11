@@ -264,7 +264,7 @@
         <summary>${tt('leagues.finished')} (${post.length}) ▾</summary>
         <table class="lg">${thead}<tbody>${post.map(row).join('')}</tbody></table>
       </details>` : '';
-    return `${upcomingTable}${postBlock}
+    return `${postBlock}${upcomingTable}
       <p class="lg-status">${tt('leagues.updated')}: ${d.generated_at || ''}</p>`;
   }
 
