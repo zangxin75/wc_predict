@@ -167,7 +167,22 @@
   <a href="/wc" class="lg-wc-link" data-i18n="footer.wc_archive" title="World Cup 2026">⚽ 世界杯 2026（已落幕）»</a>
   <p class="lg-disclaimer" data-i18n="footer.disclaimer">预测数据仅供参考，不构成任何投注建议</p>
 </footer>
-<script src="static/i18n.js?v=28"></script>
-<script src="static/leagues.js?v=12"></script>
+<script>
+// 兼容诊断:任何 JS 报错直接显示在页面底部,方便老设备定位问题
+window.addEventListener('error', function (e) {
+  var d = document.createElement('div');
+  d.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#c0392b;color:#fff;font:12px/1.5 monospace;padding:6px 10px;white-space:pre-wrap;';
+  d.textContent = 'JS错误: ' + (e.message || 'unknown') + (e.filename ? ' @' + e.filename.split('/').pop() + ':' + e.lineno : '');
+  document.body.appendChild(d);
+});
+window.addEventListener('unhandledrejection', function (e) {
+  var d = document.createElement('div');
+  d.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#c0392b;color:#fff;font:12px/1.5 monospace;padding:6px 10px;white-space:pre-wrap;';
+  d.textContent = 'Promise错误: ' + ((e.reason && e.reason.message) || e.reason || 'unknown');
+  document.body.appendChild(d);
+});
+</script>
+<script src="static/i18n.js?v=29"></script>
+<script src="static/leagues.js?v=13"></script>
 </body>
 </html>

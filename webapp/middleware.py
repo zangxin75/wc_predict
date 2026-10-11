@@ -36,7 +36,10 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         # 这些路径里,不会被缓存。
         path = request.url.path
         if request.method == "GET":
-            if path in ("/", "/wc", "/leagues"):
+            if path.startswith("/static/"):
+                # 带版本号 query 的静态资源可长缓存;HTML 页面本身不缓存
+                response.headers["Cache-Control"] = "public, max-age=604800"
+            elif path in ("/", "/wc", "/leagues"):
                 response.headers.setdefault("Cache-Control", "public, max-age=60, s-maxage=600")
             elif path.startswith("/api/leagues"):
                 response.headers.setdefault("Cache-Control", "public, s-maxage=120")

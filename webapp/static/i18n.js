@@ -123,7 +123,7 @@ const I18N = (() => {
     try {
       const saved = localStorage.getItem('wc_tz');
       if (saved) return saved;
-    } catch {}
+    } catch (e) {}
     try {
       return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
     } catch { return 'UTC'; }
@@ -220,7 +220,7 @@ const I18N = (() => {
     try {
       const saved = localStorage.getItem('wc_locale');
       if (saved && LOCALES.includes(saved)) return saved;
-    } catch {}
+    } catch (e) {}
     const nav = (navigator.language || 'en').toLowerCase();
     for (const prefix of Object.keys(NAV_LANG).sort((a, b) => b.length - a.length)) {
       if (nav === prefix.toLowerCase() || nav.startsWith(prefix.toLowerCase() + '-')) {
@@ -281,7 +281,7 @@ const I18N = (() => {
     applyDOM();
     renderSwitcher();
     if (persist) {
-      try { localStorage.setItem('wc_locale', locale); localStorage.setItem('wc_locale_user', '1'); } catch {}
+      try { localStorage.setItem('wc_locale', locale); localStorage.setItem('wc_locale_user', '1'); } catch (e) {}
     }
     document.dispatchEvent(new CustomEvent('i18n:changed', { detail: { locale } }));
   }
@@ -356,7 +356,7 @@ if (document.readyState === 'loading') {
     .catch(() => {
       // ipapi 不可达(国内常见):用时区+语言兜底
       let tz = 'UTC';
-      try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'; } catch {}
+      try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'; } catch (e) {}
       const zh = (navigator.languages || [navigator.language || '']).some(l => /^zh(-|_$|$)/.test(l || ''));
       if (tz === 'Asia/Shanghai' && zh) goCN();
     });
