@@ -4,6 +4,25 @@
 (() => {
   const POLL_MS = 60000;
   const state = { leagues: [], code: null, tab: 'matches', isPaid: false, data: {} };
+
+  // URL ↔ 视图同步:?league=pl&tab=standings 直达;点击后地址栏随之更新(不重载)
+  function applyRoute() {
+    try {
+      const q = new URLSearchParams(location.search);
+      const lg = q.get('league') || '';
+      if (/^[A-Za-z0-9_-]{1,12}$/.test(lg)) state.code = lg.toUpperCase();
+      const tb = q.get('tab');
+      if (['matches', 'standings', 'sim', 'value'].includes(tb)) state.tab = tb;
+    } catch (e) {}
+  }
+  function syncRoute() {
+    try {
+      const u = new URL(location.href);
+      if (state.code) u.searchParams.set('league', state.code); else u.searchParams.delete('league');
+      if (state.tab !== 'matches') u.searchParams.set('tab', state.tab); else u.searchParams.delete('tab');
+      history.replaceState(null, '', u);
+    } catch (e) {}
+  }
   let countdown = POLL_MS / 1000;
 
   // ── 状态栏(WC 页同款:live-dot / 上次更新 / 倒计时)──
@@ -33,6 +52,7 @@
   }
 
   async function boot() {
+    applyRoute();
     try {
       const me = await api('/api/whoami');
       state.isPaid = !!me.is_paid;
@@ -176,7 +196,7 @@
       groups.innerHTML = html;
       box.hidden = false;
       groups.querySelectorAll('.lg-today-row,.lg-chip').forEach(el =>
-        el.onclick = () => { state.code = el.dataset.code; state.tab = 'matches'; renderTabs(); loadTab(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        el.onclick = () => { state.code = el.dataset.code; state.tab = 'matches'; renderTabs(); loadTab(); syncRoute(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
     } catch (e) { box.hidden = true; }
   }
 
@@ -187,13 +207,13 @@
         data-code="${l.code}" ${l.available ? '' : 'disabled'}>${zh ? l.name_zh : l.name}</button>`
     ).join('');
     $('leagueTabs').querySelectorAll('button[data-code]').forEach(b =>
-      b.onclick = () => { state.code = b.dataset.code; renderTabs(); loadTab(); });
+      b.onclick = () => { state.code = b.dataset.code; renderTabs(); loadTab(); syncRoute(); });
     const subs = ['matches', 'standings', 'sim', 'value'];
     $('subTabs').innerHTML = subs.map(s =>
       `<button class="${s === state.tab ? 'active' : ''}" data-tab="${s}">${tt('leagues.tab.' + s)}</button>`
     ).join('');
     $('subTabs').querySelectorAll('button').forEach(b =>
-      b.onclick = () => { state.tab = b.dataset.tab; renderTabs(); loadTab(); });
+      b.onclick = () => { state.tab = b.dataset.tab; renderTabs(); loadTab(); syncRoute(); });
   }
 
   async function loadTab() {
