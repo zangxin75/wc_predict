@@ -115,6 +115,8 @@
       title="立即触发后台抓取+重算">
       <span class="refresh-ico">⟳</span> <span data-i18n="nav.refresh">立即刷新</span>
     </button>
+    <button class="refresh-btn" id="fontFitBtn" title="恢复默认字号" style="padding:0 10px"
+      onclick="if(window.fbResetFontScale)fbResetFontScale()">Aa</button>
 
     <div class="lang-switch" id="langSwitcherWrap">
     <button class="lang-btn" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
@@ -186,6 +188,7 @@ window.addEventListener('unhandledrejection', function (e) {
 });
 </script>
 <script src="static/i18n.js?v=30"></script>
+<script src="static/fontfit.js?v=1"></script>
 <script src="static/leagues.js?v=19"></script>
 </body>
 </html>
