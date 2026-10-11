@@ -267,23 +267,23 @@
       <th>${tt('leagues.score')}</th></tr></thead>`;
     const upcoming = d.matches.filter(m => m.status !== 'post');
     const post = d.matches.filter(m => m.status === 'post');
-    const upcomingTable = `<table class="lg">${thead}<tbody>${upcoming.map(row).join('')}</tbody></table>`;
+    const upcomingTable = `<div class="lg-scroll"><table class="lg">${thead}<tbody>${upcoming.map(row).join('')}</tbody></table></div>`;
     const postBlock = post.length ? `
       <details class="lg-post">
         <summary>${tt('leagues.finished')} (${post.length}) ▾</summary>
-        <table class="lg">${thead}<tbody>${post.map(row).join('')}</tbody></table>
+        <div class="lg-scroll"><table class="lg">${thead}<tbody>${post.map(row).join('')}</tbody></table></div>
       </details>` : '';
     return `${postBlock}${upcomingTable}
       <p class="lg-status">${tt('leagues.updated')}: ${d.generated_at || ''}</p>`;
   }
 
   function renderStandings(rows) {
-    return `<table class="lg"><thead><tr><th>#</th><th></th>
+    return `<div class="lg-scroll"><table class="lg"><thead><tr><th>#</th><th></th>
       <th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
       </tr></thead><tbody>${rows.map((t, i) =>
         `<tr><td>${i + 1}</td><td class="teams">${cn(t.team)}</td><td>${t.p}</td><td>${t.w}</td>
          <td>${t.d}</td><td>${t.l}</td><td>${t.gf}</td><td>${t.ga}</td>
-         <td>${t.gd}</td><td><b>${t.pts}</b></td></tr>`).join('')}</tbody></table>`;
+         <td>${t.gd}</td><td><b>${t.pts}</b></td></tr>`).join('')}</tbody></table></div>`;
   }
 
   function renderSim(sim) {
@@ -292,21 +292,21 @@
       .sort((a, b) => b[1].title - a[1].title)
       .map(([team, p]) => `<tr><td class="teams">${cn(team)}</td>
         <td>${pct(p.title)}</td><td>${pct(p.ucl)}</td><td>${pct(p.releg)}</td></tr>`).join('');
-    return `<table class="lg"><thead><tr><th></th><th>${tt('leagues.title_race')}</th>
+    return `<div class="lg-scroll"><table class="lg"><thead><tr><th></th><th>${tt('leagues.title_race')}</th>
       <th>${tt('leagues.ucl_spots')}</th><th>${tt('leagues.relegation')}</th></tr></thead>
-      <tbody>${rows}</tbody></table>
+      <tbody>${rows}</tbody></table></div>
       <p class="lg-status">n=${sim.n_sims}</p>`;
   }
 
   function renderValue(values) {
     if (!values.length) return `<p class="lg-status">–</p>`;
-    return `<table class="lg"><thead><tr><th></th><th></th><th>${tt('leagues.pick')}</th>
+    return `<div class="lg-scroll"><table class="lg"><thead><tr><th></th><th></th><th>${tt('leagues.pick')}</th>
       <th>${tt('leagues.edge')}</th><th>${tt('leagues.odds')}</th><th>${tt('leagues.kelly')}</th>
       </tr></thead><tbody>${values.map(v =>
         `<tr><td>${v.date}</td><td class="teams">${cn(v.home)} vs ${cn(v.away)}</td>
          <td>${v.pick}</td><td>${pct(v.max_edge)}</td>
          <td>${(v.odds[v.pick] || 0).toFixed(2)}</td><td>${pct(v.kelly)}</td></tr>`).join('')}
-      </tbody></table>`;
+      </tbody></table></div>`;
   }
 
   function proWall() {
