@@ -113,7 +113,7 @@
     if (!btn) return;
     btn.addEventListener('click', async () => {
       setStatus('busy', 'status.updating');
-      try { await api('/api/refresh'); } catch (e) { /* 触发失败不阻塞本地刷新 */ }
+      try { await fetch('/api/refresh', { method: 'POST' }); } catch (e) { /* 触发失败不阻塞本地刷新 */ }
       countdown = POLL_MS / 1000;
       await tick();
     });
