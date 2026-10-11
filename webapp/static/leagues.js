@@ -270,7 +270,7 @@
     const upcomingTable = `<div class="lg-scroll"><table class="lg">${thead}<tbody>${upcoming.map(row).join('')}</tbody></table></div>`;
     const postBlock = post.length ? `
       <details class="lg-post">
-        <summary>${tt('leagues.finished')} (${post.length}) ▾</summary>
+        <summary><span class="lg-fold-label">${tt('leagues.finished')} (${post.length})</span><span class="lg-fold-arrow">▾</span></summary>
         <div class="lg-scroll"><table class="lg">${thead}<tbody>${post.map(row).join('')}</tbody></table></div>
       </details>` : '';
     return `${postBlock}${upcomingTable}

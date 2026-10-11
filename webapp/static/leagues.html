@@ -17,6 +17,12 @@
                      color: inherit; cursor: pointer; }
     .lg-sub button.active { background: var(--accent, #4f8cff); color: #fff; }
     .lg-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .lg-fold-arrow { display: inline-block; font-size: 20px; line-height: 1; color: var(--accent, #4f8cff);
+                     transition: transform .2s; margin-left: auto; padding: 2px 6px; }
+    details[open] > summary .lg-fold-arrow { transform: rotate(180deg); }
+    details.lg-post > summary { display: flex; align-items: center; cursor: pointer; list-style: none;
+                                font-size: 16px; padding: 10px 8px; user-select: none; }
+    details.lg-post > summary::-webkit-details-marker { display: none; }
     .lg-scroll table.lg { min-width: 480px; }
     table.lg { width: 100%; border-collapse: collapse; font-size: 14px; }
     table.lg th, table.lg td { padding: 6px 8px; border-bottom: 1px solid var(--border, #333);
@@ -47,7 +53,7 @@
       background: var(--bg-card, #141419); padding: 12px 14px 10px; }
     .lg-today-title { font-size: 14px; letter-spacing: .06em; margin: 0; display: flex; align-items: center; gap: 8px; cursor: pointer; list-style: none; user-select: none; }
     .lg-today-title::-webkit-details-marker { display: none; }
-    .lg-today-title .lg-today-arrow { margin-left: auto; color: var(--muted, #999); transition: transform .2s; }
+    .lg-today-title .lg-today-arrow { margin-left: auto; font-size: 20px; color: var(--accent, #4f8cff); transition: transform .2s; padding: 2px 4px; }
     details.lg-today[open] .lg-today-arrow { transform: rotate(180deg); }
     .lg-today-date { font-size: 12px; color: var(--muted, #999); margin: 10px 0 4px; display: flex; align-items: center; gap: 6px; }
     .lg-today-count { background: var(--line, #2a2a33); border-radius: 8px; padding: 0 7px; font-size: 11px; }
@@ -191,6 +197,6 @@ window.addEventListener('unhandledrejection', function (e) {
 </script>
 <script src="static/i18n.js?v=30"></script>
 <script src="static/fontfit.js?v=1"></script>
-<script src="static/leagues.js?v=19"></script>
+<script src="static/leagues.js?v=20"></script>
 </body>
 </html>
