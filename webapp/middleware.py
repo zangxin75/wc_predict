@@ -31,6 +31,15 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["X-Frame-Options"] = "DENY"
         response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        # CF 边缘缓存:回源链路慢(海外节点→国内源站 10s+),公开页面/联赛数据
+        # 让边缘扛 2-10 分钟,命中后访客不再等回源。whoami/登录/refresh 不在
+        # 这些路径里,不会被缓存。
+        path = request.url.path
+        if request.method == "GET":
+            if path in ("/", "/wc", "/leagues"):
+                response.headers.setdefault("Cache-Control", "public, max-age=60, s-maxage=600")
+            elif path.startswith("/api/leagues"):
+                response.headers.setdefault("Cache-Control", "public, s-maxage=120")
         response.headers["Permissions-Policy"] = (
             "geolocation=(), camera=(), microphone=(), payment=()"
         )

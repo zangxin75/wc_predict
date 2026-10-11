@@ -329,3 +329,34 @@ if (document.readyState === 'loading') {
 } else {
   I18N.init();
 }
+
+// ── 国内用户直连入口(fb.cn.tokeneff.com,不经 CF 回源)──
+// 判定:IP 归属 CN,或(接口不可达时)浏览器时区+语言都指向中国大陆。
+// ?stay=1 或 localStorage fb_stay=1 可强制留在 CF 线路;已在国内入口则跳过。
+(function () {
+  const CN_HOST = 'fb.cn.tokeneff.com';
+  if (location.hostname !== 'fb.tokeneff.com') return;
+  const params = new URLSearchParams(location.search);
+  if (params.get('stay') === '1') { localStorage.setItem('fb_stay', '1'); return; }
+  if (localStorage.getItem('fb_stay') === '1') return;
+
+  function goCN() {
+    const u = new URL(location.href);
+    u.hostname = CN_HOST;
+    u.searchParams.delete('stay');
+    location.replace(u.href);
+  }
+
+  fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(4000) })
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(d => {
+      if ((d.country_code || '').toUpperCase() === 'CN') goCN();
+    })
+    .catch(() => {
+      // ipapi 不可达(国内常见):用时区+语言兜底
+      let tz = 'UTC';
+      try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'; } catch {}
+      const zh = (navigator.languages || [navigator.language || '']).some(l => /^zh(-|_$|$)/.test(l || ''));
+      if (tz === 'Asia/Shanghai' && zh) goCN();
+    });
+})();
