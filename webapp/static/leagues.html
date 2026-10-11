@@ -92,6 +92,25 @@
       table.lg th, table.lg td { padding: 9px 5px; }
       main { padding-left: 8px; padding-right: 8px; }
     }
+    /* ── 手机横屏:压扁头部,单行看板,充分利用宽度 ── */
+    @media (orientation: landscape) and (max-height: 520px) {
+      .cmd-header { padding: 6px 14px; flex-wrap: nowrap; }
+      .cmd-header .brand-sub { display: none; }
+      .cmd-header .brand-title { font-size: 16px; }
+      .cmd-header .countdown-cell { display: none; }
+      .lg-today { margin: 6px 0 2px; }
+      .lg-today-title { font-size: 15px; }
+      .lg-today-row { display: flex; flex-wrap: nowrap; align-items: center; gap: 12px; padding: 4px 4px; font-size: 15px; }
+      .lg-today-row .teams { flex: 1; min-width: 120px; }
+      .lg-today-probs { font-size: 14px; }
+      .lg-today-odds { font-size: 13px; }
+      .lg-tabs { margin: 6px 0 4px; }
+      .lg-tab { padding: 6px 14px; font-size: 14px; }
+      .lg-sub { margin: 4px 0 6px; }
+      .lg-sub button { padding: 5px 11px; font-size: 13px; }
+      table.lg { font-size: 14px; }
+      table.lg th, table.lg td { padding: 6px 5px; }
+    }
   </style>
 </head>
 <body>
