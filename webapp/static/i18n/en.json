@@ -319,5 +319,6 @@
   "leagues.subtitle": "Top-5 Leagues + UCL · Data-driven predictions · LIVE PREDICTION DECK",
   "leagues.today_title": "Today & Upcoming",
   "leagues.today": "Today",
-  "leagues.tomorrow": "Tomorrow"
+  "leagues.tomorrow": "Tomorrow",
+  "leagues.finished": "Finished matches"
 }

@@ -239,7 +239,7 @@
   }
 
   function renderMatches(d) {
-    const rows = d.matches.map(m => {
+    const row = (m) => {
       const isPost = m.status === 'post';
       const score = isPost ? `<span class="lg-score">${m.gh}–${m.ga}</span>` : '';
       const low = m.low_confidence ? ` <span class="lg-low">⚠ ${tt('leagues.low_conf')}</span>` : '';
@@ -252,10 +252,19 @@
         m.top_scores.slice(0, 3).map(([s, p]) => `${s} ${pct(p)}`).join(' ') : '';
       return `<tr><td>${m.date}</td><td class="teams">${cn(m.home)} vs ${cn(m.away)}${low}</td>
         <td>${score}</td>${probs}${odds}<td>${top}</td></tr>`;
-    }).join('');
-    return `<table class="lg"><thead><tr><th></th><th></th><th>${tt('leagues.score')}</th>
+    };
+    const thead = `<thead><tr><th></th><th></th><th>${tt('leagues.score')}</th>
       <th>1</th><th>X</th><th>2</th><th colspan="3">${tt('leagues.odds')}</th>
-      <th>${tt('leagues.score')}</th></tr></thead><tbody>${rows}</tbody></table>
+      <th>${tt('leagues.score')}</th></tr></thead>`;
+    const upcoming = d.matches.filter(m => m.status !== 'post');
+    const post = d.matches.filter(m => m.status === 'post');
+    const upcomingTable = `<table class="lg">${thead}<tbody>${upcoming.map(row).join('')}</tbody></table>`;
+    const postBlock = post.length ? `
+      <details class="lg-post">
+        <summary>${tt('leagues.finished')} (${post.length}) ▾</summary>
+        <table class="lg">${thead}<tbody>${post.map(row).join('')}</tbody></table>
+      </details>` : '';
+    return `${upcomingTable}${postBlock}
       <p class="lg-status">${tt('leagues.updated')}: ${d.generated_at || ''}</p>`;
   }
 

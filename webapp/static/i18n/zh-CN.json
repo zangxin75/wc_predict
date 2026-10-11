@@ -319,5 +319,6 @@
   "leagues.subtitle": "五大联赛 + 欧冠 · 数据驱动预测 · LIVE PREDICTION DECK",
   "leagues.today_title": "今日 & 即将开赛",
   "leagues.today": "今天",
-  "leagues.tomorrow": "明天"
+  "leagues.tomorrow": "明天",
+  "leagues.finished": "已完赛"
 }
