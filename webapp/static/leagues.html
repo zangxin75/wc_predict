@@ -56,6 +56,31 @@
     .lg-today-probs { font-size: 12px; color: var(--muted, #999); display: inline-flex; gap: 6px; }
     .lg-today-probs .lg-fav { color: var(--accent, #4f8cff); font-weight: 700; }
     .lg-today-odds { font-size: 12px; color: var(--muted, #999); }
+    /* ── 手机适配:大字号 + 满屏利用 ── */
+    @media (max-width: 640px) {
+      .lg-today { padding: 10px 10px 8px; margin: 10px 0 2px; border-radius: 10px; }
+      .lg-today-title { font-size: 16px; }
+      .lg-today-date { font-size: 14px; margin: 8px 0 2px; }
+      .lg-today-count { font-size: 12px; }
+      .lg-today-row { display: grid; grid-template-columns: auto auto 1fr; align-items: center;
+                      column-gap: 8px; row-gap: 2px; padding: 7px 4px; font-size: 15px;
+                      border-bottom: 1px solid var(--border, #2a2a33); border-radius: 0; }
+      .lg-today-row:last-child { border-bottom: none; }
+      .lg-today-row:hover { background: none; }
+      .lg-today-row:active { background: rgba(79, 140, 255, .12); }
+      .lg-today-time { min-width: 0; color: var(--text, #eee); font-size: 15px; font-weight: 600; }
+      .lg-chip { font-size: 12px; padding: 2px 8px; }
+      .lg-today-row .teams { min-width: 0; font-size: 15px; }
+      .lg-today-probs { font-size: 14px; gap: 10px; grid-column: 1 / -1; padding-left: 2px; }
+      .lg-today-odds { font-size: 13px; grid-column: 1 / -1; text-align: right; }
+      .lg-tabs { gap: 6px; margin: 10px 0 6px; }
+      .lg-tab { padding: 9px 16px; font-size: 15px; }
+      .lg-sub { gap: 6px; margin: 6px 0 10px; }
+      .lg-sub button { padding: 7px 13px; font-size: 14px; }
+      table.lg { font-size: 15px; }
+      table.lg th, table.lg td { padding: 9px 6px; }
+      main { padding-left: 10px; padding-right: 10px; }
+    }
   </style>
 </head>
 <body>
@@ -143,6 +168,6 @@
   <p class="lg-disclaimer" data-i18n="footer.disclaimer">预测数据仅供参考，不构成任何投注建议</p>
 </footer>
 <script src="static/i18n.js?v=27"></script>
-<script src="static/leagues.js?v=10"></script>
+<script src="static/leagues.js?v=11"></script>
 </body>
 </html>
